@@ -12,6 +12,7 @@ _ADAPTER_MODULES = [
     ("qlab.solvers.qiskit_solvers", "Qiskit + Aer"),
     ("qlab.solvers.pennylane_solvers", "PennyLane"),
     ("qlab.solvers.cirq_solvers", "Cirq"),
+    ("qlab.solvers.hardware_solvers", "Real hardware (IBM, opt-in)"),
 ]
 
 LOADED: dict[str, bool] = {}

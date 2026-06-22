@@ -6,11 +6,22 @@ provenance badge. This is the *"this actually ran on a 156-qubit quantum compute
 > **Off by default.** This lane runs **locally** with a token from the private vault; the published static
 > site ships no secrets and makes no live hardware calls. It is gated on an account/tier decision.
 
+> **Wired now (v0.05.000).** The opt-in `ibm-hardware` solver (`qlab/solvers/hardware_solvers.py`) is in the
+> engine and dormant until a token exists. Validate connectivity any time (free, only IBM is pinged):
+> `python tools/check_backends.py` (or `scripts/check-backends.{ps1,sh}`).
+
 ## Setup
 
 ```bash
 .venv/bin/python -m pip install -r requirements-hardware.txt   # qiskit-ibm-runtime (+ braket/azure, optional)
 cp .env.example .env                                            # then paste your token (NEVER commit .env)
+python tools/check_backends.py                                  # confirms the token reaches IBM + lists devices
+```
+
+Run a case on real hardware (opt-in — it NEVER runs in a default `--all`):
+
+```bash
+python -m qlab.pipeline bernstein-vazirani --instance bv-101 --solver ibm-hardware
 ```
 
 ## IBM Quantum Open (the recommended free path)

@@ -46,6 +46,9 @@ class Solver(ABC):
     label: dict[str, str] = {"en": "Solver", "es": "Solver"}
     framework: str = "?"
     paradigm: str = QUANTUM_SIM
+    # Real-hardware / paid adapters set this True so they NEVER run in a default `--all`; the pipeline
+    # only invokes them when explicitly named (`--solver <name>`). Keeps QPU cost/queue strictly opt-in.
+    requires_opt_in: bool = False
 
     def applicable(self, problem: Problem) -> bool:
         """Override to declare which problems this adapter handles (default: by category allow-list)."""

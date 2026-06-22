@@ -4,6 +4,24 @@ All notable changes to CAOS_QLAB. Format: newest → oldest. Versions follow `X.
 (major.minor.patch); patch (`.00X`) for fixes. Kept `0.x` while the web SPA and the framework/case matrix
 are still landing. Tags from day one.
 
+## [0.05.000] — 2026-06-22 — Real-hardware lane wired (Phase E, opt-in)
+
+### Added
+- **`ibm-hardware` solver** (`qlab/solvers/hardware_solvers.py`, qiskit-ibm-runtime) — submit a case to a
+  real IBM Quantum QPU (free Open Plan) and return the counts as a `quantum-hardware` result with `ran_on`
+  provenance. Reuses the Qiskit adapters' circuits (single source of physics). **Opt-in:** `requires_opt_in`
+  + a registry guard mean it NEVER runs in a default `--all`; only `--solver ibm-hardware` invokes it, and
+  it stays dormant until `QISKIT_IBM_TOKEN` is set. The public static site ships no secrets.
+- **Connectivity validator** `tools/check_backends.py` (+ `scripts/check-backends.{ps1,sh}`) — reads
+  `.env`/env, reports which providers are configured, and live-pings IBM (free) to list devices.
+- `.env.example` extended (IBM, Q-CTRL Fire Opal, qBraid, AWS Braket, Azure Quantum) aligned to the
+  validator; `requirements-hardware.txt` notes the optional Fire Opal / qBraid / Braket / Azure SDKs.
+
+### Notes
+- Credentials live ONLY in the CAOS_MANAGE vault (`credentials/providers/{ibm-quantum,q-ctrl,qbraid,
+  aws-braket,azure-quantum}/`); copy a token into QLab `.env` (git-ignored) to exercise the lane locally.
+- 9/9 tests, ruff clean. Hardware verified to stay out of the default precompute run.
+
 ## [0.04.000] — 2026-06-22 — Deutsch–Jozsa (oracle trio complete)
 
 ### Added

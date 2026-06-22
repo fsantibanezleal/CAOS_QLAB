@@ -10,7 +10,13 @@
 # --- IBM Quantum (free Open Plan; primary real-hardware path) ---
 qiskit-ibm-runtime>=0.30
 
-# --- AWS Braket (per-task + per-shot; offline LocalSimulator is free) ---
+# --- Q-CTRL Fire Opal (free tier; error suppression — the biggest free capability multiplier) ---
+# fire-opal>=8.0
+
+# --- qBraid (free tier; multi-backend broker) ---
+# qbraid>=0.8
+
+# --- AWS Braket (low-cost superconducting; offline LocalSimulator is free) ---
 # amazon-braket-sdk>=1.119
 
 # --- Azure Quantum ($500 one-time credit; IonQ/Quantinuum/Rigetti) ---
