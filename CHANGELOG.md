@@ -4,6 +4,21 @@ All notable changes to CAOS_QLAB. Format: newest → oldest. Versions follow `X.
 (major.minor.patch); patch (`.00X`) for fixes. Kept `0.x` while the web SPA and the framework/case matrix
 are still landing. Tags from day one.
 
+## [0.19.000] — 2026-06-22 — Single-qubit gates & Bloch sphere (fundamentals category opens)
+
+### Added
+- **Case `single-qubit`** (6 gate sequences) — opens the **fundamentals** category and anchors the Bloch
+  renderer. Solvers **`gates-qiskit`** (steps |0⟩ through a gate sequence, reports the per-step + final
+  Bloch vector) and **`bit-classical`** (the classical-bit / Holevo reference). Lane=live.
+- All Bloch vectors exact: X→(0,0,−1), H→(1,0,0), H·Z→(−1,0,0), H·S→(0,1,0), RY(π/3)→(0.866,0,0.5),
+  RX(π/2)→(0,−1,0); all pure states on the unit sphere. Honest verdict: a qubit roams the whole sphere but
+  a measurement returns one classical bit (Holevo) — no advantage from one qubit alone; power comes from
+  interference across many.
+- Pipeline single-qubit verdict; test `test_single_qubit_bloch_vectors`; docs node `18_single-qubit.md`.
+
+### Verified
+- 23/23 tests, ruff clean. Bloch vectors match the analytic rotations; |r|=1 throughout.
+
 ## [0.18.000] — 2026-06-22 — Superdense coding (2 classical bits in 1 qubit)
 
 ### Added

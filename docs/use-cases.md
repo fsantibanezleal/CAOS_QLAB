@@ -25,6 +25,7 @@ lands (ADR-0056).
 | [15](./use-cases/15_chsh.md) | **CHSH / Bell inequality** | entanglement | CHSH correlators (Qiskit) · local-hidden-variable bound (classical) | 6 (angles + separable control) | live | quantum **genuinely beats** classical: S=2√2 > 2 (Tsirelson vs LHV, Nobel 2022) — a nonlocality edge, not a speedup |
 | [16](./use-cases/16_teleportation.md) | **Quantum teleportation** | entanglement | coherent teleportation (Qiskit) · measure-and-resend bound (classical) | 6 input states | live | transfers an unknown qubit with **fidelity 1** vs classical **2/3**; needs a Bell pair + 2 cbits; no-cloning; not FTL |
 | [17](./use-cases/17_superdense.md) | **Superdense coding** | entanglement | encode/decode (Qiskit) · Holevo limit (classical) | 4 (full message set) | live | **2 classical bits via 1 qubit** (vs Holevo 1) — the dual of teleportation; spends a Bell pair (resource trade) |
+| [18](./use-cases/18_single-qubit.md) | **Single-qubit gates & Bloch** | fundamentals | gate sequence → Bloch (Qiskit) · classical bit (classical) | 6 gate sequences | live | the substrate: a qubit roams the whole Bloch sphere, but stores ≤1 classical bit (Holevo) — no advantage alone |
 
 ## Roadmap (the catalog, ordered beginner → advanced)
 
@@ -33,7 +34,7 @@ small unitary (JS lane); **precompute** = needs noise / feed-forward / optimizat
 
 | # | Case | Category | Lane | Key solvers planned |
 |---|---|---|---|---|
-| 03 | Single-qubit gates + Bloch sphere | fundamentals | live | circuit (Qiskit) |
+| 03 | Single-qubit gates + Bloch sphere | fundamentals | live | ✅ shipping (case 18) |
 | 04 | Superposition & measurement statistics | fundamentals | live | circuit |
 | 05 | Phase & interference | fundamentals | live | circuit |
 | 06 | Quantum random-number generator | fundamentals | live | circuit + classical PRNG contrast |

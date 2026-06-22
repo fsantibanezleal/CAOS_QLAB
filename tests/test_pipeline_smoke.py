@@ -203,6 +203,18 @@ def test_superdense_decodes_all_messages():
     assert base.run(problem, problem.instance("sd-00"), seed=42, shots=1).value["bits_per_qubit"] == 1
 
 
+def test_single_qubit_bloch_vectors():
+    from qlab.registry import get_problem, solvers_for
+
+    problem = get_problem("single-qubit")
+    q = next(s for s in solvers_for(problem) if s.name == "gates-qiskit")
+    assert q.run(problem, problem.instance("sq-x"), seed=42, shots=1).value["bloch"] == [0.0, 0.0, -1.0]
+    assert q.run(problem, problem.instance("sq-h"), seed=42, shots=1).value["bloch"] == [1.0, 0.0, 0.0]
+    assert q.run(problem, problem.instance("sq-hs"), seed=42, shots=1).value["bloch"] == [0.0, 1.0, 0.0]
+    base = next(s for s in solvers_for(problem) if s.name == "bit-classical")
+    assert base.run(problem, problem.instance("sq-x"), seed=42, shots=1).value["states"] == 2
+
+
 def test_maxcut_classical_optimum_beats_or_matches_qaoa():
     from qlab.problems.maxcut import MaxCut
     from qlab.registry import get_problem, solvers_for

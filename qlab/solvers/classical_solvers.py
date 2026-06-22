@@ -287,6 +287,33 @@ class ClassicalSVM(Solver):
 
 
 @register_solver
+class ClassicalBit(Solver):
+    name = "bit-classical"
+    label = {"en": "Classical bit · classical", "es": "Bit clásico · clásico"}
+    framework = "classical:numpy"
+    paradigm = CLASSICAL
+
+    def applicable(self, problem: Problem) -> bool:
+        return problem.id == "single-qubit"
+
+    def run(self, problem, instance: Instance, seed: int, shots: int) -> SolverResult:
+        # The classical counterpart of a qubit is a bit: exactly two states (the poles of the sphere), one
+        # bit of retrievable information. A qubit roams the whole sphere, but a measurement returns one bit.
+        return SolverResult(
+            solver=self.name, label=self.label, framework=self.framework, paradigm=self.paradigm,
+            value={"states": 2, "retrievable_bits": 1, "poles": ["|0⟩ (z=+1)", "|1⟩ (z=−1)"]},
+            cost={"wall_ms": 0.0},
+            notes={"en": "A classical bit is just two points — the poles |0⟩ and |1⟩. A qubit occupies the "
+                         "whole Bloch sphere, but measurement collapses it to one bit (Holevo): one qubit "
+                         "stores no more classical information than one bit. The sphere matters via interference.",
+                   "es": "Un bit clásico son solo dos puntos — los polos |0⟩ y |1⟩. Un qubit ocupa toda la "
+                         "esfera de Bloch, pero la medición lo colapsa a un bit (Holevo): un qubit no guarda "
+                         "más información clásica que un bit. La esfera importa por interferencia."},
+            optimal=True,
+        )
+
+
+@register_solver
 class ClassicalHolevo(Solver):
     name = "superdense-classical"
     label = {"en": "Holevo limit · classical", "es": "Límite de Holevo · clásico"}

@@ -59,6 +59,19 @@ def _comparison(problem, results: list) -> dict:
             f"gana — el resultado honesto y esperado."
         )
         return {"optimal_cut": opt, "qaoa_cut": q, "verdict": {"en": verdict_en, "es": verdict_es}}
+    if problem.id == "single-qubit":
+        q = next((r for r in results if r.paradigm != "classical"), None)
+        bloch = q.value.get("bloch") if q else None
+        gates = "·".join(q.value.get("gates", [])) if q else None
+        return {"bloch": bloch, "gates": gates, "verdict": {
+            "en": f"After {gates}, the qubit's Bloch vector is {bloch} (on the unit sphere). A classical bit "
+                  f"has only two states (the poles); the qubit roams the whole sphere — but a measurement "
+                  f"returns one bit and a single qubit stores no more classical info than a bit (Holevo). "
+                  f"This is the foundation; the power comes later, from interference across many qubits.",
+            "es": f"Tras {gates}, el vector de Bloch del qubit es {bloch} (en la esfera unitaria). Un bit "
+                  f"clásico tiene solo dos estados (los polos); el qubit recorre toda la esfera — pero una "
+                  f"medición devuelve un bit y un solo qubit no guarda más info clásica que un bit (Holevo). "
+                  f"Esta es la base; el poder viene después, de la interferencia entre muchos qubits."}}
     if problem.id == "superdense":
         q = next((r for r in results if r.paradigm != "classical"), None)
         msg = q.value.get("message") if q else None

@@ -262,6 +262,49 @@ class QiskitSimon(Solver):
 
 
 @register_solver
+class QiskitSingleQubit(Solver):
+    name = "gates-qiskit"
+    label = {"en": "Gate sequence · Qiskit", "es": "Secuencia de compuertas · Qiskit"}
+    framework = "qiskit"
+    paradigm = QUANTUM_SIM
+
+    def applicable(self, problem: Problem) -> bool:
+        return problem.id == "single-qubit"
+
+    def run(self, problem, instance: Instance, seed: int, shots: int) -> SolverResult:
+        from qiskit.quantum_info import Pauli
+
+        from qlab.core.trace import Trace
+
+        qc = QuantumCircuit(1)
+        for g in instance.params["gates"]:
+            getattr(qc, g[0])(*g[1:], 0)        # qc.x(0) / qc.h(0) / qc.ry(theta, 0) / …
+        t0 = time.perf_counter()
+        sv = Statevector(qc)
+        bloch = [round(float(sv.expectation_value(Pauli(p)).real), 4) for p in ("X", "Y", "Z")]
+        wall = (time.perf_counter() - t0) * 1e3
+        trace = Trace(
+            case_id=problem.id, title=problem.title, concept=problem.concept, qubits=1,
+            steps=evolve(qc), measurements=measure_counts(qc, shots, seed), circuit_ops=circuit_ops(qc),
+            provenance={"engine": "qiskit", "engine_version": QISKIT_VERSION, "seed": seed,
+                        "lane": "tbd", "ran_on": "simulator"},
+            references=problem.references,
+            extra={"bloch": bloch, "gates": [g[0].upper() for g in instance.params["gates"]]},
+        )
+        return SolverResult(
+            solver=self.name, label=self.label, framework=self.framework, paradigm=self.paradigm,
+            value={"bloch": bloch, "gates": [g[0].upper() for g in instance.params["gates"]],
+                   "norm": round(float(sum(x * x for x in bloch)) ** 0.5, 4)},
+            cost={"wall_ms": round(wall, 3), "qubits": 1},
+            notes={"en": f"After {'·'.join(g[0].upper() for g in instance.params['gates'])}: Bloch vector "
+                         f"{bloch} (a pure state sits on the unit sphere, |r|=1).",
+                   "es": f"Tras {'·'.join(g[0].upper() for g in instance.params['gates'])}: vector de Bloch "
+                         f"{bloch} (un estado puro está en la esfera unitaria, |r|=1)."},
+            trace=trace,
+        )
+
+
+@register_solver
 class QiskitSuperdense(Solver):
     name = "superdense-qiskit"
     label = {"en": "Superdense circuit · Qiskit", "es": "Circuito superdenso · Qiskit"}
