@@ -59,6 +59,19 @@ def _comparison(problem, results: list) -> dict:
             f"gana — el resultado honesto y esperado."
         )
         return {"optimal_cut": opt, "qaoa_cut": q, "verdict": {"en": verdict_en, "es": verdict_es}}
+    if problem.id == "simon":
+        cls = next((r for r in results if r.paradigm == "classical"), None)
+        q = next((r for r in results if r.paradigm != "classical"), None)
+        s = (q or cls).value.get("recovered") if (q or cls) else None
+        kq = cls.value.get("classical_queries") if cls else None
+        qq = q.value.get("quantum_queries") if q else None
+        return {"quantum_queries": qq, "classical_queries": kq, "verdict": {
+            "en": f"Both recover the period s={s}. Quantum: O(n) = {qq} queries (sample y·s=0, GF(2) solve). "
+                  f"Classical: {kq} queries to hit a collision (~2^(n/2) expected). The first provably "
+                  f"exponential query separation — though at this tiny n the classical search is instant.",
+            "es": f"Ambos recuperan el período s={s}. Cuántico: O(n) = {qq} consultas (muestrear y·s=0, "
+                  f"resolver GF(2)). Clásico: {kq} consultas hasta una colisión (~2^(n/2) esperado). La "
+                  f"primera separación exponencial demostrable — aunque a este n minúsculo es instantáneo."}}
     if problem.id == "deutsch-jozsa":
         cls = next((r for r in results if r.paradigm == "classical"), None)
         q = next((r for r in results if r.paradigm != "classical"), None)

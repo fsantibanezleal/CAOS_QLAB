@@ -1,0 +1,43 @@
+{
+ "case_id": "simon",
+ "title": {
+  "en": "Simon — hidden period (exponential separation)",
+  "es": "Simon — período oculto (separación exponencial)"
+ },
+ "category": "oracle-algorithms",
+ "lane": "precompute",
+ "lane_reasons": [
+  "needs noise / mid-circuit feed-forward / optimization loop (offline engine only)"
+ ],
+ "qubits": 3,
+ "seed": 42,
+ "shots": 2048,
+ "params": {
+  "n": 3,
+  "secret": "110"
+ },
+ "measured": {
+  "run_ms": 7.802,
+  "trace_bytes": 28334,
+  "unitary_only": false
+ },
+ "viz": [
+  "amp_phase",
+  "histogram",
+  "circuit"
+ ],
+ "engine": "qiskit",
+ "engine_version": "2.4.2",
+ "trace_path": "simon/simon-3-110.json",
+ "references": [
+  {
+   "label": "Simon, On the power of quantum computation, SIAM J. Comput. 26(5) (1997)",
+   "doi": "10.1137/S0097539796298637"
+  },
+  {
+   "label": "Nielsen & Chuang, Quantum Computation and Quantum Information (2010)",
+   "url": "https://doi.org/10.1017/CBO9780511976667"
+  }
+ ],
+ "manifest_version": "qlab-manifest/1"
+}

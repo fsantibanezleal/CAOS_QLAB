@@ -48,6 +48,17 @@ def test_deutsch_jozsa_constant_and_balanced():
         assert res["dj-classical"].value["verdict"] == exp
 
 
+def test_simon_recovers_period():
+    from qlab.registry import get_problem, solvers_for
+
+    problem = get_problem("simon")
+    inst = problem.instance("simon-3-101")
+    res = {s.name: s.run(problem, inst, seed=42, shots=512) for s in solvers_for(problem)}
+    assert res["simon-qiskit"].value["recovered"] == "101"
+    assert res["simon-qiskit"].value["correct"] is True
+    assert res["simon-classical"].value["recovered"] == "101"
+
+
 def test_maxcut_classical_optimum_beats_or_matches_qaoa():
     from qlab.problems.maxcut import MaxCut
     from qlab.registry import get_problem, solvers_for

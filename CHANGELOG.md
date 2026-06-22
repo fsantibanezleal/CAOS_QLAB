@@ -4,6 +4,21 @@ All notable changes to CAOS_QLAB. Format: newest → oldest. Versions follow `X.
 (major.minor.patch); patch (`.00X`) for fixes. Kept `0.x` while the web SPA and the framework/case matrix
 are still landing. Tags from day one.
 
+## [0.06.000] — 2026-06-22 — Simon's algorithm (first exponential separation; oracle quartet)
+
+### Added
+- **Case `simon`** (6 periods, n=2–3 / 4–6 qubits) — recover a hidden period `s` of a 2-to-1 function in
+  **O(n)** quantum queries vs **~2^{n/2}** classical (birthday-collision). The first provably *exponential*
+  query separation (Shor's ancestor), honestly framed (oracle model; tiny n still instant classically).
+- Solvers: **`simon-qiskit`** (real 2n-qubit circuit + trace; reads the input-register marginal of `y`'s
+  with `y·s=0` and solves GF(2) for the unique non-zero `s`) and **`simon-classical`** (collision search
+  → `s=x₁⊕x₂`). All 6 periods recovered correctly. Lane=precompute (sampling + classical post-process).
+- Pipeline Simon verdict; test `test_simon_recovers_period`; docs node `docs/use-cases/05_simon.md`
+  (coset/GF(2) derivation + results). Completes the oracle quartet (DJ · BV · Simon).
+
+### Verified
+- 10/10 tests, ruff clean. quantum O(n) queries; recovered s matches the secret on all variants.
+
 ## [0.05.000] — 2026-06-22 — Real-hardware lane wired (Phase E, opt-in)
 
 ### Added

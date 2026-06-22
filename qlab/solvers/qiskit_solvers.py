@@ -202,6 +202,65 @@ class QiskitDJ(Solver):
         )
 
 
+@register_solver
+class QiskitSimon(Solver):
+    name = "simon-qiskit"
+    label = {"en": "Simon circuit + GF(2) solve · Qiskit", "es": "Circuito Simon + GF(2) · Qiskit"}
+    framework = "qiskit"
+    paradigm = QUANTUM_SIM
+
+    def applicable(self, problem: Problem) -> bool:
+        return problem.id == "simon"
+
+    def run(self, problem, instance: Instance, seed: int, shots: int) -> SolverResult:
+        from qlab.core.rng import sample_counts
+        from qlab.core.trace import Trace
+
+        n, secret = instance.params["n"], instance.params["secret"]
+        total = 2 * n                       # input qubits 0..n-1, output qubits n..2n-1
+        j = min(i for i in range(n) if secret[i] == "1")
+        qc = QuantumCircuit(total)
+        qc.h(range(n))
+        for i in range(n):                  # copy input → output: f starts as identity
+            qc.cx(i, n + i)
+        for i in range(n):                  # controlled on input_j, XOR s into the output → 2-to-1 period s
+            if secret[i] == "1":
+                qc.cx(j, n + i)
+        qc.h(range(n))
+        t0 = time.perf_counter()
+        steps = evolve(qc)
+        probs = np.asarray(Statevector(qc).probabilities())
+        marg = probs.reshape(2**n, 2**n).sum(axis=0)        # P(input register = y) = Σ_output |amp|²
+        ys = [y for y in range(2**n) if marg[y] > 1e-9]      # every sampled y satisfies y·s = 0 (mod 2)
+        # GF(2) solve: the unique non-zero s orthogonal to all observed y's.
+        recovered_val = next(
+            (c for c in range(1, 2**n)
+             if all(bin(y & c).count("1") % 2 == 0 for y in ys)),
+            0,
+        )
+        recovered = "".join(str((recovered_val >> i) & 1) for i in range(n))
+        wall = (time.perf_counter() - t0) * 1e3
+        trace = Trace(
+            case_id=problem.id, title=problem.title, concept=problem.concept, qubits=total,
+            steps=steps,
+            measurements={"counts": sample_counts(marg, shots, seed), "shots": shots},  # input-register y's
+            circuit_ops=circuit_ops(qc),
+            provenance={"engine": "qiskit", "engine_version": QISKIT_VERSION, "seed": seed,
+                        "lane": "tbd", "ran_on": "simulator"},
+            references=problem.references,
+            extra={"observed_y": [format(y, f"0{n}b") for y in ys]},
+        )
+        return SolverResult(
+            solver=self.name, label=self.label, framework=self.framework, paradigm=self.paradigm,
+            value={"recovered": recovered, "correct": recovered == secret, "quantum_queries": n},
+            cost={"wall_ms": round(wall, 3), "qubits": total, "depth": steps[-1].index, "oracle_queries": n},
+            notes={"en": f"{len(ys)} distinct y's (each y·s=0); GF(2) solve ⇒ s={recovered}. O(n) queries.",
+                   "es": f"{len(ys)} cadenas y distintas (cada y·s=0); GF(2) ⇒ s={recovered}. O(n) consultas."},
+            trace=trace,
+            extra={"observed_y": trace.extra["observed_y"]},
+        )
+
+
 def _maxcut_cost_op(n: int, edges: list[list[int]]) -> SparsePauliOp:
     """C = Σ_(u,v)∈E 0.5 (I − Z_u Z_v) — expectation = expected cut value."""
     sparse = []

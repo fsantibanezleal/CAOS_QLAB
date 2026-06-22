@@ -181,6 +181,45 @@ class ClassicalDJ(Solver):
 
 
 @register_solver
+class ClassicalSimon(Solver):
+    name = "simon-classical"
+    label = {"en": "Collision search · classical", "es": "Búsqueda de colisión · clásico"}
+    framework = "classical:numpy"
+    paradigm = CLASSICAL
+
+    def applicable(self, problem: Problem) -> bool:
+        return problem.id == "simon"
+
+    def run(self, problem, instance: Instance, seed: int, shots: int) -> SolverResult:
+        from qlab.problems.simon import Simon
+
+        n, secret = instance.params["n"], instance.params["secret"]
+        t0 = time.perf_counter()
+        # Query f on inputs until two inputs collide (f 2-to-1) ⇒ s = x1 ⊕ x2. Expected ~2^{n/2} (birthday).
+        seen: dict[int, int] = {}
+        recovered_val, queries = None, 0
+        for x in range(2**n):
+            queries += 1
+            fx = Simon.evaluate(instance.params, x)
+            if fx in seen:
+                recovered_val = x ^ seen[fx]
+                break
+            seen[fx] = x
+        recovered = "".join(str((recovered_val >> i) & 1) for i in range(n)) if recovered_val else "0" * n
+        wall = (time.perf_counter() - t0) * 1e3
+        return SolverResult(
+            solver=self.name, label=self.label, framework=self.framework, paradigm=self.paradigm,
+            value={"recovered": recovered, "correct": recovered == secret, "classical_queries": queries},
+            cost={"wall_ms": round(wall, 4), "oracle_queries": queries},
+            notes={"en": f"Found a collision after {queries} queries ⇒ s={recovered} (expected ~2^(n/2) = "
+                         f"{round(2 ** (n / 2), 1)}); the quantum advantage is exponential in query count.",
+                   "es": f"Halló una colisión tras {queries} consultas ⇒ s={recovered} (esperado ~2^(n/2) = "
+                         f"{round(2 ** (n / 2), 1)}); la ventaja cuántica es exponencial en consultas."},
+            optimal=True,
+        )
+
+
+@register_solver
 class GreedyMaxCut(Solver):
     name = "maxcut-greedy"
     label = {"en": "Greedy local search · classical", "es": "Búsqueda voraz local · clásico"}

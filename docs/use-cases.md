@@ -12,6 +12,7 @@ lands (ADR-0056).
 | [02](./use-cases/02_maxcut.md) | **MaxCut** | variational | QAOA (Qiskit) · QAOA (PennyLane) · QAOA (Cirq) · brute force + greedy (classical) | 6 graphs (3–6 nodes) | precompute | exact optimum in µs; all 3 QAOA frameworks match, none beats |
 | [03](./use-cases/03_bernstein-vazirani.md) | **Bernstein–Vazirani** | oracle-algorithms | BV circuit (Qiskit) · oracle queries (classical) | 6 hidden strings (3–6 bits) | live | recovers s in **1** quantum query vs **n** classical — a real query-complexity advantage |
 | [04](./use-cases/04_deutsch-jozsa.md) | **Deutsch–Jozsa** | oracle-algorithms | DJ circuit (Qiskit) · oracle queries (classical) | 6 (constant + balanced, 3–4 q) | live | constant vs balanced in **1** quantum query vs up to **2ⁿ⁻¹+1** classical |
+| [05](./use-cases/05_simon.md) | **Simon** | oracle-algorithms | Simon circuit + GF(2) solve (Qiskit) · collision search (classical) | 6 periods (n=2–3) | precompute | hidden period in **O(n)** quantum queries vs **~2ⁿ/²** classical — first exponential separation |
 
 ## Roadmap (the catalog, ordered beginner → advanced)
 
@@ -29,7 +30,7 @@ small unitary (JS lane); **precompute** = needs noise / feed-forward / optimizat
 | 09 | Quantum teleportation | entanglement | precompute | Qiskit (mid-circuit measure + feed-forward) |
 | 10 | Deutsch–Jozsa | oracle-algorithms | live | ✅ shipping (case 04) |
 | 11 | Bernstein–Vazirani | oracle-algorithms | live | ✅ shipping (case 03) |
-| 12 | Simon's algorithm | oracle-algorithms | precompute | circuit + classical linear solve |
+| 12 | Simon's algorithm | oracle-algorithms | precompute | ✅ shipping (case 05) |
 | 13 | Grover search | flagship-algorithms | live (small) | circuit vs classical O(N) |
 | 14 | Quantum Fourier Transform | flagship-algorithms | live (≤8 q) | circuit vs classical FFT |
 | 15 | Quantum phase estimation | flagship-algorithms | precompute | circuit (precision sweep) |
