@@ -262,6 +262,58 @@ class QiskitSimon(Solver):
 
 
 @register_solver
+class QiskitSuperdense(Solver):
+    name = "superdense-qiskit"
+    label = {"en": "Superdense circuit · Qiskit", "es": "Circuito superdenso · Qiskit"}
+    framework = "qiskit"
+    paradigm = QUANTUM_SIM
+
+    def applicable(self, problem: Problem) -> bool:
+        return problem.id == "superdense"
+
+    def run(self, problem, instance: Instance, seed: int, shots: int) -> SolverResult:
+        from qlab.core.trace import Trace
+
+        msg = instance.params["message"]   # 2 chars, "b1 b0"
+        b1, b0 = msg[0], msg[1]
+        qc = QuantumCircuit(2)
+        qc.h(0)
+        qc.cx(0, 1)            # shared Bell pair (Alice = q0, Bob = q1)
+        qc.barrier()
+        if b0 == "1":
+            qc.x(0)            # encode low bit with X
+        if b1 == "1":
+            qc.z(0)            # encode high bit with Z
+        qc.barrier()
+        qc.cx(0, 1)
+        qc.h(0)                # Bob's Bell measurement (decode)
+        t0 = time.perf_counter()
+        probs = np.asarray(Statevector(qc).probabilities())
+        idx = int(np.argmax(probs))
+        decoded = format(idx, "02b")[::-1]   # qubit order (q0=X-bit b0, q1=Z-bit b1) → "b1 b0"
+        wall = (time.perf_counter() - t0) * 1e3
+        trace = Trace(
+            case_id=problem.id, title=problem.title, concept=problem.concept, qubits=2,
+            steps=evolve(qc), measurements=measure_counts(qc, shots, seed), circuit_ops=circuit_ops(qc),
+            provenance={"engine": "qiskit", "engine_version": QISKIT_VERSION, "seed": seed,
+                        "lane": "tbd", "ran_on": "simulator"},
+            references=problem.references,
+            extra={"message": msg, "decoded": decoded, "qubits_sent": 1, "bits_decoded": 2},
+        )
+        return SolverResult(
+            solver=self.name, label=self.label, framework=self.framework, paradigm=self.paradigm,
+            value={"message": msg, "decoded": decoded, "correct": bool(decoded == msg),
+                   "bits_decoded": 2, "qubits_sent": 1},
+            cost={"wall_ms": round(wall, 3), "qubits": 2, "qubits_transmitted": 1},
+            notes={"en": f"Encoded message {msg} into 1 qubit; Bob decoded {decoded} — 2 classical bits from "
+                         "1 transmitted qubit (+ a pre-shared Bell pair).",
+                   "es": f"Codificó el mensaje {msg} en 1 qubit; Bob decodificó {decoded} — 2 bits clásicos "
+                         "desde 1 qubit transmitido (+ un par de Bell compartido)."},
+            trace=trace,
+        )
+
+
+@register_solver
 class QiskitTeleport(Solver):
     name = "teleport-qiskit"
     label = {"en": "Teleportation circuit · Qiskit", "es": "Circuito de teletransportación · Qiskit"}

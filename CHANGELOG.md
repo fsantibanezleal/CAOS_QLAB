@@ -4,6 +4,21 @@ All notable changes to CAOS_QLAB. Format: newest → oldest. Versions follow `X.
 (major.minor.patch); patch (`.00X`) for fixes. Kept `0.x` while the web SPA and the framework/case matrix
 are still landing. Tags from day one.
 
+## [0.18.000] — 2026-06-22 — Superdense coding (2 classical bits in 1 qubit)
+
+### Added
+- **Case `superdense`** (4 variants = the complete 2-bit message set, honestly not padded) — send 2
+  classical bits by transmitting one qubit, the dual of teleportation. Solvers **`superdense-qiskit`**
+  (encode `Z^{b1}X^{b0}` → Bell state → Bob's decode, with trace) and **`superdense-classical`** (the
+  Holevo 1-bit/qubit limit). Lane=live.
+- All four messages (00/01/10/11) decode exactly — 2 bits per transmitted qubit, beating Holevo's 1 — at
+  the cost of a pre-shared Bell pair. Verdict: a real resource trade (entanglement ↔ communication), not
+  free bandwidth. Fixed the q0/q1 readout order so 01↔10 decode correctly.
+- Pipeline superdense verdict; test `test_superdense_decodes_all_messages`; docs node `17_superdense.md`.
+
+### Verified
+- 22/22 tests, ruff clean. decoded == message for all four; classical baseline = 1 bit/qubit.
+
 ## [0.17.000] — 2026-06-22 — Quantum teleportation (perfect unknown-qubit transfer)
 
 ### Added

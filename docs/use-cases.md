@@ -24,6 +24,7 @@ lands (ADR-0056).
 | [14](./use-cases/14_qec-surface.md) | **QEC — surface code** | noise-and-qec | rotated surface code (Stim + PyMatching MWPM) · unprotected qubit (classical) | 6 (distance×p) | precompute | the **threshold crossover**: d=5 beats d=3 below ~1%, d=5 worse above — corrects X+Z (the FT front-runner) |
 | [15](./use-cases/15_chsh.md) | **CHSH / Bell inequality** | entanglement | CHSH correlators (Qiskit) · local-hidden-variable bound (classical) | 6 (angles + separable control) | live | quantum **genuinely beats** classical: S=2√2 > 2 (Tsirelson vs LHV, Nobel 2022) — a nonlocality edge, not a speedup |
 | [16](./use-cases/16_teleportation.md) | **Quantum teleportation** | entanglement | coherent teleportation (Qiskit) · measure-and-resend bound (classical) | 6 input states | live | transfers an unknown qubit with **fidelity 1** vs classical **2/3**; needs a Bell pair + 2 cbits; no-cloning; not FTL |
+| [17](./use-cases/17_superdense.md) | **Superdense coding** | entanglement | encode/decode (Qiskit) · Holevo limit (classical) | 4 (full message set) | live | **2 classical bits via 1 qubit** (vs Holevo 1) — the dual of teleportation; spends a Bell pair (resource trade) |
 
 ## Roadmap (the catalog, ordered beginner → advanced)
 
@@ -37,7 +38,7 @@ small unitary (JS lane); **precompute** = needs noise / feed-forward / optimizat
 | 05 | Phase & interference | fundamentals | live | circuit |
 | 06 | Quantum random-number generator | fundamentals | live | circuit + classical PRNG contrast |
 | 07 | CHSH / Bell-inequality test | entanglement | live | ✅ shipping (case 15) |
-| 08 | Superdense coding | entanglement | live | circuit |
+| 08 | Superdense coding | entanglement | live | ✅ shipping (case 17) |
 | 09 | Quantum teleportation | entanglement | live | ✅ shipping (case 16) |
 | 10 | Deutsch–Jozsa | oracle-algorithms | live | ✅ shipping (case 04) |
 | 11 | Bernstein–Vazirani | oracle-algorithms | live | ✅ shipping (case 03) |

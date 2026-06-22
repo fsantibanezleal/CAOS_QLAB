@@ -287,6 +287,33 @@ class ClassicalSVM(Solver):
 
 
 @register_solver
+class ClassicalHolevo(Solver):
+    name = "superdense-classical"
+    label = {"en": "Holevo limit · classical", "es": "Límite de Holevo · clásico"}
+    framework = "classical:numpy"
+    paradigm = CLASSICAL
+
+    def applicable(self, problem: Problem) -> bool:
+        return problem.id == "superdense"
+
+    def run(self, problem, instance: Instance, seed: int, shots: int) -> SolverResult:
+        # Without pre-shared entanglement, one qubit (or one classical symbol) carries at most ONE classical
+        # bit (Holevo's bound). To send 2 bits you must transmit 2. Superdense doubles this — using a Bell pair.
+        return SolverResult(
+            solver=self.name, label=self.label, framework=self.framework, paradigm=self.paradigm,
+            value={"bits_per_qubit": 1, "qubits_needed_for_2_bits": 2},
+            cost={"wall_ms": 0.0},
+            notes={"en": "Without entanglement, one qubit conveys at most 1 classical bit (Holevo) — sending "
+                         "2 bits needs 2 transmissions. Superdense gets 2 bits per qubit, but only via a "
+                         "pre-shared Bell pair (an honest resource trade, not free bandwidth).",
+                   "es": "Sin entrelazamiento, un qubit transmite a lo más 1 bit clásico (Holevo) — enviar 2 "
+                         "bits necesita 2 transmisiones. La superdensa logra 2 bits por qubit, pero solo vía "
+                         "un par de Bell compartido (un intercambio honesto de recursos, no ancho de banda gratis)."},
+            optimal=True,
+        )
+
+
+@register_solver
 class ClassicalResend(Solver):
     name = "teleport-classical"
     label = {"en": "Measure & re-prepare · classical", "es": "Medir y re-preparar · clásico"}

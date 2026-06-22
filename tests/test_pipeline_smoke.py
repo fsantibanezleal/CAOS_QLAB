@@ -191,6 +191,18 @@ def test_teleportation_perfect_fidelity():
     assert res["teleport-classical"].value["best_fidelity"] < 0.7   # classical measure-resend bound 2/3
 
 
+def test_superdense_decodes_all_messages():
+    from qlab.registry import get_problem, solvers_for
+
+    problem = get_problem("superdense")
+    q = next(s for s in solvers_for(problem) if s.name == "superdense-qiskit")
+    for msg in ("00", "01", "10", "11"):
+        res = q.run(problem, problem.instance(f"sd-{msg}"), seed=42, shots=1)
+        assert res.value["decoded"] == msg and res.value["correct"] is True   # 2 bits from 1 qubit
+    base = next(s for s in solvers_for(problem) if s.name == "superdense-classical")
+    assert base.run(problem, problem.instance("sd-00"), seed=42, shots=1).value["bits_per_qubit"] == 1
+
+
 def test_maxcut_classical_optimum_beats_or_matches_qaoa():
     from qlab.problems.maxcut import MaxCut
     from qlab.registry import get_problem, solvers_for

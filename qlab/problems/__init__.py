@@ -17,9 +17,11 @@ from qlab.problems import (  # noqa: F401  (import = registration)
     shor,
     simon,
     state_prep,
+    superdense,
     teleportation,
     vqe,
 )
 
 __all__ = ["state_prep", "maxcut", "bernstein_vazirani", "deutsch_jozsa", "simon", "grover", "qft", "qpe",
-           "shor", "vqe", "qml_classifier", "noise", "qec_repetition", "qec_surface", "chsh", "teleportation"]
+           "shor", "vqe", "qml_classifier", "noise", "qec_repetition", "qec_surface", "chsh", "teleportation",
+           "superdense"]

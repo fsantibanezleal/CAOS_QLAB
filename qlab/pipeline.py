@@ -59,6 +59,20 @@ def _comparison(problem, results: list) -> dict:
             f"gana — el resultado honesto y esperado."
         )
         return {"optimal_cut": opt, "qaoa_cut": q, "verdict": {"en": verdict_en, "es": verdict_es}}
+    if problem.id == "superdense":
+        q = next((r for r in results if r.paradigm != "classical"), None)
+        msg = q.value.get("message") if q else None
+        dec = q.value.get("decoded") if q else None
+        ok = q.value.get("correct") if q else None
+        return {"message": msg, "decoded": dec, "correct": ok, "verdict": {
+            "en": f"Alice sent the 2 bits {msg} through ONE transmitted qubit; Bob decoded {dec} "
+                  f"({'correct' if ok else 'WRONG'}). Classically one qubit carries at most 1 bit (Holevo), so "
+                  f"this is a real 2-for-1 — but it spends a pre-shared Bell pair, so it is a resource trade "
+                  f"(the dual of teleportation), not free extra bandwidth.",
+            "es": f"Alice envió los 2 bits {msg} por UN qubit transmitido; Bob decodificó {dec} "
+                  f"({'correcto' if ok else 'INCORRECTO'}). Clásicamente un qubit lleva a lo más 1 bit "
+                  f"(Holevo), así que esto es un 2-por-1 real — pero gasta un par de Bell compartido, así que "
+                  f"es un intercambio de recursos (el dual de la teletransportación), no ancho de banda gratis."}}
     if problem.id == "teleportation":
         q = next((r for r in results if r.paradigm != "classical"), None)
         cls = next((r for r in results if r.paradigm == "classical"), None)

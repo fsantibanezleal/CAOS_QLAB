@@ -1,0 +1,534 @@
+{
+ "schema_version": "qlab-trace/1",
+ "case_id": "superdense",
+ "category": "entanglement",
+ "title": {
+  "en": "Superdense coding",
+  "es": "Codificación superdensa"
+ },
+ "concept": {
+  "en": "Superdense coding sends two classical bits while physically transmitting only one qubit, using a pre-shared Bell pair. Alice encodes the 2-bit message into her half with a Pauli (00→I, 01→X, 10→Z, 11→ZX), turning the shared state into one of the four Bell states; she sends that one qubit to Bob, who undoes the entanglement (CX, H) and measures both bits exactly. One qubit, two bits — double the Holevo limit — but only because an entangled pair was distributed in advance. It is the dual of teleportation, and an honest resource trade rather than free bandwidth.",
+  "es": "La codificación superdensa envía dos bits clásicos transmitiendo físicamente un solo qubit, usando un par de Bell compartido. Alice codifica el mensaje de 2 bits en su mitad con un Pauli (00→I, 01→X, 10→Z, 11→ZX), convirtiendo el estado compartido en uno de los cuatro estados de Bell; envía ese qubit a Bob, quien deshace el entrelazamiento (CX, H) y mide ambos bits exacto. Un qubit, dos bits — el doble del límite de Holevo — pero solo porque se distribuyó un par entrelazado de antemano. Es el dual de la teletransportación, y un intercambio honesto de recursos, no ancho de banda gratis."
+ },
+ "metric": {
+  "en": "classical bits decoded per qubit sent",
+  "es": "bits clásicos decodificados por qubit enviado"
+ },
+ "instance": {
+  "id": "sd-11",
+  "title": {
+   "en": "message 11 → ZX",
+   "es": "message 11 → ZX"
+  },
+  "params": {
+   "n": 2,
+   "message": "11"
+  },
+  "note": {
+   "en": "Alice sends bits 11 via one qubit; Bob decodes both.",
+   "es": "Alice envía los bits 11 por un qubit; Bob decodifica ambos."
+  }
+ },
+ "qubits": 2,
+ "lane": "live",
+ "lane_reasons": [],
+ "seed": 42,
+ "shots": 2048,
+ "primary_solver": "superdense-qiskit",
+ "trace": {
+  "case_id": "superdense",
+  "title": {
+   "en": "Superdense coding",
+   "es": "Codificación superdensa"
+  },
+  "concept": {
+   "en": "Superdense coding sends two classical bits while physically transmitting only one qubit, using a pre-shared Bell pair. Alice encodes the 2-bit message into her half with a Pauli (00→I, 01→X, 10→Z, 11→ZX), turning the shared state into one of the four Bell states; she sends that one qubit to Bob, who undoes the entanglement (CX, H) and measures both bits exactly. One qubit, two bits — double the Holevo limit — but only because an entangled pair was distributed in advance. It is the dual of teleportation, and an honest resource trade rather than free bandwidth.",
+   "es": "La codificación superdensa envía dos bits clásicos transmitiendo físicamente un solo qubit, usando un par de Bell compartido. Alice codifica el mensaje de 2 bits en su mitad con un Pauli (00→I, 01→X, 10→Z, 11→ZX), convirtiendo el estado compartido en uno de los cuatro estados de Bell; envía ese qubit a Bob, quien deshace el entrelazamiento (CX, H) y mide ambos bits exacto. Un qubit, dos bits — el doble del límite de Holevo — pero solo porque se distribuyó un par entrelazado de antemano. Es el dual de la teletransportación, y un intercambio honesto de recursos, no ancho de banda gratis."
+  },
+  "qubits": 2,
+  "steps": [
+   {
+    "index": 0,
+    "gate": "init",
+    "targets": [],
+    "label": {
+     "en": "Initial state |0…0⟩",
+     "es": "Estado inicial |0…0⟩"
+    },
+    "statevector": [
+     {
+      "re": 1.0,
+      "im": 0.0
+     },
+     {
+      "re": 0.0,
+      "im": 0.0
+     },
+     {
+      "re": 0.0,
+      "im": 0.0
+     },
+     {
+      "re": 0.0,
+      "im": 0.0
+     }
+    ],
+    "bloch": [
+     [
+      0.0,
+      0.0,
+      1.0
+     ],
+     [
+      0.0,
+      0.0,
+      1.0
+     ]
+    ],
+    "probabilities": [
+     1.0,
+     0.0,
+     0.0,
+     0.0
+    ],
+    "params": []
+   },
+   {
+    "index": 1,
+    "gate": "H",
+    "targets": [
+     0
+    ],
+    "label": {
+     "en": "H q[0]",
+     "es": "H q[0]"
+    },
+    "statevector": [
+     {
+      "re": 0.707107,
+      "im": 0.0
+     },
+     {
+      "re": 0.707107,
+      "im": 0.0
+     },
+     {
+      "re": 0.0,
+      "im": 0.0
+     },
+     {
+      "re": 0.0,
+      "im": 0.0
+     }
+    ],
+    "bloch": [
+     [
+      1.0,
+      0.0,
+      0.0
+     ],
+     [
+      0.0,
+      0.0,
+      1.0
+     ]
+    ],
+    "probabilities": [
+     0.5,
+     0.5,
+     0.0,
+     0.0
+    ],
+    "params": []
+   },
+   {
+    "index": 2,
+    "gate": "CX",
+    "targets": [
+     0,
+     1
+    ],
+    "label": {
+     "en": "CX q[0, 1]",
+     "es": "CX q[0, 1]"
+    },
+    "statevector": [
+     {
+      "re": 0.707107,
+      "im": 0.0
+     },
+     {
+      "re": 0.0,
+      "im": 0.0
+     },
+     {
+      "re": 0.0,
+      "im": 0.0
+     },
+     {
+      "re": 0.707107,
+      "im": 0.0
+     }
+    ],
+    "bloch": [
+     [
+      0.0,
+      0.0,
+      0.0
+     ],
+     [
+      0.0,
+      0.0,
+      0.0
+     ]
+    ],
+    "probabilities": [
+     0.5,
+     0.0,
+     0.0,
+     0.5
+    ],
+    "params": []
+   },
+   {
+    "index": 3,
+    "gate": "X",
+    "targets": [
+     0
+    ],
+    "label": {
+     "en": "X q[0]",
+     "es": "X q[0]"
+    },
+    "statevector": [
+     {
+      "re": 0.0,
+      "im": 0.0
+     },
+     {
+      "re": 0.707107,
+      "im": 0.0
+     },
+     {
+      "re": 0.707107,
+      "im": 0.0
+     },
+     {
+      "re": 0.0,
+      "im": 0.0
+     }
+    ],
+    "bloch": [
+     [
+      0.0,
+      0.0,
+      0.0
+     ],
+     [
+      0.0,
+      0.0,
+      0.0
+     ]
+    ],
+    "probabilities": [
+     0.0,
+     0.5,
+     0.5,
+     0.0
+    ],
+    "params": []
+   },
+   {
+    "index": 4,
+    "gate": "Z",
+    "targets": [
+     0
+    ],
+    "label": {
+     "en": "Z q[0]",
+     "es": "Z q[0]"
+    },
+    "statevector": [
+     {
+      "re": 0.0,
+      "im": 0.0
+     },
+     {
+      "re": -0.707107,
+      "im": 0.0
+     },
+     {
+      "re": 0.707107,
+      "im": 0.0
+     },
+     {
+      "re": 0.0,
+      "im": 0.0
+     }
+    ],
+    "bloch": [
+     [
+      0.0,
+      0.0,
+      0.0
+     ],
+     [
+      0.0,
+      0.0,
+      0.0
+     ]
+    ],
+    "probabilities": [
+     0.0,
+     0.5,
+     0.5,
+     0.0
+    ],
+    "params": []
+   },
+   {
+    "index": 5,
+    "gate": "CX",
+    "targets": [
+     0,
+     1
+    ],
+    "label": {
+     "en": "CX q[0, 1]",
+     "es": "CX q[0, 1]"
+    },
+    "statevector": [
+     {
+      "re": 0.0,
+      "im": 0.0
+     },
+     {
+      "re": 0.0,
+      "im": 0.0
+     },
+     {
+      "re": 0.707107,
+      "im": 0.0
+     },
+     {
+      "re": -0.707107,
+      "im": 0.0
+     }
+    ],
+    "bloch": [
+     [
+      -1.0,
+      0.0,
+      0.0
+     ],
+     [
+      0.0,
+      0.0,
+      -1.0
+     ]
+    ],
+    "probabilities": [
+     0.0,
+     0.0,
+     0.5,
+     0.5
+    ],
+    "params": []
+   },
+   {
+    "index": 6,
+    "gate": "H",
+    "targets": [
+     0
+    ],
+    "label": {
+     "en": "H q[0]",
+     "es": "H q[0]"
+    },
+    "statevector": [
+     {
+      "re": 0.0,
+      "im": 0.0
+     },
+     {
+      "re": 0.0,
+      "im": 0.0
+     },
+     {
+      "re": -0.0,
+      "im": 0.0
+     },
+     {
+      "re": 1.0,
+      "im": 0.0
+     }
+    ],
+    "bloch": [
+     [
+      -0.0,
+      0.0,
+      -1.0
+     ],
+     [
+      0.0,
+      0.0,
+      -1.0
+     ]
+    ],
+    "probabilities": [
+     0.0,
+     0.0,
+     0.0,
+     1.0
+    ],
+    "params": []
+   }
+  ],
+  "measurements": {
+   "counts": {
+    "11": 2048
+   },
+   "shots": 2048
+  },
+  "circuit_ops": [
+   {
+    "gate": "h",
+    "targets": [
+     0
+    ],
+    "params": []
+   },
+   {
+    "gate": "cx",
+    "targets": [
+     0,
+     1
+    ],
+    "params": []
+   },
+   {
+    "gate": "x",
+    "targets": [
+     0
+    ],
+    "params": []
+   },
+   {
+    "gate": "z",
+    "targets": [
+     0
+    ],
+    "params": []
+   },
+   {
+    "gate": "cx",
+    "targets": [
+     0,
+     1
+    ],
+    "params": []
+   },
+   {
+    "gate": "h",
+    "targets": [
+     0
+    ],
+    "params": []
+   }
+  ],
+  "provenance": {
+   "engine": "qiskit",
+   "engine_version": "2.4.2",
+   "seed": 42,
+   "lane": "tbd",
+   "ran_on": "simulator"
+  },
+  "references": [
+   {
+    "label": "Bennett & Wiesner, Communication via one- and two-particle operators on EPR states (1992)",
+    "doi": "10.1103/PhysRevLett.69.2881"
+   },
+   {
+    "label": "Nielsen & Chuang, Quantum Computation and Quantum Information (2010)",
+    "url": "https://doi.org/10.1017/CBO9780511976667"
+   }
+  ],
+  "extra": {
+   "message": "11",
+   "decoded": "11",
+   "qubits_sent": 1,
+   "bits_decoded": 2
+  },
+  "schema_version": "qlab-trace/1"
+ },
+ "solvers": [
+  {
+   "solver": "superdense-classical",
+   "label": {
+    "en": "Holevo limit · classical",
+    "es": "Límite de Holevo · clásico"
+   },
+   "framework": "classical:numpy",
+   "paradigm": "classical",
+   "value": {
+    "bits_per_qubit": 1,
+    "qubits_needed_for_2_bits": 2
+   },
+   "cost": {
+    "wall_ms": 0.0
+   },
+   "notes": {
+    "en": "Without entanglement, one qubit conveys at most 1 classical bit (Holevo) — sending 2 bits needs 2 transmissions. Superdense gets 2 bits per qubit, but only via a pre-shared Bell pair (an honest resource trade, not free bandwidth).",
+    "es": "Sin entrelazamiento, un qubit transmite a lo más 1 bit clásico (Holevo) — enviar 2 bits necesita 2 transmisiones. La superdensa logra 2 bits por qubit, pero solo vía un par de Bell compartido (un intercambio honesto de recursos, no ancho de banda gratis)."
+   },
+   "optimal": true,
+   "extra": {}
+  },
+  {
+   "solver": "superdense-qiskit",
+   "label": {
+    "en": "Superdense circuit · Qiskit",
+    "es": "Circuito superdenso · Qiskit"
+   },
+   "framework": "qiskit",
+   "paradigm": "quantum-sim",
+   "value": {
+    "message": "11",
+    "decoded": "11",
+    "correct": true,
+    "bits_decoded": 2,
+    "qubits_sent": 1
+   },
+   "cost": {
+    "wall_ms": 0.188,
+    "qubits": 2,
+    "qubits_transmitted": 1
+   },
+   "notes": {
+    "en": "Encoded message 11 into 1 qubit; Bob decoded 11 — 2 classical bits from 1 transmitted qubit (+ a pre-shared Bell pair).",
+    "es": "Codificó el mensaje 11 en 1 qubit; Bob decodificó 11 — 2 bits clásicos desde 1 qubit transmitido (+ un par de Bell compartido)."
+   },
+   "optimal": false,
+   "extra": {}
+  }
+ ],
+ "comparison": {
+  "message": "11",
+  "decoded": "11",
+  "correct": true,
+  "verdict": {
+   "en": "Alice sent the 2 bits 11 through ONE transmitted qubit; Bob decoded 11 (correct). Classically one qubit carries at most 1 bit (Holevo), so this is a real 2-for-1 — but it spends a pre-shared Bell pair, so it is a resource trade (the dual of teleportation), not free extra bandwidth.",
+   "es": "Alice envió los 2 bits 11 por UN qubit transmitido; Bob decodificó 11 (correcto). Clásicamente un qubit lleva a lo más 1 bit (Holevo), así que esto es un 2-por-1 real — pero gasta un par de Bell compartido, así que es un intercambio de recursos (el dual de la teletransportación), no ancho de banda gratis."
+  }
+ },
+ "references": [
+  {
+   "label": "Bennett & Wiesner, Communication via one- and two-particle operators on EPR states (1992)",
+   "doi": "10.1103/PhysRevLett.69.2881"
+  },
+  {
+   "label": "Nielsen & Chuang, Quantum Computation and Quantum Information (2010)",
+   "url": "https://doi.org/10.1017/CBO9780511976667"
+  }
+ ]
+}
