@@ -140,6 +140,47 @@ class ClassicalBV(Solver):
 
 
 @register_solver
+class ClassicalDJ(Solver):
+    name = "dj-classical"
+    label = {"en": "Oracle queries · classical", "es": "Consultas al oráculo · clásico"}
+    framework = "classical:numpy"
+    paradigm = CLASSICAL
+
+    def applicable(self, problem: Problem) -> bool:
+        return problem.id == "deutsch-jozsa"
+
+    def run(self, problem, instance: Instance, seed: int, shots: int) -> SolverResult:
+        from qlab.problems.deutsch_jozsa import DeutschJozsa
+
+        n = instance.params["n"]
+        expected = "constant" if instance.params["kind"] == "constant" else "balanced"
+        half = 2 ** (n - 1)
+        t0 = time.perf_counter()
+        seen: set[int] = set()
+        verdict, queries = None, 0
+        for x in range(2**n):
+            queries += 1
+            seen.add(DeutschJozsa.evaluate(instance.params, x))
+            if len(seen) > 1:                 # two different outputs ⇒ balanced (stop early)
+                verdict = "balanced"
+                break
+            if queries > half:                # queried just over half, all equal ⇒ must be constant
+                verdict = "constant"
+                break
+        wall = (time.perf_counter() - t0) * 1e3
+        return SolverResult(
+            solver=self.name, label=self.label, framework=self.framework, paradigm=self.paradigm,
+            value={"verdict": verdict, "correct": verdict == expected, "classical_queries": queries},
+            cost={"wall_ms": round(wall, 4), "oracle_queries": queries},
+            notes={"en": f"Decided f is {verdict} after {queries} oracle queries (worst case "
+                         f"{half + 1}); the quantum win is in query COUNT, not wall-time.",
+                   "es": f"Decidió que f es {verdict} tras {queries} consultas (peor caso {half + 1}); "
+                         "la ventaja cuántica es en NÚMERO de consultas, no en tiempo."},
+            optimal=True,
+        )
+
+
+@register_solver
 class GreedyMaxCut(Solver):
     name = "maxcut-greedy"
     label = {"en": "Greedy local search · classical", "es": "Búsqueda voraz local · clásico"}

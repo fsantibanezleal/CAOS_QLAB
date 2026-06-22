@@ -4,6 +4,20 @@ All notable changes to CAOS_QLAB. Format: newest → oldest. Versions follow `X.
 (major.minor.patch); patch (`.00X`) for fixes. Kept `0.x` while the web SPA and the framework/case matrix
 are still landing. Tags from day one.
 
+## [0.04.000] — 2026-06-22 — Deutsch–Jozsa (oracle trio complete)
+
+### Added
+- **Case `deutsch-jozsa`** (6 variants: 2 constant + 4 balanced, 3–4 qubits) — decide constant vs balanced
+  in **1 quantum query** vs up to **2ⁿ⁻¹+1** classical (the historical first exponential query separation),
+  honestly framed (oracle model). Solvers **`dj-qiskit`** (real circuit + trace) and **`dj-classical`**
+  (oracle queries, early-exit on balanced). All 6 verdicts correct; all live (≤5 qubits). 6 committed traces.
+- Pipeline DJ verdict; test `test_deutsch_jozsa_constant_and_balanced`; docs node
+  `docs/use-cases/04_deutsch-jozsa.md` (interference derivation + results). Completes the oracle-algorithms
+  trio (Deutsch–Jozsa · Bernstein–Vazirani · [Simon next]).
+
+### Verified
+- 9/9 tests, ruff clean. Constant ⇒ all-zeros; balanced ⇒ non-zero; quantum_queries=1 throughout.
+
 ## [0.03.000] — 2026-06-21 — Bernstein–Vazirani (Phase C: oracle-algorithms category)
 
 ### Added

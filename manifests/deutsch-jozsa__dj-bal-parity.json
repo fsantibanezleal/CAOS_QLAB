@@ -1,0 +1,42 @@
+{
+ "case_id": "deutsch-jozsa",
+ "title": {
+  "en": "Deutsch–Jozsa — constant vs balanced",
+  "es": "Deutsch–Jozsa — constante vs balanceada"
+ },
+ "category": "oracle-algorithms",
+ "lane": "live",
+ "lane_reasons": [],
+ "qubits": 3,
+ "seed": 42,
+ "shots": 2048,
+ "params": {
+  "n": 3,
+  "kind": "balanced",
+  "secret": "111"
+ },
+ "measured": {
+  "run_ms": 5.336,
+  "trace_bytes": 10926,
+  "unitary_only": true
+ },
+ "viz": [
+  "amp_phase",
+  "histogram",
+  "circuit"
+ ],
+ "engine": "qiskit",
+ "engine_version": "2.4.2",
+ "trace_path": "deutsch-jozsa/dj-bal-parity.json",
+ "references": [
+  {
+   "label": "Deutsch & Jozsa, Rapid solution of problems by quantum computation, Proc. R. Soc. A 439 (1992)",
+   "doi": "10.1098/rspa.1992.0167"
+  },
+  {
+   "label": "Nielsen & Chuang, Quantum Computation and Quantum Information (2010)",
+   "url": "https://doi.org/10.1017/CBO9780511976667"
+  }
+ ],
+ "manifest_version": "qlab-manifest/1"
+}

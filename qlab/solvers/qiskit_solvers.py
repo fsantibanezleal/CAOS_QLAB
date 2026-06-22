@@ -150,6 +150,58 @@ class QiskitBV(Solver):
         )
 
 
+@register_solver
+class QiskitDJ(Solver):
+    name = "dj-qiskit"
+    label = {"en": "DJ circuit · Qiskit", "es": "Circuito DJ · Qiskit"}
+    framework = "qiskit"
+    paradigm = QUANTUM_SIM
+
+    def applicable(self, problem: Problem) -> bool:
+        return problem.id == "deutsch-jozsa"
+
+    def run(self, problem, instance: Instance, seed: int, shots: int) -> SolverResult:
+        from qlab.core.trace import Trace
+
+        p = instance.params
+        n = p["n"]
+        total = n + 1
+        expected = "constant" if p["kind"] == "constant" else "balanced"
+        qc = QuantumCircuit(total)
+        qc.x(n)
+        qc.h(range(total))
+        if p["kind"] == "constant":
+            if p["value"] == 1:
+                qc.x(n)               # f≡1 → global (−1) phase via the |−⟩ ancilla; verdict still constant
+        else:
+            for i in range(n):        # balanced f(x)=s·x → phase kickback (−1)^{s·x}
+                if p["secret"][i] == "1":
+                    qc.cx(i, n)
+        qc.h(range(n))
+        t0 = time.perf_counter()
+        steps = evolve(qc)
+        probs = np.asarray(Statevector(qc).probabilities())
+        idx = int(np.argmax(probs))
+        input_bits = format(idx, f"0{total}b")[::-1][:n]
+        verdict = "constant" if set(input_bits) == {"0"} else "balanced"
+        wall = (time.perf_counter() - t0) * 1e3
+        trace = Trace(
+            case_id=problem.id, title=problem.title, concept=problem.concept, qubits=total,
+            steps=steps, measurements=measure_counts(qc, shots, seed), circuit_ops=circuit_ops(qc),
+            provenance={"engine": "qiskit", "engine_version": QISKIT_VERSION, "seed": seed,
+                        "lane": "tbd", "ran_on": "simulator"},
+            references=problem.references,
+        )
+        return SolverResult(
+            solver=self.name, label=self.label, framework=self.framework, paradigm=self.paradigm,
+            value={"verdict": verdict, "correct": verdict == expected, "quantum_queries": 1},
+            cost={"wall_ms": round(wall, 3), "qubits": total, "depth": steps[-1].index, "oracle_queries": 1},
+            notes={"en": f"One oracle query decides f is {verdict} (all-zeros ⇒ constant, else balanced).",
+                   "es": f"Una consulta al oráculo decide que f es {verdict} (todo-ceros ⇒ constante)."},
+            trace=trace,
+        )
+
+
 def _maxcut_cost_op(n: int, edges: list[list[int]]) -> SparsePauliOp:
     """C = Σ_(u,v)∈E 0.5 (I − Z_u Z_v) — expectation = expected cut value."""
     sparse = []

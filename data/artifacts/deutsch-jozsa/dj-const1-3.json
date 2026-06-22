@@ -1,0 +1,1392 @@
+{
+ "schema_version": "qlab-trace/1",
+ "case_id": "deutsch-jozsa",
+ "category": "oracle-algorithms",
+ "title": {
+  "en": "Deutsch–Jozsa — constant vs balanced",
+  "es": "Deutsch–Jozsa — constante vs balanceada"
+ },
+ "concept": {
+  "en": "An oracle hides a function f that is promised constant or balanced. Deutsch–Jozsa puts the input register in uniform superposition with the answer qubit in |−⟩, queries the oracle ONCE (phase kickback stamps (−1)^{f(x)}), and a final layer of Hadamards interferes the branches: the input register collapses to all-zeros iff f is constant, and to something non-zero iff f is balanced. One quantum query decides it; a deterministic classical algorithm may need 2^{n-1}+1.",
+  "es": "Un oráculo oculta una función f que se promete constante o balanceada. Deutsch–Jozsa pone el registro de entrada en superposición uniforme con el qubit de respuesta en |−⟩, consulta el oráculo UNA vez (el phase kickback marca (−1)^{f(x)}), y una capa final de Hadamards interfiere las ramas: el registro de entrada colapsa a todo-ceros si f es constante, y a algo no nulo si f es balanceada. Una consulta cuántica lo decide; un algoritmo clásico determinista puede necesitar 2^{n-1}+1."
+ },
+ "metric": {
+  "en": "constant-or-balanced verdict",
+  "es": "veredicto constante-o-balanceada"
+ },
+ "instance": {
+  "id": "dj-const1-3",
+  "title": {
+   "en": "constant f=1 (n=3)",
+   "es": "constant f=1 (n=3)"
+  },
+  "params": {
+   "n": 3,
+   "kind": "constant",
+   "value": 1
+  },
+  "note": {
+   "en": "f is constant — 1 quantum query vs up to 5 classical (worst case).",
+   "es": "f es constant — 1 consulta cuántica vs hasta 5 clásicas (peor caso)."
+  }
+ },
+ "qubits": 3,
+ "lane": "live",
+ "lane_reasons": [],
+ "seed": 42,
+ "shots": 2048,
+ "primary_solver": "dj-qiskit",
+ "trace": {
+  "case_id": "deutsch-jozsa",
+  "title": {
+   "en": "Deutsch–Jozsa — constant vs balanced",
+   "es": "Deutsch–Jozsa — constante vs balanceada"
+  },
+  "concept": {
+   "en": "An oracle hides a function f that is promised constant or balanced. Deutsch–Jozsa puts the input register in uniform superposition with the answer qubit in |−⟩, queries the oracle ONCE (phase kickback stamps (−1)^{f(x)}), and a final layer of Hadamards interferes the branches: the input register collapses to all-zeros iff f is constant, and to something non-zero iff f is balanced. One quantum query decides it; a deterministic classical algorithm may need 2^{n-1}+1.",
+   "es": "Un oráculo oculta una función f que se promete constante o balanceada. Deutsch–Jozsa pone el registro de entrada en superposición uniforme con el qubit de respuesta en |−⟩, consulta el oráculo UNA vez (el phase kickback marca (−1)^{f(x)}), y una capa final de Hadamards interfiere las ramas: el registro de entrada colapsa a todo-ceros si f es constante, y a algo no nulo si f es balanceada. Una consulta cuántica lo decide; un algoritmo clásico determinista puede necesitar 2^{n-1}+1."
+  },
+  "qubits": 4,
+  "steps": [
+   {
+    "index": 0,
+    "gate": "init",
+    "targets": [],
+    "label": {
+     "en": "Initial state |0…0⟩",
+     "es": "Estado inicial |0…0⟩"
+    },
+    "statevector": [
+     {
+      "re": 1.0,
+      "im": 0.0
+     },
+     {
+      "re": 0.0,
+      "im": 0.0
+     },
+     {
+      "re": 0.0,
+      "im": 0.0
+     },
+     {
+      "re": 0.0,
+      "im": 0.0
+     },
+     {
+      "re": 0.0,
+      "im": 0.0
+     },
+     {
+      "re": 0.0,
+      "im": 0.0
+     },
+     {
+      "re": 0.0,
+      "im": 0.0
+     },
+     {
+      "re": 0.0,
+      "im": 0.0
+     },
+     {
+      "re": 0.0,
+      "im": 0.0
+     },
+     {
+      "re": 0.0,
+      "im": 0.0
+     },
+     {
+      "re": 0.0,
+      "im": 0.0
+     },
+     {
+      "re": 0.0,
+      "im": 0.0
+     },
+     {
+      "re": 0.0,
+      "im": 0.0
+     },
+     {
+      "re": 0.0,
+      "im": 0.0
+     },
+     {
+      "re": 0.0,
+      "im": 0.0
+     },
+     {
+      "re": 0.0,
+      "im": 0.0
+     }
+    ],
+    "bloch": [
+     [
+      0.0,
+      0.0,
+      1.0
+     ],
+     [
+      0.0,
+      0.0,
+      1.0
+     ],
+     [
+      0.0,
+      0.0,
+      1.0
+     ],
+     [
+      0.0,
+      0.0,
+      1.0
+     ]
+    ],
+    "probabilities": [
+     1.0,
+     0.0,
+     0.0,
+     0.0,
+     0.0,
+     0.0,
+     0.0,
+     0.0,
+     0.0,
+     0.0,
+     0.0,
+     0.0,
+     0.0,
+     0.0,
+     0.0,
+     0.0
+    ],
+    "params": []
+   },
+   {
+    "index": 1,
+    "gate": "X",
+    "targets": [
+     3
+    ],
+    "label": {
+     "en": "X q[3]",
+     "es": "X q[3]"
+    },
+    "statevector": [
+     {
+      "re": 0.0,
+      "im": 0.0
+     },
+     {
+      "re": 0.0,
+      "im": 0.0
+     },
+     {
+      "re": 0.0,
+      "im": 0.0
+     },
+     {
+      "re": 0.0,
+      "im": 0.0
+     },
+     {
+      "re": 0.0,
+      "im": 0.0
+     },
+     {
+      "re": 0.0,
+      "im": 0.0
+     },
+     {
+      "re": 0.0,
+      "im": 0.0
+     },
+     {
+      "re": 0.0,
+      "im": 0.0
+     },
+     {
+      "re": 1.0,
+      "im": 0.0
+     },
+     {
+      "re": 0.0,
+      "im": 0.0
+     },
+     {
+      "re": 0.0,
+      "im": 0.0
+     },
+     {
+      "re": 0.0,
+      "im": 0.0
+     },
+     {
+      "re": 0.0,
+      "im": 0.0
+     },
+     {
+      "re": 0.0,
+      "im": 0.0
+     },
+     {
+      "re": 0.0,
+      "im": 0.0
+     },
+     {
+      "re": 0.0,
+      "im": 0.0
+     }
+    ],
+    "bloch": [
+     [
+      0.0,
+      0.0,
+      1.0
+     ],
+     [
+      0.0,
+      0.0,
+      1.0
+     ],
+     [
+      0.0,
+      0.0,
+      1.0
+     ],
+     [
+      0.0,
+      0.0,
+      -1.0
+     ]
+    ],
+    "probabilities": [
+     0.0,
+     0.0,
+     0.0,
+     0.0,
+     0.0,
+     0.0,
+     0.0,
+     0.0,
+     1.0,
+     0.0,
+     0.0,
+     0.0,
+     0.0,
+     0.0,
+     0.0,
+     0.0
+    ],
+    "params": []
+   },
+   {
+    "index": 2,
+    "gate": "H",
+    "targets": [
+     0
+    ],
+    "label": {
+     "en": "H q[0]",
+     "es": "H q[0]"
+    },
+    "statevector": [
+     {
+      "re": 0.0,
+      "im": 0.0
+     },
+     {
+      "re": 0.0,
+      "im": 0.0
+     },
+     {
+      "re": 0.0,
+      "im": 0.0
+     },
+     {
+      "re": 0.0,
+      "im": 0.0
+     },
+     {
+      "re": 0.0,
+      "im": 0.0
+     },
+     {
+      "re": 0.0,
+      "im": 0.0
+     },
+     {
+      "re": 0.0,
+      "im": 0.0
+     },
+     {
+      "re": 0.0,
+      "im": 0.0
+     },
+     {
+      "re": 0.707107,
+      "im": 0.0
+     },
+     {
+      "re": 0.707107,
+      "im": 0.0
+     },
+     {
+      "re": 0.0,
+      "im": 0.0
+     },
+     {
+      "re": 0.0,
+      "im": 0.0
+     },
+     {
+      "re": 0.0,
+      "im": 0.0
+     },
+     {
+      "re": 0.0,
+      "im": 0.0
+     },
+     {
+      "re": 0.0,
+      "im": 0.0
+     },
+     {
+      "re": 0.0,
+      "im": 0.0
+     }
+    ],
+    "bloch": [
+     [
+      1.0,
+      0.0,
+      0.0
+     ],
+     [
+      0.0,
+      0.0,
+      1.0
+     ],
+     [
+      0.0,
+      0.0,
+      1.0
+     ],
+     [
+      0.0,
+      0.0,
+      -1.0
+     ]
+    ],
+    "probabilities": [
+     0.0,
+     0.0,
+     0.0,
+     0.0,
+     0.0,
+     0.0,
+     0.0,
+     0.0,
+     0.5,
+     0.5,
+     0.0,
+     0.0,
+     0.0,
+     0.0,
+     0.0,
+     0.0
+    ],
+    "params": []
+   },
+   {
+    "index": 3,
+    "gate": "H",
+    "targets": [
+     1
+    ],
+    "label": {
+     "en": "H q[1]",
+     "es": "H q[1]"
+    },
+    "statevector": [
+     {
+      "re": 0.0,
+      "im": 0.0
+     },
+     {
+      "re": 0.0,
+      "im": 0.0
+     },
+     {
+      "re": 0.0,
+      "im": 0.0
+     },
+     {
+      "re": 0.0,
+      "im": 0.0
+     },
+     {
+      "re": 0.0,
+      "im": 0.0
+     },
+     {
+      "re": 0.0,
+      "im": 0.0
+     },
+     {
+      "re": 0.0,
+      "im": 0.0
+     },
+     {
+      "re": 0.0,
+      "im": 0.0
+     },
+     {
+      "re": 0.5,
+      "im": 0.0
+     },
+     {
+      "re": 0.5,
+      "im": 0.0
+     },
+     {
+      "re": 0.5,
+      "im": 0.0
+     },
+     {
+      "re": 0.5,
+      "im": 0.0
+     },
+     {
+      "re": 0.0,
+      "im": 0.0
+     },
+     {
+      "re": 0.0,
+      "im": 0.0
+     },
+     {
+      "re": 0.0,
+      "im": 0.0
+     },
+     {
+      "re": 0.0,
+      "im": 0.0
+     }
+    ],
+    "bloch": [
+     [
+      1.0,
+      0.0,
+      0.0
+     ],
+     [
+      1.0,
+      0.0,
+      0.0
+     ],
+     [
+      0.0,
+      0.0,
+      1.0
+     ],
+     [
+      0.0,
+      0.0,
+      -1.0
+     ]
+    ],
+    "probabilities": [
+     0.0,
+     0.0,
+     0.0,
+     0.0,
+     0.0,
+     0.0,
+     0.0,
+     0.0,
+     0.25,
+     0.25,
+     0.25,
+     0.25,
+     0.0,
+     0.0,
+     0.0,
+     0.0
+    ],
+    "params": []
+   },
+   {
+    "index": 4,
+    "gate": "H",
+    "targets": [
+     2
+    ],
+    "label": {
+     "en": "H q[2]",
+     "es": "H q[2]"
+    },
+    "statevector": [
+     {
+      "re": 0.0,
+      "im": 0.0
+     },
+     {
+      "re": 0.0,
+      "im": 0.0
+     },
+     {
+      "re": 0.0,
+      "im": 0.0
+     },
+     {
+      "re": 0.0,
+      "im": 0.0
+     },
+     {
+      "re": 0.0,
+      "im": 0.0
+     },
+     {
+      "re": 0.0,
+      "im": 0.0
+     },
+     {
+      "re": 0.0,
+      "im": 0.0
+     },
+     {
+      "re": 0.0,
+      "im": 0.0
+     },
+     {
+      "re": 0.353553,
+      "im": 0.0
+     },
+     {
+      "re": 0.353553,
+      "im": 0.0
+     },
+     {
+      "re": 0.353553,
+      "im": 0.0
+     },
+     {
+      "re": 0.353553,
+      "im": 0.0
+     },
+     {
+      "re": 0.353553,
+      "im": 0.0
+     },
+     {
+      "re": 0.353553,
+      "im": 0.0
+     },
+     {
+      "re": 0.353553,
+      "im": 0.0
+     },
+     {
+      "re": 0.353553,
+      "im": 0.0
+     }
+    ],
+    "bloch": [
+     [
+      1.0,
+      0.0,
+      0.0
+     ],
+     [
+      1.0,
+      0.0,
+      0.0
+     ],
+     [
+      1.0,
+      0.0,
+      0.0
+     ],
+     [
+      0.0,
+      0.0,
+      -1.0
+     ]
+    ],
+    "probabilities": [
+     0.0,
+     0.0,
+     0.0,
+     0.0,
+     0.0,
+     0.0,
+     0.0,
+     0.0,
+     0.125,
+     0.125,
+     0.125,
+     0.125,
+     0.125,
+     0.125,
+     0.125,
+     0.125
+    ],
+    "params": []
+   },
+   {
+    "index": 5,
+    "gate": "H",
+    "targets": [
+     3
+    ],
+    "label": {
+     "en": "H q[3]",
+     "es": "H q[3]"
+    },
+    "statevector": [
+     {
+      "re": 0.25,
+      "im": 0.0
+     },
+     {
+      "re": 0.25,
+      "im": 0.0
+     },
+     {
+      "re": 0.25,
+      "im": 0.0
+     },
+     {
+      "re": 0.25,
+      "im": 0.0
+     },
+     {
+      "re": 0.25,
+      "im": 0.0
+     },
+     {
+      "re": 0.25,
+      "im": 0.0
+     },
+     {
+      "re": 0.25,
+      "im": 0.0
+     },
+     {
+      "re": 0.25,
+      "im": 0.0
+     },
+     {
+      "re": -0.25,
+      "im": 0.0
+     },
+     {
+      "re": -0.25,
+      "im": 0.0
+     },
+     {
+      "re": -0.25,
+      "im": 0.0
+     },
+     {
+      "re": -0.25,
+      "im": 0.0
+     },
+     {
+      "re": -0.25,
+      "im": 0.0
+     },
+     {
+      "re": -0.25,
+      "im": 0.0
+     },
+     {
+      "re": -0.25,
+      "im": 0.0
+     },
+     {
+      "re": -0.25,
+      "im": 0.0
+     }
+    ],
+    "bloch": [
+     [
+      1.0,
+      0.0,
+      0.0
+     ],
+     [
+      1.0,
+      0.0,
+      0.0
+     ],
+     [
+      1.0,
+      0.0,
+      0.0
+     ],
+     [
+      -1.0,
+      0.0,
+      0.0
+     ]
+    ],
+    "probabilities": [
+     0.0625,
+     0.0625,
+     0.0625,
+     0.0625,
+     0.0625,
+     0.0625,
+     0.0625,
+     0.0625,
+     0.0625,
+     0.0625,
+     0.0625,
+     0.0625,
+     0.0625,
+     0.0625,
+     0.0625,
+     0.0625
+    ],
+    "params": []
+   },
+   {
+    "index": 6,
+    "gate": "X",
+    "targets": [
+     3
+    ],
+    "label": {
+     "en": "X q[3]",
+     "es": "X q[3]"
+    },
+    "statevector": [
+     {
+      "re": -0.25,
+      "im": 0.0
+     },
+     {
+      "re": -0.25,
+      "im": 0.0
+     },
+     {
+      "re": -0.25,
+      "im": 0.0
+     },
+     {
+      "re": -0.25,
+      "im": 0.0
+     },
+     {
+      "re": -0.25,
+      "im": 0.0
+     },
+     {
+      "re": -0.25,
+      "im": 0.0
+     },
+     {
+      "re": -0.25,
+      "im": 0.0
+     },
+     {
+      "re": -0.25,
+      "im": 0.0
+     },
+     {
+      "re": 0.25,
+      "im": 0.0
+     },
+     {
+      "re": 0.25,
+      "im": 0.0
+     },
+     {
+      "re": 0.25,
+      "im": 0.0
+     },
+     {
+      "re": 0.25,
+      "im": 0.0
+     },
+     {
+      "re": 0.25,
+      "im": 0.0
+     },
+     {
+      "re": 0.25,
+      "im": 0.0
+     },
+     {
+      "re": 0.25,
+      "im": 0.0
+     },
+     {
+      "re": 0.25,
+      "im": 0.0
+     }
+    ],
+    "bloch": [
+     [
+      1.0,
+      0.0,
+      0.0
+     ],
+     [
+      1.0,
+      0.0,
+      0.0
+     ],
+     [
+      1.0,
+      0.0,
+      0.0
+     ],
+     [
+      -1.0,
+      0.0,
+      0.0
+     ]
+    ],
+    "probabilities": [
+     0.0625,
+     0.0625,
+     0.0625,
+     0.0625,
+     0.0625,
+     0.0625,
+     0.0625,
+     0.0625,
+     0.0625,
+     0.0625,
+     0.0625,
+     0.0625,
+     0.0625,
+     0.0625,
+     0.0625,
+     0.0625
+    ],
+    "params": []
+   },
+   {
+    "index": 7,
+    "gate": "H",
+    "targets": [
+     0
+    ],
+    "label": {
+     "en": "H q[0]",
+     "es": "H q[0]"
+    },
+    "statevector": [
+     {
+      "re": -0.353553,
+      "im": 0.0
+     },
+     {
+      "re": -0.0,
+      "im": 0.0
+     },
+     {
+      "re": -0.353553,
+      "im": 0.0
+     },
+     {
+      "re": -0.0,
+      "im": 0.0
+     },
+     {
+      "re": -0.353553,
+      "im": 0.0
+     },
+     {
+      "re": -0.0,
+      "im": 0.0
+     },
+     {
+      "re": -0.353553,
+      "im": 0.0
+     },
+     {
+      "re": -0.0,
+      "im": 0.0
+     },
+     {
+      "re": 0.353553,
+      "im": 0.0
+     },
+     {
+      "re": 0.0,
+      "im": 0.0
+     },
+     {
+      "re": 0.353553,
+      "im": 0.0
+     },
+     {
+      "re": 0.0,
+      "im": 0.0
+     },
+     {
+      "re": 0.353553,
+      "im": 0.0
+     },
+     {
+      "re": 0.0,
+      "im": 0.0
+     },
+     {
+      "re": 0.353553,
+      "im": 0.0
+     },
+     {
+      "re": 0.0,
+      "im": 0.0
+     }
+    ],
+    "bloch": [
+     [
+      0.0,
+      0.0,
+      1.0
+     ],
+     [
+      1.0,
+      0.0,
+      0.0
+     ],
+     [
+      1.0,
+      0.0,
+      0.0
+     ],
+     [
+      -1.0,
+      0.0,
+      0.0
+     ]
+    ],
+    "probabilities": [
+     0.125,
+     0.0,
+     0.125,
+     0.0,
+     0.125,
+     0.0,
+     0.125,
+     0.0,
+     0.125,
+     0.0,
+     0.125,
+     0.0,
+     0.125,
+     0.0,
+     0.125,
+     0.0
+    ],
+    "params": []
+   },
+   {
+    "index": 8,
+    "gate": "H",
+    "targets": [
+     1
+    ],
+    "label": {
+     "en": "H q[1]",
+     "es": "H q[1]"
+    },
+    "statevector": [
+     {
+      "re": -0.5,
+      "im": 0.0
+     },
+     {
+      "re": -0.0,
+      "im": 0.0
+     },
+     {
+      "re": -0.0,
+      "im": 0.0
+     },
+     {
+      "re": -0.0,
+      "im": 0.0
+     },
+     {
+      "re": -0.5,
+      "im": 0.0
+     },
+     {
+      "re": -0.0,
+      "im": 0.0
+     },
+     {
+      "re": -0.0,
+      "im": 0.0
+     },
+     {
+      "re": -0.0,
+      "im": 0.0
+     },
+     {
+      "re": 0.5,
+      "im": 0.0
+     },
+     {
+      "re": 0.0,
+      "im": 0.0
+     },
+     {
+      "re": 0.0,
+      "im": 0.0
+     },
+     {
+      "re": 0.0,
+      "im": 0.0
+     },
+     {
+      "re": 0.5,
+      "im": 0.0
+     },
+     {
+      "re": 0.0,
+      "im": 0.0
+     },
+     {
+      "re": 0.0,
+      "im": 0.0
+     },
+     {
+      "re": 0.0,
+      "im": 0.0
+     }
+    ],
+    "bloch": [
+     [
+      0.0,
+      0.0,
+      1.0
+     ],
+     [
+      0.0,
+      0.0,
+      1.0
+     ],
+     [
+      1.0,
+      0.0,
+      0.0
+     ],
+     [
+      -1.0,
+      0.0,
+      0.0
+     ]
+    ],
+    "probabilities": [
+     0.25,
+     0.0,
+     0.0,
+     0.0,
+     0.25,
+     0.0,
+     0.0,
+     0.0,
+     0.25,
+     0.0,
+     0.0,
+     0.0,
+     0.25,
+     0.0,
+     0.0,
+     0.0
+    ],
+    "params": []
+   },
+   {
+    "index": 9,
+    "gate": "H",
+    "targets": [
+     2
+    ],
+    "label": {
+     "en": "H q[2]",
+     "es": "H q[2]"
+    },
+    "statevector": [
+     {
+      "re": -0.707107,
+      "im": 0.0
+     },
+     {
+      "re": -0.0,
+      "im": 0.0
+     },
+     {
+      "re": -0.0,
+      "im": 0.0
+     },
+     {
+      "re": -0.0,
+      "im": 0.0
+     },
+     {
+      "re": 0.0,
+      "im": 0.0
+     },
+     {
+      "re": -0.0,
+      "im": 0.0
+     },
+     {
+      "re": -0.0,
+      "im": 0.0
+     },
+     {
+      "re": 0.0,
+      "im": 0.0
+     },
+     {
+      "re": 0.707107,
+      "im": 0.0
+     },
+     {
+      "re": 0.0,
+      "im": 0.0
+     },
+     {
+      "re": 0.0,
+      "im": 0.0
+     },
+     {
+      "re": 0.0,
+      "im": 0.0
+     },
+     {
+      "re": -0.0,
+      "im": 0.0
+     },
+     {
+      "re": 0.0,
+      "im": 0.0
+     },
+     {
+      "re": 0.0,
+      "im": 0.0
+     },
+     {
+      "re": -0.0,
+      "im": 0.0
+     }
+    ],
+    "bloch": [
+     [
+      0.0,
+      0.0,
+      1.0
+     ],
+     [
+      0.0,
+      0.0,
+      1.0
+     ],
+     [
+      -0.0,
+      0.0,
+      1.0
+     ],
+     [
+      -1.0,
+      0.0,
+      0.0
+     ]
+    ],
+    "probabilities": [
+     0.5,
+     0.0,
+     0.0,
+     0.0,
+     0.0,
+     0.0,
+     0.0,
+     0.0,
+     0.5,
+     0.0,
+     0.0,
+     0.0,
+     0.0,
+     0.0,
+     0.0,
+     0.0
+    ],
+    "params": []
+   }
+  ],
+  "measurements": {
+   "counts": {
+    "0000": 1035,
+    "1000": 1013
+   },
+   "shots": 2048
+  },
+  "circuit_ops": [
+   {
+    "gate": "x",
+    "targets": [
+     3
+    ],
+    "params": []
+   },
+   {
+    "gate": "h",
+    "targets": [
+     0
+    ],
+    "params": []
+   },
+   {
+    "gate": "h",
+    "targets": [
+     1
+    ],
+    "params": []
+   },
+   {
+    "gate": "h",
+    "targets": [
+     2
+    ],
+    "params": []
+   },
+   {
+    "gate": "h",
+    "targets": [
+     3
+    ],
+    "params": []
+   },
+   {
+    "gate": "x",
+    "targets": [
+     3
+    ],
+    "params": []
+   },
+   {
+    "gate": "h",
+    "targets": [
+     0
+    ],
+    "params": []
+   },
+   {
+    "gate": "h",
+    "targets": [
+     1
+    ],
+    "params": []
+   },
+   {
+    "gate": "h",
+    "targets": [
+     2
+    ],
+    "params": []
+   }
+  ],
+  "provenance": {
+   "engine": "qiskit",
+   "engine_version": "2.4.2",
+   "seed": 42,
+   "lane": "tbd",
+   "ran_on": "simulator"
+  },
+  "references": [
+   {
+    "label": "Deutsch & Jozsa, Rapid solution of problems by quantum computation, Proc. R. Soc. A 439 (1992)",
+    "doi": "10.1098/rspa.1992.0167"
+   },
+   {
+    "label": "Nielsen & Chuang, Quantum Computation and Quantum Information (2010)",
+    "url": "https://doi.org/10.1017/CBO9780511976667"
+   }
+  ],
+  "extra": {},
+  "schema_version": "qlab-trace/1"
+ },
+ "solvers": [
+  {
+   "solver": "dj-classical",
+   "label": {
+    "en": "Oracle queries · classical",
+    "es": "Consultas al oráculo · clásico"
+   },
+   "framework": "classical:numpy",
+   "paradigm": "classical",
+   "value": {
+    "verdict": "constant",
+    "correct": true,
+    "classical_queries": 5
+   },
+   "cost": {
+    "wall_ms": 0.0027,
+    "oracle_queries": 5
+   },
+   "notes": {
+    "en": "Decided f is constant after 5 oracle queries (worst case 5); the quantum win is in query COUNT, not wall-time.",
+    "es": "Decidió que f es constant tras 5 consultas (peor caso 5); la ventaja cuántica es en NÚMERO de consultas, no en tiempo."
+   },
+   "optimal": true,
+   "extra": {}
+  },
+  {
+   "solver": "dj-qiskit",
+   "label": {
+    "en": "DJ circuit · Qiskit",
+    "es": "Circuito DJ · Qiskit"
+   },
+   "framework": "qiskit",
+   "paradigm": "quantum-sim",
+   "value": {
+    "verdict": "constant",
+    "correct": true,
+    "quantum_queries": 1
+   },
+   "cost": {
+    "wall_ms": 4.323,
+    "qubits": 4,
+    "depth": 9,
+    "oracle_queries": 1
+   },
+   "notes": {
+    "en": "One oracle query decides f is constant (all-zeros ⇒ constant, else balanced).",
+    "es": "Una consulta al oráculo decide que f es constant (todo-ceros ⇒ constante)."
+   },
+   "optimal": false,
+   "extra": {}
+  }
+ ],
+ "comparison": {
+  "quantum_queries": 1,
+  "classical_queries": 5,
+  "verdict": {
+   "en": "Both decide f is constant. Quantum: 1 oracle query. Classical: 5 queries (worst case 5 = 2^(n-1)+1). An exponential query-complexity gap — though at this size the classical decision is still instant.",
+   "es": "Ambos deciden que f es constant. Cuántico: 1 consulta. Clásico: 5 consultas (peor caso 5 = 2^(n-1)+1). Una brecha exponencial en complejidad de consultas — aunque a este tamaño la decisión clásica es instantánea."
+  }
+ },
+ "references": [
+  {
+   "label": "Deutsch & Jozsa, Rapid solution of problems by quantum computation, Proc. R. Soc. A 439 (1992)",
+   "doi": "10.1098/rspa.1992.0167"
+  },
+  {
+   "label": "Nielsen & Chuang, Quantum Computation and Quantum Information (2010)",
+   "url": "https://doi.org/10.1017/CBO9780511976667"
+  }
+ ]
+}

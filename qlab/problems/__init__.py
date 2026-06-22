@@ -2,6 +2,11 @@
 Adding a problem = add its module here; nothing else changes.
 """
 
-from qlab.problems import bernstein_vazirani, maxcut, state_prep  # noqa: F401  (import = registration)
+from qlab.problems import (  # noqa: F401  (import = registration)
+    bernstein_vazirani,
+    deutsch_jozsa,
+    maxcut,
+    state_prep,
+)
 
-__all__ = ["state_prep", "maxcut", "bernstein_vazirani"]
+__all__ = ["state_prep", "maxcut", "bernstein_vazirani", "deutsch_jozsa"]

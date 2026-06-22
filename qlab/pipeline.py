@@ -59,6 +59,20 @@ def _comparison(problem, results: list) -> dict:
             f"gana — el resultado honesto y esperado."
         )
         return {"optimal_cut": opt, "qaoa_cut": q, "verdict": {"en": verdict_en, "es": verdict_es}}
+    if problem.id == "deutsch-jozsa":
+        cls = next((r for r in results if r.paradigm == "classical"), None)
+        q = next((r for r in results if r.paradigm != "classical"), None)
+        kq = cls.value.get("classical_queries") if cls else None
+        verdict = q.value.get("verdict") if q else (cls.value.get("verdict") if cls else None)
+        n = (q.cost.get("qubits", 2) - 1) if q else 1   # DJ uses n input qubits + 1 ancilla
+        worst = 2 ** (n - 1) + 1
+        return {"quantum_queries": 1, "classical_queries": kq, "verdict": {
+            "en": f"Both decide f is {verdict}. Quantum: 1 oracle query. Classical: {kq} queries "
+                  f"(worst case {worst} = 2^(n-1)+1). An exponential query-complexity gap — though at this "
+                  f"size the classical decision is still instant.",
+            "es": f"Ambos deciden que f es {verdict}. Cuántico: 1 consulta. Clásico: {kq} consultas "
+                  f"(peor caso {worst} = 2^(n-1)+1). Una brecha exponencial en complejidad de consultas — "
+                  f"aunque a este tamaño la decisión clásica es instantánea."}}
     if problem.id == "bernstein-vazirani":
         cls = next((r for r in results if r.paradigm == "classical"), None)
         nq = cls.value.get("classical_queries") if cls else None

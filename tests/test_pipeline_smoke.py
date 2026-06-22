@@ -36,6 +36,18 @@ def test_bernstein_vazirani_recovers_secret_in_one_query():
     assert res["bv-classical"].value["classical_queries"] == 5  # n bits → n classical queries
 
 
+def test_deutsch_jozsa_constant_and_balanced():
+    from qlab.registry import get_problem, solvers_for
+
+    problem = get_problem("deutsch-jozsa")
+    for iid, exp in [("dj-const0-3", "constant"), ("dj-bal-101", "balanced")]:
+        inst = problem.instance(iid)
+        res = {s.name: s.run(problem, inst, seed=42, shots=256) for s in solvers_for(problem)}
+        assert res["dj-qiskit"].value["verdict"] == exp
+        assert res["dj-qiskit"].value["quantum_queries"] == 1
+        assert res["dj-classical"].value["verdict"] == exp
+
+
 def test_maxcut_classical_optimum_beats_or_matches_qaoa():
     from qlab.problems.maxcut import MaxCut
     from qlab.registry import get_problem, solvers_for
