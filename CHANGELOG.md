@@ -4,6 +4,20 @@ All notable changes to CAOS_QLAB. Format: newest → oldest. Versions follow `X.
 (major.minor.patch); patch (`.00X`) for fixes. Kept `0.x` while the web SPA and the framework/case matrix
 are still landing. Tags from day one.
 
+## [0.09.000] — 2026-06-22 — Quantum Phase Estimation (the QFT's first payoff)
+
+### Added
+- **Case `qpe`** (6 variants, t=3–5) — estimate the eigenphase φ of U=P(2πφ) on |1⟩ via controlled-U^{2^j}
+  + inverse QFT. Solvers **`qpe-qiskit`** (real circuit + counting-register trace; exact cases hit φ with
+  P=1.0, finite-precision cases land on the nearest 2^{-t} bin with textbook probabilities) and
+  **`qpe-classical`** (exact eigendecomposition of the 2×2 U). Lane=live.
+- Honest verdict: QPE is finite-precision and, at toy scale, beaten by instant classical diagonalization —
+  it earns its keep only when U is too large to diagonalize (e^{iHt} in Shor/chemistry). Builds on the QFT.
+- Pipeline QPE verdict; test `test_qpe_estimates_phase`; docs node `docs/use-cases/08_qpe.md`.
+
+### Verified
+- 13/13 tests, ruff clean. Exact φ (1/4, 5/8, 3/16) → error 0.0, P(top)=1.0; inexact φ → nearest bin.
+
 ## [0.08.000] — 2026-06-22 — Quantum Fourier Transform (flagship subroutine)
 
 ### Added

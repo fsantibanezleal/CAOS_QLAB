@@ -82,6 +82,18 @@ def test_qft_matches_analytic_dft():
     assert res["qft-classical"].value["readable"] is True
 
 
+def test_qpe_estimates_phase():
+    from qlab.registry import get_problem, solvers_for
+
+    problem = get_problem("qpe")
+    inst = problem.instance("qpe-t3-1_4")  # φ = 1/4 is exactly representable in 3 bits
+    res = {s.name: s.run(problem, inst, seed=42, shots=256) for s in solvers_for(problem)}
+    assert abs(res["qpe-qiskit"].value["phi_estimate"] - 0.25) < 1e-9
+    assert res["qpe-qiskit"].value["error"] == 0.0
+    assert res["qpe-qiskit"].value["p_top"] > 0.99
+    assert abs(res["qpe-classical"].value["phi_exact"] - 0.25) < 1e-9
+
+
 def test_maxcut_classical_optimum_beats_or_matches_qaoa():
     from qlab.problems.maxcut import MaxCut
     from qlab.registry import get_problem, solvers_for

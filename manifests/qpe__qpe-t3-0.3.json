@@ -1,0 +1,42 @@
+{
+ "case_id": "qpe",
+ "title": {
+  "en": "Quantum Phase Estimation",
+  "es": "Estimación cuántica de fase"
+ },
+ "category": "flagship-algorithms",
+ "lane": "live",
+ "lane_reasons": [],
+ "qubits": 4,
+ "seed": 42,
+ "shots": 2048,
+ "params": {
+  "t": 3,
+  "phi": 0.3,
+  "exact": false
+ },
+ "measured": {
+  "run_ms": 6.663,
+  "trace_bytes": 14547,
+  "unitary_only": true
+ },
+ "viz": [
+  "amp_phase",
+  "histogram",
+  "circuit"
+ ],
+ "engine": "qiskit",
+ "engine_version": "2.4.2",
+ "trace_path": "qpe/qpe-t3-0.3.json",
+ "references": [
+  {
+   "label": "Kitaev, Quantum measurements and the Abelian Stabilizer Problem (1995)",
+   "url": "https://arxiv.org/abs/quant-ph/9511026"
+  },
+  {
+   "label": "Nielsen & Chuang, Quantum Computation and Quantum Information (2010)",
+   "url": "https://doi.org/10.1017/CBO9780511976667"
+  }
+ ],
+ "manifest_version": "qlab-manifest/1"
+}

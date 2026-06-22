@@ -15,6 +15,7 @@ lands (ADR-0056).
 | [05](./use-cases/05_simon.md) | **Simon** | oracle-algorithms | Simon circuit + GF(2) solve (Qiskit) · collision search (classical) | 6 periods (n=2–3) | precompute | hidden period in **O(n)** quantum queries vs **~2ⁿ/²** classical — first exponential separation |
 | [06](./use-cases/06_grover.md) | **Grover** | flagship-algorithms | oracle + diffuser (Qiskit) · linear scan (classical) | 6 (N=4–16, single + multi-marked) | live | finds the marked item in **~√N** queries vs classical **~N/2** — quadratic (asymptotic) speedup |
 | [07](./use-cases/07_qft.md) | **QFT** | flagship-algorithms | QFT circuit (Qiskit) · FFT (classical) | 6 (n=3–4 basis states) | live | transform in **O(n²)** gates vs classical **O(n·2ⁿ)** — cheaper to apply, but unreadable → a subroutine |
+| [08](./use-cases/08_qpe.md) | **QPE** | flagship-algorithms | controlled-powers + inverse QFT (Qiskit) · eigendecomposition (classical) | 6 (t=3–5, exact + finite-precision) | live | estimate eigenphase φ to **2⁻ᵗ**; classical diagonalizes tiny U exactly → QPE is a subroutine for huge U |
 
 ## Roadmap (the catalog, ordered beginner → advanced)
 
@@ -35,7 +36,7 @@ small unitary (JS lane); **precompute** = needs noise / feed-forward / optimizat
 | 12 | Simon's algorithm | oracle-algorithms | precompute | ✅ shipping (case 05) |
 | 13 | Grover search | flagship-algorithms | live | ✅ shipping (case 06) |
 | 14 | Quantum Fourier Transform | flagship-algorithms | live | ✅ shipping (case 07) |
-| 15 | Quantum phase estimation | flagship-algorithms | precompute | circuit (precision sweep) |
+| 15 | Quantum phase estimation | flagship-algorithms | live | ✅ shipping (case 08) |
 | 16 | Shor (toy, factor 15) | flagship-algorithms | precompute | circuit vs classical factoring + resource-cost panel |
 | 17 | VQE — H₂ ground state | variational | precompute | VQE (PennyLane + Qiskit) vs exact diagonalization (FCI) |
 | 18 | QAOA — MaxCut | variational | precompute | ✅ shipping (case 02) |

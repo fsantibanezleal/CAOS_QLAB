@@ -1,0 +1,2062 @@
+{
+ "schema_version": "qlab-trace/1",
+ "case_id": "qpe",
+ "category": "flagship-algorithms",
+ "title": {
+  "en": "Quantum Phase Estimation",
+  "es": "Estimación cuántica de fase"
+ },
+ "concept": {
+  "en": "QPE estimates the phase φ of an eigenvalue e^{2πiφ} of a unitary U. A counting register of t qubits is put in superposition; controlled-U^{2^j} kicks the phase back onto it; an inverse QFT turns that phase ramp into a binary number — the t-bit estimate of φ. It is the first real use of the QFT and the engine inside Shor's order-finding. Two honest caveats: it is finite-precision (t bits resolve φ to 2^{-t}), and at this toy scale a classical eigendecomposition of U gives φ exactly and instantly — QPE only wins when U is too large to diagonalize.",
+  "es": "QPE estima la fase φ de un autovalor e^{2πiφ} de un unitario U. Un registro de conteo de t qubits se pone en superposición; controlled-U^{2^j} le devuelve la fase (phase kickback); una QFT inversa convierte esa rampa de fase en un número binario — la estimación de φ a t bits. Es el primer uso real de la QFT y el motor del order-finding de Shor. Dos salvedades honestas: es de precisión finita (t bits resuelven φ a 2^{-t}), y a esta escala de juguete una diagonalización clásica de U da φ exacto e instantáneo — QPE solo gana cuando U es demasiado grande para diagonalizar."
+ },
+ "metric": {
+  "en": "estimated eigenphase φ",
+  "es": "fase propia estimada φ"
+ },
+ "instance": {
+  "id": "qpe-t3-1_4",
+  "title": {
+   "en": "t=3, φ=1/4 (exact)",
+   "es": "t=3, φ=1/4 (exact)"
+  },
+  "params": {
+   "t": 3,
+   "phi": 0.25,
+   "exact": true
+  },
+  "note": {
+   "en": "U=P(2πφ), eigenstate |1⟩, t=3 counting qubits → exact (φ = m/2ᵗ); resolution 2^-3.",
+   "es": "U=P(2πφ), autoestado |1⟩, t=3 qubits de conteo → exact (φ = m/2ᵗ); resolución 2^-3."
+  }
+ },
+ "qubits": 4,
+ "lane": "live",
+ "lane_reasons": [],
+ "seed": 42,
+ "shots": 2048,
+ "primary_solver": "qpe-qiskit",
+ "trace": {
+  "case_id": "qpe",
+  "title": {
+   "en": "Quantum Phase Estimation",
+   "es": "Estimación cuántica de fase"
+  },
+  "concept": {
+   "en": "QPE estimates the phase φ of an eigenvalue e^{2πiφ} of a unitary U. A counting register of t qubits is put in superposition; controlled-U^{2^j} kicks the phase back onto it; an inverse QFT turns that phase ramp into a binary number — the t-bit estimate of φ. It is the first real use of the QFT and the engine inside Shor's order-finding. Two honest caveats: it is finite-precision (t bits resolve φ to 2^{-t}), and at this toy scale a classical eigendecomposition of U gives φ exactly and instantly — QPE only wins when U is too large to diagonalize.",
+   "es": "QPE estima la fase φ de un autovalor e^{2πiφ} de un unitario U. Un registro de conteo de t qubits se pone en superposición; controlled-U^{2^j} le devuelve la fase (phase kickback); una QFT inversa convierte esa rampa de fase en un número binario — la estimación de φ a t bits. Es el primer uso real de la QFT y el motor del order-finding de Shor. Dos salvedades honestas: es de precisión finita (t bits resuelven φ a 2^{-t}), y a esta escala de juguete una diagonalización clásica de U da φ exacto e instantáneo — QPE solo gana cuando U es demasiado grande para diagonalizar."
+  },
+  "qubits": 4,
+  "steps": [
+   {
+    "index": 0,
+    "gate": "init",
+    "targets": [],
+    "label": {
+     "en": "Initial state |0…0⟩",
+     "es": "Estado inicial |0…0⟩"
+    },
+    "statevector": [
+     {
+      "re": 1.0,
+      "im": 0.0
+     },
+     {
+      "re": 0.0,
+      "im": 0.0
+     },
+     {
+      "re": 0.0,
+      "im": 0.0
+     },
+     {
+      "re": 0.0,
+      "im": 0.0
+     },
+     {
+      "re": 0.0,
+      "im": 0.0
+     },
+     {
+      "re": 0.0,
+      "im": 0.0
+     },
+     {
+      "re": 0.0,
+      "im": 0.0
+     },
+     {
+      "re": 0.0,
+      "im": 0.0
+     },
+     {
+      "re": 0.0,
+      "im": 0.0
+     },
+     {
+      "re": 0.0,
+      "im": 0.0
+     },
+     {
+      "re": 0.0,
+      "im": 0.0
+     },
+     {
+      "re": 0.0,
+      "im": 0.0
+     },
+     {
+      "re": 0.0,
+      "im": 0.0
+     },
+     {
+      "re": 0.0,
+      "im": 0.0
+     },
+     {
+      "re": 0.0,
+      "im": 0.0
+     },
+     {
+      "re": 0.0,
+      "im": 0.0
+     }
+    ],
+    "bloch": [
+     [
+      0.0,
+      0.0,
+      1.0
+     ],
+     [
+      0.0,
+      0.0,
+      1.0
+     ],
+     [
+      0.0,
+      0.0,
+      1.0
+     ],
+     [
+      0.0,
+      0.0,
+      1.0
+     ]
+    ],
+    "probabilities": [
+     1.0,
+     0.0,
+     0.0,
+     0.0,
+     0.0,
+     0.0,
+     0.0,
+     0.0,
+     0.0,
+     0.0,
+     0.0,
+     0.0,
+     0.0,
+     0.0,
+     0.0,
+     0.0
+    ],
+    "params": []
+   },
+   {
+    "index": 1,
+    "gate": "X",
+    "targets": [
+     3
+    ],
+    "label": {
+     "en": "X q[3]",
+     "es": "X q[3]"
+    },
+    "statevector": [
+     {
+      "re": 0.0,
+      "im": 0.0
+     },
+     {
+      "re": 0.0,
+      "im": 0.0
+     },
+     {
+      "re": 0.0,
+      "im": 0.0
+     },
+     {
+      "re": 0.0,
+      "im": 0.0
+     },
+     {
+      "re": 0.0,
+      "im": 0.0
+     },
+     {
+      "re": 0.0,
+      "im": 0.0
+     },
+     {
+      "re": 0.0,
+      "im": 0.0
+     },
+     {
+      "re": 0.0,
+      "im": 0.0
+     },
+     {
+      "re": 1.0,
+      "im": 0.0
+     },
+     {
+      "re": 0.0,
+      "im": 0.0
+     },
+     {
+      "re": 0.0,
+      "im": 0.0
+     },
+     {
+      "re": 0.0,
+      "im": 0.0
+     },
+     {
+      "re": 0.0,
+      "im": 0.0
+     },
+     {
+      "re": 0.0,
+      "im": 0.0
+     },
+     {
+      "re": 0.0,
+      "im": 0.0
+     },
+     {
+      "re": 0.0,
+      "im": 0.0
+     }
+    ],
+    "bloch": [
+     [
+      0.0,
+      0.0,
+      1.0
+     ],
+     [
+      0.0,
+      0.0,
+      1.0
+     ],
+     [
+      0.0,
+      0.0,
+      1.0
+     ],
+     [
+      0.0,
+      0.0,
+      -1.0
+     ]
+    ],
+    "probabilities": [
+     0.0,
+     0.0,
+     0.0,
+     0.0,
+     0.0,
+     0.0,
+     0.0,
+     0.0,
+     1.0,
+     0.0,
+     0.0,
+     0.0,
+     0.0,
+     0.0,
+     0.0,
+     0.0
+    ],
+    "params": []
+   },
+   {
+    "index": 2,
+    "gate": "H",
+    "targets": [
+     0
+    ],
+    "label": {
+     "en": "H q[0]",
+     "es": "H q[0]"
+    },
+    "statevector": [
+     {
+      "re": 0.0,
+      "im": 0.0
+     },
+     {
+      "re": 0.0,
+      "im": 0.0
+     },
+     {
+      "re": 0.0,
+      "im": 0.0
+     },
+     {
+      "re": 0.0,
+      "im": 0.0
+     },
+     {
+      "re": 0.0,
+      "im": 0.0
+     },
+     {
+      "re": 0.0,
+      "im": 0.0
+     },
+     {
+      "re": 0.0,
+      "im": 0.0
+     },
+     {
+      "re": 0.0,
+      "im": 0.0
+     },
+     {
+      "re": 0.707107,
+      "im": 0.0
+     },
+     {
+      "re": 0.707107,
+      "im": 0.0
+     },
+     {
+      "re": 0.0,
+      "im": 0.0
+     },
+     {
+      "re": 0.0,
+      "im": 0.0
+     },
+     {
+      "re": 0.0,
+      "im": 0.0
+     },
+     {
+      "re": 0.0,
+      "im": 0.0
+     },
+     {
+      "re": 0.0,
+      "im": 0.0
+     },
+     {
+      "re": 0.0,
+      "im": 0.0
+     }
+    ],
+    "bloch": [
+     [
+      1.0,
+      0.0,
+      0.0
+     ],
+     [
+      0.0,
+      0.0,
+      1.0
+     ],
+     [
+      0.0,
+      0.0,
+      1.0
+     ],
+     [
+      0.0,
+      0.0,
+      -1.0
+     ]
+    ],
+    "probabilities": [
+     0.0,
+     0.0,
+     0.0,
+     0.0,
+     0.0,
+     0.0,
+     0.0,
+     0.0,
+     0.5,
+     0.5,
+     0.0,
+     0.0,
+     0.0,
+     0.0,
+     0.0,
+     0.0
+    ],
+    "params": []
+   },
+   {
+    "index": 3,
+    "gate": "H",
+    "targets": [
+     1
+    ],
+    "label": {
+     "en": "H q[1]",
+     "es": "H q[1]"
+    },
+    "statevector": [
+     {
+      "re": 0.0,
+      "im": 0.0
+     },
+     {
+      "re": 0.0,
+      "im": 0.0
+     },
+     {
+      "re": 0.0,
+      "im": 0.0
+     },
+     {
+      "re": 0.0,
+      "im": 0.0
+     },
+     {
+      "re": 0.0,
+      "im": 0.0
+     },
+     {
+      "re": 0.0,
+      "im": 0.0
+     },
+     {
+      "re": 0.0,
+      "im": 0.0
+     },
+     {
+      "re": 0.0,
+      "im": 0.0
+     },
+     {
+      "re": 0.5,
+      "im": 0.0
+     },
+     {
+      "re": 0.5,
+      "im": 0.0
+     },
+     {
+      "re": 0.5,
+      "im": 0.0
+     },
+     {
+      "re": 0.5,
+      "im": 0.0
+     },
+     {
+      "re": 0.0,
+      "im": 0.0
+     },
+     {
+      "re": 0.0,
+      "im": 0.0
+     },
+     {
+      "re": 0.0,
+      "im": 0.0
+     },
+     {
+      "re": 0.0,
+      "im": 0.0
+     }
+    ],
+    "bloch": [
+     [
+      1.0,
+      0.0,
+      0.0
+     ],
+     [
+      1.0,
+      0.0,
+      0.0
+     ],
+     [
+      0.0,
+      0.0,
+      1.0
+     ],
+     [
+      0.0,
+      0.0,
+      -1.0
+     ]
+    ],
+    "probabilities": [
+     0.0,
+     0.0,
+     0.0,
+     0.0,
+     0.0,
+     0.0,
+     0.0,
+     0.0,
+     0.25,
+     0.25,
+     0.25,
+     0.25,
+     0.0,
+     0.0,
+     0.0,
+     0.0
+    ],
+    "params": []
+   },
+   {
+    "index": 4,
+    "gate": "H",
+    "targets": [
+     2
+    ],
+    "label": {
+     "en": "H q[2]",
+     "es": "H q[2]"
+    },
+    "statevector": [
+     {
+      "re": 0.0,
+      "im": 0.0
+     },
+     {
+      "re": 0.0,
+      "im": 0.0
+     },
+     {
+      "re": 0.0,
+      "im": 0.0
+     },
+     {
+      "re": 0.0,
+      "im": 0.0
+     },
+     {
+      "re": 0.0,
+      "im": 0.0
+     },
+     {
+      "re": 0.0,
+      "im": 0.0
+     },
+     {
+      "re": 0.0,
+      "im": 0.0
+     },
+     {
+      "re": 0.0,
+      "im": 0.0
+     },
+     {
+      "re": 0.353553,
+      "im": 0.0
+     },
+     {
+      "re": 0.353553,
+      "im": 0.0
+     },
+     {
+      "re": 0.353553,
+      "im": 0.0
+     },
+     {
+      "re": 0.353553,
+      "im": 0.0
+     },
+     {
+      "re": 0.353553,
+      "im": 0.0
+     },
+     {
+      "re": 0.353553,
+      "im": 0.0
+     },
+     {
+      "re": 0.353553,
+      "im": 0.0
+     },
+     {
+      "re": 0.353553,
+      "im": 0.0
+     }
+    ],
+    "bloch": [
+     [
+      1.0,
+      0.0,
+      0.0
+     ],
+     [
+      1.0,
+      0.0,
+      0.0
+     ],
+     [
+      1.0,
+      0.0,
+      0.0
+     ],
+     [
+      0.0,
+      0.0,
+      -1.0
+     ]
+    ],
+    "probabilities": [
+     0.0,
+     0.0,
+     0.0,
+     0.0,
+     0.0,
+     0.0,
+     0.0,
+     0.0,
+     0.125,
+     0.125,
+     0.125,
+     0.125,
+     0.125,
+     0.125,
+     0.125,
+     0.125
+    ],
+    "params": []
+   },
+   {
+    "index": 5,
+    "gate": "CP",
+    "targets": [
+     0,
+     3
+    ],
+    "label": {
+     "en": "CP q[0, 3]",
+     "es": "CP q[0, 3]"
+    },
+    "statevector": [
+     {
+      "re": 0.0,
+      "im": 0.0
+     },
+     {
+      "re": 0.0,
+      "im": 0.0
+     },
+     {
+      "re": 0.0,
+      "im": 0.0
+     },
+     {
+      "re": 0.0,
+      "im": 0.0
+     },
+     {
+      "re": 0.0,
+      "im": 0.0
+     },
+     {
+      "re": 0.0,
+      "im": 0.0
+     },
+     {
+      "re": 0.0,
+      "im": 0.0
+     },
+     {
+      "re": 0.0,
+      "im": 0.0
+     },
+     {
+      "re": 0.353553,
+      "im": 0.0
+     },
+     {
+      "re": 0.0,
+      "im": 0.353553
+     },
+     {
+      "re": 0.353553,
+      "im": 0.0
+     },
+     {
+      "re": 0.0,
+      "im": 0.353553
+     },
+     {
+      "re": 0.353553,
+      "im": 0.0
+     },
+     {
+      "re": 0.0,
+      "im": 0.353553
+     },
+     {
+      "re": 0.353553,
+      "im": 0.0
+     },
+     {
+      "re": 0.0,
+      "im": 0.353553
+     }
+    ],
+    "bloch": [
+     [
+      0.0,
+      1.0,
+      0.0
+     ],
+     [
+      1.0,
+      0.0,
+      0.0
+     ],
+     [
+      1.0,
+      0.0,
+      0.0
+     ],
+     [
+      0.0,
+      0.0,
+      -1.0
+     ]
+    ],
+    "probabilities": [
+     0.0,
+     0.0,
+     0.0,
+     0.0,
+     0.0,
+     0.0,
+     0.0,
+     0.0,
+     0.125,
+     0.125,
+     0.125,
+     0.125,
+     0.125,
+     0.125,
+     0.125,
+     0.125
+    ],
+    "params": [
+     1.570796
+    ]
+   },
+   {
+    "index": 6,
+    "gate": "CP",
+    "targets": [
+     1,
+     3
+    ],
+    "label": {
+     "en": "CP q[1, 3]",
+     "es": "CP q[1, 3]"
+    },
+    "statevector": [
+     {
+      "re": 0.0,
+      "im": 0.0
+     },
+     {
+      "re": 0.0,
+      "im": 0.0
+     },
+     {
+      "re": 0.0,
+      "im": 0.0
+     },
+     {
+      "re": 0.0,
+      "im": 0.0
+     },
+     {
+      "re": 0.0,
+      "im": 0.0
+     },
+     {
+      "re": 0.0,
+      "im": 0.0
+     },
+     {
+      "re": 0.0,
+      "im": 0.0
+     },
+     {
+      "re": 0.0,
+      "im": 0.0
+     },
+     {
+      "re": 0.353553,
+      "im": 0.0
+     },
+     {
+      "re": 0.0,
+      "im": 0.353553
+     },
+     {
+      "re": -0.353553,
+      "im": 0.0
+     },
+     {
+      "re": -0.0,
+      "im": -0.353553
+     },
+     {
+      "re": 0.353553,
+      "im": 0.0
+     },
+     {
+      "re": 0.0,
+      "im": 0.353553
+     },
+     {
+      "re": -0.353553,
+      "im": 0.0
+     },
+     {
+      "re": -0.0,
+      "im": -0.353553
+     }
+    ],
+    "bloch": [
+     [
+      0.0,
+      1.0,
+      0.0
+     ],
+     [
+      -1.0,
+      0.0,
+      0.0
+     ],
+     [
+      1.0,
+      0.0,
+      0.0
+     ],
+     [
+      0.0,
+      0.0,
+      -1.0
+     ]
+    ],
+    "probabilities": [
+     0.0,
+     0.0,
+     0.0,
+     0.0,
+     0.0,
+     0.0,
+     0.0,
+     0.0,
+     0.125,
+     0.125,
+     0.125,
+     0.125,
+     0.125,
+     0.125,
+     0.125,
+     0.125
+    ],
+    "params": [
+     3.141593
+    ]
+   },
+   {
+    "index": 7,
+    "gate": "CP",
+    "targets": [
+     2,
+     3
+    ],
+    "label": {
+     "en": "CP q[2, 3]",
+     "es": "CP q[2, 3]"
+    },
+    "statevector": [
+     {
+      "re": 0.0,
+      "im": 0.0
+     },
+     {
+      "re": 0.0,
+      "im": 0.0
+     },
+     {
+      "re": 0.0,
+      "im": 0.0
+     },
+     {
+      "re": 0.0,
+      "im": 0.0
+     },
+     {
+      "re": 0.0,
+      "im": 0.0
+     },
+     {
+      "re": 0.0,
+      "im": 0.0
+     },
+     {
+      "re": 0.0,
+      "im": 0.0
+     },
+     {
+      "re": 0.0,
+      "im": 0.0
+     },
+     {
+      "re": 0.353553,
+      "im": 0.0
+     },
+     {
+      "re": 0.0,
+      "im": 0.353553
+     },
+     {
+      "re": -0.353553,
+      "im": 0.0
+     },
+     {
+      "re": -0.0,
+      "im": -0.353553
+     },
+     {
+      "re": 0.353553,
+      "im": -0.0
+     },
+     {
+      "re": 0.0,
+      "im": 0.353553
+     },
+     {
+      "re": -0.353553,
+      "im": 0.0
+     },
+     {
+      "re": -0.0,
+      "im": -0.353553
+     }
+    ],
+    "bloch": [
+     [
+      0.0,
+      1.0,
+      0.0
+     ],
+     [
+      -1.0,
+      0.0,
+      0.0
+     ],
+     [
+      1.0,
+      -0.0,
+      0.0
+     ],
+     [
+      0.0,
+      0.0,
+      -1.0
+     ]
+    ],
+    "probabilities": [
+     0.0,
+     0.0,
+     0.0,
+     0.0,
+     0.0,
+     0.0,
+     0.0,
+     0.0,
+     0.125,
+     0.125,
+     0.125,
+     0.125,
+     0.125,
+     0.125,
+     0.125,
+     0.125
+    ],
+    "params": [
+     6.283185
+    ]
+   },
+   {
+    "index": 8,
+    "gate": "SWAP",
+    "targets": [
+     0,
+     2
+    ],
+    "label": {
+     "en": "SWAP q[0, 2]",
+     "es": "SWAP q[0, 2]"
+    },
+    "statevector": [
+     {
+      "re": 0.0,
+      "im": 0.0
+     },
+     {
+      "re": 0.0,
+      "im": 0.0
+     },
+     {
+      "re": 0.0,
+      "im": 0.0
+     },
+     {
+      "re": 0.0,
+      "im": 0.0
+     },
+     {
+      "re": 0.0,
+      "im": 0.0
+     },
+     {
+      "re": 0.0,
+      "im": 0.0
+     },
+     {
+      "re": 0.0,
+      "im": 0.0
+     },
+     {
+      "re": 0.0,
+      "im": 0.0
+     },
+     {
+      "re": 0.353553,
+      "im": 0.0
+     },
+     {
+      "re": 0.353553,
+      "im": -0.0
+     },
+     {
+      "re": -0.353553,
+      "im": 0.0
+     },
+     {
+      "re": -0.353553,
+      "im": 0.0
+     },
+     {
+      "re": 0.0,
+      "im": 0.353553
+     },
+     {
+      "re": 0.0,
+      "im": 0.353553
+     },
+     {
+      "re": -0.0,
+      "im": -0.353553
+     },
+     {
+      "re": -0.0,
+      "im": -0.353553
+     }
+    ],
+    "bloch": [
+     [
+      1.0,
+      -0.0,
+      0.0
+     ],
+     [
+      -1.0,
+      0.0,
+      0.0
+     ],
+     [
+      0.0,
+      1.0,
+      0.0
+     ],
+     [
+      0.0,
+      0.0,
+      -1.0
+     ]
+    ],
+    "probabilities": [
+     0.0,
+     0.0,
+     0.0,
+     0.0,
+     0.0,
+     0.0,
+     0.0,
+     0.0,
+     0.125,
+     0.125,
+     0.125,
+     0.125,
+     0.125,
+     0.125,
+     0.125,
+     0.125
+    ],
+    "params": []
+   },
+   {
+    "index": 9,
+    "gate": "H",
+    "targets": [
+     0
+    ],
+    "label": {
+     "en": "H q[0]",
+     "es": "H q[0]"
+    },
+    "statevector": [
+     {
+      "re": 0.0,
+      "im": 0.0
+     },
+     {
+      "re": 0.0,
+      "im": 0.0
+     },
+     {
+      "re": 0.0,
+      "im": 0.0
+     },
+     {
+      "re": 0.0,
+      "im": 0.0
+     },
+     {
+      "re": 0.0,
+      "im": 0.0
+     },
+     {
+      "re": 0.0,
+      "im": 0.0
+     },
+     {
+      "re": 0.0,
+      "im": 0.0
+     },
+     {
+      "re": 0.0,
+      "im": 0.0
+     },
+     {
+      "re": 0.5,
+      "im": -0.0
+     },
+     {
+      "re": 0.0,
+      "im": 0.0
+     },
+     {
+      "re": -0.5,
+      "im": 0.0
+     },
+     {
+      "re": -0.0,
+      "im": -0.0
+     },
+     {
+      "re": 0.0,
+      "im": 0.5
+     },
+     {
+      "re": -0.0,
+      "im": 0.0
+     },
+     {
+      "re": -0.0,
+      "im": -0.5
+     },
+     {
+      "re": 0.0,
+      "im": -0.0
+     }
+    ],
+    "bloch": [
+     [
+      0.0,
+      0.0,
+      1.0
+     ],
+     [
+      -1.0,
+      0.0,
+      0.0
+     ],
+     [
+      0.0,
+      1.0,
+      0.0
+     ],
+     [
+      0.0,
+      0.0,
+      -1.0
+     ]
+    ],
+    "probabilities": [
+     0.0,
+     0.0,
+     0.0,
+     0.0,
+     0.0,
+     0.0,
+     0.0,
+     0.0,
+     0.25,
+     0.0,
+     0.25,
+     0.0,
+     0.25,
+     0.0,
+     0.25,
+     0.0
+    ],
+    "params": []
+   },
+   {
+    "index": 10,
+    "gate": "CP",
+    "targets": [
+     0,
+     1
+    ],
+    "label": {
+     "en": "CP q[0, 1]",
+     "es": "CP q[0, 1]"
+    },
+    "statevector": [
+     {
+      "re": 0.0,
+      "im": 0.0
+     },
+     {
+      "re": 0.0,
+      "im": 0.0
+     },
+     {
+      "re": 0.0,
+      "im": 0.0
+     },
+     {
+      "re": 0.0,
+      "im": 0.0
+     },
+     {
+      "re": 0.0,
+      "im": 0.0
+     },
+     {
+      "re": 0.0,
+      "im": 0.0
+     },
+     {
+      "re": 0.0,
+      "im": 0.0
+     },
+     {
+      "re": 0.0,
+      "im": 0.0
+     },
+     {
+      "re": 0.5,
+      "im": -0.0
+     },
+     {
+      "re": 0.0,
+      "im": 0.0
+     },
+     {
+      "re": -0.5,
+      "im": 0.0
+     },
+     {
+      "re": -0.0,
+      "im": 0.0
+     },
+     {
+      "re": 0.0,
+      "im": 0.5
+     },
+     {
+      "re": -0.0,
+      "im": 0.0
+     },
+     {
+      "re": -0.0,
+      "im": -0.5
+     },
+     {
+      "re": -0.0,
+      "im": -0.0
+     }
+    ],
+    "bloch": [
+     [
+      0.0,
+      0.0,
+      1.0
+     ],
+     [
+      -1.0,
+      0.0,
+      0.0
+     ],
+     [
+      0.0,
+      1.0,
+      0.0
+     ],
+     [
+      0.0,
+      0.0,
+      -1.0
+     ]
+    ],
+    "probabilities": [
+     0.0,
+     0.0,
+     0.0,
+     0.0,
+     0.0,
+     0.0,
+     0.0,
+     0.0,
+     0.25,
+     0.0,
+     0.25,
+     0.0,
+     0.25,
+     0.0,
+     0.25,
+     0.0
+    ],
+    "params": [
+     -1.570796
+    ]
+   },
+   {
+    "index": 11,
+    "gate": "H",
+    "targets": [
+     1
+    ],
+    "label": {
+     "en": "H q[1]",
+     "es": "H q[1]"
+    },
+    "statevector": [
+     {
+      "re": 0.0,
+      "im": 0.0
+     },
+     {
+      "re": 0.0,
+      "im": 0.0
+     },
+     {
+      "re": 0.0,
+      "im": 0.0
+     },
+     {
+      "re": 0.0,
+      "im": 0.0
+     },
+     {
+      "re": 0.0,
+      "im": 0.0
+     },
+     {
+      "re": 0.0,
+      "im": 0.0
+     },
+     {
+      "re": 0.0,
+      "im": 0.0
+     },
+     {
+      "re": 0.0,
+      "im": 0.0
+     },
+     {
+      "re": 0.0,
+      "im": 0.0
+     },
+     {
+      "re": -0.0,
+      "im": 0.0
+     },
+     {
+      "re": 0.707107,
+      "im": -0.0
+     },
+     {
+      "re": 0.0,
+      "im": 0.0
+     },
+     {
+      "re": -0.0,
+      "im": 0.0
+     },
+     {
+      "re": -0.0,
+      "im": -0.0
+     },
+     {
+      "re": 0.0,
+      "im": 0.707107
+     },
+     {
+      "re": -0.0,
+      "im": 0.0
+     }
+    ],
+    "bloch": [
+     [
+      0.0,
+      0.0,
+      1.0
+     ],
+     [
+      0.0,
+      -0.0,
+      -1.0
+     ],
+     [
+      0.0,
+      1.0,
+      0.0
+     ],
+     [
+      0.0,
+      0.0,
+      -1.0
+     ]
+    ],
+    "probabilities": [
+     0.0,
+     0.0,
+     0.0,
+     0.0,
+     0.0,
+     0.0,
+     0.0,
+     0.0,
+     0.0,
+     0.0,
+     0.5,
+     0.0,
+     0.0,
+     0.0,
+     0.5,
+     0.0
+    ],
+    "params": []
+   },
+   {
+    "index": 12,
+    "gate": "CP",
+    "targets": [
+     0,
+     2
+    ],
+    "label": {
+     "en": "CP q[0, 2]",
+     "es": "CP q[0, 2]"
+    },
+    "statevector": [
+     {
+      "re": 0.0,
+      "im": 0.0
+     },
+     {
+      "re": 0.0,
+      "im": 0.0
+     },
+     {
+      "re": 0.0,
+      "im": 0.0
+     },
+     {
+      "re": 0.0,
+      "im": 0.0
+     },
+     {
+      "re": 0.0,
+      "im": 0.0
+     },
+     {
+      "re": 0.0,
+      "im": 0.0
+     },
+     {
+      "re": 0.0,
+      "im": 0.0
+     },
+     {
+      "re": 0.0,
+      "im": 0.0
+     },
+     {
+      "re": 0.0,
+      "im": 0.0
+     },
+     {
+      "re": -0.0,
+      "im": 0.0
+     },
+     {
+      "re": 0.707107,
+      "im": -0.0
+     },
+     {
+      "re": 0.0,
+      "im": 0.0
+     },
+     {
+      "re": -0.0,
+      "im": 0.0
+     },
+     {
+      "re": -0.0,
+      "im": 0.0
+     },
+     {
+      "re": 0.0,
+      "im": 0.707107
+     },
+     {
+      "re": 0.0,
+      "im": 0.0
+     }
+    ],
+    "bloch": [
+     [
+      0.0,
+      0.0,
+      1.0
+     ],
+     [
+      0.0,
+      -0.0,
+      -1.0
+     ],
+     [
+      0.0,
+      1.0,
+      0.0
+     ],
+     [
+      0.0,
+      0.0,
+      -1.0
+     ]
+    ],
+    "probabilities": [
+     0.0,
+     0.0,
+     0.0,
+     0.0,
+     0.0,
+     0.0,
+     0.0,
+     0.0,
+     0.0,
+     0.0,
+     0.5,
+     0.0,
+     0.0,
+     0.0,
+     0.5,
+     0.0
+    ],
+    "params": [
+     -0.785398
+    ]
+   },
+   {
+    "index": 13,
+    "gate": "CP",
+    "targets": [
+     1,
+     2
+    ],
+    "label": {
+     "en": "CP q[1, 2]",
+     "es": "CP q[1, 2]"
+    },
+    "statevector": [
+     {
+      "re": 0.0,
+      "im": 0.0
+     },
+     {
+      "re": 0.0,
+      "im": 0.0
+     },
+     {
+      "re": 0.0,
+      "im": 0.0
+     },
+     {
+      "re": 0.0,
+      "im": 0.0
+     },
+     {
+      "re": 0.0,
+      "im": 0.0
+     },
+     {
+      "re": 0.0,
+      "im": 0.0
+     },
+     {
+      "re": 0.0,
+      "im": 0.0
+     },
+     {
+      "re": 0.0,
+      "im": 0.0
+     },
+     {
+      "re": 0.0,
+      "im": 0.0
+     },
+     {
+      "re": -0.0,
+      "im": 0.0
+     },
+     {
+      "re": 0.707107,
+      "im": -0.0
+     },
+     {
+      "re": 0.0,
+      "im": 0.0
+     },
+     {
+      "re": -0.0,
+      "im": 0.0
+     },
+     {
+      "re": -0.0,
+      "im": 0.0
+     },
+     {
+      "re": 0.707107,
+      "im": -0.0
+     },
+     {
+      "re": 0.0,
+      "im": -0.0
+     }
+    ],
+    "bloch": [
+     [
+      0.0,
+      0.0,
+      1.0
+     ],
+     [
+      -0.0,
+      -0.0,
+      -1.0
+     ],
+     [
+      1.0,
+      0.0,
+      0.0
+     ],
+     [
+      0.0,
+      0.0,
+      -1.0
+     ]
+    ],
+    "probabilities": [
+     0.0,
+     0.0,
+     0.0,
+     0.0,
+     0.0,
+     0.0,
+     0.0,
+     0.0,
+     0.0,
+     0.0,
+     0.5,
+     0.0,
+     0.0,
+     0.0,
+     0.5,
+     0.0
+    ],
+    "params": [
+     -1.570796
+    ]
+   },
+   {
+    "index": 14,
+    "gate": "H",
+    "targets": [
+     2
+    ],
+    "label": {
+     "en": "H q[2]",
+     "es": "H q[2]"
+    },
+    "statevector": [
+     {
+      "re": 0.0,
+      "im": 0.0
+     },
+     {
+      "re": 0.0,
+      "im": 0.0
+     },
+     {
+      "re": 0.0,
+      "im": 0.0
+     },
+     {
+      "re": 0.0,
+      "im": 0.0
+     },
+     {
+      "re": 0.0,
+      "im": 0.0
+     },
+     {
+      "re": 0.0,
+      "im": 0.0
+     },
+     {
+      "re": 0.0,
+      "im": 0.0
+     },
+     {
+      "re": 0.0,
+      "im": 0.0
+     },
+     {
+      "re": -0.0,
+      "im": 0.0
+     },
+     {
+      "re": -0.0,
+      "im": 0.0
+     },
+     {
+      "re": 1.0,
+      "im": -0.0
+     },
+     {
+      "re": 0.0,
+      "im": 0.0
+     },
+     {
+      "re": 0.0,
+      "im": 0.0
+     },
+     {
+      "re": 0.0,
+      "im": 0.0
+     },
+     {
+      "re": 0.0,
+      "im": 0.0
+     },
+     {
+      "re": -0.0,
+      "im": 0.0
+     }
+    ],
+    "bloch": [
+     [
+      0.0,
+      0.0,
+      1.0
+     ],
+     [
+      -0.0,
+      -0.0,
+      -1.0
+     ],
+     [
+      0.0,
+      0.0,
+      1.0
+     ],
+     [
+      0.0,
+      0.0,
+      -1.0
+     ]
+    ],
+    "probabilities": [
+     0.0,
+     0.0,
+     0.0,
+     0.0,
+     0.0,
+     0.0,
+     0.0,
+     0.0,
+     0.0,
+     0.0,
+     1.0,
+     0.0,
+     0.0,
+     0.0,
+     0.0,
+     0.0
+    ],
+    "params": []
+   }
+  ],
+  "measurements": {
+   "counts": {
+    "010": 2048
+   },
+   "shots": 2048
+  },
+  "circuit_ops": [
+   {
+    "gate": "x",
+    "targets": [
+     3
+    ],
+    "params": []
+   },
+   {
+    "gate": "h",
+    "targets": [
+     0
+    ],
+    "params": []
+   },
+   {
+    "gate": "h",
+    "targets": [
+     1
+    ],
+    "params": []
+   },
+   {
+    "gate": "h",
+    "targets": [
+     2
+    ],
+    "params": []
+   },
+   {
+    "gate": "cp",
+    "targets": [
+     0,
+     3
+    ],
+    "params": [
+     1.570796
+    ]
+   },
+   {
+    "gate": "cp",
+    "targets": [
+     1,
+     3
+    ],
+    "params": [
+     3.141593
+    ]
+   },
+   {
+    "gate": "cp",
+    "targets": [
+     2,
+     3
+    ],
+    "params": [
+     6.283185
+    ]
+   },
+   {
+    "gate": "swap",
+    "targets": [
+     0,
+     2
+    ],
+    "params": []
+   },
+   {
+    "gate": "h",
+    "targets": [
+     0
+    ],
+    "params": []
+   },
+   {
+    "gate": "cp",
+    "targets": [
+     0,
+     1
+    ],
+    "params": [
+     -1.570796
+    ]
+   },
+   {
+    "gate": "h",
+    "targets": [
+     1
+    ],
+    "params": []
+   },
+   {
+    "gate": "cp",
+    "targets": [
+     0,
+     2
+    ],
+    "params": [
+     -0.785398
+    ]
+   },
+   {
+    "gate": "cp",
+    "targets": [
+     1,
+     2
+    ],
+    "params": [
+     -1.570796
+    ]
+   },
+   {
+    "gate": "h",
+    "targets": [
+     2
+    ],
+    "params": []
+   }
+  ],
+  "provenance": {
+   "engine": "qiskit",
+   "engine_version": "2.4.2",
+   "seed": 42,
+   "lane": "tbd",
+   "ran_on": "simulator"
+  },
+  "references": [
+   {
+    "label": "Kitaev, Quantum measurements and the Abelian Stabilizer Problem (1995)",
+    "url": "https://arxiv.org/abs/quant-ph/9511026"
+   },
+   {
+    "label": "Nielsen & Chuang, Quantum Computation and Quantum Information (2010)",
+    "url": "https://doi.org/10.1017/CBO9780511976667"
+   }
+  ],
+  "extra": {
+   "phi_true": 0.25,
+   "phi_estimate": 0.25,
+   "m": 2,
+   "p_best": 1.0
+  },
+  "schema_version": "qlab-trace/1"
+ },
+ "solvers": [
+  {
+   "solver": "qpe-classical",
+   "label": {
+    "en": "Eigendecomposition · classical",
+    "es": "Diagonalización · clásico"
+   },
+   "framework": "classical:numpy",
+   "paradigm": "classical",
+   "value": {
+    "phi_exact": 0.25,
+    "ops": 8,
+    "exact": true
+   },
+   "cost": {
+    "wall_ms": 2.1396,
+    "ops": 8,
+    "gate_complexity": "O(d^3)"
+   },
+   "notes": {
+    "en": "Diagonalized the 2×2 U → φ=0.2500 exactly in microseconds. For a tiny U this is trivial; QPE matters only when U is exponentially large (e^{iHt}).",
+    "es": "Diagonalizó la U 2×2 → φ=0.2500 exacto en microsegundos. Para una U minúscula es trivial; QPE importa solo cuando U es exponencialmente grande."
+   },
+   "optimal": true,
+   "extra": {}
+  },
+  {
+   "solver": "qpe-qiskit",
+   "label": {
+    "en": "QPE circuit · Qiskit",
+    "es": "Circuito QPE · Qiskit"
+   },
+   "framework": "qiskit",
+   "paradigm": "quantum-sim",
+   "value": {
+    "phi_estimate": 0.25,
+    "phi_true": 0.25,
+    "error": 0.0,
+    "counting_qubits": 3,
+    "p_top": 1.0
+   },
+   "cost": {
+    "wall_ms": 8.518,
+    "qubits": 4,
+    "depth": 14
+   },
+   "notes": {
+    "en": "QPE with t=3 → φ̂=0.2500 (true 0.25), error 0.0000, P(top)=1.000. Resolution 2^-3.",
+    "es": "QPE con t=3 → φ̂=0.2500 (real 0.25), error 0.0000, P(top)=1.000. Resolución 2^-3."
+   },
+   "optimal": false,
+   "extra": {}
+  }
+ ],
+ "comparison": {
+  "phi_estimate": 0.25,
+  "phi_exact": 0.25,
+  "error": 0.0,
+  "verdict": {
+   "en": "QPE (t=3) estimates φ̂=0.25 vs the exact φ=0.25 (error 0.0, resolution 2^-3). Classically, diagonalizing this tiny U gives φ exactly and instantly — QPE earns its keep only when U is too large to diagonalize (e.g. e^{iHt} in Shor/chemistry).",
+   "es": "QPE (t=3) estima φ̂=0.25 vs el φ exacto=0.25 (error 0.0, resolución 2^-3). Clásicamente, diagonalizar esta U minúscula da φ exacto e instantáneo — QPE gana solo cuando U es demasiado grande para diagonalizar (p.ej. e^{iHt} en Shor/química)."
+  }
+ },
+ "references": [
+  {
+   "label": "Kitaev, Quantum measurements and the Abelian Stabilizer Problem (1995)",
+   "url": "https://arxiv.org/abs/quant-ph/9511026"
+  },
+  {
+   "label": "Nielsen & Chuang, Quantum Computation and Quantum Information (2010)",
+   "url": "https://doi.org/10.1017/CBO9780511976667"
+  }
+ ]
+}

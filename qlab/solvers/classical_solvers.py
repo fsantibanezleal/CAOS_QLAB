@@ -220,6 +220,36 @@ class ClassicalSimon(Solver):
 
 
 @register_solver
+class ClassicalEig(Solver):
+    name = "qpe-classical"
+    label = {"en": "Eigendecomposition · classical", "es": "Diagonalización · clásico"}
+    framework = "classical:numpy"
+    paradigm = CLASSICAL
+
+    def applicable(self, problem: Problem) -> bool:
+        return problem.id == "qpe"
+
+    def run(self, problem, instance: Instance, seed: int, shots: int) -> SolverResult:
+        phi = instance.params["phi"]
+        t0 = time.perf_counter()
+        # U = P(2πφ) = diag(1, e^{2πiφ}); eigenstate |1⟩ → eigenvalue e^{2πiφ}. Diagonalize exactly.
+        U = np.diag([1.0, np.exp(2j * np.pi * phi)])
+        eigvals = np.linalg.eigvals(U)
+        phi_exact = float(np.angle(eigvals[1]) / (2 * np.pi)) % 1.0
+        wall = (time.perf_counter() - t0) * 1e3
+        return SolverResult(
+            solver=self.name, label=self.label, framework=self.framework, paradigm=self.paradigm,
+            value={"phi_exact": round(phi_exact, 6), "ops": 8, "exact": True},
+            cost={"wall_ms": round(wall, 4), "ops": 8, "gate_complexity": "O(d^3)"},
+            notes={"en": f"Diagonalized the 2×2 U → φ={phi_exact:.4f} exactly in microseconds. For a tiny U "
+                         "this is trivial; QPE matters only when U is exponentially large (e^{iHt}).",
+                   "es": f"Diagonalizó la U 2×2 → φ={phi_exact:.4f} exacto en microsegundos. Para una U "
+                         "minúscula es trivial; QPE importa solo cuando U es exponencialmente grande."},
+            optimal=True,
+        )
+
+
+@register_solver
 class ClassicalDFT(Solver):
     name = "qft-classical"
     label = {"en": "Discrete Fourier transform · classical", "es": "Transformada discreta de Fourier · clásico"}

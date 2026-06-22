@@ -262,6 +262,69 @@ class QiskitSimon(Solver):
 
 
 @register_solver
+class QiskitQPE(Solver):
+    name = "qpe-qiskit"
+    label = {"en": "QPE circuit · Qiskit", "es": "Circuito QPE · Qiskit"}
+    framework = "qiskit"
+    paradigm = QUANTUM_SIM
+
+    def applicable(self, problem: Problem) -> bool:
+        return problem.id == "qpe"
+
+    def run(self, problem, instance: Instance, seed: int, shots: int) -> SolverResult:
+        import math
+
+        from qlab.core.trace import Trace
+
+        t, phi = instance.params["t"], instance.params["phi"]
+        target = t                                    # counting qubits 0..t-1, eigenstate qubit = t
+        qc = QuantumCircuit(t + 1)
+        qc.x(target)                                  # |1⟩ is the eigenstate of P(2πφ)
+        qc.h(range(t))
+        for j in range(t):                            # controlled-U^{2^j}, U = P(2πφ)
+            qc.cp(2 * math.pi * phi * (2**j), j, target)
+        qc.barrier()
+        # inverse QFT on the counting register (0..t-1): swaps, then inverse-CP ladder + H
+        for i in range(t // 2):
+            qc.swap(i, t - 1 - i)
+        for tgt in range(t):
+            for ctrl in range(tgt):
+                qc.cp(-math.pi / 2 ** (tgt - ctrl), ctrl, tgt)
+            qc.h(tgt)
+        t0 = time.perf_counter()
+        steps = evolve(qc)
+        probs = np.asarray(Statevector(qc).probabilities())
+        marg = probs.reshape(2, 2**t).sum(axis=0)     # counting-register marginal (trace out the eigenstate)
+        m = int(np.argmax(marg))
+        phi_hat = m / 2**t
+        best_bin = round(phi * 2**t) % (2**t)
+        err = abs(phi_hat - phi)
+        wall = (time.perf_counter() - t0) * 1e3
+        trace = Trace(
+            case_id=problem.id, title=problem.title, concept=problem.concept, qubits=t + 1,
+            steps=steps, measurements={"counts": {format(c, f"0{t}b"): int(round(marg[c] * shots))
+                                                  for c in range(2**t) if marg[c] > 1e-6}, "shots": shots},
+            circuit_ops=circuit_ops(qc),
+            provenance={"engine": "qiskit", "engine_version": QISKIT_VERSION, "seed": seed,
+                        "lane": "tbd", "ran_on": "simulator"},
+            references=problem.references,
+            extra={"phi_true": phi, "phi_estimate": round(phi_hat, 6), "m": m,
+                   "p_best": round(float(marg[best_bin]), 4)},
+        )
+        return SolverResult(
+            solver=self.name, label=self.label, framework=self.framework, paradigm=self.paradigm,
+            value={"phi_estimate": round(phi_hat, 6), "phi_true": phi, "error": round(err, 6),
+                   "counting_qubits": t, "p_top": round(float(marg[m]), 4)},
+            cost={"wall_ms": round(wall, 3), "qubits": t + 1, "depth": steps[-1].index},
+            notes={"en": f"QPE with t={t} → φ̂={phi_hat:.4f} (true {phi}), error {err:.4f}, "
+                         f"P(top)={marg[m]:.3f}. Resolution 2^-{t}.",
+                   "es": f"QPE con t={t} → φ̂={phi_hat:.4f} (real {phi}), error {err:.4f}, "
+                         f"P(top)={marg[m]:.3f}. Resolución 2^-{t}."},
+            trace=trace,
+        )
+
+
+@register_solver
 class QiskitQFT(Solver):
     name = "qft-qiskit"
     label = {"en": "QFT circuit · Qiskit", "es": "Circuito QFT · Qiskit"}

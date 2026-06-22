@@ -59,6 +59,20 @@ def _comparison(problem, results: list) -> dict:
             f"gana — el resultado honesto y esperado."
         )
         return {"optimal_cut": opt, "qaoa_cut": q, "verdict": {"en": verdict_en, "es": verdict_es}}
+    if problem.id == "qpe":
+        cls = next((r for r in results if r.paradigm == "classical"), None)
+        q = next((r for r in results if r.paradigm != "classical"), None)
+        est = q.value.get("phi_estimate") if q else None
+        err = q.value.get("error") if q else None
+        tq = q.value.get("counting_qubits") if q else None
+        exact = cls.value.get("phi_exact") if cls else None
+        return {"phi_estimate": est, "phi_exact": exact, "error": err, "verdict": {
+            "en": f"QPE (t={tq}) estimates φ̂={est} vs the exact φ={exact} (error {err}, resolution 2^-{tq}). "
+                  f"Classically, diagonalizing this tiny U gives φ exactly and instantly — QPE earns its keep "
+                  f"only when U is too large to diagonalize (e.g. e^{{iHt}} in Shor/chemistry).",
+            "es": f"QPE (t={tq}) estima φ̂={est} vs el φ exacto={exact} (error {err}, resolución 2^-{tq}). "
+                  f"Clásicamente, diagonalizar esta U minúscula da φ exacto e instantáneo — QPE gana solo "
+                  f"cuando U es demasiado grande para diagonalizar (p.ej. e^{{iHt}} en Shor/química)."}}
     if problem.id == "qft":
         cls = next((r for r in results if r.paradigm == "classical"), None)
         q = next((r for r in results if r.paradigm != "classical"), None)
