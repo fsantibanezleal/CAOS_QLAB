@@ -1,0 +1,43 @@
+{
+ "case_id": "teleportation",
+ "title": {
+  "en": "Quantum teleportation",
+  "es": "Teletransportación cuántica"
+ },
+ "category": "entanglement",
+ "lane": "live",
+ "lane_reasons": [],
+ "qubits": 3,
+ "seed": 42,
+ "shots": 2048,
+ "params": {
+  "n": 3,
+  "theta": 1.5707963267948966,
+  "phi": 1.5707963267948966
+ },
+ "measured": {
+  "run_ms": 0.642,
+  "trace_bytes": 7032,
+  "unitary_only": true
+ },
+ "viz": [
+  "amp_phase",
+  "histogram",
+  "qsphere",
+  "circuit"
+ ],
+ "engine": "qiskit",
+ "engine_version": "2.4.2",
+ "trace_path": "teleportation/tele-i.json",
+ "references": [
+  {
+   "label": "Bennett et al., Teleporting an unknown quantum state via dual classical and EPR channels (1993)",
+   "doi": "10.1103/PhysRevLett.70.1895"
+  },
+  {
+   "label": "Nielsen & Chuang, Quantum Computation and Quantum Information (2010)",
+   "url": "https://doi.org/10.1017/CBO9780511976667"
+  }
+ ],
+ "manifest_version": "qlab-manifest/1"
+}

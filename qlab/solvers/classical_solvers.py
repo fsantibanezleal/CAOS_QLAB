@@ -287,6 +287,32 @@ class ClassicalSVM(Solver):
 
 
 @register_solver
+class ClassicalResend(Solver):
+    name = "teleport-classical"
+    label = {"en": "Measure & re-prepare · classical", "es": "Medir y re-preparar · clásico"}
+    framework = "classical:numpy"
+    paradigm = CLASSICAL
+
+    def applicable(self, problem: Problem) -> bool:
+        return problem.id == "teleportation"
+
+    def run(self, problem, instance: Instance, seed: int, shots: int) -> SolverResult:
+        # The best ANY classical strategy can do for an unknown qubit is measure-and-re-prepare, whose
+        # optimal average fidelity is exactly 2/3 (Massar-Popescu). This is the bound teleportation beats.
+        f = 2.0 / 3.0
+        return SolverResult(
+            solver=self.name, label=self.label, framework=self.framework, paradigm=self.paradigm,
+            value={"best_fidelity": round(f, 4), "strategy": "measure & re-prepare"},
+            cost={"wall_ms": 0.0},
+            notes={"en": "Without entanglement, the best classical 'measure-and-resend' of an unknown qubit "
+                         "reaches only average fidelity 2/3 — the bound teleportation's fidelity-1 transfer beats.",
+                   "es": "Sin entrelazamiento, el mejor 'medir y reenviar' clásico de un qubit desconocido "
+                         "alcanza solo fidelidad media 2/3 — la cota que la fidelidad-1 de la teletransportación supera."},
+            optimal=True,
+        )
+
+
+@register_solver
 class ClassicalLHV(Solver):
     name = "chsh-classical"
     label = {"en": "Local hidden variables (bound) · classical", "es": "Variables ocultas locales (cota) · clásico"}

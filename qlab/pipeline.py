@@ -59,6 +59,20 @@ def _comparison(problem, results: list) -> dict:
             f"gana — el resultado honesto y esperado."
         )
         return {"optimal_cut": opt, "qaoa_cut": q, "verdict": {"en": verdict_en, "es": verdict_es}}
+    if problem.id == "teleportation":
+        q = next((r for r in results if r.paradigm != "classical"), None)
+        cls = next((r for r in results if r.paradigm == "classical"), None)
+        f = q.value.get("fidelity") if q else None
+        cf = cls.value.get("best_fidelity") if cls else None
+        return {"quantum_fidelity": f, "classical_fidelity": cf, "verdict": {
+            "en": f"Teleportation transfers the unknown qubit with fidelity {f} (perfect), vs the best "
+                  f"classical measure-and-resend fidelity {cf} (2/3). A genuine quantum protocol with no "
+                  f"classical equivalent — but it needs a pre-shared Bell pair AND 2 classical bits, it "
+                  f"destroys the original (no-cloning), and it is NOT faster-than-light.",
+            "es": f"La teletransportación transfiere el qubit desconocido con fidelidad {f} (perfecta), vs la "
+                  f"mejor fidelidad clásica de medir-y-reenviar {cf} (2/3). Un protocolo cuántico genuino sin "
+                  f"equivalente clásico — pero necesita un par de Bell compartido Y 2 bits clásicos, destruye "
+                  f"el original (no-clonación), y NO es más rápido que la luz."}}
     if problem.id == "chsh":
         q = next((r for r in results if r.paradigm != "classical"), None)
         S = q.value.get("S") if q else None

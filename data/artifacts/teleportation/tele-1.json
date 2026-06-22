@@ -1,0 +1,898 @@
+{
+ "schema_version": "qlab-trace/1",
+ "case_id": "teleportation",
+ "category": "entanglement",
+ "title": {
+  "en": "Quantum teleportation",
+  "es": "Teletransportación cuántica"
+ },
+ "concept": {
+  "en": "Teleportation moves an unknown qubit state |ψ⟩ from Alice to Bob using one shared Bell pair and two classical bits. Alice entangles |ψ⟩ with her half of the pair, measures both in the Bell basis, and sends the 2-bit outcome; Bob applies the matching Pauli (I/X/Z/XZ) and ends up with |ψ⟩ exactly. Alice's copy is gone (no-cloning), and the classical bits are essential — so this is not faster-than-light. We run the coherent (deferred-measurement) version: watch |ψ⟩'s Bloch vector leave Alice's qubit and reappear on Bob's, fidelity 1. Classically you can't transmit an unknown qubit better than fidelity 2/3 (measure-and-resend), so this is a real quantum protocol — though it needs entanglement and a classical channel.",
+  "es": "La teletransportación mueve un estado de qubit desconocido |ψ⟩ de Alice a Bob usando un par de Bell compartido y dos bits clásicos. Alice entrelaza |ψ⟩ con su mitad del par, mide ambos en la base de Bell y envía el resultado de 2 bits; Bob aplica el Pauli correspondiente (I/X/Z/XZ) y obtiene |ψ⟩ exacto. La copia de Alice desaparece (no-clonación), y los bits clásicos son esenciales — así que no es más rápido que la luz. Corremos la versión coherente (medición diferida): observa el vector de Bloch de |ψ⟩ salir del qubit de Alice y reaparecer en el de Bob, fidelidad 1. Clásicamente no puedes transmitir un qubit desconocido con fidelidad mayor a 2/3 (medir y reenviar), así que es un protocolo cuántico real — aunque necesita entrelazamiento y un canal clásico."
+ },
+ "metric": {
+  "en": "teleportation fidelity (ideal = 1)",
+  "es": "fidelidad de teletransportación (ideal = 1)"
+ },
+ "instance": {
+  "id": "tele-1",
+  "title": {
+   "en": "teleport |1⟩",
+   "es": "teletransportar |1⟩"
+  },
+  "params": {
+   "n": 3,
+   "theta": 3.141592653589793,
+   "phi": 0.0
+  },
+  "note": {
+   "en": "Teleport the unknown state |1⟩ — fidelity should be 1.",
+   "es": "Teletransportar el estado desconocido |1⟩ — la fidelidad debe ser 1."
+  }
+ },
+ "qubits": 3,
+ "lane": "live",
+ "lane_reasons": [],
+ "seed": 42,
+ "shots": 2048,
+ "primary_solver": "teleport-qiskit",
+ "trace": {
+  "case_id": "teleportation",
+  "title": {
+   "en": "Quantum teleportation",
+   "es": "Teletransportación cuántica"
+  },
+  "concept": {
+   "en": "Teleportation moves an unknown qubit state |ψ⟩ from Alice to Bob using one shared Bell pair and two classical bits. Alice entangles |ψ⟩ with her half of the pair, measures both in the Bell basis, and sends the 2-bit outcome; Bob applies the matching Pauli (I/X/Z/XZ) and ends up with |ψ⟩ exactly. Alice's copy is gone (no-cloning), and the classical bits are essential — so this is not faster-than-light. We run the coherent (deferred-measurement) version: watch |ψ⟩'s Bloch vector leave Alice's qubit and reappear on Bob's, fidelity 1. Classically you can't transmit an unknown qubit better than fidelity 2/3 (measure-and-resend), so this is a real quantum protocol — though it needs entanglement and a classical channel.",
+   "es": "La teletransportación mueve un estado de qubit desconocido |ψ⟩ de Alice a Bob usando un par de Bell compartido y dos bits clásicos. Alice entrelaza |ψ⟩ con su mitad del par, mide ambos en la base de Bell y envía el resultado de 2 bits; Bob aplica el Pauli correspondiente (I/X/Z/XZ) y obtiene |ψ⟩ exacto. La copia de Alice desaparece (no-clonación), y los bits clásicos son esenciales — así que no es más rápido que la luz. Corremos la versión coherente (medición diferida): observa el vector de Bloch de |ψ⟩ salir del qubit de Alice y reaparecer en el de Bob, fidelidad 1. Clásicamente no puedes transmitir un qubit desconocido con fidelidad mayor a 2/3 (medir y reenviar), así que es un protocolo cuántico real — aunque necesita entrelazamiento y un canal clásico."
+  },
+  "qubits": 3,
+  "steps": [
+   {
+    "index": 0,
+    "gate": "init",
+    "targets": [],
+    "label": {
+     "en": "Initial state |0…0⟩",
+     "es": "Estado inicial |0…0⟩"
+    },
+    "statevector": [
+     {
+      "re": 1.0,
+      "im": 0.0
+     },
+     {
+      "re": 0.0,
+      "im": 0.0
+     },
+     {
+      "re": 0.0,
+      "im": 0.0
+     },
+     {
+      "re": 0.0,
+      "im": 0.0
+     },
+     {
+      "re": 0.0,
+      "im": 0.0
+     },
+     {
+      "re": 0.0,
+      "im": 0.0
+     },
+     {
+      "re": 0.0,
+      "im": 0.0
+     },
+     {
+      "re": 0.0,
+      "im": 0.0
+     }
+    ],
+    "bloch": [
+     [
+      0.0,
+      0.0,
+      1.0
+     ],
+     [
+      0.0,
+      0.0,
+      1.0
+     ],
+     [
+      0.0,
+      0.0,
+      1.0
+     ]
+    ],
+    "probabilities": [
+     1.0,
+     0.0,
+     0.0,
+     0.0,
+     0.0,
+     0.0,
+     0.0,
+     0.0
+    ],
+    "params": []
+   },
+   {
+    "index": 1,
+    "gate": "RY",
+    "targets": [
+     0
+    ],
+    "label": {
+     "en": "RY q[0]",
+     "es": "RY q[0]"
+    },
+    "statevector": [
+     {
+      "re": 0.0,
+      "im": 0.0
+     },
+     {
+      "re": 1.0,
+      "im": 0.0
+     },
+     {
+      "re": 0.0,
+      "im": 0.0
+     },
+     {
+      "re": 0.0,
+      "im": 0.0
+     },
+     {
+      "re": 0.0,
+      "im": 0.0
+     },
+     {
+      "re": 0.0,
+      "im": 0.0
+     },
+     {
+      "re": 0.0,
+      "im": 0.0
+     },
+     {
+      "re": 0.0,
+      "im": 0.0
+     }
+    ],
+    "bloch": [
+     [
+      0.0,
+      0.0,
+      -1.0
+     ],
+     [
+      0.0,
+      0.0,
+      1.0
+     ],
+     [
+      0.0,
+      0.0,
+      1.0
+     ]
+    ],
+    "probabilities": [
+     0.0,
+     1.0,
+     0.0,
+     0.0,
+     0.0,
+     0.0,
+     0.0,
+     0.0
+    ],
+    "params": [
+     3.141593
+    ]
+   },
+   {
+    "index": 2,
+    "gate": "RZ",
+    "targets": [
+     0
+    ],
+    "label": {
+     "en": "RZ q[0]",
+     "es": "RZ q[0]"
+    },
+    "statevector": [
+     {
+      "re": 0.0,
+      "im": 0.0
+     },
+     {
+      "re": 1.0,
+      "im": 0.0
+     },
+     {
+      "re": 0.0,
+      "im": 0.0
+     },
+     {
+      "re": 0.0,
+      "im": 0.0
+     },
+     {
+      "re": 0.0,
+      "im": 0.0
+     },
+     {
+      "re": 0.0,
+      "im": 0.0
+     },
+     {
+      "re": 0.0,
+      "im": 0.0
+     },
+     {
+      "re": 0.0,
+      "im": 0.0
+     }
+    ],
+    "bloch": [
+     [
+      0.0,
+      0.0,
+      -1.0
+     ],
+     [
+      0.0,
+      0.0,
+      1.0
+     ],
+     [
+      0.0,
+      0.0,
+      1.0
+     ]
+    ],
+    "probabilities": [
+     0.0,
+     1.0,
+     0.0,
+     0.0,
+     0.0,
+     0.0,
+     0.0,
+     0.0
+    ],
+    "params": [
+     0.0
+    ]
+   },
+   {
+    "index": 3,
+    "gate": "H",
+    "targets": [
+     1
+    ],
+    "label": {
+     "en": "H q[1]",
+     "es": "H q[1]"
+    },
+    "statevector": [
+     {
+      "re": 0.0,
+      "im": 0.0
+     },
+     {
+      "re": 0.707107,
+      "im": 0.0
+     },
+     {
+      "re": 0.0,
+      "im": 0.0
+     },
+     {
+      "re": 0.707107,
+      "im": 0.0
+     },
+     {
+      "re": 0.0,
+      "im": 0.0
+     },
+     {
+      "re": 0.0,
+      "im": 0.0
+     },
+     {
+      "re": 0.0,
+      "im": 0.0
+     },
+     {
+      "re": 0.0,
+      "im": 0.0
+     }
+    ],
+    "bloch": [
+     [
+      0.0,
+      0.0,
+      -1.0
+     ],
+     [
+      1.0,
+      0.0,
+      0.0
+     ],
+     [
+      0.0,
+      0.0,
+      1.0
+     ]
+    ],
+    "probabilities": [
+     0.0,
+     0.5,
+     0.0,
+     0.5,
+     0.0,
+     0.0,
+     0.0,
+     0.0
+    ],
+    "params": []
+   },
+   {
+    "index": 4,
+    "gate": "CX",
+    "targets": [
+     1,
+     2
+    ],
+    "label": {
+     "en": "CX q[1, 2]",
+     "es": "CX q[1, 2]"
+    },
+    "statevector": [
+     {
+      "re": 0.0,
+      "im": 0.0
+     },
+     {
+      "re": 0.707107,
+      "im": 0.0
+     },
+     {
+      "re": 0.0,
+      "im": 0.0
+     },
+     {
+      "re": 0.0,
+      "im": 0.0
+     },
+     {
+      "re": 0.0,
+      "im": 0.0
+     },
+     {
+      "re": 0.0,
+      "im": 0.0
+     },
+     {
+      "re": 0.0,
+      "im": 0.0
+     },
+     {
+      "re": 0.707107,
+      "im": 0.0
+     }
+    ],
+    "bloch": [
+     [
+      0.0,
+      0.0,
+      -1.0
+     ],
+     [
+      0.0,
+      0.0,
+      0.0
+     ],
+     [
+      0.0,
+      0.0,
+      0.0
+     ]
+    ],
+    "probabilities": [
+     0.0,
+     0.5,
+     0.0,
+     0.0,
+     0.0,
+     0.0,
+     0.0,
+     0.5
+    ],
+    "params": []
+   },
+   {
+    "index": 5,
+    "gate": "CX",
+    "targets": [
+     0,
+     1
+    ],
+    "label": {
+     "en": "CX q[0, 1]",
+     "es": "CX q[0, 1]"
+    },
+    "statevector": [
+     {
+      "re": 0.0,
+      "im": 0.0
+     },
+     {
+      "re": 0.0,
+      "im": 0.0
+     },
+     {
+      "re": 0.0,
+      "im": 0.0
+     },
+     {
+      "re": 0.707107,
+      "im": 0.0
+     },
+     {
+      "re": 0.0,
+      "im": 0.0
+     },
+     {
+      "re": 0.707107,
+      "im": 0.0
+     },
+     {
+      "re": 0.0,
+      "im": 0.0
+     },
+     {
+      "re": 0.0,
+      "im": 0.0
+     }
+    ],
+    "bloch": [
+     [
+      0.0,
+      0.0,
+      -1.0
+     ],
+     [
+      0.0,
+      0.0,
+      0.0
+     ],
+     [
+      0.0,
+      0.0,
+      0.0
+     ]
+    ],
+    "probabilities": [
+     0.0,
+     0.0,
+     0.0,
+     0.5,
+     0.0,
+     0.5,
+     0.0,
+     0.0
+    ],
+    "params": []
+   },
+   {
+    "index": 6,
+    "gate": "H",
+    "targets": [
+     0
+    ],
+    "label": {
+     "en": "H q[0]",
+     "es": "H q[0]"
+    },
+    "statevector": [
+     {
+      "re": 0.0,
+      "im": 0.0
+     },
+     {
+      "re": 0.0,
+      "im": 0.0
+     },
+     {
+      "re": 0.5,
+      "im": 0.0
+     },
+     {
+      "re": -0.5,
+      "im": 0.0
+     },
+     {
+      "re": 0.5,
+      "im": 0.0
+     },
+     {
+      "re": -0.5,
+      "im": 0.0
+     },
+     {
+      "re": 0.0,
+      "im": 0.0
+     },
+     {
+      "re": 0.0,
+      "im": 0.0
+     }
+    ],
+    "bloch": [
+     [
+      -1.0,
+      0.0,
+      0.0
+     ],
+     [
+      0.0,
+      0.0,
+      0.0
+     ],
+     [
+      0.0,
+      0.0,
+      0.0
+     ]
+    ],
+    "probabilities": [
+     0.0,
+     0.0,
+     0.25,
+     0.25,
+     0.25,
+     0.25,
+     0.0,
+     0.0
+    ],
+    "params": []
+   },
+   {
+    "index": 7,
+    "gate": "CX",
+    "targets": [
+     1,
+     2
+    ],
+    "label": {
+     "en": "CX q[1, 2]",
+     "es": "CX q[1, 2]"
+    },
+    "statevector": [
+     {
+      "re": 0.0,
+      "im": 0.0
+     },
+     {
+      "re": 0.0,
+      "im": 0.0
+     },
+     {
+      "re": 0.0,
+      "im": 0.0
+     },
+     {
+      "re": 0.0,
+      "im": 0.0
+     },
+     {
+      "re": 0.5,
+      "im": 0.0
+     },
+     {
+      "re": -0.5,
+      "im": 0.0
+     },
+     {
+      "re": 0.5,
+      "im": 0.0
+     },
+     {
+      "re": -0.5,
+      "im": 0.0
+     }
+    ],
+    "bloch": [
+     [
+      -1.0,
+      0.0,
+      0.0
+     ],
+     [
+      1.0,
+      0.0,
+      0.0
+     ],
+     [
+      0.0,
+      0.0,
+      -1.0
+     ]
+    ],
+    "probabilities": [
+     0.0,
+     0.0,
+     0.0,
+     0.0,
+     0.25,
+     0.25,
+     0.25,
+     0.25
+    ],
+    "params": []
+   },
+   {
+    "index": 8,
+    "gate": "CZ",
+    "targets": [
+     0,
+     2
+    ],
+    "label": {
+     "en": "CZ q[0, 2]",
+     "es": "CZ q[0, 2]"
+    },
+    "statevector": [
+     {
+      "re": 0.0,
+      "im": 0.0
+     },
+     {
+      "re": 0.0,
+      "im": 0.0
+     },
+     {
+      "re": 0.0,
+      "im": 0.0
+     },
+     {
+      "re": 0.0,
+      "im": 0.0
+     },
+     {
+      "re": 0.5,
+      "im": 0.0
+     },
+     {
+      "re": 0.5,
+      "im": 0.0
+     },
+     {
+      "re": 0.5,
+      "im": 0.0
+     },
+     {
+      "re": 0.5,
+      "im": 0.0
+     }
+    ],
+    "bloch": [
+     [
+      1.0,
+      0.0,
+      0.0
+     ],
+     [
+      1.0,
+      0.0,
+      0.0
+     ],
+     [
+      0.0,
+      0.0,
+      -1.0
+     ]
+    ],
+    "probabilities": [
+     0.0,
+     0.0,
+     0.0,
+     0.0,
+     0.25,
+     0.25,
+     0.25,
+     0.25
+    ],
+    "params": []
+   }
+  ],
+  "measurements": {
+   "counts": {
+    "100": 526,
+    "101": 509,
+    "110": 479,
+    "111": 534
+   },
+   "shots": 2048
+  },
+  "circuit_ops": [
+   {
+    "gate": "ry",
+    "targets": [
+     0
+    ],
+    "params": [
+     3.141593
+    ]
+   },
+   {
+    "gate": "rz",
+    "targets": [
+     0
+    ],
+    "params": [
+     0.0
+    ]
+   },
+   {
+    "gate": "h",
+    "targets": [
+     1
+    ],
+    "params": []
+   },
+   {
+    "gate": "cx",
+    "targets": [
+     1,
+     2
+    ],
+    "params": []
+   },
+   {
+    "gate": "cx",
+    "targets": [
+     0,
+     1
+    ],
+    "params": []
+   },
+   {
+    "gate": "h",
+    "targets": [
+     0
+    ],
+    "params": []
+   },
+   {
+    "gate": "cx",
+    "targets": [
+     1,
+     2
+    ],
+    "params": []
+   },
+   {
+    "gate": "cz",
+    "targets": [
+     0,
+     2
+    ],
+    "params": []
+   }
+  ],
+  "provenance": {
+   "engine": "qiskit",
+   "engine_version": "2.4.2",
+   "seed": 42,
+   "lane": "tbd",
+   "ran_on": "simulator"
+  },
+  "references": [
+   {
+    "label": "Bennett et al., Teleporting an unknown quantum state via dual classical and EPR channels (1993)",
+    "doi": "10.1103/PhysRevLett.70.1895"
+   },
+   {
+    "label": "Nielsen & Chuang, Quantum Computation and Quantum Information (2010)",
+    "url": "https://doi.org/10.1017/CBO9780511976667"
+   }
+  ],
+  "extra": {
+   "input_bloch": [
+    0.0,
+    0.0,
+    -1.0
+   ],
+   "output_bloch": [
+    0.0,
+    0.0,
+    -1.0
+   ],
+   "fidelity": 1.0
+  },
+  "schema_version": "qlab-trace/1"
+ },
+ "solvers": [
+  {
+   "solver": "teleport-classical",
+   "label": {
+    "en": "Measure & re-prepare · classical",
+    "es": "Medir y re-preparar · clásico"
+   },
+   "framework": "classical:numpy",
+   "paradigm": "classical",
+   "value": {
+    "best_fidelity": 0.6667,
+    "strategy": "measure & re-prepare"
+   },
+   "cost": {
+    "wall_ms": 0.0
+   },
+   "notes": {
+    "en": "Without entanglement, the best classical 'measure-and-resend' of an unknown qubit reaches only average fidelity 2/3 — the bound teleportation's fidelity-1 transfer beats.",
+    "es": "Sin entrelazamiento, el mejor 'medir y reenviar' clásico de un qubit desconocido alcanza solo fidelidad media 2/3 — la cota que la fidelidad-1 de la teletransportación supera."
+   },
+   "optimal": true,
+   "extra": {}
+  },
+  {
+   "solver": "teleport-qiskit",
+   "label": {
+    "en": "Teleportation circuit · Qiskit",
+    "es": "Circuito de teletransportación · Qiskit"
+   },
+   "framework": "qiskit",
+   "paradigm": "quantum-sim",
+   "value": {
+    "fidelity": 1.0,
+    "perfect": true,
+    "input_bloch": [
+     0.0,
+     0.0,
+     -1.0
+    ],
+    "output_bloch": [
+     0.0,
+     0.0,
+     -1.0
+    ]
+   },
+   "cost": {
+    "wall_ms": 0.735,
+    "qubits": 3,
+    "classical_bits": 2
+   },
+   "notes": {
+    "en": "Teleported |ψ⟩ to Bob's qubit with fidelity 1.0000 (input Bloch [0.0, 0.0, -1.0] → output [0.0, 0.0, -1.0]); the original is destroyed (no-cloning).",
+    "es": "Teletransportó |ψ⟩ al qubit de Bob con fidelidad 1.0000 (Bloch entrada [0.0, 0.0, -1.0] → salida [0.0, 0.0, -1.0]); el original se destruye (no-clonación)."
+   },
+   "optimal": false,
+   "extra": {}
+  }
+ ],
+ "comparison": {
+  "quantum_fidelity": 1.0,
+  "classical_fidelity": 0.6667,
+  "verdict": {
+   "en": "Teleportation transfers the unknown qubit with fidelity 1.0 (perfect), vs the best classical measure-and-resend fidelity 0.6667 (2/3). A genuine quantum protocol with no classical equivalent — but it needs a pre-shared Bell pair AND 2 classical bits, it destroys the original (no-cloning), and it is NOT faster-than-light.",
+   "es": "La teletransportación transfiere el qubit desconocido con fidelidad 1.0 (perfecta), vs la mejor fidelidad clásica de medir-y-reenviar 0.6667 (2/3). Un protocolo cuántico genuino sin equivalente clásico — pero necesita un par de Bell compartido Y 2 bits clásicos, destruye el original (no-clonación), y NO es más rápido que la luz."
+  }
+ },
+ "references": [
+  {
+   "label": "Bennett et al., Teleporting an unknown quantum state via dual classical and EPR channels (1993)",
+   "doi": "10.1103/PhysRevLett.70.1895"
+  },
+  {
+   "label": "Nielsen & Chuang, Quantum Computation and Quantum Information (2010)",
+   "url": "https://doi.org/10.1017/CBO9780511976667"
+  }
+ ]
+}

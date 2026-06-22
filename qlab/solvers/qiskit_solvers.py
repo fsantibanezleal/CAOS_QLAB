@@ -262,6 +262,67 @@ class QiskitSimon(Solver):
 
 
 @register_solver
+class QiskitTeleport(Solver):
+    name = "teleport-qiskit"
+    label = {"en": "Teleportation circuit · Qiskit", "es": "Circuito de teletransportación · Qiskit"}
+    framework = "qiskit"
+    paradigm = QUANTUM_SIM
+
+    def applicable(self, problem: Problem) -> bool:
+        return problem.id == "teleportation"
+
+    def run(self, problem, instance: Instance, seed: int, shots: int) -> SolverResult:
+        from qiskit.quantum_info import Pauli, partial_trace, state_fidelity
+
+        from qlab.core.trace import Trace
+
+        theta, phi = instance.params["theta"], instance.params["phi"]
+        # q0 = unknown |ψ⟩, q1+q2 = Bell pair (q2 is Bob's). Coherent (deferred-measurement) teleportation.
+        qc = QuantumCircuit(3)
+        qc.ry(theta, 0)
+        qc.rz(phi, 0)                # prepare |ψ⟩ on q0
+        qc.barrier()
+        qc.h(1)
+        qc.cx(1, 2)                  # shared Bell pair
+        qc.barrier()
+        qc.cx(0, 1)
+        qc.h(0)                      # Alice's Bell measurement (coherent)
+        qc.barrier()
+        qc.cx(1, 2)
+        qc.cz(0, 2)                  # Bob's Pauli corrections (controlled = deferred measurement)
+        t0 = time.perf_counter()
+        sv = Statevector(qc)
+        rho2 = partial_trace(sv, [0, 1])          # Bob's qubit after teleportation
+        psi = QuantumCircuit(1)
+        psi.ry(theta, 0)
+        psi.rz(phi, 0)
+        target = Statevector(psi)                  # the original |ψ⟩
+        fidelity = float(state_fidelity(rho2, target))
+        in_bloch = [round(float(target.expectation_value(Pauli(p)).real), 4) for p in ("X", "Y", "Z")]
+        out_bloch = [round(float(rho2.expectation_value(Pauli(p)).real), 4) for p in ("X", "Y", "Z")]
+        wall = (time.perf_counter() - t0) * 1e3
+        trace = Trace(
+            case_id=problem.id, title=problem.title, concept=problem.concept, qubits=3,
+            steps=evolve(qc), measurements=measure_counts(qc, shots, seed), circuit_ops=circuit_ops(qc),
+            provenance={"engine": "qiskit", "engine_version": QISKIT_VERSION, "seed": seed,
+                        "lane": "tbd", "ran_on": "simulator"},
+            references=problem.references,
+            extra={"input_bloch": in_bloch, "output_bloch": out_bloch, "fidelity": round(fidelity, 6)},
+        )
+        return SolverResult(
+            solver=self.name, label=self.label, framework=self.framework, paradigm=self.paradigm,
+            value={"fidelity": round(fidelity, 6), "perfect": bool(fidelity > 0.999),
+                   "input_bloch": in_bloch, "output_bloch": out_bloch},
+            cost={"wall_ms": round(wall, 3), "qubits": 3, "classical_bits": 2},
+            notes={"en": f"Teleported |ψ⟩ to Bob's qubit with fidelity {fidelity:.4f} (input Bloch {in_bloch} "
+                         f"→ output {out_bloch}); the original is destroyed (no-cloning).",
+                   "es": f"Teletransportó |ψ⟩ al qubit de Bob con fidelidad {fidelity:.4f} (Bloch entrada "
+                         f"{in_bloch} → salida {out_bloch}); el original se destruye (no-clonación)."},
+            trace=trace,
+        )
+
+
+@register_solver
 class QiskitCHSH(Solver):
     name = "chsh-qiskit"
     label = {"en": "CHSH correlators · Qiskit", "es": "Correladores CHSH · Qiskit"}

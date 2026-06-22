@@ -179,6 +179,18 @@ def test_chsh_violates_classical_bound():
     assert base.run(problem, problem.instance("chsh-optimal"), seed=42, shots=1).value["max_S"] == 2.0
 
 
+def test_teleportation_perfect_fidelity():
+    from qlab.registry import get_problem, solvers_for
+
+    problem = get_problem("teleportation")
+    res = {s.name: s.run(problem, problem.instance("tele-generic"), seed=42, shots=1)
+           for s in solvers_for(problem)}
+    tq = res["teleport-qiskit"].value
+    assert tq["fidelity"] > 0.999                              # perfect transfer
+    assert tq["input_bloch"] == tq["output_bloch"]             # the Bloch vector hops Alice → Bob
+    assert res["teleport-classical"].value["best_fidelity"] < 0.7   # classical measure-resend bound 2/3
+
+
 def test_maxcut_classical_optimum_beats_or_matches_qaoa():
     from qlab.problems.maxcut import MaxCut
     from qlab.registry import get_problem, solvers_for

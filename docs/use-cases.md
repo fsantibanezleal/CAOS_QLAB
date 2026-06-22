@@ -23,6 +23,7 @@ lands (ADR-0056).
 | [13](./use-cases/13_qec-repetition.md) | **QEC — repetition code** | noise-and-qec | repetition code (Stim + PyMatching MWPM) · unprotected qubit (classical) | 6 (distance×p) | precompute | error CORRECTION that scales — d=5 beats d=3 below threshold (Willow in miniature); stops at threshold |
 | [14](./use-cases/14_qec-surface.md) | **QEC — surface code** | noise-and-qec | rotated surface code (Stim + PyMatching MWPM) · unprotected qubit (classical) | 6 (distance×p) | precompute | the **threshold crossover**: d=5 beats d=3 below ~1%, d=5 worse above — corrects X+Z (the FT front-runner) |
 | [15](./use-cases/15_chsh.md) | **CHSH / Bell inequality** | entanglement | CHSH correlators (Qiskit) · local-hidden-variable bound (classical) | 6 (angles + separable control) | live | quantum **genuinely beats** classical: S=2√2 > 2 (Tsirelson vs LHV, Nobel 2022) — a nonlocality edge, not a speedup |
+| [16](./use-cases/16_teleportation.md) | **Quantum teleportation** | entanglement | coherent teleportation (Qiskit) · measure-and-resend bound (classical) | 6 input states | live | transfers an unknown qubit with **fidelity 1** vs classical **2/3**; needs a Bell pair + 2 cbits; no-cloning; not FTL |
 
 ## Roadmap (the catalog, ordered beginner → advanced)
 
@@ -37,7 +38,7 @@ small unitary (JS lane); **precompute** = needs noise / feed-forward / optimizat
 | 06 | Quantum random-number generator | fundamentals | live | circuit + classical PRNG contrast |
 | 07 | CHSH / Bell-inequality test | entanglement | live | ✅ shipping (case 15) |
 | 08 | Superdense coding | entanglement | live | circuit |
-| 09 | Quantum teleportation | entanglement | precompute | Qiskit (mid-circuit measure + feed-forward) |
+| 09 | Quantum teleportation | entanglement | live | ✅ shipping (case 16) |
 | 10 | Deutsch–Jozsa | oracle-algorithms | live | ✅ shipping (case 04) |
 | 11 | Bernstein–Vazirani | oracle-algorithms | live | ✅ shipping (case 03) |
 | 12 | Simon's algorithm | oracle-algorithms | precompute | ✅ shipping (case 05) |

@@ -4,6 +4,21 @@ All notable changes to CAOS_QLAB. Format: newest → oldest. Versions follow `X.
 (major.minor.patch); patch (`.00X`) for fixes. Kept `0.x` while the web SPA and the framework/case matrix
 are still landing. Tags from day one.
 
+## [0.17.000] — 2026-06-22 — Quantum teleportation (perfect unknown-qubit transfer)
+
+### Added
+- **Case `teleportation`** (6 input states) — move an unknown qubit with a shared Bell pair + 2 classical
+  bits, run in the coherent (deferred-measurement) form so the 3-qubit statevector trace shows |ψ⟩'s Bloch
+  vector hop Alice→Bob. Solvers **`teleport-qiskit`** (input/output Bloch + state fidelity) and
+  **`teleport-classical`** (measure-and-resend bound 2/3). Lane=live.
+- Every state teleports with **fidelity 1.000** (input Bloch == output Bloch exactly), vs the classical 2/3
+  measure-and-resend bound. Verdict is precise: a genuinely quantum protocol with no classical equivalent,
+  but it needs a Bell pair + 2 cbits, destroys the original (no-cloning), and is NOT faster-than-light.
+- Pipeline teleportation verdict; test `test_teleportation_perfect_fidelity`; docs node `16_teleportation.md`.
+
+### Verified
+- 21/21 tests, ruff clean. Fidelity 1.0 on all 6 states; classical bound 2/3.
+
 ## [0.16.000] — 2026-06-22 — CHSH / Bell inequality (where quantum genuinely beats classical)
 
 ### Added
