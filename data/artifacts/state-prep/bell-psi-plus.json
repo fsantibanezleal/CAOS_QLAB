@@ -1,0 +1,361 @@
+{
+ "schema_version": "qlab-trace/1",
+ "case_id": "state-prep",
+ "category": "entanglement",
+ "title": {
+  "en": "State preparation & entanglement",
+  "es": "Preparación de estados y entrelazamiento"
+ },
+ "concept": {
+  "en": "Build canonical multi-qubit states from gates and watch entanglement appear. A Bell pair (H then CNOT) cannot be written as two independent qubits; GHZ and W are the two inequivalent species of three-qubit entanglement. Every solver prepares the SAME target — the point is the state, not the framework.",
+  "es": "Construye estados multi-qubit canónicos a partir de compuertas y observa aparecer el entrelazamiento. Un par de Bell (H y luego CNOT) no se puede escribir como dos qubits independientes; GHZ y W son las dos especies no equivalentes de entrelazamiento de tres qubits. Cada solver prepara el MISMO objetivo: lo importante es el estado, no el framework."
+ },
+ "metric": {
+  "en": "prepared state fidelity",
+  "es": "fidelidad del estado preparado"
+ },
+ "instance": {
+  "id": "bell-psi-plus",
+  "title": {
+   "en": "Bell Ψ⁺",
+   "es": "Bell Ψ⁺"
+  },
+  "params": {
+   "kind": "bell",
+   "variant": "psi_plus",
+   "n": 2
+  },
+  "note": {
+   "en": "(|01⟩+|10⟩)/√2 — anti-correlated outcomes.",
+   "es": "(|01⟩+|10⟩)/√2 — resultados anticorrelacionados."
+  }
+ },
+ "qubits": 2,
+ "lane": "live",
+ "lane_reasons": [],
+ "seed": 42,
+ "shots": 2048,
+ "primary_solver": "state-qiskit",
+ "trace": {
+  "case_id": "state-prep",
+  "title": {
+   "en": "State preparation & entanglement",
+   "es": "Preparación de estados y entrelazamiento"
+  },
+  "concept": {
+   "en": "Build canonical multi-qubit states from gates and watch entanglement appear. A Bell pair (H then CNOT) cannot be written as two independent qubits; GHZ and W are the two inequivalent species of three-qubit entanglement. Every solver prepares the SAME target — the point is the state, not the framework.",
+   "es": "Construye estados multi-qubit canónicos a partir de compuertas y observa aparecer el entrelazamiento. Un par de Bell (H y luego CNOT) no se puede escribir como dos qubits independientes; GHZ y W son las dos especies no equivalentes de entrelazamiento de tres qubits. Cada solver prepara el MISMO objetivo: lo importante es el estado, no el framework."
+  },
+  "qubits": 2,
+  "steps": [
+   {
+    "index": 0,
+    "gate": "init",
+    "targets": [],
+    "label": {
+     "en": "Initial state |0…0⟩",
+     "es": "Estado inicial |0…0⟩"
+    },
+    "statevector": [
+     {
+      "re": 1.0,
+      "im": 0.0
+     },
+     {
+      "re": 0.0,
+      "im": 0.0
+     },
+     {
+      "re": 0.0,
+      "im": 0.0
+     },
+     {
+      "re": 0.0,
+      "im": 0.0
+     }
+    ],
+    "bloch": [
+     [
+      0.0,
+      0.0,
+      1.0
+     ],
+     [
+      0.0,
+      0.0,
+      1.0
+     ]
+    ],
+    "probabilities": [
+     1.0,
+     0.0,
+     0.0,
+     0.0
+    ],
+    "params": []
+   },
+   {
+    "index": 1,
+    "gate": "H",
+    "targets": [
+     0
+    ],
+    "label": {
+     "en": "H q[0]",
+     "es": "H q[0]"
+    },
+    "statevector": [
+     {
+      "re": 0.707107,
+      "im": 0.0
+     },
+     {
+      "re": 0.707107,
+      "im": 0.0
+     },
+     {
+      "re": 0.0,
+      "im": 0.0
+     },
+     {
+      "re": 0.0,
+      "im": 0.0
+     }
+    ],
+    "bloch": [
+     [
+      1.0,
+      0.0,
+      0.0
+     ],
+     [
+      0.0,
+      0.0,
+      1.0
+     ]
+    ],
+    "probabilities": [
+     0.5,
+     0.5,
+     0.0,
+     0.0
+    ],
+    "params": []
+   },
+   {
+    "index": 2,
+    "gate": "CX",
+    "targets": [
+     0,
+     1
+    ],
+    "label": {
+     "en": "CX q[0, 1]",
+     "es": "CX q[0, 1]"
+    },
+    "statevector": [
+     {
+      "re": 0.707107,
+      "im": 0.0
+     },
+     {
+      "re": 0.0,
+      "im": 0.0
+     },
+     {
+      "re": 0.0,
+      "im": 0.0
+     },
+     {
+      "re": 0.707107,
+      "im": 0.0
+     }
+    ],
+    "bloch": [
+     [
+      0.0,
+      0.0,
+      0.0
+     ],
+     [
+      0.0,
+      0.0,
+      0.0
+     ]
+    ],
+    "probabilities": [
+     0.5,
+     0.0,
+     0.0,
+     0.5
+    ],
+    "params": []
+   },
+   {
+    "index": 3,
+    "gate": "X",
+    "targets": [
+     1
+    ],
+    "label": {
+     "en": "X q[1]",
+     "es": "X q[1]"
+    },
+    "statevector": [
+     {
+      "re": 0.0,
+      "im": 0.0
+     },
+     {
+      "re": 0.707107,
+      "im": 0.0
+     },
+     {
+      "re": 0.707107,
+      "im": 0.0
+     },
+     {
+      "re": 0.0,
+      "im": 0.0
+     }
+    ],
+    "bloch": [
+     [
+      0.0,
+      0.0,
+      0.0
+     ],
+     [
+      0.0,
+      0.0,
+      0.0
+     ]
+    ],
+    "probabilities": [
+     0.0,
+     0.5,
+     0.5,
+     0.0
+    ],
+    "params": []
+   }
+  ],
+  "measurements": {
+   "counts": {
+    "01": 1035,
+    "10": 1013
+   },
+   "shots": 2048
+  },
+  "circuit_ops": [
+   {
+    "gate": "h",
+    "targets": [
+     0
+    ],
+    "params": []
+   },
+   {
+    "gate": "cx",
+    "targets": [
+     0,
+     1
+    ],
+    "params": []
+   },
+   {
+    "gate": "x",
+    "targets": [
+     1
+    ],
+    "params": []
+   }
+  ],
+  "provenance": {
+   "engine": "qiskit",
+   "engine_version": "2.4.2",
+   "seed": 42,
+   "lane": "tbd",
+   "ran_on": "simulator"
+  },
+  "references": [
+   {
+    "label": "Nielsen & Chuang, Quantum Computation and Quantum Information (2010)",
+    "url": "https://doi.org/10.1017/CBO9780511976667"
+   },
+   {
+    "label": "Dür, Vidal & Cirac, Three qubits can be entangled in two inequivalent ways (2000)",
+    "doi": "10.1103/PhysRevA.62.062314"
+   }
+  ],
+  "extra": {},
+  "schema_version": "qlab-trace/1"
+ },
+ "solvers": [
+  {
+   "solver": "state-classical",
+   "label": {
+    "en": "Direct amplitudes · classical",
+    "es": "Amplitudes directas · clásico"
+   },
+   "framework": "classical:numpy",
+   "paradigm": "classical",
+   "value": {
+    "nonzero_probabilities": {
+     "01": 0.5,
+     "10": 0.5
+    }
+   },
+   "cost": {
+    "wall_ms": 0.0104,
+    "qubits": 2
+   },
+   "notes": {
+    "en": "A classical computer stores all 2^n amplitudes directly — instant at this scale. The entanglement is the concept; there is no advantage here.",
+    "es": "Un computador clásico guarda las 2^n amplitudes directamente — instantáneo a esta escala. El entrelazamiento es el concepto; aquí no hay ventaja."
+   },
+   "optimal": true,
+   "extra": {}
+  },
+  {
+   "solver": "state-qiskit",
+   "label": {
+    "en": "Gate circuit · Qiskit",
+    "es": "Circuito de compuertas · Qiskit"
+   },
+   "framework": "qiskit",
+   "paradigm": "quantum-sim",
+   "value": {
+    "fidelity": 1.0,
+    "shots": 2048
+   },
+   "cost": {
+    "wall_ms": 1.259,
+    "qubits": 2,
+    "depth": 3
+   },
+   "notes": {
+    "en": "Exact statevector simulation of the gate circuit (Qiskit quantum_info).",
+    "es": "Simulación exacta del vector de estado del circuito (Qiskit quantum_info)."
+   },
+   "optimal": false,
+   "extra": {}
+  }
+ ],
+ "comparison": {
+  "verdict": {
+   "en": "Both a gate circuit and a direct classical amplitude vector prepare the same state; at 2–4 qubits the classical description is instant. Entanglement is the concept, not an advantage.",
+   "es": "Tanto un circuito de compuertas como un vector clásico de amplitudes preparan el mismo estado; con 2–4 qubits la descripción clásica es instantánea. El entrelazamiento es el concepto, no una ventaja."
+  }
+ },
+ "references": [
+  {
+   "label": "Nielsen & Chuang, Quantum Computation and Quantum Information (2010)",
+   "url": "https://doi.org/10.1017/CBO9780511976667"
+  },
+  {
+   "label": "Dür, Vidal & Cirac, Three qubits can be entangled in two inequivalent ways (2000)",
+   "doi": "10.1103/PhysRevA.62.062314"
+  }
+ ]
+}

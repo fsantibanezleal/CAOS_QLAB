@@ -1,0 +1,42 @@
+{
+ "case_id": "state-prep",
+ "title": {
+  "en": "State preparation & entanglement",
+  "es": "Preparación de estados y entrelazamiento"
+ },
+ "category": "entanglement",
+ "lane": "live",
+ "lane_reasons": [],
+ "qubits": 3,
+ "seed": 42,
+ "shots": 2048,
+ "params": {
+  "kind": "ghz",
+  "n": 3
+ },
+ "measured": {
+  "run_ms": 1.554,
+  "trace_bytes": 3327,
+  "unitary_only": true
+ },
+ "viz": [
+  "amp_phase",
+  "histogram",
+  "qsphere",
+  "circuit"
+ ],
+ "engine": "qiskit",
+ "engine_version": "2.4.2",
+ "trace_path": "state-prep/ghz-3.json",
+ "references": [
+  {
+   "label": "Nielsen & Chuang, Quantum Computation and Quantum Information (2010)",
+   "url": "https://doi.org/10.1017/CBO9780511976667"
+  },
+  {
+   "label": "Dür, Vidal & Cirac, Three qubits can be entangled in two inequivalent ways (2000)",
+   "doi": "10.1103/PhysRevA.62.062314"
+  }
+ ],
+ "manifest_version": "qlab-manifest/1"
+}

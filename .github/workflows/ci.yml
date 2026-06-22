@@ -1,0 +1,46 @@
+name: CI
+
+on:
+  push:
+    branches: [main, develop]
+  pull_request:
+  workflow_dispatch:
+
+jobs:
+  test:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+          cache: pip
+      # core (Qiskit thin) + dev + the precompute engines (qiskit-aer, pennylane, ...): the tests + pipeline
+      # exercise every case's real dedicated tool. The real-hardware lane (qiskit-ibm-runtime / braket /
+      # azure-quantum) is NOT installed on CI and never runs here — its results are committed traces.
+      - run: pip install -r requirements.txt -r requirements-dev.txt -r requirements-precompute.txt
+      - name: Lint
+        run: ruff check .
+      - name: Tests
+        run: python -m pytest
+      - name: Pipeline smoke (Bell-state trace + manifest regenerate)
+        run: python -m qlab.pipeline c01_bell
+
+  guards:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - name: Public-repo guards
+        run: |
+          fail=0
+          if git ls-files | grep -qE '(^|/)\.env(\..+)?$' && ! git ls-files | grep -qx '.env.example'; then
+            echo "::error::a real .env is tracked"; fail=1
+          fi
+          if git ls-files | grep -qiE '\.(npy|npz|h5|parquet)$'; then
+            echo "::error::raw/heavy data tracked — commit compact JSON traces only (see data/README.md)"; fail=1
+          fi
+          # No local machine paths in tracked files (this guard file itself is excluded).
+          if git grep -nIE 'D:\\_Repos|/d/_Repos|C:\\Users\\' -- ':!.github/**' ; then
+            echo "::error::a local machine path leaked into a tracked file"; fail=1
+          fi
+          exit $fail

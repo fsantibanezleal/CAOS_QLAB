@@ -1,0 +1,6 @@
+# Core / live-thin runtime. Kept deliberately tiny: the qlab engine core (RNG, trace schema, the
+# live/precompute gate, the manifest contract) is pure-Python + NumPy so it stays small and auditable.
+# The heavy quantum SDKs that actually author the committed traces live in requirements-precompute.txt;
+# the real-hardware SDKs live in requirements-hardware.txt. The browser live lane is JavaScript
+# (quantum-circuit), NOT Pyodide — Qiskit has no Pyodide wheels (rustworkx/symengine/aer are native).
+numpy>=1.26

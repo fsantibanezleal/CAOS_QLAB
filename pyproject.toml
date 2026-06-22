@@ -1,0 +1,27 @@
+[build-system]
+requires = ["setuptools>=68"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "qlab"
+# PEP 440 form of the display version 0.01.000 (scheme X.XX.XXX — see CHANGELOG.md + qlab.__version__).
+version = "0.1.0"
+description = "CAOS_QLAB — a public, didactic Quantum Computing laboratory (simulators + real hardware)."
+readme = "README.md"
+requires-python = ">=3.11"
+license = { text = "MIT" }
+authors = [{ name = "Felipe Santibáñez-Leal" }]
+# Core stays thin so the engine can also load under Pyodide; the heavy simulators (qiskit-aer) and the
+# real-hardware SDKs live in requirements-precompute.txt / requirements-hardware.txt.
+dependencies = ["numpy>=1.26"]
+
+[tool.setuptools]
+packages = ["qlab", "qlab.core", "qlab.problems", "qlab.solvers"]
+
+[tool.pytest.ini_options]
+testpaths = ["tests"]
+addopts = "-q"
+
+[tool.ruff]
+line-length = 110
+target-version = "py311"

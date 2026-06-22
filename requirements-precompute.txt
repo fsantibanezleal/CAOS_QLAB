@@ -1,0 +1,18 @@
+# Precompute lane — the REAL, dedicated SOTA engines that generate the committed JSON traces.
+# Run locally in the .venv (never in the browser, never on CI hardware). Pinned for reproducible traces;
+# a run is a pure function of (params, seed), so pinning the engine pins the bytes. Versions verified
+# against PyPI/GitHub 2026-06-21 — see docs/frameworks/ and wip/qlab/research/01-frameworks-and-simulators.md.
+
+# --- Circuit-model SDK + high-performance simulator (the default authoring engine) ---
+qiskit==2.4.2            # IBM SDK 2.x (Primitives V2, BackendV2). NOTE: 0.x tutorials do NOT run on 2.x.
+qiskit-aer==0.17.2       # statevector / density-matrix / MPS / stabilizer + realistic NOISE models (cases 20-22)
+
+# --- Differentiable / QML + variational (VQE, QAOA, quantum kernels) ---
+pennylane==0.45.0        # autodiff circuits; chemistry (VQE H2) + QAOA MaxCut + variational classifier
+
+# --- Stabilizer / error-correction (thousands of Clifford qubits; cases 21-22) ---
+stim==1.16.0             # Clifford simulator, the QEC standard (Gottesman-Knill, ~O(n^2) memory)
+
+# --- Drawing reference circuit diagrams in the offline pipeline (matplotlib path) ---
+pylatexenc>=2.10         # required by qiskit circuit_drawer(output='mpl')
+matplotlib>=3.8

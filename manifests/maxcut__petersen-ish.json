@@ -1,0 +1,85 @@
+{
+ "case_id": "maxcut",
+ "title": {
+  "en": "MaxCut — QAOA vs classical",
+  "es": "MaxCut — QAOA vs clásico"
+ },
+ "category": "variational",
+ "lane": "precompute",
+ "lane_reasons": [
+  "needs noise / mid-circuit feed-forward / optimization loop (offline engine only)"
+ ],
+ "qubits": 6,
+ "seed": 42,
+ "shots": 2048,
+ "params": {
+  "n": 6,
+  "edges": [
+   [
+    0,
+    1
+   ],
+   [
+    1,
+    2
+   ],
+   [
+    2,
+    0
+   ],
+   [
+    3,
+    4
+   ],
+   [
+    4,
+    5
+   ],
+   [
+    5,
+    3
+   ],
+   [
+    0,
+    3
+   ],
+   [
+    1,
+    4
+   ],
+   [
+    2,
+    5
+   ]
+  ]
+ },
+ "measured": {
+  "run_ms": 1178.1,
+  "trace_bytes": 70752,
+  "unitary_only": false
+ },
+ "viz": [
+  "graph",
+  "landscape",
+  "histogram",
+  "circuit"
+ ],
+ "engine": "qiskit",
+ "engine_version": "2.4.2",
+ "trace_path": "maxcut/petersen-ish.json",
+ "references": [
+  {
+   "label": "Farhi, Goldstone & Gutmann, A Quantum Approximate Optimization Algorithm (2014)",
+   "url": "https://arxiv.org/abs/1411.4028"
+  },
+  {
+   "label": "Goemans & Williamson, .878-approximation for MAX CUT via SDP (1995)",
+   "doi": "10.1145/227683.227684"
+  },
+  {
+   "label": "Barak & Marwaha, Classical algorithms vs low-depth QAOA on high-girth graphs (2021)",
+   "url": "https://arxiv.org/abs/2106.05900"
+  }
+ ],
+ "manifest_version": "qlab-manifest/1"
+}

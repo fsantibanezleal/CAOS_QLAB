@@ -1,0 +1,17 @@
+# Real-hardware lane (OPTIONAL, local-only) — submit a case to a REAL quantum computer and commit the
+# returned result as a trace with a "ran on real hardware" provenance block. NEVER installed on CI; the
+# public static site ships NO secrets. Tokens live in the CAOS_MANAGE vault and are read from .env
+# (copy .env.example). See docs/guides/03_real-hardware-lane.md.
+#
+# Cost reality (see wip/qlab/research/02-cloud-services-and-costs.md): IBM Open Plan = the only free real
+# hardware (10 min QPU / 28 days, 156-qubit Heron r2). Ion-trap (IonQ/Quantinuum) has brutal per-job
+# minimums; superconducting (IQM/Rigetti via Braket) is ~$1.2-1.75 per 1000-shot circuit.
+
+# --- IBM Quantum (free Open Plan; primary real-hardware path) ---
+qiskit-ibm-runtime>=0.30
+
+# --- AWS Braket (per-task + per-shot; offline LocalSimulator is free) ---
+# amazon-braket-sdk>=1.119
+
+# --- Azure Quantum ($500 one-time credit; IonQ/Quantinuum/Rigetti) ---
+# azure-quantum>=3.0
