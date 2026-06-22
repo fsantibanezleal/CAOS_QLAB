@@ -77,6 +77,57 @@ class PennyLaneVQE(Solver):
 
 
 @register_solver
+class PennyLaneQML(Solver):
+    name = "qml-pennylane"
+    label = {"en": "Quantum-kernel SVM · PennyLane", "es": "SVM de kernel cuántico · PennyLane"}
+    framework = "pennylane"
+    paradigm = QUANTUM_SIM
+
+    def applicable(self, problem: Problem) -> bool:
+        return problem.id == "qml" and qml is not None
+
+    def run(self, problem, instance: Instance, seed: int, shots: int) -> SolverResult:
+        from sklearn.svm import SVC
+
+        from qlab.problems.qml_classifier import QMLClassifier
+
+        Xtr, ytr, Xte, yte = QMLClassifier.dataset(instance.params["kind"], seed=seed)
+        nq = 2
+        dev = qml.device("default.qubit", wires=nq)
+
+        def feature_map(x):
+            qml.AngleEmbedding(x, wires=range(nq))
+            qml.IsingZZ(x[0] * x[1], wires=[0, 1])      # a 2nd-order term for expressivity
+
+        @qml.qnode(dev)
+        def overlap(x1, x2):
+            feature_map(x1)
+            qml.adjoint(feature_map)(x2)
+            return qml.probs(wires=range(nq))
+
+        def kernel(A, B):
+            return np.array([[overlap(a, b)[0] for b in B] for a in A])  # K=|⟨φ(a)|φ(b)⟩|²
+
+        t0 = time.perf_counter()
+        K_tr = kernel(Xtr, Xtr)
+        K_te = kernel(Xte, Xtr)
+        clf = SVC(kernel="precomputed").fit(K_tr, ytr)
+        train_acc = float(clf.score(K_tr, ytr))
+        test_acc = float(clf.score(K_te, yte))
+        wall = (time.perf_counter() - t0) * 1e3
+        return SolverResult(
+            solver=self.name, label=self.label, framework=self.framework, paradigm=self.paradigm,
+            value={"train_acc": round(train_acc, 3), "test_acc": round(test_acc, 3), "qubits": nq},
+            cost={"wall_ms": round(wall, 1), "qubits": nq, "kernel_evals": len(Xtr) ** 2 + len(Xte) * len(Xtr)},
+            notes={"en": f"Quantum fidelity-kernel SVM: train {train_acc:.2f}, test {test_acc:.2f} "
+                         f"({nq} qubits, {len(Xtr)} train pts).",
+                   "es": f"SVM de kernel de fidelidad cuántico: train {train_acc:.2f}, test {test_acc:.2f} "
+                         f"({nq} qubits, {len(Xtr)} ptos train)."},
+            extra={"n_train": len(Xtr), "n_test": len(Xte)},
+        )
+
+
+@register_solver
 class PennyLaneQAOA(Solver):
     name = "qaoa-pennylane"
     label = {"en": "QAOA (p=1) · PennyLane", "es": "QAOA (p=1) · PennyLane"}

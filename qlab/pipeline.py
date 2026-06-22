@@ -59,6 +59,20 @@ def _comparison(problem, results: list) -> dict:
             f"gana — el resultado honesto y esperado."
         )
         return {"optimal_cut": opt, "qaoa_cut": q, "verdict": {"en": verdict_en, "es": verdict_es}}
+    if problem.id == "qml":
+        cls = next((r for r in results if r.paradigm == "classical"), None)
+        q = next((r for r in results if r.paradigm != "classical"), None)
+        qa = q.value.get("test_acc") if q else None
+        ca = cls.value.get("test_acc") if cls else None
+        return {"quantum_test_acc": qa, "classical_test_acc": ca, "verdict": {
+            "en": f"Quantum-kernel SVM test accuracy {qa} vs classical RBF-SVM {ca} on the same data. "
+                  f"{'They tie' if qa == ca else 'Comparable'} — the quantum kernel shows no advantage. "
+                  f"Provable quantum-kernel separations are contrived; on real data quantum kernels are "
+                  f"competitive at best, usually worse. QML is over-hyped — here you see it honestly.",
+            "es": f"Exactitud de test del SVM de kernel cuántico {qa} vs SVM-RBF clásico {ca} sobre los "
+                  f"mismos datos. {'Empatan' if qa == ca else 'Comparables'} — el kernel cuántico no da "
+                  f"ventaja. Las separaciones demostrables son artificiales; en datos reales los kernels "
+                  f"cuánticos son competitivos en el mejor caso, usualmente peores. QML está sobrevalorado."}}
     if problem.id == "vqe":
         cls = next((r for r in results if r.paradigm == "classical"), None)
         q = next((r for r in results if r.paradigm != "classical"), None)

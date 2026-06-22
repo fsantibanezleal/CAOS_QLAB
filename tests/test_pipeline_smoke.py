@@ -118,6 +118,16 @@ def test_vqe_h2_matches_fci():
     assert e_fci < -1.13                     # known H₂ equilibrium energy ≈ -1.137 Ha
 
 
+def test_qml_quantum_kernel_classifies():
+    from qlab.registry import get_problem, solvers_for
+
+    problem = get_problem("qml")
+    inst = problem.instance("qml-circles")  # nonlinear but cleanly separable
+    res = {s.name: s.run(problem, inst, seed=42, shots=1) for s in solvers_for(problem)}
+    assert res["qml-pennylane"].value["test_acc"] >= 0.8     # quantum kernel works…
+    assert res["qml-classical"].value["test_acc"] >= 0.8     # …and so does classical (no advantage)
+
+
 def test_maxcut_classical_optimum_beats_or_matches_qaoa():
     from qlab.problems.maxcut import MaxCut
     from qlab.registry import get_problem, solvers_for

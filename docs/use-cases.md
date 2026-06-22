@@ -18,6 +18,7 @@ lands (ADR-0056).
 | [08](./use-cases/08_qpe.md) | **QPE** | flagship-algorithms | controlled-powers + inverse QFT (Qiskit) · eigendecomposition (classical) | 6 (t=3–5, exact + finite-precision) | live | estimate eigenphase φ to **2⁻ᵗ**; classical diagonalizes tiny U exactly → QPE is a subroutine for huge U |
 | [09](./use-cases/09_shor.md) | **Shor (toy: 15)** | flagship-algorithms | QPE order-finding on the real modular-mult unitary (Qiskit) · trial division (classical) | 6 bases of N=15 | precompute | factors 15→3×5 via order-finding; **RSA-2048 needs ~10⁶ FT qubits** — no near-term crypto threat |
 | [10](./use-cases/10_vqe.md) | **VQE (H₂)** | variational | VQE on the real H₂ Hamiltonian (PennyLane diff-HF) · exact diagonalization/FCI (classical) | 6 bond lengths | precompute | matches FCI to **chemical accuracy** along the dissociation curve; H₂ minimal-basis is 4×4 → pedagogy, not advantage (first learned method) |
+| [11](./use-cases/11_qml.md) | **QML (quantum kernel)** | variational | quantum fidelity-kernel SVM (PennyLane) · RBF-SVM (classical/sklearn) | 6 datasets | precompute | ties or **loses** to classical SVM — no advantage (second learned method; QML hype check) |
 
 ## Roadmap (the catalog, ordered beginner → advanced)
 
@@ -42,7 +43,7 @@ small unitary (JS lane); **precompute** = needs noise / feed-forward / optimizat
 | 16 | Shor (toy, factor 15) | flagship-algorithms | precompute | ✅ shipping (case 09) |
 | 17 | VQE — H₂ ground state | variational | precompute | ✅ shipping (case 10) |
 | 18 | QAOA — MaxCut | variational | precompute | ✅ shipping (case 02) |
-| 19 | Quantum kernel / variational classifier | variational | precompute | PennyLane vs classical SVM/MLP |
+| 19 | Quantum kernel / variational classifier | variational | precompute | ✅ shipping (case 11) |
 | 20 | Noise + measurement-error mitigation | noise-and-qec | precompute | Aer noise + Mitiq vs noiseless |
 | 21 | Repetition / bit-flip code | noise-and-qec | precompute | Stim / Qiskit |
 | 22 | Surface-code demo | noise-and-qec | precompute | Stim |

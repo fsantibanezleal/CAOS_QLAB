@@ -4,6 +4,22 @@ All notable changes to CAOS_QLAB. Format: newest → oldest. Versions follow `X.
 (major.minor.patch); patch (`.00X`) for fixes. Kept `0.x` while the web SPA and the framework/case matrix
 are still landing. Tags from day one.
 
+## [0.12.000] — 2026-06-22 — QML quantum-kernel classifier (second learned method; hype check)
+
+### Added
+- **Case `qml`** (6 datasets: linear, linear-hard, circles, moons, xor, blobs) — a **quantum fidelity-kernel
+  SVM** (PennyLane 2-qubit angle+ZZ feature map → `SVC(kernel="precomputed")`) vs a classical **RBF-SVM**
+  (`qml-classical`, scikit-learn) on identical data. Lane=precompute. The **second learned method** → the
+  ≥2-learned-methods product bar (VQE + QML) is met.
+- Honest result, emergent from the real computation: the quantum kernel **ties** classical on the
+  structured sets and is **worse** on `moons` (0.875 vs 0.938) — no advantage. Verdict cites the contrived
+  nature of provable separations + the data-loading bottleneck.
+- Added scikit-learn to `requirements-precompute.txt`. Pipeline QML verdict; test
+  `test_qml_quantum_kernel_classifies`; docs node `docs/use-cases/11_qml.md`.
+
+### Verified
+- 16/16 tests, ruff clean. Quantum test-acc ≤ classical on every dataset.
+
 ## [0.11.000] — 2026-06-22 — VQE H₂ (first learned method; real quantum chemistry)
 
 ### Added

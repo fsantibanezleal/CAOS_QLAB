@@ -1,0 +1,112 @@
+{
+ "schema_version": "qlab-trace/1",
+ "case_id": "qml",
+ "category": "variational",
+ "title": {
+  "en": "QML — quantum-kernel classifier",
+  "es": "QML — clasificador de kernel cuántico"
+ },
+ "concept": {
+  "en": "A quantum feature map sends a 2-D point x to a state |φ(x)⟩; the fidelity kernel K(x,x')=|⟨φ(x)|φ(x')⟩|² is estimated on the quantum device and handed to a classical SVM. We compare it to a classical RBF-SVM on the same toy datasets (linear, circles, moons, XOR). Both classify well — and that is the point: the quantum kernel buys NO advantage here. The few provable quantum-kernel speedups are built around contrived problems (discrete-log); on real data quantum kernels are competitive at best, usually worse, and bottlenecked by data loading. QML is heavily over-hyped; this case shows it honestly.",
+  "es": "Un mapa de características cuántico envía un punto 2-D x a un estado |φ(x)⟩; el kernel de fidelidad K(x,x')=|⟨φ(x)|φ(x')⟩|² se estima en el dispositivo cuántico y se pasa a un SVM clásico. Lo comparamos con un SVM-RBF clásico sobre los mismos datos de juguete (lineal, círculos, lunas, XOR). Ambos clasifican bien — y ese es el punto: el kernel cuántico NO da ventaja aquí. Las pocas separaciones demostrables se construyen sobre problemas artificiales (logaritmo discreto); en datos reales los kernels cuánticos son competitivos en el mejor caso, usualmente peores, y limitados por la carga de datos. QML está muy sobrevalorado; este caso lo muestra con honestidad."
+ },
+ "metric": {
+  "en": "classification accuracy",
+  "es": "exactitud de clasificación"
+ },
+ "instance": {
+  "id": "qml-moons",
+  "title": {
+   "en": "dataset: two moons",
+   "es": "dataset: two moons"
+  },
+  "params": {
+   "kind": "moons",
+   "n": 2
+  },
+  "note": {
+   "en": "2-D two moons — quantum-kernel SVM vs classical RBF-SVM on the same split.",
+   "es": "2-D two moons — SVM de kernel cuántico vs SVM-RBF clásico sobre la misma partición."
+  }
+ },
+ "qubits": 2,
+ "lane": "precompute",
+ "lane_reasons": [
+  "needs noise / mid-circuit feed-forward / optimization loop (offline engine only)"
+ ],
+ "seed": 42,
+ "shots": 2048,
+ "primary_solver": "qml-classical",
+ "trace": null,
+ "solvers": [
+  {
+   "solver": "qml-classical",
+   "label": {
+    "en": "RBF-SVM · classical",
+    "es": "SVM-RBF · clásico"
+   },
+   "framework": "classical:sklearn",
+   "paradigm": "classical",
+   "value": {
+    "train_acc": 0.917,
+    "test_acc": 0.938
+   },
+   "cost": {
+    "wall_ms": 2.374,
+    "support_vectors": 12
+   },
+   "notes": {
+    "en": "Classical RBF-SVM: train 0.92, test 0.94. A standard kernel machine on the same data — the bar the quantum kernel has to beat (and doesn't).",
+    "es": "SVM-RBF clásico: train 0.92, test 0.94. Una máquina de kernel estándar sobre los mismos datos — el listón que el kernel cuántico debe superar (y no)."
+   },
+   "optimal": true,
+   "extra": {}
+  },
+  {
+   "solver": "qml-pennylane",
+   "label": {
+    "en": "Quantum-kernel SVM · PennyLane",
+    "es": "SVM de kernel cuántico · PennyLane"
+   },
+   "framework": "pennylane",
+   "paradigm": "quantum-sim",
+   "value": {
+    "train_acc": 1.0,
+    "test_acc": 0.875,
+    "qubits": 2
+   },
+   "cost": {
+    "wall_ms": 1317.7,
+    "qubits": 2,
+    "kernel_evals": 960
+   },
+   "notes": {
+    "en": "Quantum fidelity-kernel SVM: train 1.00, test 0.88 (2 qubits, 24 train pts).",
+    "es": "SVM de kernel de fidelidad cuántico: train 1.00, test 0.88 (2 qubits, 24 ptos train)."
+   },
+   "optimal": false,
+   "extra": {
+    "n_train": 24,
+    "n_test": 16
+   }
+  }
+ ],
+ "comparison": {
+  "quantum_test_acc": 0.875,
+  "classical_test_acc": 0.938,
+  "verdict": {
+   "en": "Quantum-kernel SVM test accuracy 0.875 vs classical RBF-SVM 0.938 on the same data. Comparable — the quantum kernel shows no advantage. Provable quantum-kernel separations are contrived; on real data quantum kernels are competitive at best, usually worse. QML is over-hyped — here you see it honestly.",
+   "es": "Exactitud de test del SVM de kernel cuántico 0.875 vs SVM-RBF clásico 0.938 sobre los mismos datos. Comparables — el kernel cuántico no da ventaja. Las separaciones demostrables son artificiales; en datos reales los kernels cuánticos son competitivos en el mejor caso, usualmente peores. QML está sobrevalorado."
+  }
+ },
+ "references": [
+  {
+   "label": "Havlíček et al., Supervised learning with quantum-enhanced feature spaces (2019)",
+   "doi": "10.1038/s41586-019-0980-2"
+  },
+  {
+   "label": "Huang et al., Power of data in quantum machine learning (2021)",
+   "doi": "10.1038/s41467-021-22539-9"
+  }
+ ]
+}

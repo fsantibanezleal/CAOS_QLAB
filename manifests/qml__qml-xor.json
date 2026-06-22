@@ -1,0 +1,44 @@
+{
+ "case_id": "qml",
+ "title": {
+  "en": "QML — quantum-kernel classifier",
+  "es": "QML — clasificador de kernel cuántico"
+ },
+ "category": "variational",
+ "lane": "precompute",
+ "lane_reasons": [
+  "needs noise / mid-circuit feed-forward / optimization loop (offline engine only)"
+ ],
+ "qubits": 2,
+ "seed": 42,
+ "shots": 2048,
+ "params": {
+  "kind": "xor",
+  "n": 2
+ },
+ "measured": {
+  "run_ms": 0,
+  "trace_bytes": 0,
+  "unitary_only": false
+ },
+ "viz": [
+  "graph",
+  "landscape",
+  "histogram",
+  "circuit"
+ ],
+ "engine": "classical:sklearn",
+ "engine_version": "—",
+ "trace_path": "qml/qml-xor.json",
+ "references": [
+  {
+   "label": "Havlíček et al., Supervised learning with quantum-enhanced feature spaces (2019)",
+   "doi": "10.1038/s41586-019-0980-2"
+  },
+  {
+   "label": "Huang et al., Power of data in quantum machine learning (2021)",
+   "doi": "10.1038/s41467-021-22539-9"
+  }
+ ],
+ "manifest_version": "qlab-manifest/1"
+}

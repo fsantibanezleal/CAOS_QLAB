@@ -254,6 +254,39 @@ class ClassicalFactor(Solver):
 
 
 @register_solver
+class ClassicalSVM(Solver):
+    name = "qml-classical"
+    label = {"en": "RBF-SVM · classical", "es": "SVM-RBF · clásico"}
+    framework = "classical:sklearn"
+    paradigm = CLASSICAL
+
+    def applicable(self, problem: Problem) -> bool:
+        return problem.id == "qml"
+
+    def run(self, problem, instance: Instance, seed: int, shots: int) -> SolverResult:
+        from sklearn.svm import SVC
+
+        from qlab.problems.qml_classifier import QMLClassifier
+
+        Xtr, ytr, Xte, yte = QMLClassifier.dataset(instance.params["kind"], seed=seed)
+        t0 = time.perf_counter()
+        clf = SVC(kernel="rbf", gamma="scale").fit(Xtr, ytr)
+        train_acc = float(clf.score(Xtr, ytr))
+        test_acc = float(clf.score(Xte, yte))
+        wall = (time.perf_counter() - t0) * 1e3
+        return SolverResult(
+            solver=self.name, label=self.label, framework=self.framework, paradigm=self.paradigm,
+            value={"train_acc": round(train_acc, 3), "test_acc": round(test_acc, 3)},
+            cost={"wall_ms": round(wall, 3), "support_vectors": int(clf.n_support_.sum())},
+            notes={"en": f"Classical RBF-SVM: train {train_acc:.2f}, test {test_acc:.2f}. A standard kernel "
+                         "machine on the same data — the bar the quantum kernel has to beat (and doesn't).",
+                   "es": f"SVM-RBF clásico: train {train_acc:.2f}, test {test_acc:.2f}. Una máquina de kernel "
+                         "estándar sobre los mismos datos — el listón que el kernel cuántico debe superar (y no)."},
+            optimal=True,
+        )
+
+
+@register_solver
 class ClassicalFCI(Solver):
     name = "vqe-classical"
     label = {"en": "Exact diagonalization (FCI) · classical", "es": "Diagonalización exacta (FCI) · clásico"}

@@ -16,6 +16,9 @@ cirq-core==1.6.1         # Google Cirq (QAOA cross-check; qsimcirq optional for 
 # --- Stabilizer / error-correction (thousands of Clifford qubits; cases 21-22) ---
 stim==1.16.0             # Clifford simulator, the QEC standard (Gottesman-Knill, ~O(n^2) memory)
 
+# --- Classical ML baselines (the honest foil for the QML case) ---
+scikit-learn>=1.5        # RBF-SVM baseline + the precomputed-kernel SVM for the quantum-kernel classifier
+
 # --- Drawing reference circuit diagrams in the offline pipeline (matplotlib path) ---
 pylatexenc>=2.10         # required by qiskit circuit_drawer(output='mpl')
 matplotlib>=3.8

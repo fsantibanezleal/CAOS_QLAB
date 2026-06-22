@@ -17,7 +17,7 @@ permissive (Apache-2.0 / MIT / BSD) dependencies.
 | Qulacs | fast CPU statevector *(planned)* | MIT |
 | OpenFermion | quantum chemistry *(planned)* | Apache-2.0 |
 | **Mitiq** | **error mitigation *(planned)*** | **GPL-3.0** ⚠ copyleft |
-| NumPy / SciPy / NetworkX / Matplotlib | scientific stack | BSD-3-Clause |
+| NumPy / SciPy / NetworkX / Matplotlib / scikit-learn | scientific stack + classical-ML baselines | BSD-3-Clause |
 
 Committed artifacts under `data/artifacts/` are computed outputs of these engines (compact JSON traces),
 redistributable under this repo's MIT license. No third-party datasets are vendored.
