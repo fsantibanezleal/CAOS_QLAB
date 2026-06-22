@@ -140,6 +140,20 @@ def test_noise_zne_reduces_error():
     assert res["noise-classical"].value["value"] == 1.0     # classical is exact + free
 
 
+def test_qec_repetition_below_threshold():
+    from qlab.registry import get_problem, solvers_for
+
+    problem = get_problem("qec-repetition")
+    r3 = {s.name: s.run(problem, problem.instance("rep-d3-p0.05"), seed=42, shots=1)
+          for s in solvers_for(problem)}
+    r5 = {s.name: s.run(problem, problem.instance("rep-d5-p0.05"), seed=42, shots=1)
+          for s in solvers_for(problem)}
+    l3 = r3["qec-stim"].value["logical_error_rate"]
+    l5 = r5["qec-stim"].value["logical_error_rate"]
+    assert l5 < l3                                                  # distance helps below threshold
+    assert l3 < r3["qec-baseline"].value["physical_error_rate"]    # encoding beats the unprotected qubit
+
+
 def test_maxcut_classical_optimum_beats_or_matches_qaoa():
     from qlab.problems.maxcut import MaxCut
     from qlab.registry import get_problem, solvers_for

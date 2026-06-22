@@ -59,6 +59,23 @@ def _comparison(problem, results: list) -> dict:
             f"gana — el resultado honesto y esperado."
         )
         return {"optimal_cut": opt, "qaoa_cut": q, "verdict": {"en": verdict_en, "es": verdict_es}}
+    if problem.id == "qec-repetition":
+        base = next((r for r in results if r.paradigm == "classical"), None)
+        q = next((r for r in results if r.paradigm != "classical"), None)
+        ler = q.value.get("logical_error_rate") if q else None
+        d = q.value.get("distance") if q else None
+        phys = base.value.get("physical_error_rate") if base else None
+        wins = ler is not None and phys is not None and ler < phys
+        return {"logical_error_rate": ler, "physical_error_rate": phys, "distance": d,
+                "below_threshold": wins, "verdict": {
+            "en": f"Distance-{d} repetition code: logical error {ler} vs an unprotected qubit's {phys}. "
+                  f"{'Encoding WINS' if wins else 'Encoding does NOT help'} here — this is error CORRECTION "
+                  f"(it scales: below threshold, more distance is better), unlike mitigation. Honest caveat: "
+                  f"one logical qubit; useful fault tolerance needs ~1000s of logical qubits.",
+            "es": f"Código de repetición distancia-{d}: error lógico {ler} vs {phys} de un qubit sin "
+                  f"proteger. {'La codificación GANA' if wins else 'La codificación NO ayuda'} aquí — esto es "
+                  f"CORRECCIÓN de errores (escala: bajo umbral, más distancia es mejor), a diferencia de la "
+                  f"mitigación. Salvedad honesta: un qubit lógico; la tolerancia útil necesita ~miles."}}
     if problem.id == "noise":
         q = next((r for r in results if r.paradigm != "classical"), None)
         if q:

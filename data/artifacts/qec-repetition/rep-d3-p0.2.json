@@ -1,0 +1,115 @@
+{
+ "schema_version": "qlab-trace/1",
+ "case_id": "qec-repetition",
+ "category": "noise-and-qec",
+ "title": {
+  "en": "QEC — repetition (bit-flip) code",
+  "es": "QEC — código de repetición (bit-flip)"
+ },
+ "concept": {
+  "en": "The repetition code encodes one logical qubit in d physical qubits and corrects bit-flips by measuring parity (Z₀Z₁, Z₁Z₂, …) stabilizers and majority-decoding. We run the real QEC stack — Stim simulates the noisy stabilizer circuit, PyMatching decodes the syndromes — for distance 3 and 5 over several noise rates, and compare the encoded LOGICAL error to an unprotected qubit. Below a noise threshold the logical error drops AND a larger code beats a smaller one — adding qubits makes the logical qubit better. That is the whole premise of fault tolerance, and the miniature of Google's Willow below-threshold result; the honest caveat is that this is one logical qubit, vastly short of the thousands needed for anything useful.",
+  "es": "El código de repetición codifica un qubit lógico en d qubits físicos y corrige bit-flips midiendo estabilizadores de paridad (Z₀Z₁, Z₁Z₂, …) y decodificando por mayoría. Corremos el stack real de QEC — Stim simula el circuito ruidoso de estabilizadores, PyMatching decodifica los síndromes — para distancia 3 y 5 con varias tasas de ruido, y comparamos el error LÓGICO codificado con un qubit sin proteger. Bajo un umbral de ruido el error lógico baja Y un código más grande supera a uno más chico — agregar qubits mejora el qubit lógico. Esa es la premisa de la tolerancia a fallos, y la miniatura del resultado below-threshold de Willow de Google; la salvedad honesta es que esto es un qubit lógico, lejísimos de los miles necesarios para algo útil."
+ },
+ "metric": {
+  "en": "logical error rate",
+  "es": "tasa de error lógico"
+ },
+ "instance": {
+  "id": "rep-d3-p0.2",
+  "title": {
+   "en": "distance 3, p=0.2",
+   "es": "distancia 3, p=0.2"
+  },
+  "params": {
+   "distance": 3,
+   "p": 0.2,
+   "rounds": 3
+  },
+  "note": {
+   "en": "d=3 repetition code, depolarizing p=0.2 — encoded logical error vs unprotected.",
+   "es": "código de repetición d=3, despolarizante p=0.2 — error lógico codificado vs sin proteger."
+  }
+ },
+ "qubits": 1,
+ "lane": "precompute",
+ "lane_reasons": [
+  "needs noise / mid-circuit feed-forward / optimization loop (offline engine only)"
+ ],
+ "seed": 42,
+ "shots": 2048,
+ "primary_solver": "qec-baseline",
+ "trace": null,
+ "solvers": [
+  {
+   "solver": "qec-baseline",
+   "label": {
+    "en": "Unprotected qubit · classical model",
+    "es": "Qubit sin proteger · modelo clásico"
+   },
+   "framework": "classical:numpy",
+   "paradigm": "classical",
+   "value": {
+    "physical_error_rate": 0.30281,
+    "physical_qubits": 1
+   },
+   "cost": {
+    "wall_ms": 0.0018
+   },
+   "notes": {
+    "en": "An unprotected qubit under the same noise over 3 rounds flips with probability 0.3028. The encoded code wins when its logical error is below this.",
+    "es": "Un qubit sin proteger bajo el mismo ruido en 3 rondas se voltea con probabilidad 0.3028. El código codificado gana cuando su error lógico baja de esto."
+   },
+   "optimal": true,
+   "extra": {}
+  },
+  {
+   "solver": "qec-stim",
+   "label": {
+    "en": "Repetition code (Stim + MWPM)",
+    "es": "Código de repetición (Stim + MWPM)"
+   },
+   "framework": "stim",
+   "paradigm": "quantum-sim",
+   "value": {
+    "logical_error_rate": 0.25256,
+    "distance": 3,
+    "rounds": 3,
+    "physical_p": 0.2,
+    "physical_qubits": 5
+   },
+   "cost": {
+    "wall_ms": 20.6,
+    "shots": 50000,
+    "physical_qubits": 5
+   },
+   "notes": {
+    "en": "Stim+PyMatching: distance-3 repetition code at p=0.2 → logical error 0.2526 over 3 rounds (5 physical qubits).",
+    "es": "Stim+PyMatching: código de repetición distancia-3 a p=0.2 → error lógico 0.2526 en 3 rondas (5 qubits físicos)."
+   },
+   "optimal": false,
+   "extra": {
+    "shots": 50000
+   }
+  }
+ ],
+ "comparison": {
+  "logical_error_rate": 0.25256,
+  "physical_error_rate": 0.30281,
+  "distance": 3,
+  "below_threshold": true,
+  "verdict": {
+   "en": "Distance-3 repetition code: logical error 0.25256 vs an unprotected qubit's 0.30281. Encoding WINS here — this is error CORRECTION (it scales: below threshold, more distance is better), unlike mitigation. Honest caveat: one logical qubit; useful fault tolerance needs ~1000s of logical qubits.",
+   "es": "Código de repetición distancia-3: error lógico 0.25256 vs 0.30281 de un qubit sin proteger. La codificación GANA aquí — esto es CORRECCIÓN de errores (escala: bajo umbral, más distancia es mejor), a diferencia de la mitigación. Salvedad honesta: un qubit lógico; la tolerancia útil necesita ~miles."
+  }
+ },
+ "references": [
+  {
+   "label": "Google Quantum AI, Quantum error correction below the surface code threshold (2024)",
+   "url": "https://arxiv.org/abs/2408.13687"
+  },
+  {
+   "label": "Gidney, Stim: a fast stabilizer circuit simulator (2021)",
+   "doi": "10.22331/q-2021-07-06-497"
+  }
+ ]
+}

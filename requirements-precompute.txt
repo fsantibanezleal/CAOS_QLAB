@@ -13,8 +13,9 @@ pennylane==0.45.0        # autodiff circuits; chemistry (VQE H2) + QAOA MaxCut +
 # --- Second/third circuit SDKs (independent cross-checks; topology/moment control) ---
 cirq-core==1.6.1         # Google Cirq (QAOA cross-check; qsimcirq optional for speed)
 
-# --- Stabilizer / error-correction (thousands of Clifford qubits; cases 21-22) ---
+# --- Stabilizer / error-correction (thousands of Clifford qubits; the QEC cases) ---
 stim==1.16.0             # Clifford simulator, the QEC standard (Gottesman-Knill, ~O(n^2) memory)
+pymatching>=2.0          # minimum-weight perfect-matching decoder (pairs with Stim for QEC)
 
 # --- Classical ML baselines (the honest foil for the QML case) ---
 scikit-learn>=1.5        # RBF-SVM baseline + the precomputed-kernel SVM for the quantum-kernel classifier

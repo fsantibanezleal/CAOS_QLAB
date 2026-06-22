@@ -19,8 +19,9 @@ with the code). **Bold** = already wired as a solver adapter.
    pillar; clean CPU→GPU→TN device swap. *(QAOA adapter live; VQE/QML next.)*
 3. **[Cirq (+ qsim)](./frameworks/03_cirq.md)** — Apache-2.0 — explicit topology / moment-level control;
    fast Google statevector. *(QAOA adapter live — the third MaxCut cross-check.)*
-4. **Stim** — Apache-2.0 — the stabilizer/QEC pillar; the only way to reach thousands of qubits; the right
-   tool to teach error correction honestly. *(planned — the QEC cases.)*
+4. **[Stim (+ PyMatching)](./frameworks/04_stim.md)** — Apache-2.0 — the stabilizer/QEC pillar; the only
+   way to reach thousands of qubits; the right tool to teach error correction honestly. *(repetition-code
+   adapter live — Stim + PyMatching MWPM decoder.)*
 5. **pytket** — Apache-2.0 (now fully open) — the cross-compiler/router; teaches real compilation quality
    (cuts depth/gate-count vs naive transpile). *(planned — the compilation case.)*
 6. **Qulacs** — MIT — fastest low-overhead CPU statevector; the "why is this so fast" lesson. *(planned.)*

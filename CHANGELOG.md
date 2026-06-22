@@ -4,6 +4,24 @@ All notable changes to CAOS_QLAB. Format: newest → oldest. Versions follow `X.
 (major.minor.patch); patch (`.00X`) for fixes. Kept `0.x` while the web SPA and the framework/case matrix
 are still landing. Tags from day one.
 
+## [0.14.000] — 2026-06-22 — QEC repetition code + Stim framework (error CORRECTION that scales)
+
+### Added
+- **Framework: Stim (+ PyMatching)** — a new stabilizer/QEC simulation paradigm beside the state-vector
+  engines, added as one adapter (`qlab/solvers/stim_solvers.py`) + docs node `docs/frameworks/04_stim.md`.
+- **Case `qec-repetition`** (6 variants, distance×p) — the real QEC toolchain: `stim.Circuit.generated`
+  repetition-code memory → detector sampler → **PyMatching MWPM** decoder → logical error rate. Solvers
+  **`qec-stim`** and **`qec-baseline`** (unprotected-qubit classical model). Lane=precompute, 50k shots.
+- Shows below-threshold scaling: at p=0.05/0.1 the distance-5 code beats distance-3 (0.0088<0.0266;
+  0.056<0.091) and both beat the unprotected qubit; at p=0.2 the distance benefit vanishes (≈ threshold) —
+  the honest crossover (Willow 2024 in miniature). Verdict: correction *scales* (unlike mitigation), but
+  it's one bit-flip logical qubit, far from useful FT scale.
+- Pipeline QEC verdict; test `test_qec_repetition_below_threshold`; docs node `13_qec-repetition.md`;
+  pymatching added to requirements-precompute.
+
+### Verified
+- 18/18 tests, ruff clean. d5 logical < d3 logical below threshold; both < unprotected.
+
 ## [0.13.000] — 2026-06-22 — Noise & error mitigation (ZNE) — noise-and-qec category opens
 
 ### Added

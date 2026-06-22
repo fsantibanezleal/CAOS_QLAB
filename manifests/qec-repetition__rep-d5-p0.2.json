@@ -1,0 +1,44 @@
+{
+ "case_id": "qec-repetition",
+ "title": {
+  "en": "QEC — repetition (bit-flip) code",
+  "es": "QEC — código de repetición (bit-flip)"
+ },
+ "category": "noise-and-qec",
+ "lane": "precompute",
+ "lane_reasons": [
+  "needs noise / mid-circuit feed-forward / optimization loop (offline engine only)"
+ ],
+ "qubits": 1,
+ "seed": 42,
+ "shots": 2048,
+ "params": {
+  "distance": 5,
+  "p": 0.2,
+  "rounds": 5
+ },
+ "measured": {
+  "run_ms": 0,
+  "trace_bytes": 0,
+  "unitary_only": false
+ },
+ "viz": [
+  "histogram",
+  "density",
+  "circuit"
+ ],
+ "engine": "classical:numpy",
+ "engine_version": "—",
+ "trace_path": "qec-repetition/rep-d5-p0.2.json",
+ "references": [
+  {
+   "label": "Google Quantum AI, Quantum error correction below the surface code threshold (2024)",
+   "url": "https://arxiv.org/abs/2408.13687"
+  },
+  {
+   "label": "Gidney, Stim: a fast stabilizer circuit simulator (2021)",
+   "doi": "10.22331/q-2021-07-06-497"
+  }
+ ],
+ "manifest_version": "qlab-manifest/1"
+}

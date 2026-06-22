@@ -287,6 +287,37 @@ class ClassicalSVM(Solver):
 
 
 @register_solver
+class ClassicalUnprotected(Solver):
+    name = "qec-baseline"
+    label = {"en": "Unprotected qubit · classical model", "es": "Qubit sin proteger · modelo clásico"}
+    framework = "classical:numpy"
+    paradigm = CLASSICAL
+
+    def applicable(self, problem: Problem) -> bool:
+        return problem.id == "qec-repetition"
+
+    def run(self, problem, instance: Instance, seed: int, shots: int) -> SolverResult:
+        p, rounds = instance.params["p"], instance.params["rounds"]
+        t0 = time.perf_counter()
+        # A single UNPROTECTED qubit under the same depolarizing model: per round, X or Y flips the Z value
+        # with probability 2p/3; over `rounds` rounds the net flip prob (odd number of flips) is
+        #   p_phys = (1 - (1 - 2·q)^rounds) / 2,  q = 2p/3.
+        q = 2 * p / 3
+        p_phys = (1 - (1 - 2 * q) ** rounds) / 2
+        wall = (time.perf_counter() - t0) * 1e3
+        return SolverResult(
+            solver=self.name, label=self.label, framework=self.framework, paradigm=self.paradigm,
+            value={"physical_error_rate": round(float(p_phys), 5), "physical_qubits": 1},
+            cost={"wall_ms": round(wall, 4)},
+            notes={"en": f"An unprotected qubit under the same noise over {rounds} rounds flips with "
+                         f"probability {p_phys:.4f}. The encoded code wins when its logical error is below this.",
+                   "es": f"Un qubit sin proteger bajo el mismo ruido en {rounds} rondas se voltea con "
+                         f"probabilidad {p_phys:.4f}. El código codificado gana cuando su error lógico baja de esto."},
+            optimal=True,
+        )
+
+
+@register_solver
 class ClassicalNoiseless(Solver):
     name = "noise-classical"
     label = {"en": "Noiseless statevector · classical", "es": "Vector de estado sin ruido · clásico"}
