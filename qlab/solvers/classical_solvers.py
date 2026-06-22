@@ -220,6 +220,43 @@ class ClassicalSimon(Solver):
 
 
 @register_solver
+class ClassicalSearch(Solver):
+    name = "grover-classical"
+    label = {"en": "Linear scan · classical", "es": "Barrido lineal · clásico"}
+    framework = "classical:numpy"
+    paradigm = CLASSICAL
+
+    def applicable(self, problem: Problem) -> bool:
+        return problem.id == "grover"
+
+    def run(self, problem, instance: Instance, seed: int, shots: int) -> SolverResult:
+        n, marked = instance.params["n"], set(instance.params["marked"])
+        rng = np.random.default_rng(seed)
+        N = 2**n
+        order = rng.permutation(N)            # query items in a random order until a marked one is hit
+        t0 = time.perf_counter()
+        queries, found_idx = 0, None
+        for x in order:
+            queries += 1
+            if int(x) in marked:
+                found_idx = int(x)
+                break
+        found = format(found_idx, f"0{n}b")[::-1] if found_idx is not None else "?"
+        wall = (time.perf_counter() - t0) * 1e3
+        avg = (N + 1) / (len(marked) + 1)
+        return SolverResult(
+            solver=self.name, label=self.label, framework=self.framework, paradigm=self.paradigm,
+            value={"found": found, "correct": found_idx in marked, "classical_queries": queries},
+            cost={"wall_ms": round(wall, 4), "oracle_queries": queries},
+            notes={"en": f"Found a marked item after {queries} queries (worst case {N}, average ≈ "
+                         f"{avg:.1f}); the quantum advantage is the quadratic ~√N.",
+                   "es": f"Halló un ítem marcado tras {queries} consultas (peor caso {N}, promedio ≈ "
+                         f"{avg:.1f}); la ventaja cuántica es el ~√N cuadrático."},
+            optimal=True,
+        )
+
+
+@register_solver
 class GreedyMaxCut(Solver):
     name = "maxcut-greedy"
     label = {"en": "Greedy local search · classical", "es": "Búsqueda voraz local · clásico"}

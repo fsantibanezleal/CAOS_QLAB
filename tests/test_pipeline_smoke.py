@@ -59,6 +59,18 @@ def test_simon_recovers_period():
     assert res["simon-classical"].value["recovered"] == "101"
 
 
+def test_grover_finds_marked():
+    from qlab.registry import get_problem, solvers_for
+
+    problem = get_problem("grover")
+    inst = problem.instance("grover-3-5")
+    res = {s.name: s.run(problem, inst, seed=42, shots=512) for s in solvers_for(problem)}
+    assert res["grover-qiskit"].value["found"] == "101"
+    assert res["grover-qiskit"].value["correct"] is True
+    assert res["grover-qiskit"].value["success_prob"] > 0.9
+    assert res["grover-classical"].value["correct"] is True
+
+
 def test_maxcut_classical_optimum_beats_or_matches_qaoa():
     from qlab.problems.maxcut import MaxCut
     from qlab.registry import get_problem, solvers_for

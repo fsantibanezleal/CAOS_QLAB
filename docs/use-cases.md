@@ -13,6 +13,7 @@ lands (ADR-0056).
 | [03](./use-cases/03_bernstein-vazirani.md) | **Bernstein–Vazirani** | oracle-algorithms | BV circuit (Qiskit) · oracle queries (classical) | 6 hidden strings (3–6 bits) | live | recovers s in **1** quantum query vs **n** classical — a real query-complexity advantage |
 | [04](./use-cases/04_deutsch-jozsa.md) | **Deutsch–Jozsa** | oracle-algorithms | DJ circuit (Qiskit) · oracle queries (classical) | 6 (constant + balanced, 3–4 q) | live | constant vs balanced in **1** quantum query vs up to **2ⁿ⁻¹+1** classical |
 | [05](./use-cases/05_simon.md) | **Simon** | oracle-algorithms | Simon circuit + GF(2) solve (Qiskit) · collision search (classical) | 6 periods (n=2–3) | precompute | hidden period in **O(n)** quantum queries vs **~2ⁿ/²** classical — first exponential separation |
+| [06](./use-cases/06_grover.md) | **Grover** | flagship-algorithms | oracle + diffuser (Qiskit) · linear scan (classical) | 6 (N=4–16, single + multi-marked) | live | finds the marked item in **~√N** queries vs classical **~N/2** — quadratic (asymptotic) speedup |
 
 ## Roadmap (the catalog, ordered beginner → advanced)
 
@@ -31,7 +32,7 @@ small unitary (JS lane); **precompute** = needs noise / feed-forward / optimizat
 | 10 | Deutsch–Jozsa | oracle-algorithms | live | ✅ shipping (case 04) |
 | 11 | Bernstein–Vazirani | oracle-algorithms | live | ✅ shipping (case 03) |
 | 12 | Simon's algorithm | oracle-algorithms | precompute | ✅ shipping (case 05) |
-| 13 | Grover search | flagship-algorithms | live (small) | circuit vs classical O(N) |
+| 13 | Grover search | flagship-algorithms | live | ✅ shipping (case 06) |
 | 14 | Quantum Fourier Transform | flagship-algorithms | live (≤8 q) | circuit vs classical FFT |
 | 15 | Quantum phase estimation | flagship-algorithms | precompute | circuit (precision sweep) |
 | 16 | Shor (toy, factor 15) | flagship-algorithms | precompute | circuit vs classical factoring + resource-cost panel |

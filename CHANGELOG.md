@@ -4,6 +4,20 @@ All notable changes to CAOS_QLAB. Format: newest → oldest. Versions follow `X.
 (major.minor.patch); patch (`.00X`) for fixes. Kept `0.x` while the web SPA and the framework/case matrix
 are still landing. Tags from day one.
 
+## [0.07.000] — 2026-06-22 — Grover's search (flagship-algorithms category opens)
+
+### Added
+- **Case `grover`** (6 variants: N=4–16, single + multi-marked) — opens the **flagship-algorithms**
+  category. Real oracle (phase flip per marked state) + diffuser (inversion about the mean), optimal
+  `k=⌊(π/4)√(N/M)⌋` iterations. Solvers **`grover-qiskit`** (real circuit + amplitude-growth trace) and
+  **`grover-classical`** (random linear scan). Success probabilities match the textbook Grover values
+  (N=4 exact 1.0; N=8 → 0.945; N=16 → 0.961); marked item found on every variant. Lane=live.
+- Pipeline Grover verdict (√N vs ~N/2, honest "asymptotic" framing); test `test_grover_finds_marked`;
+  docs node `docs/use-cases/06_grover.md` (rotation-angle derivation + over-rotation note + results).
+
+### Verified
+- 11/11 tests, ruff clean. P(marked) ≥ 0.94 on all variants; found ∈ marked throughout.
+
 ## [0.06.000] — 2026-06-22 — Simon's algorithm (first exponential separation; oracle quartet)
 
 ### Added

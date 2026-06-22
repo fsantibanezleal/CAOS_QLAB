@@ -1,0 +1,43 @@
+{
+ "case_id": "grover",
+ "title": {
+  "en": "Grover — unstructured search",
+  "es": "Grover — búsqueda no estructurada"
+ },
+ "category": "flagship-algorithms",
+ "lane": "live",
+ "lane_reasons": [],
+ "qubits": 4,
+ "seed": 42,
+ "shots": 2048,
+ "params": {
+  "n": 4,
+  "marked": [
+   10
+  ]
+ },
+ "measured": {
+  "run_ms": 41.361,
+  "trace_bytes": 74807,
+  "unitary_only": true
+ },
+ "viz": [
+  "amp_phase",
+  "histogram",
+  "circuit"
+ ],
+ "engine": "qiskit",
+ "engine_version": "2.4.2",
+ "trace_path": "grover/grover-4-10.json",
+ "references": [
+  {
+   "label": "Grover, A fast quantum mechanical algorithm for database search, STOC '96 (1996)",
+   "doi": "10.1145/237814.237866"
+  },
+  {
+   "label": "Nielsen & Chuang, Quantum Computation and Quantum Information (2010)",
+   "url": "https://doi.org/10.1017/CBO9780511976667"
+  }
+ ],
+ "manifest_version": "qlab-manifest/1"
+}

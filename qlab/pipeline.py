@@ -59,6 +59,19 @@ def _comparison(problem, results: list) -> dict:
             f"gana — el resultado honesto y esperado."
         )
         return {"optimal_cut": opt, "qaoa_cut": q, "verdict": {"en": verdict_en, "es": verdict_es}}
+    if problem.id == "grover":
+        cls = next((r for r in results if r.paradigm == "classical"), None)
+        q = next((r for r in results if r.paradigm != "classical"), None)
+        kq = cls.value.get("classical_queries") if cls else None
+        qq = q.value.get("quantum_queries") if q else None
+        sp = q.value.get("success_prob") if q else None
+        return {"quantum_queries": qq, "classical_queries": kq, "success_prob": sp, "verdict": {
+            "en": f"Quantum: {qq} Grover iteration(s) (~√N), P(marked)={sp}. Classical: {kq} queries to hit "
+                  f"a marked item (~N/2 average). A quadratic speedup — but asymptotic; at this tiny N the "
+                  f"classical scan is still instant and cheaper in wall-time.",
+            "es": f"Cuántico: {qq} iteración(es) de Grover (~√N), P(marcado)={sp}. Clásico: {kq} consultas "
+                  f"hasta un ítem marcado (~N/2 promedio). Speedup cuadrático — pero asintótico; a este N "
+                  f"minúsculo el barrido clásico es instantáneo y más barato en tiempo."}}
     if problem.id == "simon":
         cls = next((r for r in results if r.paradigm == "classical"), None)
         q = next((r for r in results if r.paradigm != "classical"), None)

@@ -261,6 +261,89 @@ class QiskitSimon(Solver):
         )
 
 
+def _mcz(qc: "QuantumCircuit", n: int) -> None:
+    """Multi-controlled Z on n qubits (phase flip of |1…1⟩)."""
+    if n == 1:
+        qc.z(0)
+    else:
+        qc.h(n - 1)
+        qc.mcx(list(range(n - 1)), n - 1)
+        qc.h(n - 1)
+
+
+def _grover_oracle(qc: "QuantumCircuit", n: int, marked: list[int]) -> None:
+    """Phase-flip each marked basis state |w⟩."""
+    for w in marked:
+        zeros = [i for i in range(n) if not (w >> i) & 1]
+        if zeros:
+            qc.x(zeros)
+        _mcz(qc, n)
+        if zeros:
+            qc.x(zeros)
+
+
+def _grover_diffuser(qc: "QuantumCircuit", n: int) -> None:
+    """Inversion about the mean: H^n X^n (MCZ) X^n H^n."""
+    qc.h(range(n))
+    qc.x(range(n))
+    _mcz(qc, n)
+    qc.x(range(n))
+    qc.h(range(n))
+
+
+@register_solver
+class QiskitGrover(Solver):
+    name = "grover-qiskit"
+    label = {"en": "Grover circuit · Qiskit", "es": "Circuito Grover · Qiskit"}
+    framework = "qiskit"
+    paradigm = QUANTUM_SIM
+
+    def applicable(self, problem: Problem) -> bool:
+        return problem.id == "grover"
+
+    def run(self, problem, instance: Instance, seed: int, shots: int) -> SolverResult:
+        import math
+
+        from qlab.core.trace import Trace
+
+        n, marked = instance.params["n"], instance.params["marked"]
+        N, M = 2**n, len(marked)
+        k = max(1, math.floor(math.pi / 4 * math.sqrt(N / M)))   # optimal Grover iterations
+        qc = QuantumCircuit(n)
+        qc.h(range(n))
+        for _ in range(k):
+            _grover_oracle(qc, n, marked)
+            _grover_diffuser(qc, n)
+        t0 = time.perf_counter()
+        steps = evolve(qc)
+        probs = np.asarray(Statevector(qc).probabilities())
+        idx = int(np.argmax(probs))
+        found = format(idx, f"0{n}b")[::-1]                       # qubit order: position u = qubit u
+        success = float(sum(probs[w] for w in marked))            # total prob on the marked subspace
+        wall = (time.perf_counter() - t0) * 1e3
+        trace = Trace(
+            case_id=problem.id, title=problem.title, concept=problem.concept, qubits=n,
+            steps=steps, measurements=measure_counts(qc, shots, seed), circuit_ops=circuit_ops(qc),
+            provenance={"engine": "qiskit", "engine_version": QISKIT_VERSION, "seed": seed,
+                        "lane": "tbd", "ran_on": "simulator"},
+            references=problem.references,
+            extra={"iterations": k, "success_prob": round(success, 4),
+                   "marked": [format(w, f"0{n}b")[::-1] for w in marked]},
+        )
+        return SolverResult(
+            solver=self.name, label=self.label, framework=self.framework, paradigm=self.paradigm,
+            value={"found": found, "correct": idx in marked, "success_prob": round(success, 4),
+                   "quantum_queries": k},
+            cost={"wall_ms": round(wall, 3), "qubits": n, "depth": steps[-1].index, "oracle_queries": k},
+            notes={"en": f"{k} Grover iteration(s) on N={N}, M={M}: P(marked)={success:.3f}, found "
+                         f"|{found}⟩. Quantum ~√N queries.",
+                   "es": f"{k} iteración(es) de Grover en N={N}, M={M}: P(marcado)={success:.3f}, encontró "
+                         f"|{found}⟩. Cuántico ~√N consultas."},
+            trace=trace,
+            extra={"iterations": k, "success_prob": round(success, 4)},
+        )
+
+
 def _maxcut_cost_op(n: int, edges: list[list[int]]) -> SparsePauliOp:
     """C = Σ_(u,v)∈E 0.5 (I − Z_u Z_v) — expectation = expected cut value."""
     sparse = []
