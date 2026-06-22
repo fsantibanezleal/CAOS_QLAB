@@ -25,26 +25,28 @@ except Exception:  # pragma: no cover
 
 
 @register_solver
-class StimRepetition(Solver):
+class StimQEC(Solver):
     name = "qec-stim"
-    label = {"en": "Repetition code (Stim + MWPM)", "es": "Código de repetición (Stim + MWPM)"}
+    label = {"en": "QEC code (Stim + MWPM)", "es": "Código QEC (Stim + MWPM)"}
     framework = "stim"
     paradigm = QUANTUM_SIM
-    SHOTS = 50_000
+    SHOTS = 30_000
 
     def applicable(self, problem: Problem) -> bool:
-        return problem.id == "qec-repetition" and stim is not None
+        return problem.id in ("qec-repetition", "qec-surface") and stim is not None
 
     def run(self, problem, instance: Instance, seed: int, shots: int) -> SolverResult:
         import pymatching
 
         d, p, rounds = instance.params["distance"], instance.params["p"], instance.params["rounds"]
+        code_task = instance.params.get("code_task", "repetition_code:memory")
+        is_surface = code_task.startswith("surface")
         t0 = time.perf_counter()
-        circuit = stim.Circuit.generated(
-            "repetition_code:memory", rounds=rounds, distance=d,
-            before_round_data_depolarization=p,
-            before_measure_flip_probability=p / 2,
-        )
+        noise = ({"after_clifford_depolarization": p, "before_measure_flip_probability": p}
+                 if is_surface
+                 else {"before_round_data_depolarization": p, "before_measure_flip_probability": p / 2})
+        circuit = stim.Circuit.generated(code_task, rounds=rounds, distance=d, **noise)
+        nqubits = circuit.num_qubits
         sampler = circuit.compile_detector_sampler(seed=seed)
         det, obs = sampler.sample(self.SHOTS, separate_observables=True)
         matcher = pymatching.Matching.from_detector_error_model(
@@ -52,14 +54,15 @@ class StimRepetition(Solver):
         pred = matcher.decode_batch(det)
         logical_err = float((pred != obs).any(axis=1).mean())
         wall = (time.perf_counter() - t0) * 1e3
+        kind = "rotated surface code" if is_surface else "repetition code"
         return SolverResult(
             solver=self.name, label=self.label, framework=self.framework, paradigm=self.paradigm,
             value={"logical_error_rate": round(logical_err, 5), "distance": d, "rounds": rounds,
-                   "physical_p": p, "physical_qubits": 2 * d - 1},
-            cost={"wall_ms": round(wall, 1), "shots": self.SHOTS, "physical_qubits": 2 * d - 1},
-            notes={"en": f"Stim+PyMatching: distance-{d} repetition code at p={p} → logical error "
-                         f"{logical_err:.4f} over {rounds} rounds ({2 * d - 1} physical qubits).",
-                   "es": f"Stim+PyMatching: código de repetición distancia-{d} a p={p} → error lógico "
-                         f"{logical_err:.4f} en {rounds} rondas ({2 * d - 1} qubits físicos)."},
-            extra={"shots": self.SHOTS},
+                   "physical_p": p, "physical_qubits": nqubits},
+            cost={"wall_ms": round(wall, 1), "shots": self.SHOTS, "physical_qubits": nqubits},
+            notes={"en": f"Stim+PyMatching: distance-{d} {kind} at p={p} → logical error {logical_err:.4f} "
+                         f"over {rounds} rounds ({nqubits} physical qubits).",
+                   "es": f"Stim+PyMatching: {kind} distancia-{d} a p={p} → error lógico {logical_err:.4f} "
+                         f"en {rounds} rondas ({nqubits} qubits físicos)."},
+            extra={"shots": self.SHOTS, "code": code_task},
         )

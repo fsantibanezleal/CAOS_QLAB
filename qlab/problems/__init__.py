@@ -9,6 +9,7 @@ from qlab.problems import (  # noqa: F401  (import = registration)
     maxcut,
     noise,
     qec_repetition,
+    qec_surface,
     qft,
     qml_classifier,
     qpe,
@@ -19,4 +20,4 @@ from qlab.problems import (  # noqa: F401  (import = registration)
 )
 
 __all__ = ["state_prep", "maxcut", "bernstein_vazirani", "deutsch_jozsa", "simon", "grover", "qft", "qpe",
-           "shor", "vqe", "qml_classifier", "noise", "qec_repetition"]
+           "shor", "vqe", "qml_classifier", "noise", "qec_repetition", "qec_surface"]

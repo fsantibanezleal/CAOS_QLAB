@@ -21,6 +21,7 @@ lands (ADR-0056).
 | [11](./use-cases/11_qml.md) | **QML (quantum kernel)** | variational | quantum fidelity-kernel SVM (PennyLane) · RBF-SVM (classical/sklearn) | 6 datasets | precompute | ties or **loses** to classical SVM — no advantage (second learned method; QML hype check) |
 | [12](./use-cases/12_noise.md) | **Noise + mitigation (ZNE)** | noise-and-qec | Aer noise + zero-noise extrapolation (Qiskit) · noiseless statevector (classical) | 6 (p×depth) | precompute | ZNE cuts error 11×→1.5× as noise grows; mitigation ≠ correction; classical exact+free at this scale |
 | [13](./use-cases/13_qec-repetition.md) | **QEC — repetition code** | noise-and-qec | repetition code (Stim + PyMatching MWPM) · unprotected qubit (classical) | 6 (distance×p) | precompute | error CORRECTION that scales — d=5 beats d=3 below threshold (Willow in miniature); stops at threshold |
+| [14](./use-cases/14_qec-surface.md) | **QEC — surface code** | noise-and-qec | rotated surface code (Stim + PyMatching MWPM) · unprotected qubit (classical) | 6 (distance×p) | precompute | the **threshold crossover**: d=5 beats d=3 below ~1%, d=5 worse above — corrects X+Z (the FT front-runner) |
 
 ## Roadmap (the catalog, ordered beginner → advanced)
 
@@ -48,7 +49,7 @@ small unitary (JS lane); **precompute** = needs noise / feed-forward / optimizat
 | 19 | Quantum kernel / variational classifier | variational | precompute | ✅ shipping (case 11) |
 | 20 | Noise + measurement-error mitigation | noise-and-qec | precompute | ✅ shipping (case 12) |
 | 21 | Repetition / bit-flip code | noise-and-qec | precompute | ✅ shipping (case 13) |
-| 22 | Surface-code demo | noise-and-qec | precompute | Stim |
+| 22 | Surface-code demo | noise-and-qec | precompute | ✅ shipping (case 14) |
 | — | BB84 / QKD (optional) | fundamentals | live | circuit (mostly classical bookkeeping) |
 
 **Honest sizing note:** every case is shipped with the solvers it genuinely supports; regimes/variants are

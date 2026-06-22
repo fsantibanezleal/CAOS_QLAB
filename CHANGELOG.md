@@ -4,6 +4,21 @@ All notable changes to CAOS_QLAB. Format: newest → oldest. Versions follow `X.
 (major.minor.patch); patch (`.00X`) for fixes. Kept `0.x` while the web SPA and the framework/case matrix
 are still landing. Tags from day one.
 
+## [0.15.000] — 2026-06-22 — QEC surface code (threshold crossover) — QEC arc complete
+
+### Added
+- **Case `qec-surface`** (6 variants, distance×p) — the rotated surface code (corrects X **and** Z), the
+  fault-tolerance front-runner, via the real Stim + PyMatching pipeline. Generalized the `qec-stim` adapter
+  to handle both repetition and surface codes (one solver, `code_task` param); `qec-baseline` extended too.
+- Shows the **threshold crossover** cleanly: at p=0.005 (below) distance-5 beats distance-3 (0.0057<0.0080);
+  at p=0.01/0.02 (at/above ~1% threshold) distance-5 is WORSE (0.036>0.028; 0.180>0.092) — more qubits hurt
+  above threshold. d=3 ≈ 26 qubits, d=5 ≈ 64 qubits. The Willow-2024 regime, honest about scale.
+- Pipeline surface verdict; test `test_qec_surface_below_threshold`; docs node `14_qec-surface.md`.
+  **Completes the QEC arc** (mitigation → repetition → surface) and the ~20-case roadmap's QEC section.
+
+### Verified
+- 19/19 tests, ruff clean. d5 < d3 below threshold; d5 > d3 above.
+
 ## [0.14.000] — 2026-06-22 — QEC repetition code + Stim framework (error CORRECTION that scales)
 
 ### Added

@@ -294,7 +294,7 @@ class ClassicalUnprotected(Solver):
     paradigm = CLASSICAL
 
     def applicable(self, problem: Problem) -> bool:
-        return problem.id == "qec-repetition"
+        return problem.id in ("qec-repetition", "qec-surface")
 
     def run(self, problem, instance: Instance, seed: int, shots: int) -> SolverResult:
         p, rounds = instance.params["p"], instance.params["rounds"]

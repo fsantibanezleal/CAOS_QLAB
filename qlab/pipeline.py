@@ -59,6 +59,24 @@ def _comparison(problem, results: list) -> dict:
             f"gana — el resultado honesto y esperado."
         )
         return {"optimal_cut": opt, "qaoa_cut": q, "verdict": {"en": verdict_en, "es": verdict_es}}
+    if problem.id == "qec-surface":
+        q = next((r for r in results if r.paradigm != "classical"), None)
+        ler = q.value.get("logical_error_rate") if q else None
+        d = q.value.get("distance") if q else None
+        nq = q.value.get("physical_qubits") if q else None
+        p = q.value.get("physical_p") if q else None
+        return {"logical_error_rate": ler, "distance": d, "physical_qubits": nq, "physical_p": p,
+                "verdict": {
+            "en": f"Rotated surface code distance-{d} ({nq} qubits) at p={p}: logical error {ler}. The honest "
+                  f"lesson is in the variant-bar — BELOW the ~1% threshold the distance-5 code beats "
+                  f"distance-3 (adding qubits helps), ABOVE it the distance-5 code is worse (more qubits = "
+                  f"more failure modes). This is the regime Willow entered in 2024; a useful logical qubit is "
+                  f"still ~1000 physical, and a useful machine needs thousands.",
+            "es": f"Código de superficie rotado distancia-{d} ({nq} qubits) a p={p}: error lógico {ler}. La "
+                  f"lección honesta está en la barra de variantes — BAJO el umbral del ~1% el código "
+                  f"distancia-5 supera al distancia-3 (agregar qubits ayuda), SOBRE el umbral el distancia-5 "
+                  f"es peor (más qubits = más modos de fallo). Es el régimen al que entró Willow en 2024; un "
+                  f"qubit lógico útil son ~1000 físicos, y una máquina útil necesita miles."}}
     if problem.id == "qec-repetition":
         base = next((r for r in results if r.paradigm == "classical"), None)
         q = next((r for r in results if r.paradigm != "classical"), None)

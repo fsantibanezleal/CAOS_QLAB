@@ -1,0 +1,45 @@
+{
+ "case_id": "qec-surface",
+ "title": {
+  "en": "QEC — surface code (threshold)",
+  "es": "QEC — código de superficie (umbral)"
+ },
+ "category": "noise-and-qec",
+ "lane": "precompute",
+ "lane_reasons": [
+  "needs noise / mid-circuit feed-forward / optimization loop (offline engine only)"
+ ],
+ "qubits": 1,
+ "seed": 42,
+ "shots": 2048,
+ "params": {
+  "distance": 3,
+  "p": 0.02,
+  "rounds": 3,
+  "code_task": "surface_code:rotated_memory_z"
+ },
+ "measured": {
+  "run_ms": 0,
+  "trace_bytes": 0,
+  "unitary_only": false
+ },
+ "viz": [
+  "histogram",
+  "density",
+  "circuit"
+ ],
+ "engine": "classical:numpy",
+ "engine_version": "—",
+ "trace_path": "qec-surface/surf-d3-p0.02.json",
+ "references": [
+  {
+   "label": "Fowler et al., Surface codes: Towards practical large-scale quantum computation (2012)",
+   "doi": "10.1103/PhysRevA.86.032324"
+  },
+  {
+   "label": "Google Quantum AI, Quantum error correction below the surface code threshold (2024)",
+   "url": "https://arxiv.org/abs/2408.13687"
+  }
+ ],
+ "manifest_version": "qlab-manifest/1"
+}

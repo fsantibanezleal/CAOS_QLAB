@@ -154,6 +154,16 @@ def test_qec_repetition_below_threshold():
     assert l3 < r3["qec-baseline"].value["physical_error_rate"]    # encoding beats the unprotected qubit
 
 
+def test_qec_surface_below_threshold():
+    from qlab.registry import get_problem, solvers_for
+
+    problem = get_problem("qec-surface")
+    stim_solver = next(s for s in solvers_for(problem) if s.name == "qec-stim")
+    l3 = stim_solver.run(problem, problem.instance("surf-d3-p0.005"), seed=42, shots=1).value["logical_error_rate"]
+    l5 = stim_solver.run(problem, problem.instance("surf-d5-p0.005"), seed=42, shots=1).value["logical_error_rate"]
+    assert l5 < l3                                  # below threshold, distance-5 beats distance-3
+
+
 def test_maxcut_classical_optimum_beats_or_matches_qaoa():
     from qlab.problems.maxcut import MaxCut
     from qlab.registry import get_problem, solvers_for
