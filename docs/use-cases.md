@@ -9,7 +9,8 @@ lands (ADR-0056).
 | # | Case | Category | Solvers (frameworks) | Variants | Lane | Verdict |
 |---|---|---|---|---|---|---|
 | [01](./use-cases/01_state-prep.md) | **State preparation** | entanglement | gate circuit (Qiskit) · direct amplitudes (classical) | 7 (Bell Φ⁺/Φ⁻/Ψ⁺/Ψ⁻, GHZ-3, GHZ-4, W-3) | live | classical describes 2–4 q instantly; entanglement is the concept |
-| [02](./use-cases/02_maxcut.md) | **MaxCut** | variational | QAOA (Qiskit) · QAOA (PennyLane) · brute force + greedy (classical) | 6 graphs (3–6 nodes) | precompute | exact optimum in µs; QAOA matches, never beats |
+| [02](./use-cases/02_maxcut.md) | **MaxCut** | variational | QAOA (Qiskit) · QAOA (PennyLane) · QAOA (Cirq) · brute force + greedy (classical) | 6 graphs (3–6 nodes) | precompute | exact optimum in µs; all 3 QAOA frameworks match, none beats |
+| [03](./use-cases/03_bernstein-vazirani.md) | **Bernstein–Vazirani** | oracle-algorithms | BV circuit (Qiskit) · oracle queries (classical) | 6 hidden strings (3–6 bits) | live | recovers s in **1** quantum query vs **n** classical — a real query-complexity advantage |
 
 ## Roadmap (the catalog, ordered beginner → advanced)
 
@@ -26,7 +27,7 @@ small unitary (JS lane); **precompute** = needs noise / feed-forward / optimizat
 | 08 | Superdense coding | entanglement | live | circuit |
 | 09 | Quantum teleportation | entanglement | precompute | Qiskit (mid-circuit measure + feed-forward) |
 | 10 | Deutsch–Jozsa | oracle-algorithms | live | circuit vs classical queries |
-| 11 | Bernstein–Vazirani | oracle-algorithms | live | circuit vs classical queries |
+| 11 | Bernstein–Vazirani | oracle-algorithms | live | ✅ shipping (case 03) |
 | 12 | Simon's algorithm | oracle-algorithms | precompute | circuit + classical linear solve |
 | 13 | Grover search | flagship-algorithms | live (small) | circuit vs classical O(N) |
 | 14 | Quantum Fourier Transform | flagship-algorithms | live (≤8 q) | circuit vs classical FFT |

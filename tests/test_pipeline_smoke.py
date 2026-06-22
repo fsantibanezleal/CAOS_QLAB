@@ -24,6 +24,18 @@ def test_state_prep_bell_runs_and_traces():
     assert set(res.trace.measurements["counts"]) <= {"00", "11"}
 
 
+def test_bernstein_vazirani_recovers_secret_in_one_query():
+    from qlab.registry import get_problem, solvers_for
+
+    problem = get_problem("bernstein-vazirani")
+    inst = problem.instance("bv-11010")
+    res = {s.name: s.run(problem, inst, seed=42, shots=256) for s in solvers_for(problem)}
+    assert res["bv-qiskit"].value["recovered"] == "11010"
+    assert res["bv-qiskit"].value["quantum_queries"] == 1
+    assert res["bv-classical"].value["recovered"] == "11010"
+    assert res["bv-classical"].value["classical_queries"] == 5  # n bits → n classical queries
+
+
 def test_maxcut_classical_optimum_beats_or_matches_qaoa():
     from qlab.problems.maxcut import MaxCut
     from qlab.registry import get_problem, solvers_for

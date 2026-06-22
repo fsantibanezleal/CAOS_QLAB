@@ -59,6 +59,17 @@ def _comparison(problem, results: list) -> dict:
             f"gana — el resultado honesto y esperado."
         )
         return {"optimal_cut": opt, "qaoa_cut": q, "verdict": {"en": verdict_en, "es": verdict_es}}
+    if problem.id == "bernstein-vazirani":
+        cls = next((r for r in results if r.paradigm == "classical"), None)
+        nq = cls.value.get("classical_queries") if cls else None
+        s = cls.value.get("recovered") if cls else None
+        return {"quantum_queries": 1, "classical_queries": nq, "verdict": {
+            "en": f"Both recover the hidden string s={s}. Quantum: 1 oracle query (phase kickback + "
+                  f"interference). Classical: {nq} queries (one per bit). A real query-complexity advantage "
+                  f"— though at this size wall-time is trivial either way.",
+            "es": f"Ambos recuperan la cadena s={s}. Cuántico: 1 consulta al oráculo (phase kickback + "
+                  f"interferencia). Clásico: {nq} consultas (una por bit). Una ventaja real en complejidad de "
+                  f"consultas — aunque a este tamaño el tiempo de pared es trivial en ambos."}}
     if problem.id == "state-prep":
         return {"verdict": {
             "en": "Both a gate circuit and a direct classical amplitude vector prepare the same state; at "

@@ -110,6 +110,36 @@ class BruteForceMaxCut(Solver):
 
 
 @register_solver
+class ClassicalBV(Solver):
+    name = "bv-classical"
+    label = {"en": "Oracle queries · classical", "es": "Consultas al oráculo · clásico"}
+    framework = "classical:numpy"
+    paradigm = CLASSICAL
+
+    def applicable(self, problem: Problem) -> bool:
+        return problem.id == "bernstein-vazirani"
+
+    def run(self, problem, instance: Instance, seed: int, shots: int) -> SolverResult:
+        from qlab.problems.bernstein_vazirani import BernsteinVazirani
+
+        n, secret = instance.params["n"], instance.params["secret"]
+        t0 = time.perf_counter()
+        # Query the oracle on each basis vector e_i (only bit i set): f(e_i) = s_i. n queries.
+        recovered = "".join(str(BernsteinVazirani.oracle(secret, 1 << i)) for i in range(n))
+        wall = (time.perf_counter() - t0) * 1e3
+        return SolverResult(
+            solver=self.name, label=self.label, framework=self.framework, paradigm=self.paradigm,
+            value={"recovered": recovered, "correct": recovered == secret, "classical_queries": n},
+            cost={"wall_ms": round(wall, 4), "oracle_queries": n},
+            notes={"en": f"Recovered s={recovered} bit-by-bit in {n} oracle queries (one per bit) — instant "
+                         "at this scale; the quantum win is in query COUNT, not wall-time.",
+                   "es": f"Recuperó s={recovered} bit a bit en {n} consultas al oráculo (una por bit) — "
+                         "instantáneo a esta escala; la ventaja cuántica es en NÚMERO de consultas, no en tiempo."},
+            optimal=True,
+        )
+
+
+@register_solver
 class GreedyMaxCut(Solver):
     name = "maxcut-greedy"
     label = {"en": "Greedy local search · classical", "es": "Búsqueda voraz local · clásico"}

@@ -4,6 +4,21 @@ All notable changes to CAOS_QLAB. Format: newest → oldest. Versions follow `X.
 (major.minor.patch); patch (`.00X`) for fixes. Kept `0.x` while the web SPA and the framework/case matrix
 are still landing. Tags from day one.
 
+## [0.03.000] — 2026-06-21 — Bernstein–Vazirani (Phase C: oracle-algorithms category)
+
+### Added
+- **Case `bernstein-vazirani`** (6 hidden strings, 3–6 bits) — a new **oracle-algorithms** category. Recovers
+  the hidden string `s` from an oracle `f(x)=s·x` in **1 quantum query** (phase kickback + interference) vs
+  **n classical queries**: a real query-complexity advantage, honestly framed (oracle model, not wall-time).
+- Solvers: **`bv-qiskit`** (real circuit on n+1 qubits + step trace) and **`bv-classical`** (bit-by-bit
+  oracle queries). Both recover s correctly on all 6 variants; all run **live** (≤7 qubits, unitary).
+- Pipeline comparison verdict for BV (1 vs n queries); test `test_bernstein_vazirani_recovers_secret…`;
+  docs node `docs/use-cases/03_bernstein-vazirani.md` (formalization + phase-kickback derivation + results).
+- 6 committed traces + manifests.
+
+### Verified
+- 8/8 tests, ruff clean. All 6 secrets recovered with quantum_queries=1.
+
 ## [0.02.000] — 2026-06-21 — Cirq adapter (Phase B start) + nested docs wiki
 
 ### Added

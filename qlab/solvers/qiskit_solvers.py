@@ -105,6 +105,51 @@ class QiskitStatePrep(Solver):
         )
 
 
+@register_solver
+class QiskitBV(Solver):
+    name = "bv-qiskit"
+    label = {"en": "BV circuit · Qiskit", "es": "Circuito BV · Qiskit"}
+    framework = "qiskit"
+    paradigm = QUANTUM_SIM
+
+    def applicable(self, problem: Problem) -> bool:
+        return problem.id == "bernstein-vazirani"
+
+    def run(self, problem, instance: Instance, seed: int, shots: int) -> SolverResult:
+        from qlab.core.trace import Trace
+
+        n, secret = instance.params["n"], instance.params["secret"]
+        total = n + 1  # input qubits 0..n-1 + answer ancilla = qubit n
+        qc = QuantumCircuit(total)
+        qc.x(n)
+        qc.h(range(total))            # input → uniform superposition; ancilla → |−⟩
+        for i in range(n):            # oracle f(x)=s·x via phase kickback
+            if secret[i] == "1":
+                qc.cx(i, n)
+        qc.h(range(n))                # interfere → input register becomes |s⟩
+        t0 = time.perf_counter()
+        steps = evolve(qc)
+        probs = np.asarray(Statevector(qc).probabilities())
+        idx = int(np.argmax(probs))
+        recovered = format(idx, f"0{total}b")[::-1][:n]   # qubit-order; input bits = qubits 0..n-1
+        wall = (time.perf_counter() - t0) * 1e3
+        trace = Trace(
+            case_id=problem.id, title=problem.title, concept=problem.concept, qubits=total,
+            steps=steps, measurements=measure_counts(qc, shots, seed), circuit_ops=circuit_ops(qc),
+            provenance={"engine": "qiskit", "engine_version": QISKIT_VERSION, "seed": seed,
+                        "lane": "tbd", "ran_on": "simulator"},
+            references=problem.references,
+        )
+        return SolverResult(
+            solver=self.name, label=self.label, framework=self.framework, paradigm=self.paradigm,
+            value={"recovered": recovered, "correct": recovered == secret, "quantum_queries": 1},
+            cost={"wall_ms": round(wall, 3), "qubits": total, "depth": steps[-1].index, "oracle_queries": 1},
+            notes={"en": f"One oracle query recovers s={recovered} via phase kickback + interference.",
+                   "es": f"Una consulta al oráculo recupera s={recovered} vía phase kickback + interferencia."},
+            trace=trace,
+        )
+
+
 def _maxcut_cost_op(n: int, edges: list[list[int]]) -> SparsePauliOp:
     """C = Σ_(u,v)∈E 0.5 (I − Z_u Z_v) — expectation = expected cut value."""
     sparse = []

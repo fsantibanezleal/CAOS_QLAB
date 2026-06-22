@@ -1,0 +1,41 @@
+{
+ "case_id": "bernstein-vazirani",
+ "title": {
+  "en": "Bernstein–Vazirani — 1 query vs n",
+  "es": "Bernstein–Vazirani — 1 consulta vs n"
+ },
+ "category": "oracle-algorithms",
+ "lane": "live",
+ "lane_reasons": [],
+ "qubits": 6,
+ "seed": 42,
+ "shots": 2048,
+ "params": {
+  "n": 6,
+  "secret": "101101"
+ },
+ "measured": {
+  "run_ms": 13.645,
+  "trace_bytes": 87070,
+  "unitary_only": true
+ },
+ "viz": [
+  "amp_phase",
+  "histogram",
+  "circuit"
+ ],
+ "engine": "qiskit",
+ "engine_version": "2.4.2",
+ "trace_path": "bernstein-vazirani/bv-101101.json",
+ "references": [
+  {
+   "label": "Bernstein & Vazirani, Quantum complexity theory, SIAM J. Comput. 26(5) (1997)",
+   "doi": "10.1137/S0097539796300921"
+  },
+  {
+   "label": "Nielsen & Chuang, Quantum Computation and Quantum Information (2010)",
+   "url": "https://doi.org/10.1017/CBO9780511976667"
+  }
+ ],
+ "manifest_version": "qlab-manifest/1"
+}
