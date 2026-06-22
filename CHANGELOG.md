@@ -4,6 +4,21 @@ All notable changes to CAOS_QLAB. Format: newest → oldest. Versions follow `X.
 (major.minor.patch); patch (`.00X`) for fixes. Kept `0.x` while the web SPA and the framework/case matrix
 are still landing. Tags from day one.
 
+## [0.11.000] — 2026-06-22 — VQE H₂ (first learned method; real quantum chemistry)
+
+### Added
+- **Case `vqe`** (6 bond lengths) — variational ground-state energy of H₂ on the **real** molecular
+  Hamiltonian, built by PennyLane's **differentiable Hartree-Fock** (STO-3G, 4 qubits, no external chemistry
+  backend). Solvers **`vqe-pennylane`** (HF + DoubleExcitation ansatz, θ grid-search; reports the
+  energy-vs-θ landscape) and **`vqe-classical`** (exact diagonalization / FCI). Lane=precompute.
+- VQE matches FCI to **chemical accuracy** (< 1.6e-3 Ha) at every bond length along the dissociation curve;
+  equilibrium 0.74 Å → −1.1373 Ha (textbook). The **first learned/trained** method in QLab.
+- Honest verdict: H₂ minimal-basis is a 4×4 matrix → no advantage, pedagogy; scaling hits barren plateaus.
+- Pipeline VQE verdict; test `test_vqe_h2_matches_fci`; docs node `docs/use-cases/10_vqe.md`.
+
+### Verified
+- 15/15 tests, ruff clean. Errors vs FCI: 1e-6 … 1.3e-4 Ha across R ∈ {0.5…2.5} Å.
+
 ## [0.10.000] — 2026-06-22 — Shor (toy: factor 15) — flagship quartet complete
 
 ### Added

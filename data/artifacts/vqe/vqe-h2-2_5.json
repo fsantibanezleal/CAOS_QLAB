@@ -1,0 +1,221 @@
+{
+ "schema_version": "qlab-trace/1",
+ "case_id": "vqe",
+ "category": "variational",
+ "title": {
+  "en": "VQE — H₂ ground state",
+  "es": "VQE — estado fundamental de H₂"
+ },
+ "concept": {
+  "en": "VQE finds a molecule's ground-state energy with a hybrid quantum-classical loop. A parametrized circuit (here: the Hartree-Fock state plus one double-excitation rotation) prepares a trial state |ψ(θ)⟩; the device measures the energy ⟨ψ(θ)|H|ψ(θ)⟩; a classical optimizer lowers it toward the true ground energy (the variational principle guarantees it never goes below). We sweep the H–H bond length to trace the dissociation curve, using the REAL H₂ Hamiltonian (PennyLane differentiable Hartree-Fock, STO-3G, 4 qubits). It is a genuine learned method — but H₂ minimal-basis is a 4×4 matrix a laptop diagonalizes instantly, so the honest verdict is pedagogy, not advantage.",
+  "es": "VQE halla la energía del estado fundamental de una molécula con un bucle híbrido cuántico-clásico. Un circuito parametrizado (aquí: el estado de Hartree-Fock más una rotación de doble excitación) prepara un estado de prueba |ψ(θ)⟩; el dispositivo mide la energía ⟨ψ(θ)|H|ψ(θ)⟩; un optimizador clásico la baja hacia la energía fundamental real (el principio variacional garantiza que nunca baja de ella). Barremos la distancia de enlace H–H para trazar la curva de disociación, usando el Hamiltoniano REAL de H₂ (Hartree-Fock diferenciable de PennyLane, STO-3G, 4 qubits). Es un método aprendido genuino — pero H₂ en base mínima es una matriz 4×4 que un laptop diagonaliza al instante, así que el veredicto honesto es pedagogía, no ventaja."
+ },
+ "metric": {
+  "en": "ground-state energy (Hartree)",
+  "es": "energía del estado fundamental (Hartree)"
+ },
+ "instance": {
+  "id": "vqe-h2-2_5",
+  "title": {
+   "en": "H₂ at R=2.5 Å",
+   "es": "H₂ a R=2.5 Å"
+  },
+  "params": {
+   "R_angstrom": 2.5,
+   "R_bohr": 4.7243149715,
+   "n": 4
+  },
+  "note": {
+   "en": "Bond length 2.5 Å — VQE vs exact diagonalization on the same H₂ Hamiltonian.",
+   "es": "Distancia de enlace 2.5 Å — VQE vs diagonalización exacta del mismo Hamiltoniano."
+  }
+ },
+ "qubits": 4,
+ "lane": "precompute",
+ "lane_reasons": [
+  "needs noise / mid-circuit feed-forward / optimization loop (offline engine only)"
+ ],
+ "seed": 42,
+ "shots": 2048,
+ "primary_solver": "vqe-classical",
+ "trace": null,
+ "solvers": [
+  {
+   "solver": "vqe-classical",
+   "label": {
+    "en": "Exact diagonalization (FCI) · classical",
+    "es": "Diagonalización exacta (FCI) · clásico"
+   },
+   "framework": "classical:numpy",
+   "paradigm": "classical",
+   "value": {
+    "energy": -0.936055,
+    "method": "exact diagonalization (FCI)",
+    "dim": 16
+   },
+   "cost": {
+    "wall_ms": 1.292,
+    "dim": 16,
+    "gate_complexity": "O(d^3)"
+   },
+   "notes": {
+    "en": "Exact ground energy -0.93605 Ha by diagonalizing the 16×16 Hamiltonian — instant. H₂ minimal-basis is trivial classically; VQE is pedagogy here.",
+    "es": "Energía exacta -0.93605 Ha diagonalizando el Hamiltoniano 16×16 — instantáneo. H₂ en base mínima es trivial clásicamente; VQE es pedagogía aquí."
+   },
+   "optimal": true,
+   "extra": {}
+  },
+  {
+   "solver": "vqe-pennylane",
+   "label": {
+    "en": "VQE (UCC double) · PennyLane",
+    "es": "VQE (doble UCC) · PennyLane"
+   },
+   "framework": "pennylane",
+   "paradigm": "quantum-sim",
+   "value": {
+    "energy": -0.936017,
+    "optimal_theta": 1.3645,
+    "qubits": 4
+   },
+   "cost": {
+    "wall_ms": 947.8,
+    "qubits": 4,
+    "evaluations": 100
+   },
+   "notes": {
+    "en": "VQE ground energy -0.93602 Ha at θ=1.365 (HF + one double excitation, 4 qubits).",
+    "es": "Energía VQE -0.93602 Ha en θ=1.365 (HF + una doble excitación, 4 qubits)."
+   },
+   "optimal": false,
+   "extra": {
+    "landscape": {
+     "theta": [
+      -3.1416,
+      -3.0147,
+      -2.8877,
+      -2.7608,
+      -2.6339,
+      -2.5069,
+      -2.38,
+      -2.2531,
+      -2.1261,
+      -1.9992,
+      -1.8723,
+      -1.7453,
+      -1.6184,
+      -1.4915,
+      -1.3645,
+      -1.2376,
+      -1.1107,
+      -0.9837,
+      -0.8568,
+      -0.7299,
+      -0.6029,
+      -0.476,
+      -0.3491,
+      -0.2221,
+      -0.0952,
+      0.0317,
+      0.1587,
+      0.2856,
+      0.4125,
+      0.5395,
+      0.6664,
+      0.7933,
+      0.9203,
+      1.0472,
+      1.1741,
+      1.3011,
+      1.428,
+      1.5549,
+      1.6819,
+      1.8088,
+      1.9357,
+      2.0627,
+      2.1896,
+      2.3165,
+      2.4435,
+      2.5704,
+      2.6973,
+      2.8243,
+      2.9512,
+      3.0781
+     ],
+     "energy": [
+      -0.594405,
+      -0.559116,
+      -0.525268,
+      -0.493405,
+      -0.464041,
+      -0.437648,
+      -0.41465,
+      -0.395418,
+      -0.380261,
+      -0.369423,
+      -0.363078,
+      -0.361328,
+      -0.364202,
+      -0.371653,
+      -0.383561,
+      -0.399735,
+      -0.419915,
+      -0.443776,
+      -0.470933,
+      -0.50095,
+      -0.533345,
+      -0.567595,
+      -0.603149,
+      -0.639436,
+      -0.675872,
+      -0.71187,
+      -0.746852,
+      -0.780253,
+      -0.811537,
+      -0.840201,
+      -0.865784,
+      -0.887872,
+      -0.906112,
+      -0.92021,
+      -0.929939,
+      -0.935142,
+      -0.935735,
+      -0.93171,
+      -0.92313,
+      -0.910135,
+      -0.892932,
+      -0.871799,
+      -0.847076,
+      -0.819161,
+      -0.788503,
+      -0.755594,
+      -0.720965,
+      -0.685173,
+      -0.648794,
+      -0.612413
+     ]
+    }
+   }
+  }
+ ],
+ "comparison": {
+  "vqe_energy": -0.936017,
+  "exact_energy": -0.936055,
+  "error_ha": 3.8e-05,
+  "chemical_accuracy": true,
+  "verdict": {
+   "en": "VQE ground energy -0.936017 Ha vs exact (FCI) -0.936055 Ha — error 3.80e-05 Ha (within chemical accuracy 1.6e-3). H₂ minimal-basis is a 4×4 matrix a laptop diagonalizes instantly, so VQE wins nothing here — it is pedagogy, and scaling it hits barren plateaus.",
+   "es": "Energía VQE -0.936017 Ha vs exacta (FCI) -0.936055 Ha — error 3.80e-05 Ha (dentro de la exactitud química 1.6e-3). H₂ en base mínima es una matriz 4×4 que un laptop diagonaliza al instante, así que VQE no gana nada aquí — es pedagogía, y escalarlo choca con mesetas áridas (barren plateaus)."
+  }
+ },
+ "references": [
+  {
+   "label": "Peruzzo et al., A variational eigenvalue solver on a photonic quantum processor (2014)",
+   "doi": "10.1038/ncomms5213"
+  },
+  {
+   "label": "McArdle et al., Quantum computational chemistry, Rev. Mod. Phys. 92, 015003 (2020)",
+   "doi": "10.1103/RevModPhys.92.015003"
+  }
+ ]
+}

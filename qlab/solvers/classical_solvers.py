@@ -254,6 +254,38 @@ class ClassicalFactor(Solver):
 
 
 @register_solver
+class ClassicalFCI(Solver):
+    name = "vqe-classical"
+    label = {"en": "Exact diagonalization (FCI) · classical", "es": "Diagonalización exacta (FCI) · clásico"}
+    framework = "classical:numpy"
+    paradigm = CLASSICAL
+
+    def applicable(self, problem: Problem) -> bool:
+        return problem.id == "vqe"
+
+    def run(self, problem, instance: Instance, seed: int, shots: int) -> SolverResult:
+        import pennylane as qml  # only to BUILD the Hamiltonian; the solve is numpy eigvalsh
+
+        from qlab.solvers.pennylane_solvers import build_h2
+
+        H, nq = build_h2(instance.params["R_bohr"])
+        t0 = time.perf_counter()
+        M = qml.matrix(H, wire_order=range(nq))
+        e_exact = float(np.min(np.linalg.eigvalsh(M)))
+        wall = (time.perf_counter() - t0) * 1e3
+        return SolverResult(
+            solver=self.name, label=self.label, framework=self.framework, paradigm=self.paradigm,
+            value={"energy": round(e_exact, 6), "method": "exact diagonalization (FCI)", "dim": 2**nq},
+            cost={"wall_ms": round(wall, 3), "dim": 2**nq, "gate_complexity": "O(d^3)"},
+            notes={"en": f"Exact ground energy {e_exact:.5f} Ha by diagonalizing the {2 ** nq}×{2 ** nq} "
+                         "Hamiltonian — instant. H₂ minimal-basis is trivial classically; VQE is pedagogy here.",
+                   "es": f"Energía exacta {e_exact:.5f} Ha diagonalizando el Hamiltoniano {2 ** nq}×{2 ** nq} "
+                         "— instantáneo. H₂ en base mínima es trivial clásicamente; VQE es pedagogía aquí."},
+            optimal=True,
+        )
+
+
+@register_solver
 class ClassicalEig(Solver):
     name = "qpe-classical"
     label = {"en": "Eigendecomposition · classical", "es": "Diagonalización · clásico"}

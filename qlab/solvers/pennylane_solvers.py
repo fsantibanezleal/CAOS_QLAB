@@ -25,6 +25,57 @@ except Exception:  # pragma: no cover
     PENNYLANE_VERSION = "unknown"
 
 
+def build_h2(r_bohr: float):
+    """Real H₂ molecular Hamiltonian (STO-3G, 4 qubits) via PennyLane's differentiable Hartree-Fock —
+    no external chemistry backend. Shared by the VQE quantum solver and the exact-diagonalization baseline."""
+    from pennylane import numpy as pnp
+
+    coords = pnp.array([[0.0, 0.0, 0.0], [0.0, 0.0, r_bohr]])
+    return qml.qchem.molecular_hamiltonian(["H", "H"], coords)
+
+
+@register_solver
+class PennyLaneVQE(Solver):
+    name = "vqe-pennylane"
+    label = {"en": "VQE (UCC double) · PennyLane", "es": "VQE (doble UCC) · PennyLane"}
+    framework = "pennylane"
+    paradigm = QUANTUM_SIM
+    GRID = 100
+
+    def applicable(self, problem: Problem) -> bool:
+        return problem.id == "vqe" and qml is not None
+
+    def run(self, problem, instance: Instance, seed: int, shots: int) -> SolverResult:
+        H, nq = build_h2(instance.params["R_bohr"])
+        hf = qml.qchem.hf_state(2, nq)                 # [1,1,0,0] — the Hartree-Fock reference
+        dev = qml.device("default.qubit", wires=nq)
+
+        @qml.qnode(dev)
+        def energy(theta):
+            qml.BasisState(hf, wires=range(nq))
+            qml.DoubleExcitation(theta, wires=[0, 1, 2, 3])  # the single excitation that captures H₂'s GS
+            return qml.expval(H)
+
+        t0 = time.perf_counter()
+        thetas = np.linspace(-np.pi, np.pi, self.GRID)
+        energies = [float(energy(th)) for th in thetas]
+        i = int(np.argmin(energies))
+        e_min, th_best = energies[i], float(thetas[i])
+        wall = (time.perf_counter() - t0) * 1e3
+        step = max(1, self.GRID // 40)
+        return SolverResult(
+            solver=self.name, label=self.label, framework=self.framework, paradigm=self.paradigm,
+            value={"energy": round(e_min, 6), "optimal_theta": round(th_best, 4), "qubits": nq},
+            cost={"wall_ms": round(wall, 1), "qubits": nq, "evaluations": self.GRID},
+            notes={"en": f"VQE ground energy {e_min:.5f} Ha at θ={th_best:.3f} (HF + one double excitation, "
+                         f"{nq} qubits).",
+                   "es": f"Energía VQE {e_min:.5f} Ha en θ={th_best:.3f} (HF + una doble excitación, "
+                         f"{nq} qubits)."},
+            extra={"landscape": {"theta": [round(float(t), 4) for t in thetas[::step]],
+                                 "energy": [round(e, 6) for e in energies[::step]]}},
+        )
+
+
 @register_solver
 class PennyLaneQAOA(Solver):
     name = "qaoa-pennylane"

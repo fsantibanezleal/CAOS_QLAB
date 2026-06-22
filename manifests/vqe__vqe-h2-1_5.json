@@ -1,0 +1,45 @@
+{
+ "case_id": "vqe",
+ "title": {
+  "en": "VQE — H₂ ground state",
+  "es": "VQE — estado fundamental de H₂"
+ },
+ "category": "variational",
+ "lane": "precompute",
+ "lane_reasons": [
+  "needs noise / mid-circuit feed-forward / optimization loop (offline engine only)"
+ ],
+ "qubits": 4,
+ "seed": 42,
+ "shots": 2048,
+ "params": {
+  "R_angstrom": 1.5,
+  "R_bohr": 2.8345889828999997,
+  "n": 4
+ },
+ "measured": {
+  "run_ms": 0,
+  "trace_bytes": 0,
+  "unitary_only": false
+ },
+ "viz": [
+  "graph",
+  "landscape",
+  "histogram",
+  "circuit"
+ ],
+ "engine": "classical:numpy",
+ "engine_version": "—",
+ "trace_path": "vqe/vqe-h2-1_5.json",
+ "references": [
+  {
+   "label": "Peruzzo et al., A variational eigenvalue solver on a photonic quantum processor (2014)",
+   "doi": "10.1038/ncomms5213"
+  },
+  {
+   "label": "McArdle et al., Quantum computational chemistry, Rev. Mod. Phys. 92, 015003 (2020)",
+   "doi": "10.1103/RevModPhys.92.015003"
+  }
+ ],
+ "manifest_version": "qlab-manifest/1"
+}

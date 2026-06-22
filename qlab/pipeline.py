@@ -59,6 +59,23 @@ def _comparison(problem, results: list) -> dict:
             f"gana — el resultado honesto y esperado."
         )
         return {"optimal_cut": opt, "qaoa_cut": q, "verdict": {"en": verdict_en, "es": verdict_es}}
+    if problem.id == "vqe":
+        cls = next((r for r in results if r.paradigm == "classical"), None)
+        q = next((r for r in results if r.paradigm != "classical"), None)
+        eq = q.value.get("energy") if q else None
+        ee = cls.value.get("energy") if cls else None
+        err = abs(eq - ee) if (eq is not None and ee is not None) else None
+        chem = err is not None and err < 1.6e-3
+        return {"vqe_energy": eq, "exact_energy": ee, "error_ha": round(err, 6) if err is not None else None,
+                "chemical_accuracy": chem, "verdict": {
+            "en": f"VQE ground energy {eq} Ha vs exact (FCI) {ee} Ha — error {err:.2e} Ha "
+                  f"({'within' if chem else 'outside'} chemical accuracy 1.6e-3). H₂ minimal-basis is a 4×4 "
+                  f"matrix a laptop diagonalizes instantly, so VQE wins nothing here — it is pedagogy, and "
+                  f"scaling it hits barren plateaus.",
+            "es": f"Energía VQE {eq} Ha vs exacta (FCI) {ee} Ha — error {err:.2e} Ha "
+                  f"({'dentro' if chem else 'fuera'} de la exactitud química 1.6e-3). H₂ en base mínima es "
+                  f"una matriz 4×4 que un laptop diagonaliza al instante, así que VQE no gana nada aquí — es "
+                  f"pedagogía, y escalarlo choca con mesetas áridas (barren plateaus)."}}
     if problem.id == "shor":
         cls = next((r for r in results if r.paradigm == "classical"), None)
         q = next((r for r in results if r.paradigm != "classical"), None)

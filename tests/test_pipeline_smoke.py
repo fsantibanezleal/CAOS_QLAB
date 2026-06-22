@@ -106,6 +106,18 @@ def test_shor_factors_15():
     assert res["shor-classical"].value["factors"] == [3, 5]
 
 
+def test_vqe_h2_matches_fci():
+    from qlab.registry import get_problem, solvers_for
+
+    problem = get_problem("vqe")
+    inst = problem.instance("vqe-h2-0_74")  # ≈ equilibrium
+    res = {s.name: s.run(problem, inst, seed=42, shots=1) for s in solvers_for(problem)}
+    e_vqe = res["vqe-pennylane"].value["energy"]
+    e_fci = res["vqe-classical"].value["energy"]
+    assert abs(e_vqe - e_fci) < 1.6e-3       # within chemical accuracy
+    assert e_fci < -1.13                     # known H₂ equilibrium energy ≈ -1.137 Ha
+
+
 def test_maxcut_classical_optimum_beats_or_matches_qaoa():
     from qlab.problems.maxcut import MaxCut
     from qlab.registry import get_problem, solvers_for

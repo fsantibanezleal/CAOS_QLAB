@@ -12,7 +12,8 @@ from qlab.problems import (  # noqa: F401  (import = registration)
     shor,
     simon,
     state_prep,
+    vqe,
 )
 
 __all__ = ["state_prep", "maxcut", "bernstein_vazirani", "deutsch_jozsa", "simon", "grover", "qft", "qpe",
-           "shor"]
+           "shor", "vqe"]
