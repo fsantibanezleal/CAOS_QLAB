@@ -4,6 +4,23 @@ All notable changes to CAOS_QLAB. Format: newest → oldest. Versions follow `X.
 (major.minor.patch); patch (`.00X`) for fixes. Kept `0.x` while the web SPA and the framework/case matrix
 are still landing. Tags from day one.
 
+## [0.13.000] — 2026-06-22 — Noise & error mitigation (ZNE) — noise-and-qec category opens
+
+### Added
+- **Case `noise`** (6 variants, p×depth) — opens the **noise-and-qec** category. Real qiskit-aer
+  depolarizing noise model on a Bell circuit (exact density-matrix sim), with **zero-noise extrapolation**
+  (global gate folding λ=1,3,5 + linear extrapolation). Solvers **`noise-qiskit`** (ideal/noisy/mitigated
+  ⟨Z₀Z₁⟩ + the ZNE fit + ideal/noisy histograms) and **`noise-classical`** (exact noiseless statevector).
+- ZNE cuts the error **~11×** at low noise, down to **~1.5×** at high noise — the honest degradation. The
+  verdict states mitigation is bias-reduction NOT correction, has exponential sampling overhead, and is
+  beaten free by classical statevector at simulable scale.
+- Engineering: ZNE implemented directly (qiskit-aer + numpy) — Mitiq is the standard tool but GPL-3.0, so
+  no GPL dependency is added; Mitiq is documented as the production library. Tracer already handles this
+  (no step-trace; value+extra only). Test `test_noise_zne_reduces_error`; docs node `12_noise.md`.
+
+### Verified
+- 17/17 tests, ruff clean. Mitigated error < noisy error on every variant.
+
 ## [0.12.000] — 2026-06-22 — QML quantum-kernel classifier (second learned method; hype check)
 
 ### Added

@@ -1,0 +1,144 @@
+{
+ "schema_version": "qlab-trace/1",
+ "case_id": "noise",
+ "category": "noise-and-qec",
+ "title": {
+  "en": "Noise & error mitigation (ZNE)",
+  "es": "Ruido y mitigación de errores (ZNE)"
+ },
+ "concept": {
+  "en": "A Bell circuit has ideal parity ⟨Z₀Z₁⟩ = 1, but a noisy device returns less. We model the device with an Aer depolarizing noise model (worse for deeper circuits), measure the noisy ⟨Z₀Z₁⟩, then apply zero-noise extrapolation: deliberately AMPLIFY the noise by folding the circuit (U→U U† U…), measure at noise scales λ=1,3,5, and extrapolate back to λ=0. Mitigation claws back much of the lost signal — but note the honest limits: ZNE's sampling cost grows exponentially with circuit size, it is mitigation (bias reduction) NOT correction, and at this classically-simulable scale a statevector simulator just gives the exact 1.0 for free.",
+  "es": "Un circuito de Bell tiene paridad ideal ⟨Z₀Z₁⟩ = 1, pero un dispositivo ruidoso devuelve menos. Modelamos el dispositivo con un modelo de ruido despolarizante de Aer (peor cuanto más profundo el circuito), medimos el ⟨Z₀Z₁⟩ ruidoso, y aplicamos extrapolación a ruido cero: AMPLIFICAMOS el ruido plegando el circuito (U→U U† U…), medimos a escalas λ=1,3,5 y extrapolamos a λ=0. La mitigación recupera buena parte de la señal perdida — pero con límites honestos: el costo de muestreo de ZNE crece exponencialmente con el tamaño, es mitigación (reducción de sesgo) NO corrección, y a esta escala simulable clásicamente un simulador de vector de estado da el 1.0 exacto gratis."
+ },
+ "metric": {
+  "en": "⟨Z₀Z₁⟩ (ideal = 1)",
+  "es": "⟨Z₀Z₁⟩ (ideal = 1)"
+ },
+ "instance": {
+  "id": "noise-p0.02-d1",
+  "title": {
+   "en": "p=0.02, depth 1",
+   "es": "p=0.02, depth 1"
+  },
+  "params": {
+   "p": 0.02,
+   "depth": 1,
+   "n": 2
+  },
+  "note": {
+   "en": "2-qubit depolarizing p=0.02, depth 1 — ideal ⟨Z₀Z₁⟩=1; see noisy vs ZNE-mitigated.",
+   "es": "despolarizante de 2 qubits p=0.02, profundidad 1 — ideal ⟨Z₀Z₁⟩=1; ve ruidoso vs mitigado por ZNE."
+  }
+ },
+ "qubits": 2,
+ "lane": "precompute",
+ "lane_reasons": [
+  "needs noise / mid-circuit feed-forward / optimization loop (offline engine only)"
+ ],
+ "seed": 42,
+ "shots": 2048,
+ "primary_solver": "noise-classical",
+ "trace": null,
+ "solvers": [
+  {
+   "solver": "noise-classical",
+   "label": {
+    "en": "Noiseless statevector · classical",
+    "es": "Vector de estado sin ruido · clásico"
+   },
+   "framework": "classical:numpy",
+   "paradigm": "classical",
+   "value": {
+    "value": 1.0,
+    "exact": true
+   },
+   "cost": {
+    "wall_ms": 0.2206,
+    "qubits": 2
+   },
+   "notes": {
+    "en": "A noiseless statevector simulator returns the exact ⟨Z₀Z₁⟩=1.000 for free. At any classically-simulable scale this is the reference mitigation only approximates — mitigation matters on hardware beyond classical reach.",
+    "es": "Un simulador de vector de estado sin ruido devuelve el ⟨Z₀Z₁⟩=1.000 exacto gratis. A cualquier escala simulable clásicamente esta es la referencia que la mitigación solo aproxima — la mitigación importa en hardware fuera del alcance clásico."
+   },
+   "optimal": true,
+   "extra": {}
+  },
+  {
+   "solver": "noise-qiskit",
+   "label": {
+    "en": "Aer noise + ZNE · Qiskit",
+    "es": "Ruido Aer + ZNE · Qiskit"
+   },
+   "framework": "qiskit-aer",
+   "paradigm": "quantum-sim",
+   "value": {
+    "ideal": 1.0,
+    "noisy": 0.9412,
+    "mitigated": 0.9898,
+    "residual_noisy": 0.0588,
+    "residual_mitigated": 0.0102
+   },
+   "cost": {
+    "wall_ms": 5.8,
+    "qubits": 2,
+    "noise_scales": [
+     1,
+     3,
+     5
+    ]
+   },
+   "notes": {
+    "en": "Ideal ⟨ZZ⟩=1.000, noisy=0.941, ZNE-mitigated=0.990 (p=0.02, depth=1). Mitigation recovers most of the lost signal.",
+    "es": "Ideal ⟨ZZ⟩=1.000, ruidoso=0.941, mitigado-ZNE=0.990 (p=0.02, profundidad=1). La mitigación recupera gran parte de la señal."
+   },
+   "optimal": false,
+   "extra": {
+    "zne": {
+     "lambdas": [
+      1,
+      3,
+      5
+     ],
+     "expectations": [
+      0.9412,
+      0.8337,
+      0.7386
+     ],
+     "slope": -0.0507,
+     "intercept": 0.9898
+    },
+    "ideal_probs": [
+     0.5,
+     0.0,
+     0.0,
+     0.5
+    ],
+    "noisy_probs": [
+     0.4853,
+     0.0147,
+     0.0147,
+     0.4853
+    ]
+   }
+  }
+ ],
+ "comparison": {
+  "ideal": 1.0,
+  "noisy": 0.9412,
+  "mitigated": 0.9898,
+  "verdict": {
+   "en": "Ideal ⟨Z₀Z₁⟩=1.0, noisy=0.9412 (error 0.0588), ZNE-mitigated=0.9898 (error 0.0102). Mitigation cut the error ~5.8×. But ZNE's sampling cost grows exponentially with size, it is bias-reduction NOT correction, and a classical statevector simulator returns the exact 1.0 for free at this scale.",
+   "es": "Ideal ⟨Z₀Z₁⟩=1.0, ruidoso=0.9412 (error 0.0588), mitigado-ZNE=0.9898 (error 0.0102). La mitigación redujo el error ~5.8×. Pero el costo de muestreo de ZNE crece exponencialmente, es reducción de sesgo NO corrección, y un simulador clásico de vector de estado da el 1.0 exacto gratis a esta escala."
+  }
+ },
+ "references": [
+  {
+   "label": "Temme, Bravyi & Gambetta, Error mitigation for short-depth quantum circuits (2017)",
+   "doi": "10.1103/PhysRevLett.119.180509"
+  },
+  {
+   "label": "Giurgica-Tiron et al., Digital zero-noise extrapolation for quantum error mitigation (2020)",
+   "url": "https://arxiv.org/abs/2005.10921"
+  }
+ ]
+}

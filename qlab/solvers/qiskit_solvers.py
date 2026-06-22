@@ -262,6 +262,86 @@ class QiskitSimon(Solver):
 
 
 @register_solver
+class QiskitNoise(Solver):
+    name = "noise-qiskit"
+    label = {"en": "Aer noise + ZNE · Qiskit", "es": "Ruido Aer + ZNE · Qiskit"}
+    framework = "qiskit-aer"
+    paradigm = QUANTUM_SIM
+
+    def applicable(self, problem: Problem) -> bool:
+        return problem.id == "noise"
+
+    @staticmethod
+    def _bell(depth: int):
+        qc = QuantumCircuit(2)
+        qc.h(0)
+        qc.cx(0, 1)
+        for _ in range(depth):       # identity CX-pairs add depth (noise) without changing the ideal state
+            qc.cx(0, 1)
+            qc.cx(0, 1)
+        return qc
+
+    @staticmethod
+    def _fold(qc, k: int):
+        """Global gate folding U → U (U† U)^k: noise scale λ = 2k+1, ideal state unchanged."""
+        folded = qc.copy()
+        inv = qc.inverse()
+        for _ in range(k):
+            folded = folded.compose(inv).compose(qc)
+        return folded
+
+    def run(self, problem, instance: Instance, seed: int, shots: int) -> SolverResult:
+        from qiskit.quantum_info import Pauli
+        from qiskit_aer import AerSimulator
+        from qiskit_aer.noise import NoiseModel, depolarizing_error
+
+        p, depth = instance.params["p"], instance.params["depth"]
+        t0 = time.perf_counter()
+        qc = self._bell(depth)
+        ZZ = Pauli("ZZ")
+        ideal = float(Statevector(qc).expectation_value(ZZ).real)
+
+        nm = NoiseModel()
+        nm.add_all_qubit_quantum_error(depolarizing_error(p, 2), ["cx"])
+        nm.add_all_qubit_quantum_error(depolarizing_error(p / 10, 1), ["h", "x", "z", "rx", "ry", "rz"])
+        sim = AerSimulator(method="density_matrix", noise_model=nm)
+
+        def noisy_exp(circ) -> float:
+            c = circ.copy()
+            c.save_density_matrix()
+            rho = sim.run(c, seed_simulator=seed).result().data()["density_matrix"]
+            return float(rho.expectation_value(ZZ).real)
+
+        lambdas = [1, 3, 5]
+        exps = [noisy_exp(self._fold(qc, k)) for k in (0, 1, 2)]   # λ = 2k+1
+        noisy = exps[0]
+        slope, intercept = np.polyfit(lambdas, exps, 1)            # linear ZNE extrapolation to λ=0
+        mitigated = float(intercept)
+        # ideal vs noisy probabilities for the histogram (diagonal of ρ at λ=1)
+        c0 = qc.copy()
+        c0.save_density_matrix()
+        rho0 = sim.run(c0, seed_simulator=seed).result().data()["density_matrix"]
+        noisy_probs = np.real(np.diag(rho0.data))
+        ideal_probs = np.asarray(Statevector(qc).probabilities())
+        wall = (time.perf_counter() - t0) * 1e3
+        return SolverResult(
+            solver=self.name, label=self.label, framework=self.framework, paradigm=self.paradigm,
+            value={"ideal": round(ideal, 4), "noisy": round(noisy, 4), "mitigated": round(mitigated, 4),
+                   "residual_noisy": round(abs(ideal - noisy), 4),
+                   "residual_mitigated": round(abs(ideal - mitigated), 4)},
+            cost={"wall_ms": round(wall, 1), "qubits": 2, "noise_scales": lambdas},
+            notes={"en": f"Ideal ⟨ZZ⟩={ideal:.3f}, noisy={noisy:.3f}, ZNE-mitigated={mitigated:.3f} "
+                         f"(p={p}, depth={depth}). Mitigation recovers most of the lost signal.",
+                   "es": f"Ideal ⟨ZZ⟩={ideal:.3f}, ruidoso={noisy:.3f}, mitigado-ZNE={mitigated:.3f} "
+                         f"(p={p}, profundidad={depth}). La mitigación recupera gran parte de la señal."},
+            extra={"zne": {"lambdas": lambdas, "expectations": [round(e, 4) for e in exps],
+                           "slope": round(float(slope), 4), "intercept": round(mitigated, 4)},
+                   "ideal_probs": [round(float(x), 4) for x in ideal_probs],
+                   "noisy_probs": [round(float(x), 4) for x in noisy_probs]},
+        )
+
+
+@register_solver
 class QiskitShor(Solver):
     name = "shor-qiskit"
     label = {"en": "Order-finding (QPE) · Qiskit", "es": "Order-finding (QPE) · Qiskit"}

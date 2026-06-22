@@ -19,6 +19,7 @@ lands (ADR-0056).
 | [09](./use-cases/09_shor.md) | **Shor (toy: 15)** | flagship-algorithms | QPE order-finding on the real modular-mult unitary (Qiskit) · trial division (classical) | 6 bases of N=15 | precompute | factors 15→3×5 via order-finding; **RSA-2048 needs ~10⁶ FT qubits** — no near-term crypto threat |
 | [10](./use-cases/10_vqe.md) | **VQE (H₂)** | variational | VQE on the real H₂ Hamiltonian (PennyLane diff-HF) · exact diagonalization/FCI (classical) | 6 bond lengths | precompute | matches FCI to **chemical accuracy** along the dissociation curve; H₂ minimal-basis is 4×4 → pedagogy, not advantage (first learned method) |
 | [11](./use-cases/11_qml.md) | **QML (quantum kernel)** | variational | quantum fidelity-kernel SVM (PennyLane) · RBF-SVM (classical/sklearn) | 6 datasets | precompute | ties or **loses** to classical SVM — no advantage (second learned method; QML hype check) |
+| [12](./use-cases/12_noise.md) | **Noise + mitigation (ZNE)** | noise-and-qec | Aer noise + zero-noise extrapolation (Qiskit) · noiseless statevector (classical) | 6 (p×depth) | precompute | ZNE cuts error 11×→1.5× as noise grows; mitigation ≠ correction; classical exact+free at this scale |
 
 ## Roadmap (the catalog, ordered beginner → advanced)
 
@@ -44,7 +45,7 @@ small unitary (JS lane); **precompute** = needs noise / feed-forward / optimizat
 | 17 | VQE — H₂ ground state | variational | precompute | ✅ shipping (case 10) |
 | 18 | QAOA — MaxCut | variational | precompute | ✅ shipping (case 02) |
 | 19 | Quantum kernel / variational classifier | variational | precompute | ✅ shipping (case 11) |
-| 20 | Noise + measurement-error mitigation | noise-and-qec | precompute | Aer noise + Mitiq vs noiseless |
+| 20 | Noise + measurement-error mitigation | noise-and-qec | precompute | ✅ shipping (case 12) |
 | 21 | Repetition / bit-flip code | noise-and-qec | precompute | Stim / Qiskit |
 | 22 | Surface-code demo | noise-and-qec | precompute | Stim |
 | — | BB84 / QKD (optional) | fundamentals | live | circuit (mostly classical bookkeeping) |

@@ -128,6 +128,18 @@ def test_qml_quantum_kernel_classifies():
     assert res["qml-classical"].value["test_acc"] >= 0.8     # …and so does classical (no advantage)
 
 
+def test_noise_zne_reduces_error():
+    from qlab.registry import get_problem, solvers_for
+
+    problem = get_problem("noise")
+    inst = problem.instance("noise-p0.02-d1")
+    res = {s.name: s.run(problem, inst, seed=42, shots=1) for s in solvers_for(problem)}
+    q = res["noise-qiskit"].value
+    assert q["ideal"] == 1.0 and q["noisy"] < 1.0           # noise pulls the parity below 1
+    assert q["residual_mitigated"] < q["residual_noisy"]    # ZNE reduces the bias
+    assert res["noise-classical"].value["value"] == 1.0     # classical is exact + free
+
+
 def test_maxcut_classical_optimum_beats_or_matches_qaoa():
     from qlab.problems.maxcut import MaxCut
     from qlab.registry import get_problem, solvers_for

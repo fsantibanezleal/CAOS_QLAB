@@ -287,6 +287,39 @@ class ClassicalSVM(Solver):
 
 
 @register_solver
+class ClassicalNoiseless(Solver):
+    name = "noise-classical"
+    label = {"en": "Noiseless statevector · classical", "es": "Vector de estado sin ruido · clásico"}
+    framework = "classical:numpy"
+    paradigm = CLASSICAL
+
+    def applicable(self, problem: Problem) -> bool:
+        return problem.id == "noise"
+
+    def run(self, problem, instance: Instance, seed: int, shots: int) -> SolverResult:
+        from qiskit.quantum_info import Pauli, Statevector  # build the ideal state; the value is exact
+
+        from qlab.solvers.qiskit_solvers import QiskitNoise
+
+        qc = QiskitNoise._bell(instance.params["depth"])
+        t0 = time.perf_counter()
+        ideal = float(Statevector(qc).expectation_value(Pauli("ZZ")).real)
+        wall = (time.perf_counter() - t0) * 1e3
+        return SolverResult(
+            solver=self.name, label=self.label, framework=self.framework, paradigm=self.paradigm,
+            value={"value": round(ideal, 4), "exact": True},
+            cost={"wall_ms": round(wall, 4), "qubits": 2},
+            notes={"en": f"A noiseless statevector simulator returns the exact ⟨Z₀Z₁⟩={ideal:.3f} for free. "
+                         "At any classically-simulable scale this is the reference mitigation only "
+                         "approximates — mitigation matters on hardware beyond classical reach.",
+                   "es": f"Un simulador de vector de estado sin ruido devuelve el ⟨Z₀Z₁⟩={ideal:.3f} exacto "
+                         "gratis. A cualquier escala simulable clásicamente esta es la referencia que la "
+                         "mitigación solo aproxima — la mitigación importa en hardware fuera del alcance clásico."},
+            optimal=True,
+        )
+
+
+@register_solver
 class ClassicalFCI(Solver):
     name = "vqe-classical"
     label = {"en": "Exact diagonalization (FCI) · classical", "es": "Diagonalización exacta (FCI) · clásico"}

@@ -1,0 +1,44 @@
+{
+ "case_id": "noise",
+ "title": {
+  "en": "Noise & error mitigation (ZNE)",
+  "es": "Ruido y mitigación de errores (ZNE)"
+ },
+ "category": "noise-and-qec",
+ "lane": "precompute",
+ "lane_reasons": [
+  "needs noise / mid-circuit feed-forward / optimization loop (offline engine only)"
+ ],
+ "qubits": 2,
+ "seed": 42,
+ "shots": 2048,
+ "params": {
+  "p": 0.01,
+  "depth": 1,
+  "n": 2
+ },
+ "measured": {
+  "run_ms": 0,
+  "trace_bytes": 0,
+  "unitary_only": false
+ },
+ "viz": [
+  "histogram",
+  "density",
+  "circuit"
+ ],
+ "engine": "classical:numpy",
+ "engine_version": "—",
+ "trace_path": "noise/noise-p0.01-d1.json",
+ "references": [
+  {
+   "label": "Temme, Bravyi & Gambetta, Error mitigation for short-depth quantum circuits (2017)",
+   "doi": "10.1103/PhysRevLett.119.180509"
+  },
+  {
+   "label": "Giurgica-Tiron et al., Digital zero-noise extrapolation for quantum error mitigation (2020)",
+   "url": "https://arxiv.org/abs/2005.10921"
+  }
+ ],
+ "manifest_version": "qlab-manifest/1"
+}

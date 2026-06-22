@@ -59,6 +59,21 @@ def _comparison(problem, results: list) -> dict:
             f"gana — el resultado honesto y esperado."
         )
         return {"optimal_cut": opt, "qaoa_cut": q, "verdict": {"en": verdict_en, "es": verdict_es}}
+    if problem.id == "noise":
+        q = next((r for r in results if r.paradigm != "classical"), None)
+        if q:
+            ideal, noisy, mit = q.value["ideal"], q.value["noisy"], q.value["mitigated"]
+            rn, rm = q.value["residual_noisy"], q.value["residual_mitigated"]
+            return {"ideal": ideal, "noisy": noisy, "mitigated": mit, "verdict": {
+                "en": f"Ideal ⟨Z₀Z₁⟩={ideal}, noisy={noisy} (error {rn}), ZNE-mitigated={mit} (error {rm}). "
+                      f"Mitigation cut the error ~{round(rn / rm, 1) if rm else float('inf')}×. But ZNE's "
+                      f"sampling cost grows exponentially with size, it is bias-reduction NOT correction, "
+                      f"and a classical statevector simulator returns the exact {ideal} for free at this scale.",
+                "es": f"Ideal ⟨Z₀Z₁⟩={ideal}, ruidoso={noisy} (error {rn}), mitigado-ZNE={mit} (error {rm}). "
+                      f"La mitigación redujo el error ~{round(rn / rm, 1) if rm else float('inf')}×. Pero el "
+                      f"costo de muestreo de ZNE crece exponencialmente, es reducción de sesgo NO corrección, "
+                      f"y un simulador clásico de vector de estado da el {ideal} exacto gratis a esta escala."}}
+        return {}
     if problem.id == "qml":
         cls = next((r for r in results if r.paradigm == "classical"), None)
         q = next((r for r in results if r.paradigm != "classical"), None)
