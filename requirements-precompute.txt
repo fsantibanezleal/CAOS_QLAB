@@ -10,6 +10,9 @@ qiskit-aer==0.17.2       # statevector / density-matrix / MPS / stabilizer + rea
 # --- Differentiable / QML + variational (VQE, QAOA, quantum kernels) ---
 pennylane==0.45.0        # autodiff circuits; chemistry (VQE H2) + QAOA MaxCut + variational classifier
 
+# --- Second/third circuit SDKs (independent cross-checks; topology/moment control) ---
+cirq-core==1.6.1         # Google Cirq (QAOA cross-check; qsimcirq optional for speed)
+
 # --- Stabilizer / error-correction (thousands of Clifford qubits; cases 21-22) ---
 stim==1.16.0             # Clifford simulator, the QEC standard (Gottesman-Knill, ~O(n^2) memory)
 

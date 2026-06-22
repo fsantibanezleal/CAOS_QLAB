@@ -1,7 +1,7 @@
 # 02 · MaxCut — QAOA vs classical (the flagship honesty case)
 
 **Category:** variational · **Lane:** precompute · **Solvers:** `qaoa-qiskit`, `qaoa-pennylane`,
-`maxcut-bruteforce`, `maxcut-greedy` · **Variants:** 6 graphs.
+`qaoa-cirq`, `maxcut-bruteforce`, `maxcut-greedy` · **Variants:** 6 graphs.
 
 ## The problem
 
@@ -33,18 +33,18 @@ comparison panel.
 
 ## Solvers & results (from the committed traces, seed 42)
 
-| Graph | optimal (brute force) | greedy | QAOA-Qiskit | QAOA-PennyLane | classical time |
-|---|---|---|---|---|---|
-| triangle | **2** | 2 | 2 (⟨C⟩=1.99) | 2 | ~0.01 ms |
-| square | **4** | 2 | 4 (⟨C⟩=3.00) | 4 | ~0.01 ms |
-| square-diag | **4** | 3 | 4 | 4 | ~0.01 ms |
-| bowtie | **4** | 4 | 4 | 4 | ~0.02 ms |
-| pentagon | **4** | 4 | 4 | 4 | ~0.02 ms |
-| petersen-ish | **7** | 7 | 7 | 7 | ~0.05 ms |
+| Graph | optimal (brute force) | greedy | QAOA-Qiskit | QAOA-PennyLane | QAOA-Cirq | classical time |
+|---|---|---|---|---|---|---|
+| triangle | **2** | 2 | 2 (⟨C⟩=1.99) | 2 | 2 (⟨C⟩=1.99) | ~0.01 ms |
+| square | **4** | 2 | 4 (⟨C⟩=3.00) | 4 | 4 (⟨C⟩=2.99) | ~0.01 ms |
+| square-diag | **4** | 3 | 4 | 4 | 4 | ~0.02 ms |
+| bowtie | **4** | 4 | 4 | 4 | 4 | ~0.02 ms |
+| pentagon | **4** | 4 | 4 | 4 | 4 | ~0.02 ms |
+| petersen-ish | **7** | 7 | 7 | 7 | 7 | ~0.05 ms |
 
-Both quantum frameworks reproduce the optimal cut on every graph (a genuine cross-framework cross-check),
-using 3–6 qubits and 576 evaluations each (~150–1200 ms), versus brute force's exact optimum in
-microseconds.
+All **three** quantum frameworks (Qiskit, PennyLane, Cirq) reproduce the optimal cut on every graph — a
+genuine three-way cross-check (disagreement would be a bug) — using 3–6 qubits and 576 evaluations each
+(~150–1300 ms), versus brute force's exact optimum in microseconds.
 
 ## How to read & use the viz
 

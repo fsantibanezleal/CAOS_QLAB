@@ -9194,12 +9194,12 @@
     "bitstring": "001110"
    },
    "cost": {
-    "wall_ms": 0.0501,
+    "wall_ms": 0.0511,
     "evaluated": 64
    },
    "notes": {
-    "en": "Enumerated all 64 partitions; the optimum (7) is exact and found in 0.050 ms. This is the bar QAOA must beat — and does not, at this scale.",
-    "es": "Enumeró las 64 particiones; el óptimo (7) es exacto y se encontró en 0.050 ms. Este es el listón que QAOA debe superar — y no lo hace, a esta escala."
+    "en": "Enumerated all 64 partitions; the optimum (7) is exact and found in 0.051 ms. This is the bar QAOA must beat — and does not, at this scale.",
+    "es": "Enumeró las 64 particiones; el óptimo (7) es exacto y se encontró en 0.051 ms. Este es el listón que QAOA debe superar — y no lo hace, a esta escala."
    },
    "optimal": true,
    "extra": {}
@@ -9217,7 +9217,7 @@
     "bitstring": "010101"
    },
    "cost": {
-    "wall_ms": 0.0412
+    "wall_ms": 0.0433
    },
    "notes": {
     "en": "Single-flip local search from a random start — a trivial classical heuristic that already reaches (or nearly reaches) the optimum on these graphs.",
@@ -9240,7 +9240,7 @@
     "expectation": 5.9357
    },
    "cost": {
-    "wall_ms": 326.0,
+    "wall_ms": 373.8,
     "qubits": 6,
     "depth": 21,
     "evaluations": 576
@@ -9946,7 +9946,7 @@
     "bitstring": "011100"
    },
    "cost": {
-    "wall_ms": 1178.1,
+    "wall_ms": 1339.7,
     "qubits": 6,
     "evaluations": 576
    },
@@ -9956,14 +9956,39 @@
    },
    "optimal": false,
    "extra": {}
+  },
+  {
+   "solver": "qaoa-cirq",
+   "label": {
+    "en": "QAOA (p=1) · Cirq",
+    "es": "QAOA (p=1) · Cirq"
+   },
+   "framework": "cirq",
+   "paradigm": "quantum-sim",
+   "value": {
+    "cut": 7,
+    "bitstring": "001110",
+    "expectation": 5.9385
+   },
+   "cost": {
+    "wall_ms": 707.9,
+    "qubits": 6,
+    "evaluations": 576
+   },
+   "notes": {
+    "en": "Independent QAOA on cirq.Simulator (same (γ,β) grid as Qiskit/PennyLane); most-probable bitstring cuts 7 edges — third cross-check.",
+    "es": "QAOA independiente en cirq.Simulator (misma malla (γ,β) que Qiskit/PennyLane); la cadena más probable corta 7 aristas — tercera verificación cruzada."
+   },
+   "optimal": false,
+   "extra": {}
   }
  ],
  "comparison": {
   "optimal_cut": 7,
   "qaoa_cut": 7,
   "verdict": {
-   "en": "Exact classical brute force found the optimum cut = 7 in 0.0501 ms. QAOA (p=1) reached cut = 7. At this scale the classical optimum is instant and QAOA does not win — the honest, expected result.",
-   "es": "La fuerza bruta clásica exacta halló el corte óptimo = 7 en 0.0501 ms. QAOA (p=1) alcanzó corte = 7. A esta escala el óptimo clásico es instantáneo y QAOA no gana — el resultado honesto y esperado."
+   "en": "Exact classical brute force found the optimum cut = 7 in 0.0511 ms. QAOA (p=1) reached cut = 7. At this scale the classical optimum is instant and QAOA does not win — the honest, expected result.",
+   "es": "La fuerza bruta clásica exacta halló el corte óptimo = 7 en 0.0511 ms. QAOA (p=1) alcanzó corte = 7. A esta escala el óptimo clásico es instantáneo y QAOA no gana — el resultado honesto y esperado."
   }
  },
  "references": [

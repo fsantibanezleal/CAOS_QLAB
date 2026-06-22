@@ -17,7 +17,8 @@ with the code). **Bold** = already wired as a solver adapter.
    ecosystem + realistic noise simulation. *(state-prep + QAOA adapters live.)*
 2. **[PennyLane + Lightning](./frameworks/02_pennylane.md)** — Apache-2.0 — the QML / autodiff / variational
    pillar; clean CPU→GPU→TN device swap. *(QAOA adapter live; VQE/QML next.)*
-3. **Cirq + qsimcirq** — Apache-2.0 — explicit topology / moment-level control; fast Google statevector. *(planned.)*
+3. **[Cirq (+ qsim)](./frameworks/03_cirq.md)** — Apache-2.0 — explicit topology / moment-level control;
+   fast Google statevector. *(QAOA adapter live — the third MaxCut cross-check.)*
 4. **Stim** — Apache-2.0 — the stabilizer/QEC pillar; the only way to reach thousands of qubits; the right
    tool to teach error correction honestly. *(planned — the QEC cases.)*
 5. **pytket** — Apache-2.0 (now fully open) — the cross-compiler/router; teaches real compilation quality

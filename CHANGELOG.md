@@ -4,6 +4,23 @@ All notable changes to CAOS_QLAB. Format: newest → oldest. Versions follow `X.
 (major.minor.patch); patch (`.00X`) for fixes. Kept `0.x` while the web SPA and the framework/case matrix
 are still landing. Tags from day one.
 
+## [0.02.000] — 2026-06-21 — Cirq adapter (Phase B start) + nested docs wiki
+
+### Added
+- **`qaoa-cirq`** solver adapter (`cirq-core==1.6.1`) — a third independent QAOA-MaxCut implementation.
+  Qiskit + PennyLane + Cirq now all reproduce the classical optimum on every graph (2/4/4/4/4/7): a genuine
+  three-way cross-check, and the extensibility claim proven again (one adapter + one registry line, no core
+  change). MaxCut artifacts regenerated with the third solver.
+- **Docs nesting** to the SimLab "node = `X.md` index + `X/` folder" convention: `docs/frameworks/03_cirq.md`
+  + `03_cirq/{01_installation,02_usage,03_applying}.md` + runnable `example.py`; a new
+  **`docs/abstractions.md`** section (`01_problem-solver.md`, `02_extending.md`) documenting the engine as
+  classes & contracts and the exact recipe to extend it.
+- Synthesized the cost-capability research into the paid-tier decision (Kipu contested + paywalled; OptQC
+  stale; Q-CTRL Fire Opal free tier = the real free leverage). *(in the private vault.)*
+
+### Verified
+- Cirq `example.py` runs (triangle cut = 2). Three-way QAOA agreement on all 6 graphs. ruff + pytest green.
+
 ## [0.01.000] — 2026-06-21 — Engine + pipeline (real, runnable)
 
 The substrate and the proving slice. Everything here runs the real engines and produces committed,

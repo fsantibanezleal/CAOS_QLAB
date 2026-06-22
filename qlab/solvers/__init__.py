@@ -11,6 +11,7 @@ _ADAPTER_MODULES = [
     ("qlab.solvers.classical_solvers", "classical (NumPy)"),
     ("qlab.solvers.qiskit_solvers", "Qiskit + Aer"),
     ("qlab.solvers.pennylane_solvers", "PennyLane"),
+    ("qlab.solvers.cirq_solvers", "Cirq"),
 ]
 
 LOADED: dict[str, bool] = {}

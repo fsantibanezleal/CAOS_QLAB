@@ -23,6 +23,10 @@ commits a seeded trace the static site replays. The contract underneath: a run i
   hype-vs-reality table. **Read this first** — it is the reason the lab is built the way it is.
 - [**Architecture**](./architecture.md) — the Problem × Solver engine, the trace contract, the measured
   live/precompute gate, the three lanes (live JS · precompute · real-hardware), and the static deploy.
+- [**Abstractions**](./abstractions.md) — the engine as classes & contracts: the `Problem` formulation, the
+  `Solver` adapter, the uniform `SolverResult`, and the registry/pipeline plug-in seam — i.e. *how to extend
+  the lab without rewiring*. The two **data contracts** (ingestion + artifact) are detailed in
+  [../data/README.md](../data/README.md).
 - [**Frameworks**](./frameworks.md) — the real quantum-computing software landscape: what each SDK /
   simulator is, its license, maturity, when to use it (and which famous names are dead), with the
   install/usage/apply node for each tool QLab actually consumes.
