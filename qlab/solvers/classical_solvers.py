@@ -287,6 +287,31 @@ class ClassicalSVM(Solver):
 
 
 @register_solver
+class ClassicalLHV(Solver):
+    name = "chsh-classical"
+    label = {"en": "Local hidden variables (bound) · classical", "es": "Variables ocultas locales (cota) · clásico"}
+    framework = "classical:numpy"
+    paradigm = CLASSICAL
+
+    def applicable(self, problem: Problem) -> bool:
+        return problem.id == "chsh"
+
+    def run(self, problem, instance: Instance, seed: int, shots: int) -> SolverResult:
+        # No computation needed: the CHSH theorem proves S ≤ 2 for ANY local-hidden-variable strategy
+        # (deterministic ±1 assignments give the extreme value 2). This is the bound quantum must beat.
+        return SolverResult(
+            solver=self.name, label=self.label, framework=self.framework, paradigm=self.paradigm,
+            value={"max_S": 2.0, "model": "local hidden variables"},
+            cost={"wall_ms": 0.0},
+            notes={"en": "Any classical (local-hidden-variable) strategy obeys |S| ≤ 2 — the CHSH bound. "
+                         "A quantum S above 2 cannot be explained by local realism (this is what Bell tests prove).",
+                   "es": "Cualquier estrategia clásica (de variables ocultas locales) cumple |S| ≤ 2 — la cota "
+                         "CHSH. Un S cuántico mayor que 2 no se explica con realismo local (eso prueban los tests de Bell)."},
+            optimal=True,
+        )
+
+
+@register_solver
 class ClassicalUnprotected(Solver):
     name = "qec-baseline"
     label = {"en": "Unprotected qubit · classical model", "es": "Qubit sin proteger · modelo clásico"}

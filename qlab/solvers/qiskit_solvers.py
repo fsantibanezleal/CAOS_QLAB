@@ -262,6 +262,67 @@ class QiskitSimon(Solver):
 
 
 @register_solver
+class QiskitCHSH(Solver):
+    name = "chsh-qiskit"
+    label = {"en": "CHSH correlators · Qiskit", "es": "Correladores CHSH · Qiskit"}
+    framework = "qiskit"
+    paradigm = QUANTUM_SIM
+
+    def applicable(self, problem: Problem) -> bool:
+        return problem.id == "chsh"
+
+    def run(self, problem, instance: Instance, seed: int, shots: int) -> SolverResult:
+        import math
+
+        from qiskit.quantum_info import SparsePauliOp
+
+        from qlab.core.trace import Trace
+
+        pr = instance.params
+        qc = QuantumCircuit(2)
+        if pr["entangled"]:
+            qc.h(0)
+            qc.cx(0, 1)          # |Φ⁺⟩
+        # else: |00⟩ (separable)
+        t0 = time.perf_counter()
+        sv = Statevector(qc)
+
+        def measure_op(theta):           # M(θ) = cosθ·Z + sinθ·X  (axis in the X–Z plane)
+            return SparsePauliOp(["Z", "X"], coeffs=[math.cos(theta), math.sin(theta)])
+
+        def corr(a, b):                  # E(a,b) = ⟨M(a) ⊗ M(b)⟩
+            op = measure_op(b).tensor(measure_op(a))   # qubit0 = a, qubit1 = b
+            return float(sv.expectation_value(op).real)
+
+        e00, e01 = corr(pr["a0"], pr["b0"]), corr(pr["a0"], pr["b1"])
+        e10, e11 = corr(pr["a1"], pr["b0"]), corr(pr["a1"], pr["b1"])
+        S = e00 + e01 + e10 - e11
+        wall = (time.perf_counter() - t0) * 1e3
+        trace = Trace(
+            case_id=problem.id, title=problem.title, concept=problem.concept, qubits=2,
+            steps=evolve(qc), measurements=measure_counts(qc, shots, seed), circuit_ops=circuit_ops(qc),
+            provenance={"engine": "qiskit", "engine_version": QISKIT_VERSION, "seed": seed,
+                        "lane": "tbd", "ran_on": "simulator"},
+            references=problem.references,
+            extra={"correlators": {"E00": round(e00, 4), "E01": round(e01, 4),
+                                   "E10": round(e10, 4), "E11": round(e11, 4)},
+                   "S": round(S, 4), "classical_bound": 2.0, "tsirelson_bound": round(2 * math.sqrt(2), 4)},
+        )
+        return SolverResult(
+            solver=self.name, label=self.label, framework=self.framework, paradigm=self.paradigm,
+            value={"S": round(S, 4), "exceeds_classical": bool(abs(S) > 2 + 1e-6),
+                   "tsirelson_bound": round(2 * math.sqrt(2), 4),
+                   "correlators": [round(e00, 4), round(e01, 4), round(e10, 4), round(e11, 4)]},
+            cost={"wall_ms": round(wall, 3), "qubits": 2, "settings": 4},
+            notes={"en": f"S = {S:.3f} ({'VIOLATES' if abs(S) > 2 + 1e-6 else 'within'} the classical bound "
+                         f"2; Tsirelson = 2√2 ≈ 2.828).",
+                   "es": f"S = {S:.3f} ({'VIOLA' if abs(S) > 2 + 1e-6 else 'dentro de'} la cota clásica 2; "
+                         f"Tsirelson = 2√2 ≈ 2.828)."},
+            trace=trace,
+        )
+
+
+@register_solver
 class QiskitNoise(Solver):
     name = "noise-qiskit"
     label = {"en": "Aer noise + ZNE · Qiskit", "es": "Ruido Aer + ZNE · Qiskit"}

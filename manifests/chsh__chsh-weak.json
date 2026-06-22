@@ -1,0 +1,46 @@
+{
+ "case_id": "chsh",
+ "title": {
+  "en": "CHSH / Bell inequality",
+  "es": "Desigualdad CHSH / Bell"
+ },
+ "category": "entanglement",
+ "lane": "live",
+ "lane_reasons": [],
+ "qubits": 2,
+ "seed": 42,
+ "shots": 2048,
+ "params": {
+  "n": 2,
+  "a0": 0.0,
+  "a1": 1.0471975511965976,
+  "b0": 0.39269908169872414,
+  "b1": -0.39269908169872414,
+  "entangled": true
+ },
+ "measured": {
+  "run_ms": 0.794,
+  "trace_bytes": 3107,
+  "unitary_only": true
+ },
+ "viz": [
+  "amp_phase",
+  "histogram",
+  "qsphere",
+  "circuit"
+ ],
+ "engine": "qiskit",
+ "engine_version": "2.4.2",
+ "trace_path": "chsh/chsh-weak.json",
+ "references": [
+  {
+   "label": "Clauser, Horne, Shimony & Holt, Proposed experiment to test local hidden-variable theories (1969)",
+   "doi": "10.1103/PhysRevLett.23.880"
+  },
+  {
+   "label": "Aspect, Nobel Prize in Physics 2022 — Bell inequality experiments",
+   "url": "https://www.nobelprize.org/prizes/physics/2022/summary/"
+  }
+ ],
+ "manifest_version": "qlab-manifest/1"
+}

@@ -22,6 +22,7 @@ lands (ADR-0056).
 | [12](./use-cases/12_noise.md) | **Noise + mitigation (ZNE)** | noise-and-qec | Aer noise + zero-noise extrapolation (Qiskit) · noiseless statevector (classical) | 6 (p×depth) | precompute | ZNE cuts error 11×→1.5× as noise grows; mitigation ≠ correction; classical exact+free at this scale |
 | [13](./use-cases/13_qec-repetition.md) | **QEC — repetition code** | noise-and-qec | repetition code (Stim + PyMatching MWPM) · unprotected qubit (classical) | 6 (distance×p) | precompute | error CORRECTION that scales — d=5 beats d=3 below threshold (Willow in miniature); stops at threshold |
 | [14](./use-cases/14_qec-surface.md) | **QEC — surface code** | noise-and-qec | rotated surface code (Stim + PyMatching MWPM) · unprotected qubit (classical) | 6 (distance×p) | precompute | the **threshold crossover**: d=5 beats d=3 below ~1%, d=5 worse above — corrects X+Z (the FT front-runner) |
+| [15](./use-cases/15_chsh.md) | **CHSH / Bell inequality** | entanglement | CHSH correlators (Qiskit) · local-hidden-variable bound (classical) | 6 (angles + separable control) | live | quantum **genuinely beats** classical: S=2√2 > 2 (Tsirelson vs LHV, Nobel 2022) — a nonlocality edge, not a speedup |
 
 ## Roadmap (the catalog, ordered beginner → advanced)
 
@@ -34,7 +35,7 @@ small unitary (JS lane); **precompute** = needs noise / feed-forward / optimizat
 | 04 | Superposition & measurement statistics | fundamentals | live | circuit |
 | 05 | Phase & interference | fundamentals | live | circuit |
 | 06 | Quantum random-number generator | fundamentals | live | circuit + classical PRNG contrast |
-| 07 | CHSH / Bell-inequality test | entanglement | precompute | Qiskit (angle sweep) vs local-hidden-variable bound |
+| 07 | CHSH / Bell-inequality test | entanglement | live | ✅ shipping (case 15) |
 | 08 | Superdense coding | entanglement | live | circuit |
 | 09 | Quantum teleportation | entanglement | precompute | Qiskit (mid-circuit measure + feed-forward) |
 | 10 | Deutsch–Jozsa | oracle-algorithms | live | ✅ shipping (case 04) |

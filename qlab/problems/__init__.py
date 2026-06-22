@@ -4,6 +4,7 @@ Adding a problem = add its module here; nothing else changes.
 
 from qlab.problems import (  # noqa: F401  (import = registration)
     bernstein_vazirani,
+    chsh,
     deutsch_jozsa,
     grover,
     maxcut,
@@ -20,4 +21,4 @@ from qlab.problems import (  # noqa: F401  (import = registration)
 )
 
 __all__ = ["state_prep", "maxcut", "bernstein_vazirani", "deutsch_jozsa", "simon", "grover", "qft", "qpe",
-           "shor", "vqe", "qml_classifier", "noise", "qec_repetition", "qec_surface"]
+           "shor", "vqe", "qml_classifier", "noise", "qec_repetition", "qec_surface", "chsh"]

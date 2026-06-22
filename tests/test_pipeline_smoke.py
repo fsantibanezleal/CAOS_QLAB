@@ -164,6 +164,21 @@ def test_qec_surface_below_threshold():
     assert l5 < l3                                  # below threshold, distance-5 beats distance-3
 
 
+def test_chsh_violates_classical_bound():
+    from qlab.registry import get_problem, solvers_for
+
+    problem = get_problem("chsh")
+    solvers = solvers_for(problem)
+    q = next(s for s in solvers if s.name == "chsh-qiskit")
+    opt = q.run(problem, problem.instance("chsh-optimal"), seed=42, shots=1)
+    prod = q.run(problem, problem.instance("chsh-product"), seed=42, shots=1)
+    assert abs(opt.value["S"] - 2 * 2 ** 0.5) < 1e-3        # reaches the Tsirelson bound 2√2
+    assert opt.value["exceeds_classical"] is True           # violates the classical bound
+    assert prod.value["exceeds_classical"] is False         # a separable state cannot violate it
+    base = next(s for s in solvers if s.name == "chsh-classical")
+    assert base.run(problem, problem.instance("chsh-optimal"), seed=42, shots=1).value["max_S"] == 2.0
+
+
 def test_maxcut_classical_optimum_beats_or_matches_qaoa():
     from qlab.problems.maxcut import MaxCut
     from qlab.registry import get_problem, solvers_for

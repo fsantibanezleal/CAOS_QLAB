@@ -1,0 +1,327 @@
+{
+ "schema_version": "qlab-trace/1",
+ "case_id": "chsh",
+ "category": "entanglement",
+ "title": {
+  "en": "CHSH / Bell inequality",
+  "es": "Desigualdad CHSH / Bell"
+ },
+ "concept": {
+  "en": "Share a Bell pair; Alice measures at angle a₀ or a₁, Bob at b₀ or b₁. The CHSH quantity S = E(a₀,b₀)+E(a₀,b₁)+E(a₁,b₀)−E(a₁,b₁) cannot exceed 2 for any classical (local-hidden-variable) theory, yet a Bell state with optimal angles reaches the Tsirelson bound 2√2 ≈ 2.83. Violating |S|≤2 rules out local realism — a real, experimentally confirmed quantum effect (2022 Nobel). But it is a foundational/nonlocality advantage, not a faster computation; and a separable state cannot violate the bound at all, so entanglement is the necessary ingredient.",
+  "es": "Comparte un par de Bell; Alice mide en ángulo a₀ o a₁, Bob en b₀ o b₁. La cantidad CHSH S = E(a₀,b₀)+E(a₀,b₁)+E(a₁,b₀)−E(a₁,b₁) no puede superar 2 en ninguna teoría clásica (de variables ocultas locales), pero un estado de Bell con ángulos óptimos alcanza la cota de Tsirelson 2√2 ≈ 2.83. Violar |S|≤2 descarta el realismo local — un efecto cuántico real y confirmado experimentalmente (Nobel 2022). Pero es una ventaja fundacional/de no-localidad, no un cálculo más rápido; y un estado separable no puede violar la cota, así que el entrelazamiento es el ingrediente necesario."
+ },
+ "metric": {
+  "en": "CHSH value S (classical ≤ 2, quantum ≤ 2√2)",
+  "es": "valor CHSH S (clásico ≤ 2, cuántico ≤ 2√2)"
+ },
+ "instance": {
+  "id": "chsh-aligned",
+  "title": {
+   "en": "Bell, aligned bases → S=2",
+   "es": "Bell, aligned bases → S=2"
+  },
+  "params": {
+   "n": 2,
+   "a0": 0.0,
+   "a1": 0.0,
+   "b0": 0.0,
+   "b1": 1.5707963267948966,
+   "entangled": true
+  },
+  "note": {
+   "en": "Bell pair — see whether S exceeds the classical 2.",
+   "es": "par de Bell — ve si S supera el clásico 2."
+  }
+ },
+ "qubits": 2,
+ "lane": "live",
+ "lane_reasons": [],
+ "seed": 42,
+ "shots": 2048,
+ "primary_solver": "chsh-qiskit",
+ "trace": {
+  "case_id": "chsh",
+  "title": {
+   "en": "CHSH / Bell inequality",
+   "es": "Desigualdad CHSH / Bell"
+  },
+  "concept": {
+   "en": "Share a Bell pair; Alice measures at angle a₀ or a₁, Bob at b₀ or b₁. The CHSH quantity S = E(a₀,b₀)+E(a₀,b₁)+E(a₁,b₀)−E(a₁,b₁) cannot exceed 2 for any classical (local-hidden-variable) theory, yet a Bell state with optimal angles reaches the Tsirelson bound 2√2 ≈ 2.83. Violating |S|≤2 rules out local realism — a real, experimentally confirmed quantum effect (2022 Nobel). But it is a foundational/nonlocality advantage, not a faster computation; and a separable state cannot violate the bound at all, so entanglement is the necessary ingredient.",
+   "es": "Comparte un par de Bell; Alice mide en ángulo a₀ o a₁, Bob en b₀ o b₁. La cantidad CHSH S = E(a₀,b₀)+E(a₀,b₁)+E(a₁,b₀)−E(a₁,b₁) no puede superar 2 en ninguna teoría clásica (de variables ocultas locales), pero un estado de Bell con ángulos óptimos alcanza la cota de Tsirelson 2√2 ≈ 2.83. Violar |S|≤2 descarta el realismo local — un efecto cuántico real y confirmado experimentalmente (Nobel 2022). Pero es una ventaja fundacional/de no-localidad, no un cálculo más rápido; y un estado separable no puede violar la cota, así que el entrelazamiento es el ingrediente necesario."
+  },
+  "qubits": 2,
+  "steps": [
+   {
+    "index": 0,
+    "gate": "init",
+    "targets": [],
+    "label": {
+     "en": "Initial state |0…0⟩",
+     "es": "Estado inicial |0…0⟩"
+    },
+    "statevector": [
+     {
+      "re": 1.0,
+      "im": 0.0
+     },
+     {
+      "re": 0.0,
+      "im": 0.0
+     },
+     {
+      "re": 0.0,
+      "im": 0.0
+     },
+     {
+      "re": 0.0,
+      "im": 0.0
+     }
+    ],
+    "bloch": [
+     [
+      0.0,
+      0.0,
+      1.0
+     ],
+     [
+      0.0,
+      0.0,
+      1.0
+     ]
+    ],
+    "probabilities": [
+     1.0,
+     0.0,
+     0.0,
+     0.0
+    ],
+    "params": []
+   },
+   {
+    "index": 1,
+    "gate": "H",
+    "targets": [
+     0
+    ],
+    "label": {
+     "en": "H q[0]",
+     "es": "H q[0]"
+    },
+    "statevector": [
+     {
+      "re": 0.707107,
+      "im": 0.0
+     },
+     {
+      "re": 0.707107,
+      "im": 0.0
+     },
+     {
+      "re": 0.0,
+      "im": 0.0
+     },
+     {
+      "re": 0.0,
+      "im": 0.0
+     }
+    ],
+    "bloch": [
+     [
+      1.0,
+      0.0,
+      0.0
+     ],
+     [
+      0.0,
+      0.0,
+      1.0
+     ]
+    ],
+    "probabilities": [
+     0.5,
+     0.5,
+     0.0,
+     0.0
+    ],
+    "params": []
+   },
+   {
+    "index": 2,
+    "gate": "CX",
+    "targets": [
+     0,
+     1
+    ],
+    "label": {
+     "en": "CX q[0, 1]",
+     "es": "CX q[0, 1]"
+    },
+    "statevector": [
+     {
+      "re": 0.707107,
+      "im": 0.0
+     },
+     {
+      "re": 0.0,
+      "im": 0.0
+     },
+     {
+      "re": 0.0,
+      "im": 0.0
+     },
+     {
+      "re": 0.707107,
+      "im": 0.0
+     }
+    ],
+    "bloch": [
+     [
+      0.0,
+      0.0,
+      0.0
+     ],
+     [
+      0.0,
+      0.0,
+      0.0
+     ]
+    ],
+    "probabilities": [
+     0.5,
+     0.0,
+     0.0,
+     0.5
+    ],
+    "params": []
+   }
+  ],
+  "measurements": {
+   "counts": {
+    "00": 1035,
+    "11": 1013
+   },
+   "shots": 2048
+  },
+  "circuit_ops": [
+   {
+    "gate": "h",
+    "targets": [
+     0
+    ],
+    "params": []
+   },
+   {
+    "gate": "cx",
+    "targets": [
+     0,
+     1
+    ],
+    "params": []
+   }
+  ],
+  "provenance": {
+   "engine": "qiskit",
+   "engine_version": "2.4.2",
+   "seed": 42,
+   "lane": "tbd",
+   "ran_on": "simulator"
+  },
+  "references": [
+   {
+    "label": "Clauser, Horne, Shimony & Holt, Proposed experiment to test local hidden-variable theories (1969)",
+    "doi": "10.1103/PhysRevLett.23.880"
+   },
+   {
+    "label": "Aspect, Nobel Prize in Physics 2022 — Bell inequality experiments",
+    "url": "https://www.nobelprize.org/prizes/physics/2022/summary/"
+   }
+  ],
+  "extra": {
+   "correlators": {
+    "E00": 1.0,
+    "E01": 0.0,
+    "E10": 1.0,
+    "E11": 0.0
+   },
+   "S": 2.0,
+   "classical_bound": 2.0,
+   "tsirelson_bound": 2.8284
+  },
+  "schema_version": "qlab-trace/1"
+ },
+ "solvers": [
+  {
+   "solver": "chsh-classical",
+   "label": {
+    "en": "Local hidden variables (bound) · classical",
+    "es": "Variables ocultas locales (cota) · clásico"
+   },
+   "framework": "classical:numpy",
+   "paradigm": "classical",
+   "value": {
+    "max_S": 2.0,
+    "model": "local hidden variables"
+   },
+   "cost": {
+    "wall_ms": 0.0
+   },
+   "notes": {
+    "en": "Any classical (local-hidden-variable) strategy obeys |S| ≤ 2 — the CHSH bound. A quantum S above 2 cannot be explained by local realism (this is what Bell tests prove).",
+    "es": "Cualquier estrategia clásica (de variables ocultas locales) cumple |S| ≤ 2 — la cota CHSH. Un S cuántico mayor que 2 no se explica con realismo local (eso prueban los tests de Bell)."
+   },
+   "optimal": true,
+   "extra": {}
+  },
+  {
+   "solver": "chsh-qiskit",
+   "label": {
+    "en": "CHSH correlators · Qiskit",
+    "es": "Correladores CHSH · Qiskit"
+   },
+   "framework": "qiskit",
+   "paradigm": "quantum-sim",
+   "value": {
+    "S": 2.0,
+    "exceeds_classical": false,
+    "tsirelson_bound": 2.8284,
+    "correlators": [
+     1.0,
+     0.0,
+     1.0,
+     0.0
+    ]
+   },
+   "cost": {
+    "wall_ms": 0.815,
+    "qubits": 2,
+    "settings": 4
+   },
+   "notes": {
+    "en": "S = 2.000 (within the classical bound 2; Tsirelson = 2√2 ≈ 2.828).",
+    "es": "S = 2.000 (dentro de la cota clásica 2; Tsirelson = 2√2 ≈ 2.828)."
+   },
+   "optimal": false,
+   "extra": {}
+  }
+ ],
+ "comparison": {
+  "S": 2.0,
+  "classical_bound": 2.0,
+  "tsirelson_bound": 2.8284,
+  "exceeds_classical": false,
+  "verdict": {
+   "en": "Quantum CHSH value S = 2.0 vs the classical local-hidden-variable bound 2 (Tsirelson max 2.8284). No violation here — and this is one of the FEW places quantum genuinely beats classical: it rules out local realism (2022 Nobel). But it is a nonlocality result, not a faster computation; and a separable state never violates it (entanglement is required).",
+   "es": "Valor CHSH cuántico S = 2.0 vs la cota clásica de variables ocultas locales 2 (máx de Tsirelson 2.8284). Sin violación aquí — y este es uno de los POCOS casos donde lo cuántico gana de verdad: descarta el realismo local (Nobel 2022). Pero es un resultado de no-localidad, no un cálculo más rápido; y un estado separable nunca la viola (se requiere entrelazamiento)."
+  }
+ },
+ "references": [
+  {
+   "label": "Clauser, Horne, Shimony & Holt, Proposed experiment to test local hidden-variable theories (1969)",
+   "doi": "10.1103/PhysRevLett.23.880"
+  },
+  {
+   "label": "Aspect, Nobel Prize in Physics 2022 — Bell inequality experiments",
+   "url": "https://www.nobelprize.org/prizes/physics/2022/summary/"
+  }
+ ]
+}

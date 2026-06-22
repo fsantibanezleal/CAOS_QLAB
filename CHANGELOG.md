@@ -4,6 +4,22 @@ All notable changes to CAOS_QLAB. Format: newest → oldest. Versions follow `X.
 (major.minor.patch); patch (`.00X`) for fixes. Kept `0.x` while the web SPA and the framework/case matrix
 are still landing. Tags from day one.
 
+## [0.16.000] — 2026-06-22 — CHSH / Bell inequality (where quantum genuinely beats classical)
+
+### Added
+- **Case `chsh`** (6 variants) — the CHSH/Bell-inequality test: a Bell pair measured in 4 settings, the
+  correlators `E(a,b)=⟨M(a)⊗M(b)⟩` computed from real Qiskit observables, the CHSH value
+  `S = E00+E01+E10−E11`. Solvers **`chsh-qiskit`** (with Bell-prep trace) and **`chsh-classical`** (the
+  local-hidden-variable bound S≤2). Lane=live.
+- The rare honest case where quantum **wins**: optimal angles reach S=2.828 = **2√2** (Tsirelson, violates
+  the classical 2); aligned bases hit exactly 2; a **separable state gives only 1.414** (no violation —
+  entanglement required). Verdict is precise: a nonlocality result (rules out local realism, 2022 Nobel),
+  NOT a computational speedup. A deliberate counterpoint to the "classical still wins" computational cases.
+- Pipeline CHSH verdict; test `test_chsh_violates_classical_bound`; docs node `15_chsh.md`.
+
+### Verified
+- 20/20 tests, ruff clean. S=2√2 at optimal; separable state never exceeds 2.
+
 ## [0.15.000] — 2026-06-22 — QEC surface code (threshold crossover) — QEC arc complete
 
 ### Added

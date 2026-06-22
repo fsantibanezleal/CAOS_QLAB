@@ -59,6 +59,23 @@ def _comparison(problem, results: list) -> dict:
             f"gana — el resultado honesto y esperado."
         )
         return {"optimal_cut": opt, "qaoa_cut": q, "verdict": {"en": verdict_en, "es": verdict_es}}
+    if problem.id == "chsh":
+        q = next((r for r in results if r.paradigm != "classical"), None)
+        S = q.value.get("S") if q else None
+        exceeds = q.value.get("exceeds_classical") if q else None
+        tsi = q.value.get("tsirelson_bound") if q else None
+        viol_en = "Quantum VIOLATES the classical bound" if exceeds else "No violation here"
+        viol_es = "Lo cuántico VIOLA la cota clásica" if exceeds else "Sin violación aquí"
+        return {"S": S, "classical_bound": 2.0, "tsirelson_bound": tsi, "exceeds_classical": exceeds,
+                "verdict": {
+            "en": f"Quantum CHSH value S = {S} vs the classical local-hidden-variable bound 2 (Tsirelson "
+                  f"max {tsi}). {viol_en} — and this is one of the FEW places quantum genuinely beats "
+                  f"classical: it rules out local realism (2022 Nobel). But it is a nonlocality result, not "
+                  f"a faster computation; and a separable state never violates it (entanglement is required).",
+            "es": f"Valor CHSH cuántico S = {S} vs la cota clásica de variables ocultas locales 2 (máx de "
+                  f"Tsirelson {tsi}). {viol_es} — y este es uno de los POCOS casos donde lo cuántico gana de "
+                  f"verdad: descarta el realismo local (Nobel 2022). Pero es un resultado de no-localidad, "
+                  f"no un cálculo más rápido; y un estado separable nunca la viola (se requiere entrelazamiento)."}}
     if problem.id == "qec-surface":
         q = next((r for r in results if r.paradigm != "classical"), None)
         ler = q.value.get("logical_error_rate") if q else None
