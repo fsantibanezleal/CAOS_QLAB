@@ -262,6 +262,93 @@ class QiskitSimon(Solver):
 
 
 @register_solver
+class QiskitShor(Solver):
+    name = "shor-qiskit"
+    label = {"en": "Order-finding (QPE) · Qiskit", "es": "Order-finding (QPE) · Qiskit"}
+    framework = "qiskit"
+    paradigm = QUANTUM_SIM
+
+    def applicable(self, problem: Problem) -> bool:
+        return problem.id == "shor"
+
+    @staticmethod
+    def _modmul_unitary(factor: int, N: int, dim: int):
+        """Permutation unitary U|y⟩=|(factor·y) mod N⟩ for y<N, identity on y≥N (real modular mult)."""
+        mat = np.zeros((dim, dim))
+        for y in range(dim):
+            mat[((factor * y) % N) if y < N else y, y] = 1.0
+        return mat
+
+    def run(self, problem, instance: Instance, seed: int, shots: int) -> SolverResult:
+        from fractions import Fraction
+        from math import gcd
+
+        from qiskit.circuit.library import UnitaryGate
+
+        from qlab.core.trace import Trace
+
+        N, a, t = instance.params["N"], instance.params["a"], instance.params["t"]
+        nwork = N.bit_length()                       # 4 for N=15
+        dim = 2**nwork
+        total = t + nwork                            # counting (0..t-1) + work (t..t+nwork-1)
+        work = list(range(t, total))
+        qc = QuantumCircuit(total)
+        qc.x(t)                                      # work register = |1⟩
+        qc.h(range(t))
+        for j in range(t):                           # controlled-U_a^{2^j}
+            factor = pow(a, 2**j, N)
+            cg = UnitaryGate(self._modmul_unitary(factor, N, dim), label=f"U{a}^{2**j}").control(1)
+            qc.append(cg, [j, *work])
+        qc.barrier()
+        for i in range(t // 2):                      # inverse QFT on the counting register
+            qc.swap(i, t - 1 - i)
+        for tgt in range(t):
+            for ctrl in range(tgt):
+                qc.cp(-np.pi / 2 ** (tgt - ctrl), ctrl, tgt)
+            qc.h(tgt)
+        t0 = time.perf_counter()
+        steps = evolve(qc)
+        probs = np.asarray(Statevector(qc).probabilities())
+        marg = probs.reshape(2 ** nwork, 2**t).sum(axis=0)   # counting-register marginal
+        # Order-finding: the measured phases s/r are the high-probability counting outcomes.
+        order, factors = None, None
+        for m in np.argsort(marg)[::-1]:
+            if marg[m] < 1e-6:
+                break
+            frac = Fraction(int(m), 2**t).limit_denominator(N)
+            r = frac.denominator
+            if r > 1 and pow(a, r, N) == 1:
+                order = r
+                if r % 2 == 0:
+                    x = pow(a, r // 2, N)
+                    p, q = gcd(x - 1, N), gcd(x + 1, N)
+                    if p * q == N and 1 not in (p, q):
+                        factors = sorted([p, q])
+                        break
+        wall = (time.perf_counter() - t0) * 1e3
+        ok = factors is not None and factors[0] * factors[1] == N
+        trace = Trace(
+            case_id=problem.id, title=problem.title, concept=problem.concept, qubits=total,
+            steps=steps, measurements={"counts": {format(c, f"0{t}b"): int(round(marg[c] * shots))
+                                                  for c in range(2**t) if marg[c] > 1e-6}, "shots": shots},
+            circuit_ops=circuit_ops(qc),
+            provenance={"engine": "qiskit", "engine_version": QISKIT_VERSION, "seed": seed,
+                        "lane": "tbd", "ran_on": "simulator"},
+            references=problem.references,
+            extra={"base": a, "order": order, "factors": factors},
+        )
+        return SolverResult(
+            solver=self.name, label=self.label, framework=self.framework, paradigm=self.paradigm,
+            value={"factors": factors, "order": order, "base": a, "correct": ok},
+            cost={"wall_ms": round(wall, 1), "qubits": total, "depth": steps[-1].index,
+                  "counting_qubits": t, "work_qubits": nwork},
+            notes={"en": f"QPE order-finding: base a={a} ⇒ order r={order} ⇒ factors {factors} of {N}.",
+                   "es": f"Order-finding por QPE: base a={a} ⇒ orden r={order} ⇒ factores {factors} de {N}."},
+            trace=trace,
+        )
+
+
+@register_solver
 class QiskitQPE(Solver):
     name = "qpe-qiskit"
     label = {"en": "QPE circuit · Qiskit", "es": "Circuito QPE · Qiskit"}

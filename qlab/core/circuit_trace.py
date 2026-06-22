@@ -33,6 +33,17 @@ def bloch(sv: Statevector, n: int) -> list[list[float]]:
     return out
 
 
+def _scalar_params(params) -> list[float]:
+    """Keep only real scalar gate params (a UnitaryGate carries a matrix, not floats — skip those)."""
+    out: list[float] = []
+    for x in params or []:
+        try:
+            out.append(round(float(x), ROUND))
+        except (TypeError, ValueError):
+            pass
+    return out
+
+
 def step_of(index: int, gate: str, targets, label: dict, sv: Statevector, n: int, params=None) -> Step:
     return Step(
         index=index,
@@ -42,7 +53,7 @@ def step_of(index: int, gate: str, targets, label: dict, sv: Statevector, n: int
         statevector=[amp(z) for z in sv.data],
         bloch=bloch(sv, n),
         probabilities=[round(float(p), ROUND) for p in sv.probabilities()],
-        params=[round(float(x), ROUND) for x in (params or [])],
+        params=_scalar_params(params),
     )
 
 
@@ -83,7 +94,7 @@ def circuit_ops(qc: QuantumCircuit) -> list[dict]:
             {
                 "gate": op.name,
                 "targets": [qc.find_bit(q).index for q in inst.qubits],
-                "params": [round(float(p), ROUND) for p in op.params],
+                "params": _scalar_params(op.params),
             }
         )
     return ops

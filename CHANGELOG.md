@@ -4,6 +4,23 @@ All notable changes to CAOS_QLAB. Format: newest → oldest. Versions follow `X.
 (major.minor.patch); patch (`.00X`) for fixes. Kept `0.x` while the web SPA and the framework/case matrix
 are still landing. Tags from day one.
 
+## [0.10.000] — 2026-06-22 — Shor (toy: factor 15) — flagship quartet complete
+
+### Added
+- **Case `shor`** (6 bases of N=15) — real QPE **order-finding** on a genuine 16×16 modular-multiplication
+  unitary `U_a|y⟩=|a·y mod N⟩` (built as a permutation `UnitaryGate`, controlled powers `U_a^{2^j}`),
+  inverse QFT, then **continued fractions → gcd** for the factors. Solvers **`shor-qiskit`** (8 qubits,
+  full trace) and **`shor-classical`** (trial division). Every base recovers the order (r=2/4) and factors
+  15 → [3,5]; `correct=True` throughout. Lane=precompute.
+- The headline honesty verdict: factoring 15 is trivial classically, and RSA-2048 needs ~10⁶ noisy physical
+  qubits + full fault tolerance (Gidney 2025) — Shor is NOT a near-term cryptographic threat.
+- Robustness: the circuit tracer now safely skips non-scalar gate params (a `UnitaryGate` carries a matrix),
+  so custom-unitary cases trace cleanly. Pipeline Shor verdict; test `test_shor_factors_15`; docs node
+  `docs/use-cases/09_shor.md`. **Completes the flagship-algorithms quartet (Grover · QFT · QPE · Shor).**
+
+### Verified
+- 14/14 tests, ruff clean. All 6 bases → factors [3,5].
+
 ## [0.09.000] — 2026-06-22 — Quantum Phase Estimation (the QFT's first payoff)
 
 ### Added

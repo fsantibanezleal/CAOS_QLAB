@@ -1,0 +1,44 @@
+{
+ "case_id": "shor",
+ "title": {
+  "en": "Shor (toy: factor 15)",
+  "es": "Shor (juguete: factorizar 15)"
+ },
+ "category": "flagship-algorithms",
+ "lane": "precompute",
+ "lane_reasons": [
+  "needs noise / mid-circuit feed-forward / optimization loop (offline engine only)"
+ ],
+ "qubits": 8,
+ "seed": 42,
+ "shots": 2048,
+ "params": {
+  "N": 15,
+  "a": 2,
+  "t": 4
+ },
+ "measured": {
+  "run_ms": 216.0,
+  "trace_bytes": 178257,
+  "unitary_only": false
+ },
+ "viz": [
+  "amp_phase",
+  "histogram",
+  "circuit"
+ ],
+ "engine": "qiskit",
+ "engine_version": "2.4.2",
+ "trace_path": "shor/shor-15-a2.json",
+ "references": [
+  {
+   "label": "Shor, Polynomial-time algorithms for prime factorization … (1997)",
+   "doi": "10.1137/S0097539795293172"
+  },
+  {
+   "label": "Gidney, How to factor 2048-bit RSA integers with less than a million noisy qubits (2025)",
+   "url": "https://arxiv.org/abs/2505.15917"
+  }
+ ],
+ "manifest_version": "qlab-manifest/1"
+}

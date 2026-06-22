@@ -9,8 +9,10 @@ from qlab.problems import (  # noqa: F401  (import = registration)
     maxcut,
     qft,
     qpe,
+    shor,
     simon,
     state_prep,
 )
 
-__all__ = ["state_prep", "maxcut", "bernstein_vazirani", "deutsch_jozsa", "simon", "grover", "qft", "qpe"]
+__all__ = ["state_prep", "maxcut", "bernstein_vazirani", "deutsch_jozsa", "simon", "grover", "qft", "qpe",
+           "shor"]

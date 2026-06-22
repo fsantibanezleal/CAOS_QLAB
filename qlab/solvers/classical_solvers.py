@@ -220,6 +220,40 @@ class ClassicalSimon(Solver):
 
 
 @register_solver
+class ClassicalFactor(Solver):
+    name = "shor-classical"
+    label = {"en": "Trial division · classical", "es": "División de prueba · clásico"}
+    framework = "classical:numpy"
+    paradigm = CLASSICAL
+
+    def applicable(self, problem: Problem) -> bool:
+        return problem.id == "shor"
+
+    def run(self, problem, instance: Instance, seed: int, shots: int) -> SolverResult:
+        N = instance.params["N"]
+        t0 = time.perf_counter()
+        factors, d = None, 2
+        while d * d <= N:
+            if N % d == 0:
+                factors = sorted([d, N // d])
+                break
+            d += 1
+        wall = (time.perf_counter() - t0) * 1e3
+        return SolverResult(
+            solver=self.name, label=self.label, framework=self.framework, paradigm=self.paradigm,
+            value={"factors": factors, "method": "trial division", "ops": int(N**0.5)},
+            cost={"wall_ms": round(wall, 4), "ops": int(N**0.5)},
+            notes={"en": f"Trial division factors {N} = {factors[0]}×{factors[1]} in microseconds. "
+                         "Factoring is easy here; RSA-2048 needs ~10⁶ fault-tolerant qubits (Gidney 2025) — "
+                         "Shor is no near-term crypto threat.",
+                   "es": f"La división de prueba factoriza {N} = {factors[0]}×{factors[1]} en microsegundos. "
+                         "Factorizar es fácil aquí; RSA-2048 necesita ~10⁶ qubits con tolerancia a fallos "
+                         "(Gidney 2025) — Shor no es una amenaza criptográfica de corto plazo."},
+            optimal=True,
+        )
+
+
+@register_solver
 class ClassicalEig(Solver):
     name = "qpe-classical"
     label = {"en": "Eigendecomposition · classical", "es": "Diagonalización · clásico"}

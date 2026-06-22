@@ -94,6 +94,18 @@ def test_qpe_estimates_phase():
     assert abs(res["qpe-classical"].value["phi_exact"] - 0.25) < 1e-9
 
 
+def test_shor_factors_15():
+    from qlab.registry import get_problem, solvers_for
+
+    problem = get_problem("shor")
+    inst = problem.instance("shor-15-a7")  # base 7 has order 4 mod 15
+    res = {s.name: s.run(problem, inst, seed=42, shots=512) for s in solvers_for(problem)}
+    assert res["shor-qiskit"].value["factors"] == [3, 5]
+    assert res["shor-qiskit"].value["order"] == 4
+    assert res["shor-qiskit"].value["correct"] is True
+    assert res["shor-classical"].value["factors"] == [3, 5]
+
+
 def test_maxcut_classical_optimum_beats_or_matches_qaoa():
     from qlab.problems.maxcut import MaxCut
     from qlab.registry import get_problem, solvers_for

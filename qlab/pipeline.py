@@ -59,6 +59,22 @@ def _comparison(problem, results: list) -> dict:
             f"gana — el resultado honesto y esperado."
         )
         return {"optimal_cut": opt, "qaoa_cut": q, "verdict": {"en": verdict_en, "es": verdict_es}}
+    if problem.id == "shor":
+        cls = next((r for r in results if r.paradigm == "classical"), None)
+        q = next((r for r in results if r.paradigm != "classical"), None)
+        qf = q.value.get("factors") if q else None
+        r = q.value.get("order") if q else None
+        a = q.value.get("base") if q else None
+        cf = cls.value.get("factors") if cls else None
+        return {"quantum_factors": qf, "order": r, "classical_factors": cf, "verdict": {
+            "en": f"Quantum order-finding (base a={a}) found order r={r} ⇒ factors {qf}; trial division "
+                  f"found {cf} in microseconds. Both factor 15 trivially. The honest scale: RSA-2048 needs "
+                  f"~10⁶ noisy physical qubits + full fault tolerance (Gidney 2025) — Shor is NOT a "
+                  f"near-term cryptographic threat.",
+            "es": f"El order-finding cuántico (base a={a}) halló orden r={r} ⇒ factores {qf}; la división de "
+                  f"prueba halló {cf} en microsegundos. Ambos factorizan 15 trivialmente. La escala honesta: "
+                  f"RSA-2048 necesita ~10⁶ qubits físicos ruidosos + tolerancia a fallos completa (Gidney "
+                  f"2025) — Shor NO es una amenaza criptográfica de corto plazo."}}
     if problem.id == "qpe":
         cls = next((r for r in results if r.paradigm == "classical"), None)
         q = next((r for r in results if r.paradigm != "classical"), None)
