@@ -1,0 +1,41 @@
+{
+ "case_id": "qft",
+ "title": {
+  "en": "Quantum Fourier Transform",
+  "es": "Transformada cuántica de Fourier"
+ },
+ "category": "flagship-algorithms",
+ "lane": "live",
+ "lane_reasons": [],
+ "qubits": 4,
+ "seed": 42,
+ "shots": 2048,
+ "params": {
+  "n": 4,
+  "k": 1
+ },
+ "measured": {
+  "run_ms": 7.016,
+  "trace_bytes": 13473,
+  "unitary_only": true
+ },
+ "viz": [
+  "amp_phase",
+  "histogram",
+  "circuit"
+ ],
+ "engine": "qiskit",
+ "engine_version": "2.4.2",
+ "trace_path": "qft/qft-4-k1.json",
+ "references": [
+  {
+   "label": "Coppersmith, An approximate Fourier transform useful in quantum factoring (1994/2002)",
+   "url": "https://arxiv.org/abs/quant-ph/0201067"
+  },
+  {
+   "label": "Nielsen & Chuang, Quantum Computation and Quantum Information (2010)",
+   "url": "https://doi.org/10.1017/CBO9780511976667"
+  }
+ ],
+ "manifest_version": "qlab-manifest/1"
+}

@@ -220,6 +220,38 @@ class ClassicalSimon(Solver):
 
 
 @register_solver
+class ClassicalDFT(Solver):
+    name = "qft-classical"
+    label = {"en": "Discrete Fourier transform · classical", "es": "Transformada discreta de Fourier · clásico"}
+    framework = "classical:numpy"
+    paradigm = CLASSICAL
+
+    def applicable(self, problem: Problem) -> bool:
+        return problem.id == "qft"
+
+    def run(self, problem, instance: Instance, seed: int, shots: int) -> SolverResult:
+        n, k = instance.params["n"], instance.params["k"]
+        N = 2**n
+        t0 = time.perf_counter()
+        v = np.zeros(N, dtype=complex)
+        v[k] = 1.0
+        u = np.fft.fft(v) / np.sqrt(N)            # the full, READABLE Fourier spectrum
+        wall = (time.perf_counter() - t0) * 1e3
+        ops = int(N * max(1, n))                  # FFT ≈ O(N log N) = O(n·2ⁿ)
+        return SolverResult(
+            solver=self.name, label=self.label, framework=self.framework, paradigm=self.paradigm,
+            value={"spectrum_uniform_prob": round(1.0 / N, 6), "ops": ops, "readable": True,
+                   "amp0_phase_deg": round(float(np.angle(u[0], deg=True)), 3)},
+            cost={"wall_ms": round(wall, 4), "ops": ops, "gate_complexity": "O(N log N)"},
+            notes={"en": f"Classical FFT computes ALL {N} Fourier amplitudes (readable) in ~{ops} ops. The "
+                         "QFT is cheaper to apply but its output cannot be read out — that's the trade.",
+                   "es": f"La FFT clásica calcula TODAS las {N} amplitudes (legibles) en ~{ops} ops. La QFT "
+                         "es más barata de aplicar pero su salida no se puede leer — ese es el trade-off."},
+            optimal=True,
+        )
+
+
+@register_solver
 class ClassicalSearch(Solver):
     name = "grover-classical"
     label = {"en": "Linear scan · classical", "es": "Barrido lineal · clásico"}

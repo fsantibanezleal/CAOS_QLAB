@@ -261,6 +261,65 @@ class QiskitSimon(Solver):
         )
 
 
+@register_solver
+class QiskitQFT(Solver):
+    name = "qft-qiskit"
+    label = {"en": "QFT circuit · Qiskit", "es": "Circuito QFT · Qiskit"}
+    framework = "qiskit"
+    paradigm = QUANTUM_SIM
+
+    def applicable(self, problem: Problem) -> bool:
+        return problem.id == "qft"
+
+    def run(self, problem, instance: Instance, seed: int, shots: int) -> SolverResult:
+        import math
+
+        from qlab.core.trace import Trace
+
+        n, k = instance.params["n"], instance.params["k"]
+        N = 2**n
+        qc = QuantumCircuit(n)
+        for i in range(n):                       # prepare |k⟩ (little-endian: bit i = qubit i)
+            if (k >> i) & 1:
+                qc.x(i)
+        qc.barrier()
+        for target in range(n - 1, -1, -1):      # textbook QFT: H + controlled-phase ladder
+            qc.h(target)
+            for control in range(target):
+                qc.cp(math.pi / 2 ** (target - control), control, target)
+        for i in range(n // 2):                  # bit-reversal swaps
+            qc.swap(i, n - 1 - i)
+        t0 = time.perf_counter()
+        steps = evolve(qc)
+        sv = np.asarray(Statevector(qc).data)
+        # Analytic DFT of |k⟩: u[j] = (1/√N) e^{2πi k j / N}. Validate fidelity (try both sign conventions).
+        j = np.arange(N)
+        dft = np.exp(2j * np.pi * k * j / N) / math.sqrt(N)
+        fid = max(abs(np.vdot(dft, sv)) ** 2, abs(np.vdot(np.conjugate(dft), sv)) ** 2)
+        gate_count = len([s for s in steps if s.gate not in ("init",)])
+        wall = (time.perf_counter() - t0) * 1e3
+        trace = Trace(
+            case_id=problem.id, title=problem.title, concept=problem.concept, qubits=n,
+            steps=steps, measurements=measure_counts(qc, shots, seed), circuit_ops=circuit_ops(qc),
+            provenance={"engine": "qiskit", "engine_version": QISKIT_VERSION, "seed": seed,
+                        "lane": "tbd", "ran_on": "simulator"},
+            references=problem.references,
+            extra={"fidelity_vs_dft": round(float(fid), 6), "gate_count": gate_count},
+        )
+        return SolverResult(
+            solver=self.name, label=self.label, framework=self.framework, paradigm=self.paradigm,
+            value={"fidelity_vs_dft": round(float(fid), 6), "matches_dft": bool(fid > 0.999),
+                   "gate_count": gate_count, "readable": False},
+            cost={"wall_ms": round(wall, 3), "qubits": n, "gates": gate_count,
+                  "gate_complexity": "O(n^2)"},
+            notes={"en": f"QFT|{k}⟩ via {gate_count} gates (O(n²)); fidelity vs analytic DFT = {fid:.4f}. "
+                         "But a measurement gives ONE sample — the spectrum is not readable.",
+                   "es": f"QFT|{k}⟩ con {gate_count} compuertas (O(n²)); fidelidad vs DFT analítica = "
+                         f"{fid:.4f}. Pero una medición da UNA muestra — el espectro no es legible."},
+            trace=trace,
+        )
+
+
 def _mcz(qc: "QuantumCircuit", n: int) -> None:
     """Multi-controlled Z on n qubits (phase flip of |1…1⟩)."""
     if n == 1:

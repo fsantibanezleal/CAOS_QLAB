@@ -59,6 +59,21 @@ def _comparison(problem, results: list) -> dict:
             f"gana — el resultado honesto y esperado."
         )
         return {"optimal_cut": opt, "qaoa_cut": q, "verdict": {"en": verdict_en, "es": verdict_es}}
+    if problem.id == "qft":
+        cls = next((r for r in results if r.paradigm == "classical"), None)
+        q = next((r for r in results if r.paradigm != "classical"), None)
+        fid = q.value.get("fidelity_vs_dft") if q else None
+        gates = q.value.get("gate_count") if q else None
+        ops = cls.cost.get("ops") if cls else None
+        return {"fidelity_vs_dft": fid, "quantum_gates": gates, "classical_ops": ops, "verdict": {
+            "en": f"The QFT matches the analytic DFT (fidelity {fid}). Quantum: {gates} gates (O(n²)) to "
+                  f"apply the transform; classical FFT: ~{ops} ops (O(n·2ⁿ)) but it returns the FULL "
+                  f"readable spectrum. The QFT is exponentially cheaper to APPLY yet unreadable on "
+                  f"measurement — a subroutine (QPE/Shor), not a standalone speedup.",
+            "es": f"La QFT coincide con la DFT analítica (fidelidad {fid}). Cuántico: {gates} compuertas "
+                  f"(O(n²)) para aplicar la transformada; FFT clásica: ~{ops} ops (O(n·2ⁿ)) pero devuelve "
+                  f"el espectro COMPLETO y legible. La QFT es exponencialmente más barata de APLICAR pero "
+                  f"ilegible al medir — una subrutina (QPE/Shor), no un speedup por sí sola."}}
     if problem.id == "grover":
         cls = next((r for r in results if r.paradigm == "classical"), None)
         q = next((r for r in results if r.paradigm != "classical"), None)

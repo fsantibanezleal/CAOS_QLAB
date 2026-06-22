@@ -4,6 +4,19 @@ All notable changes to CAOS_QLAB. Format: newest → oldest. Versions follow `X.
 (major.minor.patch); patch (`.00X`) for fixes. Kept `0.x` while the web SPA and the framework/case matrix
 are still landing. Tags from day one.
 
+## [0.08.000] — 2026-06-22 — Quantum Fourier Transform (flagship subroutine)
+
+### Added
+- **Case `qft`** (6 variants, n=3–4) — the QFT as H + a controlled-phase ladder + swaps. Solvers
+  **`qft-qiskit`** (real circuit + phase-ramp trace; **self-validated against the analytic DFT**, fidelity
+  1.000 on all variants) and **`qft-classical`** (`numpy.fft`, the full readable spectrum). Lane=live.
+- The honest lesson encoded in the verdict: QFT applies the transform in O(n²) gates vs classical
+  O(n·2ⁿ), but the output is unreadable on measurement → a subroutine (QPE/Shor), not a standalone speedup.
+- Pipeline QFT verdict; test `test_qft_matches_analytic_dft`; docs node `docs/use-cases/07_qft.md`.
+
+### Verified
+- 12/12 tests, ruff clean. Fidelity vs analytic DFT = 1.000 across all 6 variants.
+
 ## [0.07.000] — 2026-06-22 — Grover's search (flagship-algorithms category opens)
 
 ### Added

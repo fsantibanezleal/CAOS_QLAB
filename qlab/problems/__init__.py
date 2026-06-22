@@ -7,8 +7,9 @@ from qlab.problems import (  # noqa: F401  (import = registration)
     deutsch_jozsa,
     grover,
     maxcut,
+    qft,
     simon,
     state_prep,
 )
 
-__all__ = ["state_prep", "maxcut", "bernstein_vazirani", "deutsch_jozsa", "simon", "grover"]
+__all__ = ["state_prep", "maxcut", "bernstein_vazirani", "deutsch_jozsa", "simon", "grover", "qft"]

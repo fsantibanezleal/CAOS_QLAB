@@ -71,6 +71,17 @@ def test_grover_finds_marked():
     assert res["grover-classical"].value["correct"] is True
 
 
+def test_qft_matches_analytic_dft():
+    from qlab.registry import get_problem, solvers_for
+
+    problem = get_problem("qft")
+    inst = problem.instance("qft-3-k5")
+    res = {s.name: s.run(problem, inst, seed=42, shots=256) for s in solvers_for(problem)}
+    assert res["qft-qiskit"].value["matches_dft"] is True
+    assert res["qft-qiskit"].value["fidelity_vs_dft"] > 0.999
+    assert res["qft-classical"].value["readable"] is True
+
+
 def test_maxcut_classical_optimum_beats_or_matches_qaoa():
     from qlab.problems.maxcut import MaxCut
     from qlab.registry import get_problem, solvers_for

@@ -6,4 +6,4 @@ PennyLane, Stim) in the offline precompute pipeline; the committed JSON trace is
 web app replays. See docs/architecture.md.
 """
 
-__version__ = "0.7.0"  # display version 0.07.000 — see CHANGELOG.md
+__version__ = "0.8.0"  # display version 0.08.000 — see CHANGELOG.md
