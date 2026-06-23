@@ -1,9 +1,10 @@
 import { useEffect, useState } from "react";
-import { BrowserRouter, Link, Route, Routes, useParams } from "react-router-dom";
+import { BrowserRouter, Link, NavLink, Route, Routes, useParams } from "react-router-dom";
 import { CaseWorkbench } from "./components/CaseWorkbench";
 import type { Catalog } from "./lib/contract.types";
 import { CATEGORY_LABELS } from "./lib/contract.types";
 import { loadCatalog } from "./lib/data";
+import { Introduction } from "./pages/Introduction";
 import { UIProvider, useT, useUI } from "./lib/ui";
 
 const EXTERNAL = {
@@ -11,6 +12,12 @@ const EXTERNAL = {
   personal: "https://fsantibanezleal.github.io",
   portfolio: "https://fasl-work.com",
 };
+
+// The standard product pages (ADR-0016/0017). Tabs appear only once their page is built.
+const PAGE_TABS: { to: string; en: string; es: string }[] = [
+  { to: "/", en: "App", es: "App" },
+  { to: "/introduction", en: "Introduction", es: "Introducción" },
+];
 
 function Header() {
   const { lang, setLang, theme, setTheme } = useUI();
@@ -20,7 +27,12 @@ function Header() {
         <span className="brand-mark">⟨ψ|</span> QLab
       </Link>
       <nav className="nav">
-        <Link to="/">{lang === "en" ? "Cases" : "Casos"}</Link>
+        {PAGE_TABS.map((p) => (
+          <NavLink key={p.to} to={p.to} end={p.to === "/"}
+                   className={({ isActive }) => (isActive ? "active" : "")}>
+            {lang === "en" ? p.en : p.es}
+          </NavLink>
+        ))}
       </nav>
       <div className="header-actions">
         <a href={EXTERNAL.github} target="_blank" rel="noreferrer">GitHub</a>
@@ -138,6 +150,7 @@ export default function App() {
         <main className="shell">
           <Routes>
             <Route path="/" element={<Catalogue />} />
+            <Route path="/introduction" element={<Introduction />} />
             <Route path="/case/:id" element={<CasePage />} />
           </Routes>
         </main>

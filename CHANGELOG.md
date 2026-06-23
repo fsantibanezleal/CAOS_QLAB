@@ -4,6 +4,25 @@ All notable changes to CAOS_QLAB. Format: newest → oldest. Versions follow `X.
 (major.minor.patch); patch (`.00X`) for fixes. Kept `0.x` while the web SPA and the framework/case matrix
 are still landing. Tags from day one.
 
+## [0.27.000] — 2026-06-23 — Web SPA: Introduction page + 6-tab nav scaffold (screenshot-verified)
+
+### Added
+- **Introduction page** (`web/src/pages/Introduction.tsx`) — the first of the six standard product pages
+  (ADR-0016/0017). Rich, bilingual, sourced from `docs/state-of-the-art.md` + `docs/README.md`: the honest
+  2025–2026 frame (quantum = scientific instruments, not yet useful computers; the reason every case ships a
+  classical baseline), a themed **three-lane architecture SVG** (browser-live · local-precompute ·
+  dormant real-hardware → the `qlab-trace/1` contract → static SPA, *replay = truth*), the five real
+  frameworks consumed, the six case families (live counts from the catalog), an IS / IS-NOT honest-scope
+  panel, and DOI-sourced references.
+- **6-tab nav scaffold** in the header (`NavLink`, active-tab underline). Tabs appear only once their page is
+  built — **App · Introduction** today; Methodology · Implementation · Experiments · Benchmark land next.
+- **Screenshot-verified** (Playwright, no console errors): Introduction renders fully in dark and light, the
+  architecture diagram legible in both.
+
+### Still to build
+- The remaining four pages (Methodology · Implementation · Experiments · Benchmark); the live JS lane
+  (quantum-circuit) + Quirk; the ⓘ ADR-0058 modal; migrate to shared shell; Pages deploy.
+
 ## [0.26.000] — 2026-06-22 — Web SPA: ZNE extrapolation plot (screenshot-verified)
 
 ### Added
