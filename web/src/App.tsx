@@ -4,6 +4,7 @@ import { CaseWorkbench } from "./components/CaseWorkbench";
 import type { Catalog } from "./lib/contract.types";
 import { CATEGORY_LABELS } from "./lib/contract.types";
 import { loadCatalog } from "./lib/data";
+import { Implementation } from "./pages/Implementation";
 import { Introduction } from "./pages/Introduction";
 import { Methodology } from "./pages/Methodology";
 import { UIProvider, useT, useUI } from "./lib/ui";
@@ -19,6 +20,7 @@ const PAGE_TABS: { to: string; en: string; es: string }[] = [
   { to: "/", en: "App", es: "App" },
   { to: "/introduction", en: "Introduction", es: "Introducción" },
   { to: "/methodology", en: "Methodology", es: "Metodología" },
+  { to: "/implementation", en: "Implementation", es: "Implementación" },
 ];
 
 function Header() {
@@ -154,6 +156,7 @@ export default function App() {
             <Route path="/" element={<Catalogue />} />
             <Route path="/introduction" element={<Introduction />} />
             <Route path="/methodology" element={<Methodology />} />
+            <Route path="/implementation" element={<Implementation />} />
             <Route path="/case/:id" element={<CasePage />} />
           </Routes>
         </main>

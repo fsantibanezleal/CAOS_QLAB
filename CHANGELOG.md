@@ -4,6 +4,25 @@ All notable changes to CAOS_QLAB. Format: newest → oldest. Versions follow `X.
 (major.minor.patch); patch (`.00X`) for fixes. Kept `0.x` while the web SPA and the framework/case matrix
 are still landing. Tags from day one.
 
+## [0.29.000] — 2026-06-23 — Web SPA: Implementation page (engine · contracts · gate · lanes · deploy) (screenshot-verified)
+
+### Added
+- **Implementation page** (`web/src/pages/Implementation.tsx`) — the fourth standard page, six sub-tabs:
+  **Problem × Solver engine** (a themed engine-flow SVG: Problem + Solver adapters → registry → single
+  pipeline → trace bundle + manifest; the real Python adapter snippet; the additive-extensibility table),
+  **Data contracts** (qlab-trace/1 + qlab-manifest/1, determinism = pure fn of (params, seed), replay =
+  truth), **The measured gate** (the four live-vs-precompute conditions; CI fails on mislabel; worked
+  examples), **Three lanes** (live/precompute/real-hardware comparison table + the dormant-hardware note),
+  **Adapters & frameworks** (thin guarded adapters, graceful degradation, web never imports a framework),
+  **Deploy** (static GitHub Pages, data overlay, deep-link fallback). Sourced from `docs/architecture/*`.
+- Header nav extended to **App · Introduction · Methodology · Implementation** (4 of 6).
+- **Screenshot-verified** (Playwright, no console errors): the Engine tab (SVG + code + table) and the Three
+  lanes table render in dark and light.
+
+### Still to build
+- The remaining two pages (Experiments · Benchmark); the live JS lane (quantum-circuit) + Quirk; the ⓘ
+  ADR-0058 modal; migrate to shared shell; Pages deploy.
+
 ## [0.28.000] — 2026-06-23 — Web SPA: Methodology page (7 method families, KaTeX) (screenshot-verified)
 
 ### Added
