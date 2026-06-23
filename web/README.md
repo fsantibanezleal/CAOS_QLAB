@@ -1,19 +1,34 @@
-# web/ — the replay SPA (next phase)
+# web/ — the replay SPA (Phase D, in progress)
 
-This is where the static **React 19 + Vite** single-page app lives: it reads the committed trace bundles +
-manifests and renders them — the Bloch sphere (three.js), amplitude/phase bars, probability histograms,
-Q-sphere, density-matrix heatmaps, circuit diagrams, the QAOA (γ,β) landscape, and the **classical-vs-quantum
-comparison panels** — plus the live JS tuning lane (`quantum-circuit`, ≤12 qubits) and an embedded Quirk
-sandbox.
+The static **React 19 + Vite** single-page app that reads the committed trace bundles + manifests and
+renders them. Build-verified; the visual depth is being filled in case-category by case-category.
 
-**Status: not yet built.** The engine, the data contracts and the committed artifacts (the hard part) are
-done; the SPA is the next phase and will follow the binding house standard:
+## Status
 
-- **ADR-0016 / ADR-0017** — the shared `@fasl-work/caos-app-shell`, the centered/​capped layout, the six
-  pages (App · Introduction · Methodology · Implementation · Experiments · Benchmark), the per-case
-  workbench (variant-bar + Field/Live/Charts/Context sub-tabs), per-section `<Refs>` with real DOIs.
-- **ADR-0058** — the in-app ⓘ "How it was built" architecture modal (themed SVGs, ≥5 tabs).
-- **ADR-0054 / Pages** — static deploy, `404.html = index.html` deep-link fallback, custom domain
-  `qlab.fasl-work.com`.
+**Foundation built + building (v0.21.000):**
+- `copy-data.mjs` — overlays `data/artifacts/` + `manifests/` into `public/` and generates
+  `public/data/catalog.json` (one index of all 19 cases · 113 variants, with per-variant verdicts).
+- `src/lib/contract.types.ts` — the **TypeScript mirror** of the Python data contract (ADR-0057).
+- `src/lib/data.ts` — loads the catalog + lazy-loads full bundles.
+- `src/App.tsx` — the app shell (header + theme/lang) + the **catalog landing** (cases grouped by category)
+  + a per-case page listing variants, solver chips and the real quantum-vs-classical verdicts.
 
-The plan + the SimLab-exemplar map for this SPA are tracked privately in the CAOS_MANAGE vault.
+```bash
+npm install
+npm run build      # copy-data → tsc → vite build (verified: 19 cases, dist/ ~76 KB gzip)
+npm run dev        # local dev server
+```
+
+## Still to build (the ADR-0016/0017 bar)
+
+- Migrate the shell to the shared **`@fasl-work/caos-app-shell`** (header/footer/Tabs/SubTabs/Equation/
+  Cite/Refs); the six pages (App · Introduction · Methodology · Implementation · Experiments · Benchmark).
+- The **per-case workbench**: variant-bar + Field/Simulator · Live · Charts/Comparison · Context sub-tabs.
+- **Viz renderers** driven by the trace JSON: Bloch sphere (three.js), amplitude/phase bars, probability
+  histograms, Q-sphere, density-matrix heatmaps, circuit SVG, the QAOA (γ,β) landscape, the MaxCut graph.
+- The **quantum-vs-classical comparison panel** (QLab's signature view), the **live JS lane**
+  (`quantum-circuit`, ≤12 q) + embedded Quirk, and the **ⓘ ADR-0058 architecture modal**.
+- Deploy: the Pages workflow (already in the repo) + `404.html` fallback + custom domain `qlab.fasl-work.com`.
+- **Screenshot-verify every tab (light + dark) before deploy** (product-quality-bar).
+
+Map: `wip/qlab/simlab-exemplar-map.md` (RotorVitals/SimLab is the structural exemplar).

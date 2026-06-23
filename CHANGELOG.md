@@ -4,6 +4,26 @@ All notable changes to CAOS_QLAB. Format: newest → oldest. Versions follow `X.
 (major.minor.patch); patch (`.00X`) for fixes. Kept `0.x` while the web SPA and the framework/case matrix
 are still landing. Tags from day one.
 
+## [0.21.000] — 2026-06-22 — Web SPA foundation (Phase D begins)
+
+### Added
+- **`web/` React 19 + Vite SPA foundation** — build-verified (not a mockup; renders the real committed data):
+  - `copy-data.mjs` overlays `data/artifacts/` + `manifests/` and generates `public/data/catalog.json`
+    (one index of all **19 cases · 113 variants** with per-variant comparison verdicts + solver summaries).
+  - `src/lib/contract.types.ts` — the **TypeScript mirror** of the Python data contract (ADR-0057).
+  - `src/lib/data.ts` (catalog + lazy bundle loaders), `src/lib/ui.tsx` (lang/theme context).
+  - `src/App.tsx` — app shell (sticky header, brand, GitHub/site/portfolio links, EN/ES + light/dark
+    toggles, footer) + the **catalog landing** (cases grouped by category) + a per-case page listing
+    variants, solver chips (color-coded by paradigm) and the real quantum-vs-classical verdicts.
+  - Plain-CSS token theme (light + dark), `vite.config.ts`, `tsconfig.json`, `index.html`.
+- **Verified:** `npm install` (73 pkgs, 0 vuln) + `npm run build` (copy-data → tsc → vite) succeed; dist
+  ~76 KB gzip; catalog generated for all 19 cases.
+
+### Still to build (the ADR-0016/0017 bar — ongoing)
+- Shared `@fasl-work/caos-app-shell` + the six pages; per-case workbench (variant-bar + Field/Live/Charts/
+  Context); viz renderers (Bloch three.js, amp/phase bars, histograms, Q-sphere, density, circuit SVG, QAOA
+  landscape, graph); live JS lane (quantum-circuit) + Quirk; the ⓘ modal; screenshot-verify; Pages deploy.
+
 ## [0.20.000] — 2026-06-22 — Superposition & quantum RNG — ~20-case catalog reached
 
 ### Added
