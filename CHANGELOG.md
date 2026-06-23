@@ -4,6 +4,21 @@ All notable changes to CAOS_QLAB. Format: newest → oldest. Versions follow `X.
 (major.minor.patch); patch (`.00X`) for fixes. Kept `0.x` while the web SPA and the framework/case matrix
 are still landing. Tags from day one.
 
+## [0.25.000] — 2026-06-22 — Web SPA: interactive Bloch sphere (screenshot-verified)
+
+### Added
+- **`BlochSphere`** (`web/src/viz/BlochSphere.tsx`) — a drag-to-rotate SVG Bloch sphere (pure orthographic
+  projection, no WebGL → deterministic to screenshot). Wireframe globe (meridians + parallels + equator),
+  the |0⟩/|1⟩/|±⟩/|±i⟩ poles, the state vector as an arrow (length = |r|), the gate trajectory as a dashed
+  path with per-step dots + gate labels, and a live read-out of the Bloch coordinates. Rendered in the
+  workbench for single-qubit cases (`trajectoryFromSteps` reads each step's reduced Bloch vector).
+- **Screenshot-verified** (Playwright, no console errors): H|0⟩ lands on |+⟩ (r=(1,0,0)) with the trajectory
+  from the |0⟩ pole, in dark and light.
+
+### Still to build
+- Density-matrix heatmap (noise); live JS lane (quantum-circuit) + Quirk; the six doc pages + ⓘ ADR-0058
+  modal; migrate to shared shell; Pages deploy.
+
 ## [0.24.000] — 2026-06-22 — Web SPA: QAOA (γ,β) landscape heatmap (screenshot-verified)
 
 ### Added

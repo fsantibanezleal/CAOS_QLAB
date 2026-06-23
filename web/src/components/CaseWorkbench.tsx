@@ -1,8 +1,9 @@
 import { useEffect, useState } from "react";
 import type { Bundle, CatalogCase } from "../lib/contract.types";
 import { loadBundle } from "../lib/data";
-import { useT } from "../lib/ui";
+import { useT, useUI } from "../lib/ui";
 import { AmplitudeBars } from "../viz/AmplitudeBars";
+import { BlochSphere, trajectoryFromSteps } from "../viz/BlochSphere";
 import { CircuitDiagram } from "../viz/CircuitDiagram";
 import { ComparisonPanel } from "../viz/ComparisonPanel";
 import { Histogram } from "../viz/Histogram";
@@ -11,6 +12,7 @@ import { isLandscape, LandscapeHeatmap } from "../viz/LandscapeHeatmap";
 /** Per-case workbench: a variant-bar + the data-driven viz for the selected variant. */
 export function CaseWorkbench({ caseEntry }: { caseEntry: CatalogCase }) {
   const t = useT();
+  const { lang } = useUI();
   const [vid, setVid] = useState(caseEntry.variants[0].id);
   const [bundle, setBundle] = useState<Bundle | null>(null);
   const [err, setErr] = useState<string | null>(null);
@@ -27,6 +29,8 @@ export function CaseWorkbench({ caseEntry }: { caseEntry: CatalogCase }) {
   const finalStep = bundle?.trace?.steps?.[bundle.trace.steps.length - 1];
   const extra = bundle?.trace?.extra;
   const landscape = extra && isLandscape(extra.landscape) ? extra.landscape : null;
+  const blochTraj =
+    bundle?.trace && bundle.trace.qubits === 1 ? trajectoryFromSteps(bundle.trace.steps, lang) : [];
 
   return (
     <div className="workbench">
@@ -49,6 +53,7 @@ export function CaseWorkbench({ caseEntry }: { caseEntry: CatalogCase }) {
             <CircuitDiagram ops={bundle.trace.circuit_ops} qubits={bundle.trace.qubits} />
           ) : null}
           <div className="viz-row">
+            {blochTraj.length > 0 && <BlochSphere trajectory={blochTraj} />}
             {finalStep && <AmplitudeBars step={finalStep} qubits={bundle.trace!.qubits} />}
             {bundle.trace?.measurements?.shots ? <Histogram measurements={bundle.trace.measurements} /> : null}
           </div>

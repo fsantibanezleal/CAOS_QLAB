@@ -123,8 +123,8 @@ function CasePage() {
       <CaseWorkbench caseEntry={c} />
       <p className="todo-note">
         {lang === "en"
-          ? "Coming next: the Bloch sphere (3D) and a live in-browser tuning lane. Everything above — circuit, amplitudes, histogram, the QAOA landscape and the quantum-vs-classical comparison — is the real committed result."
-          : "Próximamente: la esfera de Bloch (3D) y un lane de ajuste en vivo en el navegador. Todo lo de arriba — circuito, amplitudes, histograma, el paisaje de QAOA y la comparación cuántico-vs-clásico — es el resultado commiteado real."}
+          ? "Coming next: a live in-browser tuning lane and the per-method documentation pages. Everything above — circuit, Bloch sphere, amplitudes, histogram, the QAOA landscape and the quantum-vs-classical comparison — is the real committed result."
+          : "Próximamente: un lane de ajuste en vivo en el navegador y las páginas de documentación por método. Todo lo de arriba — circuito, esfera de Bloch, amplitudes, histograma, el paisaje de QAOA y la comparación cuántico-vs-clásico — es el resultado commiteado real."}
       </p>
     </div>
   );
