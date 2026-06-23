@@ -4,6 +4,22 @@ All notable changes to CAOS_QLAB. Format: newest → oldest. Versions follow `X.
 (major.minor.patch); patch (`.00X`) for fixes. Kept `0.x` while the web SPA and the framework/case matrix
 are still landing. Tags from day one.
 
+## [0.24.000] — 2026-06-22 — Web SPA: QAOA (γ,β) landscape heatmap (screenshot-verified)
+
+### Added
+- **`LandscapeHeatmap`** (`web/src/viz/LandscapeHeatmap.tsx`) — an interactive SVG heatmap of the cost
+  landscape `⟨cut⟩` over the (γ,β) plane, read straight from the committed `trace.extra.landscape` grid
+  (24×24). Sequential dark-blue→teal→yellow ramp (readable on both themes), π-fraction axis ticks, a
+  colour-bar with min/max, the optimizer's chosen (γ*,β*) ringed in white, and a hover read-out of the local
+  γ/β/⟨cut⟩. Rendered in the workbench only for cases that carry a landscape (the QAOA / MaxCut family);
+  guarded by an `isLandscape` type-check.
+- **Screenshot-verified** (Playwright, no console errors): the MaxCut landscape renders correctly in dark and
+  light — periodic p=1 structure, the optimum ring on a bright peak, colour-bar 1.15→3.92.
+
+### Still to build
+- Bloch sphere (three.js), density-matrix heatmap; live JS lane (quantum-circuit) + Quirk; the six doc pages
+  + ⓘ ADR-0058 modal; migrate to shared shell; Pages deploy.
+
 ## [0.23.000] — 2026-06-22 — Web SPA: circuit-diagram renderer (screenshot-verified)
 
 ### Added

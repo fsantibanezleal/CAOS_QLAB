@@ -6,6 +6,7 @@ import { AmplitudeBars } from "../viz/AmplitudeBars";
 import { CircuitDiagram } from "../viz/CircuitDiagram";
 import { ComparisonPanel } from "../viz/ComparisonPanel";
 import { Histogram } from "../viz/Histogram";
+import { isLandscape, LandscapeHeatmap } from "../viz/LandscapeHeatmap";
 
 /** Per-case workbench: a variant-bar + the data-driven viz for the selected variant. */
 export function CaseWorkbench({ caseEntry }: { caseEntry: CatalogCase }) {
@@ -24,6 +25,8 @@ export function CaseWorkbench({ caseEntry }: { caseEntry: CatalogCase }) {
   }, [variant.path]);
 
   const finalStep = bundle?.trace?.steps?.[bundle.trace.steps.length - 1];
+  const extra = bundle?.trace?.extra;
+  const landscape = extra && isLandscape(extra.landscape) ? extra.landscape : null;
 
   return (
     <div className="workbench">
@@ -49,6 +52,15 @@ export function CaseWorkbench({ caseEntry }: { caseEntry: CatalogCase }) {
             {finalStep && <AmplitudeBars step={finalStep} qubits={bundle.trace!.qubits} />}
             {bundle.trace?.measurements?.shots ? <Histogram measurements={bundle.trace.measurements} /> : null}
           </div>
+          {landscape && (
+            <div className="viz-row">
+              <LandscapeHeatmap
+                landscape={landscape}
+                gammaStar={typeof extra?.gamma === "number" ? extra.gamma : undefined}
+                betaStar={typeof extra?.beta === "number" ? extra.beta : undefined}
+              />
+            </div>
+          )}
           <ComparisonPanel bundle={bundle} />
         </>
       )}
