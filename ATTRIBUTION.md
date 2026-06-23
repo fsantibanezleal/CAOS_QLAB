@@ -21,11 +21,13 @@ Nielsen & Chuang (2010); the Qiskit Textbook / IBM Quantum Learning; PennyLane d
 QAOA (2014); Goemans–Williamson (1995); the hardware/limits literature catalogued in
 [docs/state-of-the-art.md](docs/state-of-the-art.md).
 
-## In-browser (web SPA, next phase)
+## In-browser (web SPA)
 
-- **quantum-circuit** (quantastica, MIT) — live JS state-vector engine.
-- **Quirk** (Apache-2.0) — embedded drag-drop sandbox.
-- **three.js** (MIT) — Bloch sphere / Q-sphere rendering.
+- **React** + **react-router-dom** + **Vite** (MIT) — the static single-page app.
+- **KaTeX** (MIT) — typeset display equations on the Methodology page.
+- **quantum-circuit** (quantastica, MIT) — live JS state-vector engine (next phase).
+- **Quirk** (Apache-2.0) — embedded drag-drop sandbox (next phase).
+- The Bloch sphere / circuit / landscape / ZNE viz are hand-rolled SVG (no third-party chart lib).
 
 Synthetic or illustrative content is labeled as such throughout. Numbers shown are computed by the engines,
 not hand-entered.

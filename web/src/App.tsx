@@ -5,6 +5,7 @@ import type { Catalog } from "./lib/contract.types";
 import { CATEGORY_LABELS } from "./lib/contract.types";
 import { loadCatalog } from "./lib/data";
 import { Introduction } from "./pages/Introduction";
+import { Methodology } from "./pages/Methodology";
 import { UIProvider, useT, useUI } from "./lib/ui";
 
 const EXTERNAL = {
@@ -17,6 +18,7 @@ const EXTERNAL = {
 const PAGE_TABS: { to: string; en: string; es: string }[] = [
   { to: "/", en: "App", es: "App" },
   { to: "/introduction", en: "Introduction", es: "Introducción" },
+  { to: "/methodology", en: "Methodology", es: "Metodología" },
 ];
 
 function Header() {
@@ -151,6 +153,7 @@ export default function App() {
           <Routes>
             <Route path="/" element={<Catalogue />} />
             <Route path="/introduction" element={<Introduction />} />
+            <Route path="/methodology" element={<Methodology />} />
             <Route path="/case/:id" element={<CasePage />} />
           </Routes>
         </main>

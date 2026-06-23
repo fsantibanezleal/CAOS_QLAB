@@ -4,6 +4,24 @@ All notable changes to CAOS_QLAB. Format: newest → oldest. Versions follow `X.
 (major.minor.patch); patch (`.00X`) for fixes. Kept `0.x` while the web SPA and the framework/case matrix
 are still landing. Tags from day one.
 
+## [0.28.000] — 2026-06-23 — Web SPA: Methodology page (7 method families, KaTeX) (screenshot-verified)
+
+### Added
+- **Methodology page** (`web/src/pages/Methodology.tsx`) — the third standard page. A reusable **`Tabs`**
+  component (`web/src/components/Tabs.tsx`) drives one sub-tab per method family: Gates & entanglement ·
+  Oracle algorithms · QFT & QPE · **QAOA** · **VQE** · **Quantum ML** · Noise & QEC (three flagged
+  `learned`). Each tab: the formulation in prose, the core math as **typeset KaTeX** display equations, the
+  honest quantum-vs-classical verdict, and DOI-sourced references.
+- **KaTeX** (MIT) added as a web dependency; `Eq`/`Tex` helpers render LaTeX to font-based HTML (deterministic
+  to screenshot, no canvas). Recorded in `ATTRIBUTION.md`.
+- Header nav extended to **App · Introduction · Methodology**.
+- **Screenshot-verified** (Playwright, no console errors): the page + the QAOA and VQE learned tabs render
+  with correctly typeset Hamiltonians/expectations in dark and light.
+
+### Still to build
+- The remaining three pages (Implementation · Experiments · Benchmark); the live JS lane (quantum-circuit) +
+  Quirk; the ⓘ ADR-0058 modal; migrate to shared shell; Pages deploy.
+
 ## [0.27.000] — 2026-06-23 — Web SPA: Introduction page + 6-tab nav scaffold (screenshot-verified)
 
 ### Added
