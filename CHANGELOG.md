@@ -4,6 +4,22 @@ All notable changes to CAOS_QLAB. Format: newest → oldest. Versions follow `X.
 (major.minor.patch); patch (`.00X`) for fixes. Kept `0.x` while the web SPA and the framework/case matrix
 are still landing. Tags from day one.
 
+## [0.26.000] — 2026-06-22 — Web SPA: ZNE extrapolation plot (screenshot-verified)
+
+### Added
+- **`ZneExtrapolation`** (`web/src/viz/ZneExtrapolation.tsx`) — the signature view for the noise/mitigation
+  case (which previously had **no** viz, since it carries no statevector trace). Plots the noisy `⟨Z₀Z₁⟩`
+  measured at amplified noise scales λ=1,3,5, the linear fit extrapolated back to λ=0 (the mitigated
+  estimate = the intercept), and the `ideal` reference — so the residual gap (ZNE reduces bias, it does not
+  correct errors) reads directly off the chart. Auto-scales to the data band (hover reads each measured
+  point). Sourced from the `noise-qiskit` solver's `extra.zne` (`isZne` guard).
+- **Screenshot-verified** (Playwright, no console errors): the descending λ-series fits to the mitigated
+  intercept just below ideal, in dark and light.
+
+### Still to build
+- Live JS lane (quantum-circuit) + Quirk; the six doc pages + ⓘ ADR-0058 modal; migrate to shared shell;
+  Pages deploy.
+
 ## [0.25.000] — 2026-06-22 — Web SPA: interactive Bloch sphere (screenshot-verified)
 
 ### Added

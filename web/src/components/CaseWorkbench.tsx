@@ -8,6 +8,7 @@ import { CircuitDiagram } from "../viz/CircuitDiagram";
 import { ComparisonPanel } from "../viz/ComparisonPanel";
 import { Histogram } from "../viz/Histogram";
 import { isLandscape, LandscapeHeatmap } from "../viz/LandscapeHeatmap";
+import { isZne, ZneExtrapolation } from "../viz/ZneExtrapolation";
 
 /** Per-case workbench: a variant-bar + the data-driven viz for the selected variant. */
 export function CaseWorkbench({ caseEntry }: { caseEntry: CatalogCase }) {
@@ -31,6 +32,10 @@ export function CaseWorkbench({ caseEntry }: { caseEntry: CatalogCase }) {
   const landscape = extra && isLandscape(extra.landscape) ? extra.landscape : null;
   const blochTraj =
     bundle?.trace && bundle.trace.qubits === 1 ? trajectoryFromSteps(bundle.trace.steps, lang) : [];
+  const zneSolver = bundle?.solvers?.find((s) => isZne(s.extra?.zne));
+  const zneRaw = zneSolver?.extra?.zne;
+  const zne = isZne(zneRaw) ? zneRaw : null;
+  const zneIdeal = typeof zneSolver?.value?.ideal === "number" ? zneSolver.value.ideal : undefined;
 
   return (
     <div className="workbench">
@@ -64,6 +69,11 @@ export function CaseWorkbench({ caseEntry }: { caseEntry: CatalogCase }) {
                 gammaStar={typeof extra?.gamma === "number" ? extra.gamma : undefined}
                 betaStar={typeof extra?.beta === "number" ? extra.beta : undefined}
               />
+            </div>
+          )}
+          {zne && (
+            <div className="viz-row">
+              <ZneExtrapolation zne={zne} ideal={zneIdeal} />
             </div>
           )}
           <ComparisonPanel bundle={bundle} />
