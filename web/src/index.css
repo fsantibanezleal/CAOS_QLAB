@@ -216,6 +216,19 @@ pre.code code { font: 0.82rem/1.5 ui-monospace, "Cascadia Code", monospace; colo
   font: 0.82rem ui-monospace, monospace; }
 .gate-list { margin: 0.6rem 0; padding-left: 1.1rem; line-height: 1.6; }
 .gate-list li { margin: 0.3rem 0; }
+.stat-row { display: flex; flex-wrap: wrap; gap: 0.6rem; margin: 0.8rem 0 1rem; }
+.stat { background: var(--panel); border: 1px solid var(--border); border-radius: 8px; padding: 0.5rem 0.9rem;
+  display: flex; flex-direction: column; min-width: 92px; }
+.stat b { font-size: 1.25rem; color: var(--accent); line-height: 1.1; }
+.stat span { font-size: 0.72rem; color: var(--fg-subtle); margin-top: 0.15rem; }
+.cover-table .cat-head-row td { background: var(--accent-soft); color: var(--accent); font-weight: 600;
+  font-size: 0.78rem; text-transform: uppercase; letter-spacing: 0.03em; padding: 0.4rem 0.6rem; }
+.fw-chip { display: inline-block; font: 0.7rem ui-monospace, monospace; background: var(--accent-soft);
+  color: var(--accent); border-radius: 999px; padding: 0.08rem 0.45rem; margin: 0.1rem 0.25rem 0.1rem 0; }
+.lane-pill { display: inline-block; font: 600 0.68rem ui-monospace, monospace; text-transform: uppercase;
+  border-radius: 999px; padding: 0.1rem 0.5rem; }
+.lane-pill.live { background: rgba(63,185,80,0.15); color: #3fb950; }
+.lane-pill.precompute { background: var(--accent-soft); color: var(--accent); }
 
 /* ZNE extrapolation */
 .zne-ideal { stroke: var(--fg-subtle); stroke-width: 1; stroke-dasharray: 4 3; opacity: 0.7; }

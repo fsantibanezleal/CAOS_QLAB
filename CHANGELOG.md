@@ -4,6 +4,26 @@ All notable changes to CAOS_QLAB. Format: newest → oldest. Versions follow `X.
 (major.minor.patch); patch (`.00X`) for fixes. Kept `0.x` while the web SPA and the framework/case matrix
 are still landing. Tags from day one.
 
+## [0.30.000] — 2026-06-23 — Web SPA: Experiments page (protocol · cross-check · live coverage matrix) (screenshot-verified)
+
+### Added
+- **Experiments page** (`web/src/pages/Experiments.tsx`) — the fifth standard page, three sub-tabs:
+  **Protocol** (reproducible-by-construction: pure fn of (params, seed); the 24×24 (γ,β) grid-search sweep
+  as a KaTeX argmax; the leakage-safe train/test split for QML), **Cross-framework check** (the "two engines
+  on one problem" discipline — QAOA agrees across Qiskit/PennyLane/Cirq, QFT validated vs analytic DFT, QEC
+  below-threshold reproduced), and a **live coverage matrix** computed from the committed catalog (cases ×
+  frameworks × variants × lane × classical baseline), grouped by category, with summary stats
+  (19 cases · 113 variant traces · 5 frameworks · 10/9 live/precompute · 19/19 vs classical).
+- The headline framework count collapses adapter strings to families (qiskit-aer→qiskit, classical:*→
+  classical) so it reads 5, consistent with the Introduction; per-case chips stay granular.
+- Header nav extended to **App · Introduction · Methodology · Implementation · Experiments** (5 of 6).
+- **Screenshot-verified** (Playwright, no console errors): coverage matrix + Protocol (KaTeX argmax) in dark
+  and light.
+
+### Still to build
+- The final page (Benchmark — quantum-vs-classical head-to-head from the committed bundles); the live JS lane
+  (quantum-circuit) + Quirk; the ⓘ ADR-0058 modal; migrate to shared shell; Pages deploy.
+
 ## [0.29.000] — 2026-06-23 — Web SPA: Implementation page (engine · contracts · gate · lanes · deploy) (screenshot-verified)
 
 ### Added
