@@ -4,6 +4,24 @@ All notable changes to CAOS_QLAB. Format: newest → oldest. Versions follow `X.
 (major.minor.patch); patch (`.00X`) for fixes. Kept `0.x` while the web SPA and the framework/case matrix
 are still landing. Tags from day one.
 
+## [0.22.000] — 2026-06-22 — Web SPA: per-case workbench + first viz (screenshot-verified)
+
+### Added
+- **Per-case workbench** (`web/src/components/CaseWorkbench.tsx`) — a **variant-bar** (chips per regime +
+  lane badge) that lazy-loads the selected variant's full bundle and renders the data-driven viz.
+- **Viz renderers** (no 3D yet), driven by the committed trace JSON, with cursor value read-outs
+  (interactive-visualization-rubric): **`Histogram`** (measurement counts), **`AmplitudeBars`** (|amp|²
+  height + phase colour, ≤5 q), and the signature **`ComparisonPanel`** (every solver's result + cost in a
+  table + the honest quantum-vs-classical verdict).
+- **Screenshot-verified** with Playwright (light + dark, no console/page errors): the catalog landing and
+  case pages (single-qubit amplitudes/histogram; MaxCut's 5-solver comparison; CHSH; Grover) all render the
+  real committed data correctly.
+
+### Still to build
+- The Bloch sphere (three.js), circuit-diagram SVG, the QAOA (γ,β) landscape + MaxCut graph; the live JS
+  tuning lane (quantum-circuit) + Quirk; the six doc pages; the ⓘ ADR-0058 modal; migrate to the shared
+  shell; Pages deploy.
+
 ## [0.21.000] — 2026-06-22 — Web SPA foundation (Phase D begins)
 
 ### Added

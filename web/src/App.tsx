@@ -1,5 +1,6 @@
 import { useEffect, useState } from "react";
 import { BrowserRouter, Link, Route, Routes, useParams } from "react-router-dom";
+import { CaseWorkbench } from "./components/CaseWorkbench";
 import type { Catalog } from "./lib/contract.types";
 import { CATEGORY_LABELS } from "./lib/contract.types";
 import { loadCatalog } from "./lib/data";
@@ -43,12 +44,6 @@ function Footer() {
     </footer>
   );
 }
-
-const PARADIGM_DOT: Record<string, string> = {
-  "quantum-sim": "#5b8cff",
-  "quantum-hardware": "#c678dd",
-  classical: "#888",
-};
 
 function useCatalog() {
   const [cat, setCat] = useState<Catalog | null>(null);
@@ -125,30 +120,11 @@ function CasePage() {
         <h1>{t(c.title)}</h1>
         <p className="lede">{t(c.concept)}</p>
       </div>
-      <div className="variant-list">
-        {c.variants.map((v) => (
-          <div key={v.id} className="variant-row">
-            <div className="variant-head">
-              <strong>{t(v.title)}</strong>
-              <span className="badge">{v.lane}</span>
-            </div>
-            {v.note && <p className="note">{t(v.note)}</p>}
-            <div className="solver-chips">
-              {v.solvers.map((s) => (
-                <span key={s.solver} className="chip" title={s.framework}>
-                  <span className="dot" style={{ background: PARADIGM_DOT[s.paradigm] ?? "#888" }} />
-                  {t(s.label)}
-                </span>
-              ))}
-            </div>
-            {v.verdict && <p className="verdict">{t(v.verdict)}</p>}
-          </div>
-        ))}
-      </div>
+      <CaseWorkbench caseEntry={c} />
       <p className="todo-note">
         {lang === "en"
-          ? "Interactive viz (Bloch sphere, amplitude/phase bars, histograms, circuit diagrams, comparison panels) and the live tuning lane are being built — this page currently shows the committed results."
-          : "Las visualizaciones interactivas (esfera de Bloch, barras de amplitud/fase, histogramas, diagramas de circuito, paneles de comparación) y el lane de ajuste en vivo están en construcción — esta página muestra por ahora los resultados commiteados."}
+          ? "Coming next: the Bloch sphere (3D), circuit diagrams, the QAOA landscape, and a live in-browser tuning lane. The amplitudes, histogram and quantum-vs-classical comparison above are the real committed results."
+          : "Próximamente: la esfera de Bloch (3D), diagramas de circuito, el paisaje de QAOA y un lane de ajuste en vivo en el navegador. Las amplitudes, el histograma y la comparación cuántico-vs-clásico de arriba son los resultados commiteados reales."}
       </p>
     </div>
   );
