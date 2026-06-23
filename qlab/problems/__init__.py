@@ -14,6 +14,7 @@ from qlab.problems import (  # noqa: F401  (import = registration)
     qft,
     qml_classifier,
     qpe,
+    qrng,
     shor,
     simon,
     single_qubit,
@@ -25,4 +26,4 @@ from qlab.problems import (  # noqa: F401  (import = registration)
 
 __all__ = ["state_prep", "maxcut", "bernstein_vazirani", "deutsch_jozsa", "simon", "grover", "qft", "qpe",
            "shor", "vqe", "qml_classifier", "noise", "qec_repetition", "qec_surface", "chsh", "teleportation",
-           "superdense", "single_qubit"]
+           "superdense", "single_qubit", "qrng"]

@@ -59,6 +59,21 @@ def _comparison(problem, results: list) -> dict:
             f"gana — el resultado honesto y esperado."
         )
         return {"optimal_cut": opt, "qaoa_cut": q, "verdict": {"en": verdict_en, "es": verdict_es}}
+    if problem.id == "qrng":
+        q = next((r for r in results if r.paradigm != "classical"), None)
+        cls = next((r for r in results if r.paradigm == "classical"), None)
+        qe = q.value.get("entropy_bits") if q else None
+        ce = cls.value.get("entropy_bits") if cls else None
+        mx = q.value.get("max_entropy_bits") if q else None
+        return {"quantum_entropy": qe, "classical_entropy": ce, "max_entropy": mx, "verdict": {
+            "en": f"Quantum sampling entropy {qe}/{mx} bits vs a classical PRNG {ce}/{mx} bits — "
+                  f"statistically indistinguishable. The difference is in kind, not quality: quantum "
+                  f"randomness is fundamental (measurement collapse) and can be CERTIFIED, while the PRNG is "
+                  f"deterministic from its seed. Certifiable true randomness is the genuine quantum value here.",
+            "es": f"Entropía del muestreo cuántico {qe}/{mx} bits vs un PRNG clásico {ce}/{mx} bits — "
+                  f"estadísticamente indistinguibles. La diferencia es de tipo, no de calidad: la "
+                  f"aleatoriedad cuántica es fundamental (colapso de medición) y CERTIFICABLE, mientras el "
+                  f"PRNG es determinista desde su semilla. La aleatoriedad verdadera certificable es el valor real."}}
     if problem.id == "single-qubit":
         q = next((r for r in results if r.paradigm != "classical"), None)
         bloch = q.value.get("bloch") if q else None

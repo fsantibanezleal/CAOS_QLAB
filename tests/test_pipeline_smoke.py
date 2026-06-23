@@ -215,6 +215,18 @@ def test_single_qubit_bloch_vectors():
     assert base.run(problem, problem.instance("sq-x"), seed=42, shots=1).value["states"] == 2
 
 
+def test_qrng_entropy():
+    from qlab.registry import get_problem, solvers_for
+
+    problem = get_problem("qrng")
+    q = next(s for s in solvers_for(problem) if s.name == "qrng-qiskit")
+    assert q.run(problem, problem.instance("qrng-3"), seed=42, shots=64).value["entropy_bits"] == 3.0
+    biased = q.run(problem, problem.instance("qrng-bias30"), seed=42, shots=64).value
+    assert biased["uniform"] is False and biased["entropy_bits"] < 1.0    # RY(π/3) → biased coin
+    cls = next(s for s in solvers_for(problem) if s.name == "qrng-classical")
+    assert cls.run(problem, problem.instance("qrng-3"), seed=42, shots=64).value["deterministic"] is True
+
+
 def test_maxcut_classical_optimum_beats_or_matches_qaoa():
     from qlab.problems.maxcut import MaxCut
     from qlab.registry import get_problem, solvers_for

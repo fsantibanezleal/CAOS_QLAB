@@ -287,6 +287,38 @@ class ClassicalSVM(Solver):
 
 
 @register_solver
+class ClassicalPRNG(Solver):
+    name = "qrng-classical"
+    label = {"en": "Pseudo-random generator · classical", "es": "Generador pseudoaleatorio · clásico"}
+    framework = "classical:numpy"
+    paradigm = CLASSICAL
+
+    def applicable(self, problem: Problem) -> bool:
+        return problem.id == "qrng"
+
+    def run(self, problem, instance: Instance, seed: int, shots: int) -> SolverResult:
+        n = instance.params["n"]
+        rng = np.random.default_rng(seed)
+        draws = rng.integers(0, 2**n, size=shots)
+        counts = np.bincount(draws, minlength=2**n)
+        p = counts / counts.sum()
+        entropy = float(-np.sum([pi * np.log2(pi) for pi in p if pi > 1e-12]))
+        return SolverResult(
+            solver=self.name, label=self.label, framework=self.framework, paradigm=self.paradigm,
+            value={"entropy_bits": round(entropy, 4), "max_entropy_bits": n, "deterministic": True,
+                   "true_randomness": False},
+            cost={"wall_ms": 0.0, "shots": shots},
+            notes={"en": f"A classical PRNG produces the same flat statistics (entropy {entropy:.3f}/{n} bits) "
+                         "— but it is fully DETERMINISTIC given its seed. Statistically indistinguishable here; "
+                         "the quantum edge is certifiable true randomness, not better numbers.",
+                   "es": f"Un PRNG clásico produce las mismas estadísticas planas (entropía {entropy:.3f}/{n} "
+                         "bits) — pero es totalmente DETERMINISTA dada su semilla. Estadísticamente "
+                         "indistinguible aquí; la ventaja cuántica es aleatoriedad verdadera certificable."},
+            optimal=True,
+        )
+
+
+@register_solver
 class ClassicalBit(Solver):
     name = "bit-classical"
     label = {"en": "Classical bit · classical", "es": "Bit clásico · clásico"}

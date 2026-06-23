@@ -1,0 +1,803 @@
+{
+ "schema_version": "qlab-trace/1",
+ "case_id": "qrng",
+ "category": "fundamentals",
+ "title": {
+  "en": "Superposition & quantum RNG",
+  "es": "Superposición y RNG cuántico"
+ },
+ "concept": {
+  "en": "H|0⟩ = (|0⟩+|1⟩)/√2 — a coin that is genuinely 50/50, and measuring it yields a random bit. Hadamard on n qubits gives a uniform superposition over all 2ⁿ strings; sampling fills a flat histogram with Shannon entropy n bits. A rotation RY(θ) makes a biased coin. We compare quantum sampling to a classical pseudo-random generator: statistically they match, but quantum randomness comes from measurement collapse — it is fundamental and certifiable, whereas a PRNG is fully deterministic from its seed. That certifiability (not better statistics) is the real quantum value, and it underlies quantum-secure random beacons.",
+  "es": "H|0⟩ = (|0⟩+|1⟩)/√2 — una moneda genuinamente 50/50, y medirla da un bit aleatorio. Hadamard en n qubits da una superposición uniforme sobre las 2ⁿ cadenas; muestrear llena un histograma plano con entropía de Shannon n bits. Una rotación RY(θ) hace una moneda sesgada. Comparamos el muestreo cuántico con un generador pseudoaleatorio clásico: estadísticamente coinciden, pero la aleatoriedad cuántica viene del colapso de la medición — es fundamental y certificable, mientras un PRNG es totalmente determinista desde su semilla. Esa certificabilidad (no mejores estadísticas) es el valor cuántico real, y sustenta los faros de aleatoriedad cuántico-seguros."
+ },
+ "metric": {
+  "en": "Shannon entropy (bits)",
+  "es": "entropía de Shannon (bits)"
+ },
+ "instance": {
+  "id": "qrng-4",
+  "title": {
+   "en": "4 qubits · uniform /16",
+   "es": "4 qubits · uniform /16"
+  },
+  "params": {
+   "n": 4
+  },
+  "note": {
+   "en": "Sample 4 qubits — uniform entropy n bits (or less if biased).",
+   "es": "Muestrea 4 qubits — entropía uniforme n bits (o menos si está sesgado)."
+  }
+ },
+ "qubits": 4,
+ "lane": "live",
+ "lane_reasons": [],
+ "seed": 42,
+ "shots": 2048,
+ "primary_solver": "qrng-qiskit",
+ "trace": {
+  "case_id": "qrng",
+  "title": {
+   "en": "Superposition & quantum RNG",
+   "es": "Superposición y RNG cuántico"
+  },
+  "concept": {
+   "en": "H|0⟩ = (|0⟩+|1⟩)/√2 — a coin that is genuinely 50/50, and measuring it yields a random bit. Hadamard on n qubits gives a uniform superposition over all 2ⁿ strings; sampling fills a flat histogram with Shannon entropy n bits. A rotation RY(θ) makes a biased coin. We compare quantum sampling to a classical pseudo-random generator: statistically they match, but quantum randomness comes from measurement collapse — it is fundamental and certifiable, whereas a PRNG is fully deterministic from its seed. That certifiability (not better statistics) is the real quantum value, and it underlies quantum-secure random beacons.",
+   "es": "H|0⟩ = (|0⟩+|1⟩)/√2 — una moneda genuinamente 50/50, y medirla da un bit aleatorio. Hadamard en n qubits da una superposición uniforme sobre las 2ⁿ cadenas; muestrear llena un histograma plano con entropía de Shannon n bits. Una rotación RY(θ) hace una moneda sesgada. Comparamos el muestreo cuántico con un generador pseudoaleatorio clásico: estadísticamente coinciden, pero la aleatoriedad cuántica viene del colapso de la medición — es fundamental y certificable, mientras un PRNG es totalmente determinista desde su semilla. Esa certificabilidad (no mejores estadísticas) es el valor cuántico real, y sustenta los faros de aleatoriedad cuántico-seguros."
+  },
+  "qubits": 4,
+  "steps": [
+   {
+    "index": 0,
+    "gate": "init",
+    "targets": [],
+    "label": {
+     "en": "Initial state |0…0⟩",
+     "es": "Estado inicial |0…0⟩"
+    },
+    "statevector": [
+     {
+      "re": 1.0,
+      "im": 0.0
+     },
+     {
+      "re": 0.0,
+      "im": 0.0
+     },
+     {
+      "re": 0.0,
+      "im": 0.0
+     },
+     {
+      "re": 0.0,
+      "im": 0.0
+     },
+     {
+      "re": 0.0,
+      "im": 0.0
+     },
+     {
+      "re": 0.0,
+      "im": 0.0
+     },
+     {
+      "re": 0.0,
+      "im": 0.0
+     },
+     {
+      "re": 0.0,
+      "im": 0.0
+     },
+     {
+      "re": 0.0,
+      "im": 0.0
+     },
+     {
+      "re": 0.0,
+      "im": 0.0
+     },
+     {
+      "re": 0.0,
+      "im": 0.0
+     },
+     {
+      "re": 0.0,
+      "im": 0.0
+     },
+     {
+      "re": 0.0,
+      "im": 0.0
+     },
+     {
+      "re": 0.0,
+      "im": 0.0
+     },
+     {
+      "re": 0.0,
+      "im": 0.0
+     },
+     {
+      "re": 0.0,
+      "im": 0.0
+     }
+    ],
+    "bloch": [
+     [
+      0.0,
+      0.0,
+      1.0
+     ],
+     [
+      0.0,
+      0.0,
+      1.0
+     ],
+     [
+      0.0,
+      0.0,
+      1.0
+     ],
+     [
+      0.0,
+      0.0,
+      1.0
+     ]
+    ],
+    "probabilities": [
+     1.0,
+     0.0,
+     0.0,
+     0.0,
+     0.0,
+     0.0,
+     0.0,
+     0.0,
+     0.0,
+     0.0,
+     0.0,
+     0.0,
+     0.0,
+     0.0,
+     0.0,
+     0.0
+    ],
+    "params": []
+   },
+   {
+    "index": 1,
+    "gate": "H",
+    "targets": [
+     0
+    ],
+    "label": {
+     "en": "H q[0]",
+     "es": "H q[0]"
+    },
+    "statevector": [
+     {
+      "re": 0.707107,
+      "im": 0.0
+     },
+     {
+      "re": 0.707107,
+      "im": 0.0
+     },
+     {
+      "re": 0.0,
+      "im": 0.0
+     },
+     {
+      "re": 0.0,
+      "im": 0.0
+     },
+     {
+      "re": 0.0,
+      "im": 0.0
+     },
+     {
+      "re": 0.0,
+      "im": 0.0
+     },
+     {
+      "re": 0.0,
+      "im": 0.0
+     },
+     {
+      "re": 0.0,
+      "im": 0.0
+     },
+     {
+      "re": 0.0,
+      "im": 0.0
+     },
+     {
+      "re": 0.0,
+      "im": 0.0
+     },
+     {
+      "re": 0.0,
+      "im": 0.0
+     },
+     {
+      "re": 0.0,
+      "im": 0.0
+     },
+     {
+      "re": 0.0,
+      "im": 0.0
+     },
+     {
+      "re": 0.0,
+      "im": 0.0
+     },
+     {
+      "re": 0.0,
+      "im": 0.0
+     },
+     {
+      "re": 0.0,
+      "im": 0.0
+     }
+    ],
+    "bloch": [
+     [
+      1.0,
+      0.0,
+      0.0
+     ],
+     [
+      0.0,
+      0.0,
+      1.0
+     ],
+     [
+      0.0,
+      0.0,
+      1.0
+     ],
+     [
+      0.0,
+      0.0,
+      1.0
+     ]
+    ],
+    "probabilities": [
+     0.5,
+     0.5,
+     0.0,
+     0.0,
+     0.0,
+     0.0,
+     0.0,
+     0.0,
+     0.0,
+     0.0,
+     0.0,
+     0.0,
+     0.0,
+     0.0,
+     0.0,
+     0.0
+    ],
+    "params": []
+   },
+   {
+    "index": 2,
+    "gate": "H",
+    "targets": [
+     1
+    ],
+    "label": {
+     "en": "H q[1]",
+     "es": "H q[1]"
+    },
+    "statevector": [
+     {
+      "re": 0.5,
+      "im": 0.0
+     },
+     {
+      "re": 0.5,
+      "im": 0.0
+     },
+     {
+      "re": 0.5,
+      "im": 0.0
+     },
+     {
+      "re": 0.5,
+      "im": 0.0
+     },
+     {
+      "re": 0.0,
+      "im": 0.0
+     },
+     {
+      "re": 0.0,
+      "im": 0.0
+     },
+     {
+      "re": 0.0,
+      "im": 0.0
+     },
+     {
+      "re": 0.0,
+      "im": 0.0
+     },
+     {
+      "re": 0.0,
+      "im": 0.0
+     },
+     {
+      "re": 0.0,
+      "im": 0.0
+     },
+     {
+      "re": 0.0,
+      "im": 0.0
+     },
+     {
+      "re": 0.0,
+      "im": 0.0
+     },
+     {
+      "re": 0.0,
+      "im": 0.0
+     },
+     {
+      "re": 0.0,
+      "im": 0.0
+     },
+     {
+      "re": 0.0,
+      "im": 0.0
+     },
+     {
+      "re": 0.0,
+      "im": 0.0
+     }
+    ],
+    "bloch": [
+     [
+      1.0,
+      0.0,
+      0.0
+     ],
+     [
+      1.0,
+      0.0,
+      0.0
+     ],
+     [
+      0.0,
+      0.0,
+      1.0
+     ],
+     [
+      0.0,
+      0.0,
+      1.0
+     ]
+    ],
+    "probabilities": [
+     0.25,
+     0.25,
+     0.25,
+     0.25,
+     0.0,
+     0.0,
+     0.0,
+     0.0,
+     0.0,
+     0.0,
+     0.0,
+     0.0,
+     0.0,
+     0.0,
+     0.0,
+     0.0
+    ],
+    "params": []
+   },
+   {
+    "index": 3,
+    "gate": "H",
+    "targets": [
+     2
+    ],
+    "label": {
+     "en": "H q[2]",
+     "es": "H q[2]"
+    },
+    "statevector": [
+     {
+      "re": 0.353553,
+      "im": 0.0
+     },
+     {
+      "re": 0.353553,
+      "im": 0.0
+     },
+     {
+      "re": 0.353553,
+      "im": 0.0
+     },
+     {
+      "re": 0.353553,
+      "im": 0.0
+     },
+     {
+      "re": 0.353553,
+      "im": 0.0
+     },
+     {
+      "re": 0.353553,
+      "im": 0.0
+     },
+     {
+      "re": 0.353553,
+      "im": 0.0
+     },
+     {
+      "re": 0.353553,
+      "im": 0.0
+     },
+     {
+      "re": 0.0,
+      "im": 0.0
+     },
+     {
+      "re": 0.0,
+      "im": 0.0
+     },
+     {
+      "re": 0.0,
+      "im": 0.0
+     },
+     {
+      "re": 0.0,
+      "im": 0.0
+     },
+     {
+      "re": 0.0,
+      "im": 0.0
+     },
+     {
+      "re": 0.0,
+      "im": 0.0
+     },
+     {
+      "re": 0.0,
+      "im": 0.0
+     },
+     {
+      "re": 0.0,
+      "im": 0.0
+     }
+    ],
+    "bloch": [
+     [
+      1.0,
+      0.0,
+      0.0
+     ],
+     [
+      1.0,
+      0.0,
+      0.0
+     ],
+     [
+      1.0,
+      0.0,
+      0.0
+     ],
+     [
+      0.0,
+      0.0,
+      1.0
+     ]
+    ],
+    "probabilities": [
+     0.125,
+     0.125,
+     0.125,
+     0.125,
+     0.125,
+     0.125,
+     0.125,
+     0.125,
+     0.0,
+     0.0,
+     0.0,
+     0.0,
+     0.0,
+     0.0,
+     0.0,
+     0.0
+    ],
+    "params": []
+   },
+   {
+    "index": 4,
+    "gate": "H",
+    "targets": [
+     3
+    ],
+    "label": {
+     "en": "H q[3]",
+     "es": "H q[3]"
+    },
+    "statevector": [
+     {
+      "re": 0.25,
+      "im": 0.0
+     },
+     {
+      "re": 0.25,
+      "im": 0.0
+     },
+     {
+      "re": 0.25,
+      "im": 0.0
+     },
+     {
+      "re": 0.25,
+      "im": 0.0
+     },
+     {
+      "re": 0.25,
+      "im": 0.0
+     },
+     {
+      "re": 0.25,
+      "im": 0.0
+     },
+     {
+      "re": 0.25,
+      "im": 0.0
+     },
+     {
+      "re": 0.25,
+      "im": 0.0
+     },
+     {
+      "re": 0.25,
+      "im": 0.0
+     },
+     {
+      "re": 0.25,
+      "im": 0.0
+     },
+     {
+      "re": 0.25,
+      "im": 0.0
+     },
+     {
+      "re": 0.25,
+      "im": 0.0
+     },
+     {
+      "re": 0.25,
+      "im": 0.0
+     },
+     {
+      "re": 0.25,
+      "im": 0.0
+     },
+     {
+      "re": 0.25,
+      "im": 0.0
+     },
+     {
+      "re": 0.25,
+      "im": 0.0
+     }
+    ],
+    "bloch": [
+     [
+      1.0,
+      0.0,
+      0.0
+     ],
+     [
+      1.0,
+      0.0,
+      0.0
+     ],
+     [
+      1.0,
+      0.0,
+      0.0
+     ],
+     [
+      1.0,
+      0.0,
+      0.0
+     ]
+    ],
+    "probabilities": [
+     0.0625,
+     0.0625,
+     0.0625,
+     0.0625,
+     0.0625,
+     0.0625,
+     0.0625,
+     0.0625,
+     0.0625,
+     0.0625,
+     0.0625,
+     0.0625,
+     0.0625,
+     0.0625,
+     0.0625,
+     0.0625
+    ],
+    "params": []
+   }
+  ],
+  "measurements": {
+   "counts": {
+    "0000": 124,
+    "0001": 124,
+    "0010": 142,
+    "0011": 136,
+    "0100": 116,
+    "0101": 117,
+    "0110": 128,
+    "0111": 148,
+    "1000": 118,
+    "1001": 123,
+    "1010": 128,
+    "1011": 110,
+    "1100": 139,
+    "1101": 133,
+    "1110": 133,
+    "1111": 129
+   },
+   "shots": 2048
+  },
+  "circuit_ops": [
+   {
+    "gate": "h",
+    "targets": [
+     0
+    ],
+    "params": []
+   },
+   {
+    "gate": "h",
+    "targets": [
+     1
+    ],
+    "params": []
+   },
+   {
+    "gate": "h",
+    "targets": [
+     2
+    ],
+    "params": []
+   },
+   {
+    "gate": "h",
+    "targets": [
+     3
+    ],
+    "params": []
+   }
+  ],
+  "provenance": {
+   "engine": "qiskit",
+   "engine_version": "2.4.2",
+   "seed": 42,
+   "lane": "tbd",
+   "ran_on": "simulator"
+  },
+  "references": [
+   {
+    "label": "Herrero-Collantes & Garcia-Escartin, Quantum random number generators, Rev. Mod. Phys. (2017)",
+    "doi": "10.1103/RevModPhys.89.015004"
+   },
+   {
+    "label": "Nielsen & Chuang, Quantum Computation and Quantum Information (2010)",
+    "url": "https://doi.org/10.1017/CBO9780511976667"
+   }
+  ],
+  "extra": {
+   "entropy_bits": 4.0,
+   "max_entropy_bits": 4,
+   "probabilities": [
+    0.0625,
+    0.0625,
+    0.0625,
+    0.0625,
+    0.0625,
+    0.0625,
+    0.0625,
+    0.0625,
+    0.0625,
+    0.0625,
+    0.0625,
+    0.0625,
+    0.0625,
+    0.0625,
+    0.0625,
+    0.0625
+   ]
+  },
+  "schema_version": "qlab-trace/1"
+ },
+ "solvers": [
+  {
+   "solver": "qrng-classical",
+   "label": {
+    "en": "Pseudo-random generator · classical",
+    "es": "Generador pseudoaleatorio · clásico"
+   },
+   "framework": "classical:numpy",
+   "paradigm": "classical",
+   "value": {
+    "entropy_bits": 3.9964,
+    "max_entropy_bits": 4,
+    "deterministic": true,
+    "true_randomness": false
+   },
+   "cost": {
+    "wall_ms": 0.0,
+    "shots": 2048
+   },
+   "notes": {
+    "en": "A classical PRNG produces the same flat statistics (entropy 3.996/4 bits) — but it is fully DETERMINISTIC given its seed. Statistically indistinguishable here; the quantum edge is certifiable true randomness, not better numbers.",
+    "es": "Un PRNG clásico produce las mismas estadísticas planas (entropía 3.996/4 bits) — pero es totalmente DETERMINISTA dada su semilla. Estadísticamente indistinguible aquí; la ventaja cuántica es aleatoriedad verdadera certificable."
+   },
+   "optimal": true,
+   "extra": {}
+  },
+  {
+   "solver": "qrng-qiskit",
+   "label": {
+    "en": "Quantum sampling · Qiskit",
+    "es": "Muestreo cuántico · Qiskit"
+   },
+   "framework": "qiskit",
+   "paradigm": "quantum-sim",
+   "value": {
+    "entropy_bits": 4.0,
+    "max_entropy_bits": 4,
+    "n_outcomes": 16,
+    "uniform": true,
+    "true_randomness": true
+   },
+   "cost": {
+    "wall_ms": 0.161,
+    "qubits": 4,
+    "shots": 2048
+   },
+   "notes": {
+    "en": "4-qubit sampling: Shannon entropy 4.000 of 4 bits (uniform); randomness is fundamental (measurement collapse).",
+    "es": "Muestreo de 4 qubits: entropía de Shannon 4.000 de 4 bits (uniforme); la aleatoriedad es fundamental (colapso de la medición)."
+   },
+   "optimal": false,
+   "extra": {}
+  }
+ ],
+ "comparison": {
+  "quantum_entropy": 4.0,
+  "classical_entropy": 3.9964,
+  "max_entropy": 4,
+  "verdict": {
+   "en": "Quantum sampling entropy 4.0/4 bits vs a classical PRNG 3.9964/4 bits — statistically indistinguishable. The difference is in kind, not quality: quantum randomness is fundamental (measurement collapse) and can be CERTIFIED, while the PRNG is deterministic from its seed. Certifiable true randomness is the genuine quantum value here.",
+   "es": "Entropía del muestreo cuántico 4.0/4 bits vs un PRNG clásico 3.9964/4 bits — estadísticamente indistinguibles. La diferencia es de tipo, no de calidad: la aleatoriedad cuántica es fundamental (colapso de medición) y CERTIFICABLE, mientras el PRNG es determinista desde su semilla. La aleatoriedad verdadera certificable es el valor real."
+  }
+ },
+ "references": [
+  {
+   "label": "Herrero-Collantes & Garcia-Escartin, Quantum random number generators, Rev. Mod. Phys. (2017)",
+   "doi": "10.1103/RevModPhys.89.015004"
+  },
+  {
+   "label": "Nielsen & Chuang, Quantum Computation and Quantum Information (2010)",
+   "url": "https://doi.org/10.1017/CBO9780511976667"
+  }
+ ]
+}

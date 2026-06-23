@@ -1,0 +1,42 @@
+{
+ "case_id": "qrng",
+ "title": {
+  "en": "Superposition & quantum RNG",
+  "es": "Superposición y RNG cuántico"
+ },
+ "category": "fundamentals",
+ "lane": "live",
+ "lane_reasons": [],
+ "qubits": 1,
+ "seed": 42,
+ "shots": 2048,
+ "params": {
+  "n": 1,
+  "theta": 2.0943951023931953
+ },
+ "measured": {
+  "run_ms": 0.105,
+  "trace_bytes": 2657,
+  "unitary_only": true
+ },
+ "viz": [
+  "bloch",
+  "amp_phase",
+  "histogram",
+  "circuit"
+ ],
+ "engine": "qiskit",
+ "engine_version": "2.4.2",
+ "trace_path": "qrng/qrng-bias60.json",
+ "references": [
+  {
+   "label": "Herrero-Collantes & Garcia-Escartin, Quantum random number generators, Rev. Mod. Phys. (2017)",
+   "doi": "10.1103/RevModPhys.89.015004"
+  },
+  {
+   "label": "Nielsen & Chuang, Quantum Computation and Quantum Information (2010)",
+   "url": "https://doi.org/10.1017/CBO9780511976667"
+  }
+ ],
+ "manifest_version": "qlab-manifest/1"
+}

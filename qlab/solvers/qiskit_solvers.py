@@ -261,6 +261,62 @@ class QiskitSimon(Solver):
         )
 
 
+def _shannon_entropy(probs) -> float:
+    import math
+
+    return -sum(p * math.log2(p) for p in probs if p > 1e-12)
+
+
+@register_solver
+class QiskitQRNG(Solver):
+    name = "qrng-qiskit"
+    label = {"en": "Quantum sampling · Qiskit", "es": "Muestreo cuántico · Qiskit"}
+    framework = "qiskit"
+    paradigm = QUANTUM_SIM
+
+    def applicable(self, problem: Problem) -> bool:
+        return problem.id == "qrng"
+
+    def run(self, problem, instance: Instance, seed: int, shots: int) -> SolverResult:
+        from qlab.core.trace import Trace
+
+        n = instance.params["n"]
+        theta = instance.params.get("theta")
+        qc = QuantumCircuit(n)
+        if theta is not None:
+            qc.ry(theta, 0)          # biased single-qubit coin
+        else:
+            qc.h(range(n))           # uniform superposition over 2^n
+        t0 = time.perf_counter()
+        probs = [float(p) for p in np.asarray(Statevector(qc).probabilities())]
+        entropy = float(_shannon_entropy(probs))
+        uniform = bool(abs(entropy - n) < 1e-3 and theta is None)
+        wall = (time.perf_counter() - t0) * 1e3
+        meas = measure_counts(qc, shots, seed)
+        trace = Trace(
+            case_id=problem.id, title=problem.title, concept=problem.concept, qubits=n,
+            steps=evolve(qc), measurements=meas, circuit_ops=circuit_ops(qc),
+            provenance={"engine": "qiskit", "engine_version": QISKIT_VERSION, "seed": seed,
+                        "lane": "tbd", "ran_on": "simulator"},
+            references=problem.references,
+            extra={"entropy_bits": round(entropy, 4), "max_entropy_bits": n,
+                   "probabilities": [round(p, 4) for p in probs]},
+        )
+        return SolverResult(
+            solver=self.name, label=self.label, framework=self.framework, paradigm=self.paradigm,
+            value={"entropy_bits": round(entropy, 4), "max_entropy_bits": n, "n_outcomes": 2**n,
+                   "uniform": uniform, "true_randomness": True},
+            cost={"wall_ms": round(wall, 3), "qubits": n, "shots": shots},
+            notes={"en": f"{n}-qubit sampling: Shannon entropy {entropy:.3f} of {n} bits "
+                         f"({'uniform' if uniform else 'biased' if theta is not None else 'near-uniform'}); "
+                         "randomness is fundamental (measurement collapse).",
+                   "es": f"Muestreo de {n} qubits: entropía de Shannon {entropy:.3f} de {n} bits "
+                         f"({'uniforme' if uniform else 'sesgado' if theta is not None else 'casi uniforme'}); "
+                         "la aleatoriedad es fundamental (colapso de la medición)."},
+            trace=trace,
+        )
+
+
 @register_solver
 class QiskitSingleQubit(Solver):
     name = "gates-qiskit"

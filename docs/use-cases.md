@@ -26,6 +26,7 @@ lands (ADR-0056).
 | [16](./use-cases/16_teleportation.md) | **Quantum teleportation** | entanglement | coherent teleportation (Qiskit) · measure-and-resend bound (classical) | 6 input states | live | transfers an unknown qubit with **fidelity 1** vs classical **2/3**; needs a Bell pair + 2 cbits; no-cloning; not FTL |
 | [17](./use-cases/17_superdense.md) | **Superdense coding** | entanglement | encode/decode (Qiskit) · Holevo limit (classical) | 4 (full message set) | live | **2 classical bits via 1 qubit** (vs Holevo 1) — the dual of teleportation; spends a Bell pair (resource trade) |
 | [18](./use-cases/18_single-qubit.md) | **Single-qubit gates & Bloch** | fundamentals | gate sequence → Bloch (Qiskit) · classical bit (classical) | 6 gate sequences | live | the substrate: a qubit roams the whole Bloch sphere, but stores ≤1 classical bit (Holevo) — no advantage alone |
+| [19](./use-cases/19_qrng.md) | **Superposition & quantum RNG** | fundamentals | quantum sampling (Qiskit) · pseudo-random generator (classical) | 6 (1–4 q + biased) | live | uniform entropy n bits; statistically identical to a PRNG — quantum edge is **certifiable true** randomness, not better stats |
 
 ## Roadmap (the catalog, ordered beginner → advanced)
 
@@ -35,9 +36,9 @@ small unitary (JS lane); **precompute** = needs noise / feed-forward / optimizat
 | # | Case | Category | Lane | Key solvers planned |
 |---|---|---|---|---|
 | 03 | Single-qubit gates + Bloch sphere | fundamentals | live | ✅ shipping (case 18) |
-| 04 | Superposition & measurement statistics | fundamentals | live | circuit |
+| 04 | Superposition & measurement statistics | fundamentals | live | ✅ shipping (folded into case 19) |
 | 05 | Phase & interference | fundamentals | live | circuit |
-| 06 | Quantum random-number generator | fundamentals | live | circuit + classical PRNG contrast |
+| 06 | Quantum random-number generator | fundamentals | live | ✅ shipping (case 19) |
 | 07 | CHSH / Bell-inequality test | entanglement | live | ✅ shipping (case 15) |
 | 08 | Superdense coding | entanglement | live | ✅ shipping (case 17) |
 | 09 | Quantum teleportation | entanglement | live | ✅ shipping (case 16) |

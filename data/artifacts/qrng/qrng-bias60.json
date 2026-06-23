@@ -1,0 +1,235 @@
+{
+ "schema_version": "qlab-trace/1",
+ "case_id": "qrng",
+ "category": "fundamentals",
+ "title": {
+  "en": "Superposition & quantum RNG",
+  "es": "Superposición y RNG cuántico"
+ },
+ "concept": {
+  "en": "H|0⟩ = (|0⟩+|1⟩)/√2 — a coin that is genuinely 50/50, and measuring it yields a random bit. Hadamard on n qubits gives a uniform superposition over all 2ⁿ strings; sampling fills a flat histogram with Shannon entropy n bits. A rotation RY(θ) makes a biased coin. We compare quantum sampling to a classical pseudo-random generator: statistically they match, but quantum randomness comes from measurement collapse — it is fundamental and certifiable, whereas a PRNG is fully deterministic from its seed. That certifiability (not better statistics) is the real quantum value, and it underlies quantum-secure random beacons.",
+  "es": "H|0⟩ = (|0⟩+|1⟩)/√2 — una moneda genuinamente 50/50, y medirla da un bit aleatorio. Hadamard en n qubits da una superposición uniforme sobre las 2ⁿ cadenas; muestrear llena un histograma plano con entropía de Shannon n bits. Una rotación RY(θ) hace una moneda sesgada. Comparamos el muestreo cuántico con un generador pseudoaleatorio clásico: estadísticamente coinciden, pero la aleatoriedad cuántica viene del colapso de la medición — es fundamental y certificable, mientras un PRNG es totalmente determinista desde su semilla. Esa certificabilidad (no mejores estadísticas) es el valor cuántico real, y sustenta los faros de aleatoriedad cuántico-seguros."
+ },
+ "metric": {
+  "en": "Shannon entropy (bits)",
+  "es": "entropía de Shannon (bits)"
+ },
+ "instance": {
+  "id": "qrng-bias60",
+  "title": {
+   "en": "1 qubit · RY(2π/3) biased coin",
+   "es": "1 qubit · RY(2π/3) biased coin"
+  },
+  "params": {
+   "n": 1,
+   "theta": 2.0943951023931953
+  },
+  "note": {
+   "en": "Sample 1 qubit — uniform entropy n bits (or less if biased).",
+   "es": "Muestrea 1 qubit — entropía uniforme n bits (o menos si está sesgado)."
+  }
+ },
+ "qubits": 1,
+ "lane": "live",
+ "lane_reasons": [],
+ "seed": 42,
+ "shots": 2048,
+ "primary_solver": "qrng-qiskit",
+ "trace": {
+  "case_id": "qrng",
+  "title": {
+   "en": "Superposition & quantum RNG",
+   "es": "Superposición y RNG cuántico"
+  },
+  "concept": {
+   "en": "H|0⟩ = (|0⟩+|1⟩)/√2 — a coin that is genuinely 50/50, and measuring it yields a random bit. Hadamard on n qubits gives a uniform superposition over all 2ⁿ strings; sampling fills a flat histogram with Shannon entropy n bits. A rotation RY(θ) makes a biased coin. We compare quantum sampling to a classical pseudo-random generator: statistically they match, but quantum randomness comes from measurement collapse — it is fundamental and certifiable, whereas a PRNG is fully deterministic from its seed. That certifiability (not better statistics) is the real quantum value, and it underlies quantum-secure random beacons.",
+   "es": "H|0⟩ = (|0⟩+|1⟩)/√2 — una moneda genuinamente 50/50, y medirla da un bit aleatorio. Hadamard en n qubits da una superposición uniforme sobre las 2ⁿ cadenas; muestrear llena un histograma plano con entropía de Shannon n bits. Una rotación RY(θ) hace una moneda sesgada. Comparamos el muestreo cuántico con un generador pseudoaleatorio clásico: estadísticamente coinciden, pero la aleatoriedad cuántica viene del colapso de la medición — es fundamental y certificable, mientras un PRNG es totalmente determinista desde su semilla. Esa certificabilidad (no mejores estadísticas) es el valor cuántico real, y sustenta los faros de aleatoriedad cuántico-seguros."
+  },
+  "qubits": 1,
+  "steps": [
+   {
+    "index": 0,
+    "gate": "init",
+    "targets": [],
+    "label": {
+     "en": "Initial state |0…0⟩",
+     "es": "Estado inicial |0…0⟩"
+    },
+    "statevector": [
+     {
+      "re": 1.0,
+      "im": 0.0
+     },
+     {
+      "re": 0.0,
+      "im": 0.0
+     }
+    ],
+    "bloch": [
+     [
+      0.0,
+      0.0,
+      1.0
+     ]
+    ],
+    "probabilities": [
+     1.0,
+     0.0
+    ],
+    "params": []
+   },
+   {
+    "index": 1,
+    "gate": "RY",
+    "targets": [
+     0
+    ],
+    "label": {
+     "en": "RY q[0]",
+     "es": "RY q[0]"
+    },
+    "statevector": [
+     {
+      "re": 0.5,
+      "im": 0.0
+     },
+     {
+      "re": 0.866025,
+      "im": 0.0
+     }
+    ],
+    "bloch": [
+     [
+      0.866025,
+      0.0,
+      -0.5
+     ]
+    ],
+    "probabilities": [
+     0.25,
+     0.75
+    ],
+    "params": [
+     2.094395
+    ]
+   }
+  ],
+  "measurements": {
+   "counts": {
+    "0": 526,
+    "1": 1522
+   },
+   "shots": 2048
+  },
+  "circuit_ops": [
+   {
+    "gate": "ry",
+    "targets": [
+     0
+    ],
+    "params": [
+     2.094395
+    ]
+   }
+  ],
+  "provenance": {
+   "engine": "qiskit",
+   "engine_version": "2.4.2",
+   "seed": 42,
+   "lane": "tbd",
+   "ran_on": "simulator"
+  },
+  "references": [
+   {
+    "label": "Herrero-Collantes & Garcia-Escartin, Quantum random number generators, Rev. Mod. Phys. (2017)",
+    "doi": "10.1103/RevModPhys.89.015004"
+   },
+   {
+    "label": "Nielsen & Chuang, Quantum Computation and Quantum Information (2010)",
+    "url": "https://doi.org/10.1017/CBO9780511976667"
+   }
+  ],
+  "extra": {
+   "entropy_bits": 0.8113,
+   "max_entropy_bits": 1,
+   "probabilities": [
+    0.25,
+    0.75
+   ]
+  },
+  "schema_version": "qlab-trace/1"
+ },
+ "solvers": [
+  {
+   "solver": "qrng-classical",
+   "label": {
+    "en": "Pseudo-random generator · classical",
+    "es": "Generador pseudoaleatorio · clásico"
+   },
+   "framework": "classical:numpy",
+   "paradigm": "classical",
+   "value": {
+    "entropy_bits": 1.0,
+    "max_entropy_bits": 1,
+    "deterministic": true,
+    "true_randomness": false
+   },
+   "cost": {
+    "wall_ms": 0.0,
+    "shots": 2048
+   },
+   "notes": {
+    "en": "A classical PRNG produces the same flat statistics (entropy 1.000/1 bits) — but it is fully DETERMINISTIC given its seed. Statistically indistinguishable here; the quantum edge is certifiable true randomness, not better numbers.",
+    "es": "Un PRNG clásico produce las mismas estadísticas planas (entropía 1.000/1 bits) — pero es totalmente DETERMINISTA dada su semilla. Estadísticamente indistinguible aquí; la ventaja cuántica es aleatoriedad verdadera certificable."
+   },
+   "optimal": true,
+   "extra": {}
+  },
+  {
+   "solver": "qrng-qiskit",
+   "label": {
+    "en": "Quantum sampling · Qiskit",
+    "es": "Muestreo cuántico · Qiskit"
+   },
+   "framework": "qiskit",
+   "paradigm": "quantum-sim",
+   "value": {
+    "entropy_bits": 0.8113,
+    "max_entropy_bits": 1,
+    "n_outcomes": 2,
+    "uniform": false,
+    "true_randomness": true
+   },
+   "cost": {
+    "wall_ms": 0.105,
+    "qubits": 1,
+    "shots": 2048
+   },
+   "notes": {
+    "en": "1-qubit sampling: Shannon entropy 0.811 of 1 bits (biased); randomness is fundamental (measurement collapse).",
+    "es": "Muestreo de 1 qubits: entropía de Shannon 0.811 de 1 bits (sesgado); la aleatoriedad es fundamental (colapso de la medición)."
+   },
+   "optimal": false,
+   "extra": {}
+  }
+ ],
+ "comparison": {
+  "quantum_entropy": 0.8113,
+  "classical_entropy": 1.0,
+  "max_entropy": 1,
+  "verdict": {
+   "en": "Quantum sampling entropy 0.8113/1 bits vs a classical PRNG 1.0/1 bits — statistically indistinguishable. The difference is in kind, not quality: quantum randomness is fundamental (measurement collapse) and can be CERTIFIED, while the PRNG is deterministic from its seed. Certifiable true randomness is the genuine quantum value here.",
+   "es": "Entropía del muestreo cuántico 0.8113/1 bits vs un PRNG clásico 1.0/1 bits — estadísticamente indistinguibles. La diferencia es de tipo, no de calidad: la aleatoriedad cuántica es fundamental (colapso de medición) y CERTIFICABLE, mientras el PRNG es determinista desde su semilla. La aleatoriedad verdadera certificable es el valor real."
+  }
+ },
+ "references": [
+  {
+   "label": "Herrero-Collantes & Garcia-Escartin, Quantum random number generators, Rev. Mod. Phys. (2017)",
+   "doi": "10.1103/RevModPhys.89.015004"
+  },
+  {
+   "label": "Nielsen & Chuang, Quantum Computation and Quantum Information (2010)",
+   "url": "https://doi.org/10.1017/CBO9780511976667"
+  }
+ ]
+}

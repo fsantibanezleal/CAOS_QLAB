@@ -4,6 +4,25 @@ All notable changes to CAOS_QLAB. Format: newest → oldest. Versions follow `X.
 (major.minor.patch); patch (`.00X`) for fixes. Kept `0.x` while the web SPA and the framework/case matrix
 are still landing. Tags from day one.
 
+## [0.20.000] — 2026-06-22 — Superposition & quantum RNG — ~20-case catalog reached
+
+### Added
+- **Case `qrng`** (6 variants) — superposition, measurement statistics, and the quantum random-number
+  generator: `H^{⊗n}` uniform sampling (entropy n bits for n=1–4) + two biased `RY(θ)` coins. Solvers
+  **`qrng-qiskit`** (Shannon entropy + histogram) and **`qrng-classical`** (a PRNG with identical stats).
+  Lane=live. Folds in the "superposition & measurement statistics" roadmap item.
+- Honest verdict: quantum and classical sampling are statistically indistinguishable here; the quantum edge
+  is **certifiable true randomness** (measurement collapse, useful for crypto/random beacons), not better
+  numbers. Cast entropy/probabilities to plain floats for clean JSON.
+- Pipeline qrng verdict; test `test_qrng_entropy`; docs node `19_qrng.md`.
+
+### Milestone
+- **~20-case catalog reached (19 cases)** across all 6 categories; engine + contracts + docs complete for
+  the full curriculum. The big remaining piece is the frontend SPA (Phase D).
+
+### Verified
+- 24/24 tests, ruff clean. Uniform entropy = n bits; biased = 0.811 bits (= H(0.75)).
+
 ## [0.19.000] — 2026-06-22 — Single-qubit gates & Bloch sphere (fundamentals category opens)
 
 ### Added
