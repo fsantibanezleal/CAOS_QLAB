@@ -12,12 +12,20 @@ const PARADIGM_LABEL: Record<string, string> = {
   classical: "classical",
 };
 
+const SKIP_KEYS = new Set([
+  "correlators", "bloch", "input_bloch", "output_bloch", "poles", "landscape",
+  "probabilities", "counts_top", "nonzero_probabilities", "observed_y",
+]);
+
 function compactValue(value: Record<string, unknown>): string {
-  return Object.entries(value)
-    .filter(([k]) => !["correlators", "bloch", "input_bloch", "output_bloch", "poles"].includes(k))
-    .slice(0, 4)
-    .map(([k, v]) => `${k}=${typeof v === "number" ? v : Array.isArray(v) ? `[${v.length}]` : v}`)
-    .join("  ");
+  const parts: string[] = [];
+  for (const [k, v] of Object.entries(value)) {
+    if (SKIP_KEYS.has(k) || v === null) continue;
+    if (typeof v === "number" || typeof v === "string" || typeof v === "boolean") parts.push(`${k}=${v}`);
+    else if (Array.isArray(v)) parts.push(`${k}=[${v.length}]`);
+    // nested objects are shown in the dedicated viz, not this summary cell
+  }
+  return parts.slice(0, 4).join("  ") || "(see viz)";
 }
 
 /** The signature quantum-vs-classical comparison: each solver's result + cost, plus the honest verdict. */

@@ -109,3 +109,16 @@ a { color: inherit; text-decoration: none; }
 .cmp-table .kind { color: var(--fg-subtle); white-space: nowrap; }
 .mono { font-family: ui-monospace, monospace; font-size: 0.78rem; }
 .dot { display: inline-block; width: 8px; height: 8px; border-radius: 50%; margin-right: 0.3rem; }
+
+/* circuit diagram */
+.circuit-scroll { overflow-x: auto; padding-bottom: 0.4rem; }
+.circuit-svg { display: block; }
+.circ-wire { stroke: var(--border); stroke-width: 1.5; }
+.circ-qlabel { fill: var(--fg-subtle); font: 11px ui-monospace, monospace; }
+.circ-box { fill: var(--accent-soft); stroke: var(--accent); stroke-width: 1.2; }
+.circ-glabel { fill: var(--fg); font: 12px ui-sans-serif, system-ui; font-weight: 600; }
+.circ-glabel.sm { font-size: 10px; }
+.circ-ctrl { fill: var(--accent); }
+.circ-target-o { fill: none; stroke: var(--accent); stroke-width: 1.6; }
+.circ-plus { stroke: var(--accent); stroke-width: 1.6; }
+.circ-link { stroke: var(--accent); stroke-width: 1.6; }

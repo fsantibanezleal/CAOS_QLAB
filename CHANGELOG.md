@@ -4,6 +4,23 @@ All notable changes to CAOS_QLAB. Format: newest → oldest. Versions follow `X.
 (major.minor.patch); patch (`.00X`) for fixes. Kept `0.x` while the web SPA and the framework/case matrix
 are still landing. Tags from day one.
 
+## [0.23.000] — 2026-06-22 — Web SPA: circuit-diagram renderer (screenshot-verified)
+
+### Added
+- **`CircuitDiagram`** (`web/src/viz/CircuitDiagram.tsx`) — a pure-SVG circuit diagram from the committed
+  `trace.circuit_ops`: qubit wires + gate boxes, control dots + ⊕ for CX, dots for CZ, ×–× for SWAP, ZZ/P
+  boxes for rzz/cp, rotation angles rendered as π-fractions, a labelled fallback for controlled-unitaries;
+  horizontally scrollable for wide circuits, themed (light + dark). Wired into the per-case workbench above
+  the amplitudes/histogram.
+- Fixed the comparison table rendering nested-dict solver values as `[object Object]` → now skips object
+  fields (shown in the dedicated viz) and falls back to "(see viz)".
+- **Screenshot-verified** (Playwright, no console errors): the Bell circuit (H·•·Z + ⊕) and the 5-qubit
+  MaxCut QAOA circuit (H layer · 6 ZZ cost gates · RX mixer) both render correctly.
+
+### Still to build
+- Bloch sphere (three.js), QAOA (γ,β) landscape, density-matrix heatmap; live JS lane (quantum-circuit) +
+  Quirk; the six doc pages + ⓘ ADR-0058 modal; migrate to shared shell; Pages deploy.
+
 ## [0.22.000] — 2026-06-22 — Web SPA: per-case workbench + first viz (screenshot-verified)
 
 ### Added

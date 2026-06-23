@@ -3,6 +3,7 @@ import type { Bundle, CatalogCase } from "../lib/contract.types";
 import { loadBundle } from "../lib/data";
 import { useT } from "../lib/ui";
 import { AmplitudeBars } from "../viz/AmplitudeBars";
+import { CircuitDiagram } from "../viz/CircuitDiagram";
 import { ComparisonPanel } from "../viz/ComparisonPanel";
 import { Histogram } from "../viz/Histogram";
 
@@ -41,6 +42,9 @@ export function CaseWorkbench({ caseEntry }: { caseEntry: CatalogCase }) {
 
       {bundle && (
         <>
+          {bundle.trace?.circuit_ops?.length ? (
+            <CircuitDiagram ops={bundle.trace.circuit_ops} qubits={bundle.trace.qubits} />
+          ) : null}
           <div className="viz-row">
             {finalStep && <AmplitudeBars step={finalStep} qubits={bundle.trace!.qubits} />}
             {bundle.trace?.measurements?.shots ? <Histogram measurements={bundle.trace.measurements} /> : null}
