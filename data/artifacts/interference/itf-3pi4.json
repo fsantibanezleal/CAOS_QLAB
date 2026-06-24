@@ -1,0 +1,308 @@
+{
+ "schema_version": "qlab-trace/1",
+ "case_id": "interference",
+ "category": "fundamentals",
+ "title": {
+  "en": "Phase & interference",
+  "es": "Fase e interferencia"
+ },
+ "concept": {
+  "en": "Amplitudes — not probabilities — add, and they can cancel. The one-qubit Mach–Zehnder H · P(φ) · H makes it visible: H splits |0⟩ into two paths, the phase gate P(φ) delays one, and the second H recombines them, giving P(measure 0) = cos²(φ/2). At φ=0 the paths interfere constructively (P0=1); at φ=π they cancel completely (P0=0). Sweep φ and the probability oscillates — the interference fringe. A classical wave (an optical Mach–Zehnder) gives the same cos²(φ/2), so interference is not by itself quantum; what is quantum is that it happens for a single particle's probability amplitude — and steering that interference so wrong answers cancel is exactly how Grover, the QFT and the oracle algorithms work.",
+  "es": "Las amplitudes — no las probabilidades — se suman, y pueden cancelarse. El Mach–Zehnder de un qubit H · P(φ) · H lo hace visible: H divide |0⟩ en dos caminos, la compuerta de fase P(φ) retrasa uno, y el segundo H los recombina, dando P(medir 0) = cos²(φ/2). En φ=0 los caminos interfieren constructivamente (P0=1); en φ=π se cancelan por completo (P0=0). Barre φ y la probabilidad oscila — la franja de interferencia. Una onda clásica (un Mach–Zehnder óptico) da el mismo cos²(φ/2), así que la interferencia no es por sí sola cuántica; lo cuántico es que ocurre para la amplitud de probabilidad de una sola partícula — y dirigir esa interferencia para que las respuestas erróneas se cancelen es exactamente cómo funcionan Grover, la QFT y los algoritmos de oráculo."
+ },
+ "metric": {
+  "en": "P(0) = cos²(φ/2), the interference fringe",
+  "es": "P(0) = cos²(φ/2), la franja de interferencia"
+ },
+ "instance": {
+  "id": "itf-3pi4",
+  "title": {
+   "en": "φ = 3π/4",
+   "es": "φ = 3π/4"
+  },
+  "params": {
+   "n": 1,
+   "phi": 2.356194490192345
+  },
+  "note": {
+   "en": "φ = 3π/4 — recombine the two paths; P(0) = cos²(φ/2) = 0.146.",
+   "es": "φ = 3π/4 — recombina los dos caminos; P(0) = cos²(φ/2) = 0.146."
+  }
+ },
+ "qubits": 1,
+ "lane": "live",
+ "lane_reasons": [],
+ "seed": 42,
+ "shots": 2048,
+ "primary_solver": "interference-qiskit",
+ "trace": {
+  "case_id": "interference",
+  "title": {
+   "en": "Phase & interference",
+   "es": "Fase e interferencia"
+  },
+  "concept": {
+   "en": "Amplitudes — not probabilities — add, and they can cancel. The one-qubit Mach–Zehnder H · P(φ) · H makes it visible: H splits |0⟩ into two paths, the phase gate P(φ) delays one, and the second H recombines them, giving P(measure 0) = cos²(φ/2). At φ=0 the paths interfere constructively (P0=1); at φ=π they cancel completely (P0=0). Sweep φ and the probability oscillates — the interference fringe. A classical wave (an optical Mach–Zehnder) gives the same cos²(φ/2), so interference is not by itself quantum; what is quantum is that it happens for a single particle's probability amplitude — and steering that interference so wrong answers cancel is exactly how Grover, the QFT and the oracle algorithms work.",
+   "es": "Las amplitudes — no las probabilidades — se suman, y pueden cancelarse. El Mach–Zehnder de un qubit H · P(φ) · H lo hace visible: H divide |0⟩ en dos caminos, la compuerta de fase P(φ) retrasa uno, y el segundo H los recombina, dando P(medir 0) = cos²(φ/2). En φ=0 los caminos interfieren constructivamente (P0=1); en φ=π se cancelan por completo (P0=0). Barre φ y la probabilidad oscila — la franja de interferencia. Una onda clásica (un Mach–Zehnder óptico) da el mismo cos²(φ/2), así que la interferencia no es por sí sola cuántica; lo cuántico es que ocurre para la amplitud de probabilidad de una sola partícula — y dirigir esa interferencia para que las respuestas erróneas se cancelen es exactamente cómo funcionan Grover, la QFT y los algoritmos de oráculo."
+  },
+  "qubits": 1,
+  "steps": [
+   {
+    "index": 0,
+    "gate": "init",
+    "targets": [],
+    "label": {
+     "en": "Initial state |0…0⟩",
+     "es": "Estado inicial |0…0⟩"
+    },
+    "statevector": [
+     {
+      "re": 1.0,
+      "im": 0.0
+     },
+     {
+      "re": 0.0,
+      "im": 0.0
+     }
+    ],
+    "bloch": [
+     [
+      0.0,
+      0.0,
+      1.0
+     ]
+    ],
+    "probabilities": [
+     1.0,
+     0.0
+    ],
+    "params": []
+   },
+   {
+    "index": 1,
+    "gate": "H",
+    "targets": [
+     0
+    ],
+    "label": {
+     "en": "H q[0]",
+     "es": "H q[0]"
+    },
+    "statevector": [
+     {
+      "re": 0.707107,
+      "im": 0.0
+     },
+     {
+      "re": 0.707107,
+      "im": 0.0
+     }
+    ],
+    "bloch": [
+     [
+      1.0,
+      0.0,
+      0.0
+     ]
+    ],
+    "probabilities": [
+     0.5,
+     0.5
+    ],
+    "params": []
+   },
+   {
+    "index": 2,
+    "gate": "P",
+    "targets": [
+     0
+    ],
+    "label": {
+     "en": "P q[0]",
+     "es": "P q[0]"
+    },
+    "statevector": [
+     {
+      "re": 0.707107,
+      "im": 0.0
+     },
+     {
+      "re": -0.5,
+      "im": 0.5
+     }
+    ],
+    "bloch": [
+     [
+      -0.707107,
+      0.707107,
+      0.0
+     ]
+    ],
+    "probabilities": [
+     0.5,
+     0.5
+    ],
+    "params": [
+     2.356194
+    ]
+   },
+   {
+    "index": 3,
+    "gate": "H",
+    "targets": [
+     0
+    ],
+    "label": {
+     "en": "H q[0]",
+     "es": "H q[0]"
+    },
+    "statevector": [
+     {
+      "re": 0.146447,
+      "im": 0.353553
+     },
+     {
+      "re": 0.853553,
+      "im": -0.353553
+     }
+    ],
+    "bloch": [
+     [
+      -0.0,
+      -0.707107,
+      -0.707107
+     ]
+    ],
+    "probabilities": [
+     0.146447,
+     0.853553
+    ],
+    "params": []
+   }
+  ],
+  "measurements": {
+   "counts": {
+    "0": 302,
+    "1": 1746
+   },
+   "shots": 2048
+  },
+  "circuit_ops": [
+   {
+    "gate": "h",
+    "targets": [
+     0
+    ],
+    "params": []
+   },
+   {
+    "gate": "p",
+    "targets": [
+     0
+    ],
+    "params": [
+     2.356194
+    ]
+   },
+   {
+    "gate": "h",
+    "targets": [
+     0
+    ],
+    "params": []
+   }
+  ],
+  "provenance": {
+   "engine": "qiskit",
+   "engine_version": "2.4.2",
+   "seed": 42,
+   "lane": "tbd",
+   "ran_on": "simulator"
+  },
+  "references": [
+   {
+    "label": "Feynman, Leighton & Sands, The Feynman Lectures on Physics, Vol. III, ch. 1 (1965)",
+    "url": "https://www.feynmanlectures.caltech.edu/III_01.html"
+   },
+   {
+    "label": "Nielsen & Chuang, Quantum Computation and Quantum Information, §1.4 (2010)",
+    "url": "https://doi.org/10.1017/CBO9780511976667"
+   }
+  ],
+  "extra": {
+   "phi": 2.3562,
+   "p0": 0.1464,
+   "p1": 0.8536
+  },
+  "schema_version": "qlab-trace/1"
+ },
+ "solvers": [
+  {
+   "solver": "interference-classical",
+   "label": {
+    "en": "Wave interference · classical",
+    "es": "Interferencia de ondas · clásica"
+   },
+   "framework": "classical:numpy",
+   "paradigm": "classical",
+   "value": {
+    "phi": 2.3562,
+    "intensity": 0.1464,
+    "law": "I = cos²(φ/2)"
+   },
+   "cost": {
+    "wall_ms": 0.0
+   },
+   "notes": {
+    "en": "A classical wave (optical Mach–Zehnder) gives the identical fringe I = cos²(φ/2) = 0.1464. Interference itself is classical; the quantum twist is that it happens for one particle's amplitude — the resource the algorithms steer.",
+    "es": "Una onda clásica (Mach–Zehnder óptico) da la franja idéntica I = cos²(φ/2) = 0.1464. La interferencia en sí es clásica; lo cuántico es que ocurre para la amplitud de una partícula — el recurso que dirigen los algoritmos."
+   },
+   "optimal": true,
+   "extra": {}
+  },
+  {
+   "solver": "interference-qiskit",
+   "label": {
+    "en": "Mach–Zehnder circuit · Qiskit",
+    "es": "Circuito Mach–Zehnder · Qiskit"
+   },
+   "framework": "qiskit",
+   "paradigm": "quantum-sim",
+   "value": {
+    "phi": 2.3562,
+    "p0": 0.1464,
+    "p1": 0.8536,
+    "fringe": "mixed"
+   },
+   "cost": {
+    "wall_ms": 0.301,
+    "qubits": 1
+   },
+   "notes": {
+    "en": "H · P(2.356) · H gives P(0) = cos²(φ/2) = 0.1464 (mixed). The two paths' amplitudes interfere — at φ=π they cancel exactly.",
+    "es": "H · P(2.356) · H da P(0) = cos²(φ/2) = 0.1464 (mixed). Las amplitudes de los dos caminos interfieren — en φ=π se cancelan exactamente."
+   },
+   "optimal": false,
+   "extra": {}
+  }
+ ],
+ "comparison": {
+  "quantum_p0": 0.1464,
+  "classical_intensity": 0.1464,
+  "fringe": "mixed",
+  "verdict": {
+   "en": "The qubit's P(0) = 0.1464 (mixed) matches a classical wave's intensity 0.1464 exactly — both follow cos²(φ/2). Interference is NOT, by itself, a quantum advantage: an optical Mach–Zehnder does the same. What is quantum is that this happens for one particle's probability amplitude — and steering it so wrong answers cancel is the engine behind Grover, the QFT and the oracle algorithms.",
+   "es": "El P(0) = 0.1464 (mixed) del qubit coincide exactamente con la intensidad 0.1464 de una onda clásica — ambos siguen cos²(φ/2). La interferencia NO es, por sí sola, una ventaja cuántica: un Mach–Zehnder óptico hace lo mismo. Lo cuántico es que ocurre para la amplitud de probabilidad de una partícula — y dirigirla para que las respuestas erróneas se cancelen es el motor de Grover, la QFT y los algoritmos de oráculo."
+  }
+ },
+ "references": [
+  {
+   "label": "Feynman, Leighton & Sands, The Feynman Lectures on Physics, Vol. III, ch. 1 (1965)",
+   "url": "https://www.feynmanlectures.caltech.edu/III_01.html"
+  },
+  {
+   "label": "Nielsen & Chuang, Quantum Computation and Quantum Information, §1.4 (2010)",
+   "url": "https://doi.org/10.1017/CBO9780511976667"
+  }
+ ]
+}

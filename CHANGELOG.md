@@ -4,6 +4,25 @@ All notable changes to CAOS_QLAB. Format: newest → oldest. Versions follow `X.
 (major.minor.patch); patch (`.00X`) for fixes. Kept `0.x` while the web SPA and the framework/case matrix
 are still landing. Tags from day one.
 
+## [0.34.000] — 2026-06-23 — New case: Phase & interference (Mach–Zehnder) — catalog → 20 cases (verified)
+
+### Added
+- **Case 20 · Phase & interference** (`qlab/problems/interference.py`) — the single-qubit Mach–Zehnder
+  `H · P(φ) · H`, a `fundamentals`, **live** case. Two solvers: `interference-qiskit` (the circuit, P(0) =
+  cos²(φ/2)) and `interference-classical` (an optical wave's intensity, the identical fringe). Six variants
+  sweep the phase φ = 0 → π, tracing the fringe from fully constructive (P0=1) to fully destructive (P0=0).
+- **Physics-verified** — all six P(0) values equal cos²(φ/2) to 4 decimals and the classical wave reproduces
+  each exactly; a new `test_interference_fringe_matches_cos2` (suite now 25 green, ruff clean).
+- **Screenshot-verified** (Playwright, no console errors): the replay (φ=0 → all weight on |0⟩) and the
+  **live lane** — dragging the P(φ) slider sweeps the fringe in real time (amplitudes, Bloch and histogram
+  all respond), the cleanest demonstration that amplitude interference is the engine of the algorithms.
+- Docs node `docs/use-cases/20_interference.md` + catalog table updated (roadmap row 05 → shipped). The live
+  catalog is now **20 cases · 119 variant traces**; the Introduction/Experiments pages reflect it automatically.
+
+### Why it matters
+- Honest framing: a classical wave gives the same cos²(φ/2), so interference alone is not an advantage — but
+  steering amplitude cancellation across many qubits is exactly how Grover, the QFT and the oracles work.
+
 ## [0.33.000] — 2026-06-23 — ⓘ architecture modal (ADR-0058) + shared diagram module (screenshot-verified)
 
 ### Added

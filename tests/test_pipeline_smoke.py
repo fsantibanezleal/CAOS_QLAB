@@ -227,6 +227,26 @@ def test_qrng_entropy():
     assert cls.run(problem, problem.instance("qrng-3"), seed=42, shots=64).value["deterministic"] is True
 
 
+def test_interference_fringe_matches_cos2():
+    import math
+
+    from qlab.registry import get_problem, solvers_for
+
+    problem = get_problem("interference")
+    q = next(s for s in solvers_for(problem) if s.name == "interference-qiskit")
+    cls = next(s for s in solvers_for(problem) if s.name == "interference-classical")
+    # the H·P(φ)·H fringe is P(0) = cos²(φ/2); φ=0 → 1 (constructive), φ=π → 0 (destructive)
+    assert q.run(problem, problem.instance("itf-0"), seed=42, shots=1).value["p0"] == 1.0
+    assert q.run(problem, problem.instance("itf-pi"), seed=42, shots=1).value["p0"] == 0.0
+    half = q.run(problem, problem.instance("itf-pi2"), seed=42, shots=1).value
+    assert abs(half["p0"] - 0.5) < 1e-6 and half["fringe"] == "mixed"
+    # the classical wave reproduces the same fringe (committed values are rounded to 4 decimals)
+    for iid in ("itf-0", "itf-pi4", "itf-pi2", "itf-2pi3", "itf-pi"):
+        phi = problem.instance(iid).params["phi"]
+        assert abs(cls.run(problem, problem.instance(iid), seed=42, shots=1).value["intensity"]
+                   - math.cos(phi / 2) ** 2) < 1e-3
+
+
 def test_maxcut_classical_optimum_beats_or_matches_qaoa():
     from qlab.problems.maxcut import MaxCut
     from qlab.registry import get_problem, solvers_for

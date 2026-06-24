@@ -1,0 +1,42 @@
+{
+ "case_id": "interference",
+ "title": {
+  "en": "Phase & interference",
+  "es": "Fase e interferencia"
+ },
+ "category": "fundamentals",
+ "lane": "live",
+ "lane_reasons": [],
+ "qubits": 1,
+ "seed": 42,
+ "shots": 2048,
+ "params": {
+  "n": 1,
+  "phi": 1.5707963267948966
+ },
+ "measured": {
+  "run_ms": 0.311,
+  "trace_bytes": 3385,
+  "unitary_only": true
+ },
+ "viz": [
+  "bloch",
+  "amp_phase",
+  "histogram",
+  "circuit"
+ ],
+ "engine": "qiskit",
+ "engine_version": "2.4.2",
+ "trace_path": "interference/itf-pi2.json",
+ "references": [
+  {
+   "label": "Feynman, Leighton & Sands, The Feynman Lectures on Physics, Vol. III, ch. 1 (1965)",
+   "url": "https://www.feynmanlectures.caltech.edu/III_01.html"
+  },
+  {
+   "label": "Nielsen & Chuang, Quantum Computation and Quantum Information, §1.4 (2010)",
+   "url": "https://doi.org/10.1017/CBO9780511976667"
+  }
+ ],
+ "manifest_version": "qlab-manifest/1"
+}

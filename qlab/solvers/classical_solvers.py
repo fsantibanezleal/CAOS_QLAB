@@ -346,6 +346,36 @@ class ClassicalBit(Solver):
 
 
 @register_solver
+class ClassicalInterference(Solver):
+    name = "interference-classical"
+    label = {"en": "Wave interference · classical", "es": "Interferencia de ondas · clásica"}
+    framework = "classical:numpy"
+    paradigm = CLASSICAL
+
+    def applicable(self, problem: Problem) -> bool:
+        return problem.id == "interference"
+
+    def run(self, problem, instance: Instance, seed: int, shots: int) -> SolverResult:
+        # A classical optical Mach–Zehnder: two paths with a relative phase φ recombine, and the output
+        # intensity is I(φ) = cos²(φ/2) — the SAME fringe as the qubit. Interference is not, by itself,
+        # quantum; what is quantum is that it occurs for a single particle's probability amplitude.
+        phi = float(instance.params["phi"])
+        intensity = round(float(np.cos(phi / 2) ** 2), 4)
+        return SolverResult(
+            solver=self.name, label=self.label, framework=self.framework, paradigm=self.paradigm,
+            value={"phi": round(phi, 4), "intensity": intensity, "law": "I = cos²(φ/2)"},
+            cost={"wall_ms": 0.0},
+            notes={"en": f"A classical wave (optical Mach–Zehnder) gives the identical fringe I = cos²(φ/2) = "
+                         f"{intensity}. Interference itself is classical; the quantum twist is that it happens "
+                         f"for one particle's amplitude — the resource the algorithms steer.",
+                   "es": f"Una onda clásica (Mach–Zehnder óptico) da la franja idéntica I = cos²(φ/2) = "
+                         f"{intensity}. La interferencia en sí es clásica; lo cuántico es que ocurre para la "
+                         f"amplitud de una partícula — el recurso que dirigen los algoritmos."},
+            optimal=True,
+        )
+
+
+@register_solver
 class ClassicalHolevo(Solver):
     name = "superdense-classical"
     label = {"en": "Holevo limit · classical", "es": "Límite de Holevo · clásico"}

@@ -361,6 +361,49 @@ class QiskitSingleQubit(Solver):
 
 
 @register_solver
+class QiskitInterference(Solver):
+    name = "interference-qiskit"
+    label = {"en": "Mach–Zehnder circuit · Qiskit", "es": "Circuito Mach–Zehnder · Qiskit"}
+    framework = "qiskit"
+    paradigm = QUANTUM_SIM
+
+    def applicable(self, problem: Problem) -> bool:
+        return problem.id == "interference"
+
+    def run(self, problem, instance: Instance, seed: int, shots: int) -> SolverResult:
+        from qlab.core.trace import Trace
+
+        phi = float(instance.params["phi"])
+        qc = QuantumCircuit(1)
+        qc.h(0)            # split |0⟩ into two paths
+        qc.p(phi, 0)       # delay one path by the relative phase φ
+        qc.h(0)            # recombine
+        t0 = time.perf_counter()
+        probs = np.asarray(Statevector(qc).probabilities())
+        wall = (time.perf_counter() - t0) * 1e3
+        p0, p1 = round(float(probs[0]), 4), round(float(probs[1]), 4)
+        fringe = "constructive" if p0 > 0.99 else "destructive" if p0 < 0.01 else "mixed"
+        trace = Trace(
+            case_id=problem.id, title=problem.title, concept=problem.concept, qubits=1,
+            steps=evolve(qc), measurements=measure_counts(qc, shots, seed), circuit_ops=circuit_ops(qc),
+            provenance={"engine": "qiskit", "engine_version": QISKIT_VERSION, "seed": seed,
+                        "lane": "tbd", "ran_on": "simulator"},
+            references=problem.references,
+            extra={"phi": round(phi, 4), "p0": p0, "p1": p1},
+        )
+        return SolverResult(
+            solver=self.name, label=self.label, framework=self.framework, paradigm=self.paradigm,
+            value={"phi": round(phi, 4), "p0": p0, "p1": p1, "fringe": fringe},
+            cost={"wall_ms": round(wall, 3), "qubits": 1},
+            notes={"en": f"H · P({phi:.3f}) · H gives P(0) = cos²(φ/2) = {p0} ({fringe}). The two paths' "
+                         f"amplitudes interfere — at φ=π they cancel exactly.",
+                   "es": f"H · P({phi:.3f}) · H da P(0) = cos²(φ/2) = {p0} ({fringe}). Las amplitudes de los "
+                         f"dos caminos interfieren — en φ=π se cancelan exactamente."},
+            trace=trace,
+        )
+
+
+@register_solver
 class QiskitSuperdense(Solver):
     name = "superdense-qiskit"
     label = {"en": "Superdense circuit · Qiskit", "es": "Circuito superdenso · Qiskit"}

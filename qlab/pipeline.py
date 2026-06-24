@@ -87,6 +87,23 @@ def _comparison(problem, results: list) -> dict:
                   f"clásico tiene solo dos estados (los polos); el qubit recorre toda la esfera — pero una "
                   f"medición devuelve un bit y un solo qubit no guarda más info clásica que un bit (Holevo). "
                   f"Esta es la base; el poder viene después, de la interferencia entre muchos qubits."}}
+    if problem.id == "interference":
+        q = next((r for r in results if r.paradigm != "classical"), None)
+        cls = next((r for r in results if r.paradigm == "classical"), None)
+        p0 = q.value.get("p0") if q else None
+        inten = cls.value.get("intensity") if cls else None
+        fringe = q.value.get("fringe") if q else None
+        return {"quantum_p0": p0, "classical_intensity": inten, "fringe": fringe, "verdict": {
+            "en": f"The qubit's P(0) = {p0} ({fringe}) matches a classical wave's intensity {inten} exactly — "
+                  f"both follow cos²(φ/2). Interference is NOT, by itself, a quantum advantage: an optical "
+                  f"Mach–Zehnder does the same. What is quantum is that this happens for one particle's "
+                  f"probability amplitude — and steering it so wrong answers cancel is the engine behind "
+                  f"Grover, the QFT and the oracle algorithms.",
+            "es": f"El P(0) = {p0} ({fringe}) del qubit coincide exactamente con la intensidad {inten} de una "
+                  f"onda clásica — ambos siguen cos²(φ/2). La interferencia NO es, por sí sola, una ventaja "
+                  f"cuántica: un Mach–Zehnder óptico hace lo mismo. Lo cuántico es que ocurre para la amplitud "
+                  f"de probabilidad de una partícula — y dirigirla para que las respuestas erróneas se "
+                  f"cancelen es el motor de Grover, la QFT y los algoritmos de oráculo."}}
     if problem.id == "superdense":
         q = next((r for r in results if r.paradigm != "classical"), None)
         msg = q.value.get("message") if q else None
