@@ -4,6 +4,26 @@ All notable changes to CAOS_QLAB. Format: newest → oldest. Versions follow `X.
 (major.minor.patch); patch (`.00X`) for fixes. Kept `0.x` while the web SPA and the framework/case matrix
 are still landing. Tags from day one.
 
+## [0.31.000] — 2026-06-23 — Web SPA: Benchmark page — the six standard pages COMPLETE (screenshot-verified)
+
+### Added
+- **Benchmark page** (`web/src/pages/Benchmark.tsx`) — the sixth and final standard page: the honesty spine
+  quantified. An honest scorecard (**0 of 19 cases show a practical, pay-for-it speedup today**, by design) +
+  a distribution bar over four honest advantage classes — **genuine edge / not a speedup** (4: CHSH,
+  teleportation, superdense, QRNG), **asymptotic query advantage** (4: BV, DJ, Simon, Grover), **error
+  correction that scales** (2: repetition, surface), **classical still wins today** (9). Per-case cards link
+  to the workbench and pair the quantum method vs the classical baseline (names pulled live from the catalog)
+  with the case-level verdict (mirrored from `docs/use-cases.md`). A "why this framing" note keeps the three
+  kinds of "advantage" distinct.
+- Header nav now shows all **six tabs** — App · Introduction · Methodology · Implementation · Experiments ·
+  Benchmark. **The ADR-0016/0017 six-page structure is complete.**
+- **Screenshot-verified** (Playwright, no console errors): the scorecard, distribution bar, and all four
+  class sections render in dark and light.
+
+### Still to build
+- The live JS lane (quantum-circuit ≤12q) + Quirk for live-lane cases; the ⓘ ADR-0058 architecture modal;
+  migrate to the shared `@fasl-work/caos-app-shell`; Pages deploy at qlab.fasl-work.com.
+
 ## [0.30.000] — 2026-06-23 — Web SPA: Experiments page (protocol · cross-check · live coverage matrix) (screenshot-verified)
 
 ### Added

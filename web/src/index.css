@@ -230,6 +230,26 @@ pre.code code { font: 0.82rem/1.5 ui-monospace, "Cascadia Code", monospace; colo
 .lane-pill.live { background: rgba(63,185,80,0.15); color: #3fb950; }
 .lane-pill.precompute { background: var(--accent-soft); color: var(--accent); }
 
+/* Benchmark */
+.bench-bar { display: flex; height: 30px; border-radius: 7px; overflow: hidden; margin: 1rem 0 0.5rem;
+  border: 1px solid var(--border); }
+.bench-seg { display: flex; align-items: center; justify-content: center; color: #fff; font: 700 0.8rem ui-monospace, monospace;
+  min-width: 26px; }
+.bench-legend { display: flex; flex-wrap: wrap; gap: 0.5rem 1.1rem; margin-bottom: 0.5rem; }
+.bench-leg-item { display: inline-flex; align-items: center; gap: 0.35rem; font-size: 0.8rem; color: var(--fg-subtle); }
+.swatch { width: 11px; height: 11px; border-radius: 3px; display: inline-block; }
+.bench-cards { display: grid; gap: 0.6rem; margin-top: 0.6rem; }
+.bench-card { display: block; background: var(--panel); border: 1px solid var(--border); border-left: 3px solid var(--accent);
+  border-radius: 8px; padding: 0.7rem 0.95rem; text-decoration: none; color: inherit; transition: border-color 0.12s; }
+.bench-card:hover { border-color: var(--accent); }
+.bench-card-head { display: flex; flex-wrap: wrap; align-items: baseline; gap: 0.5rem 0.9rem; }
+.bench-card-head strong { font-size: 0.95rem; }
+.bench-vs { display: inline-flex; align-items: center; gap: 0.4rem; font: 0.74rem ui-monospace, monospace; }
+.bench-vs .q { color: var(--accent); }
+.bench-vs .vs { color: var(--fg-subtle); font-style: italic; }
+.bench-vs .c { color: var(--fg-subtle); }
+.bench-card p { margin: 0.35rem 0 0; font-size: 0.85rem; line-height: 1.5; color: var(--fg-subtle); max-width: none; }
+
 /* ZNE extrapolation */
 .zne-ideal { stroke: var(--fg-subtle); stroke-width: 1; stroke-dasharray: 4 3; opacity: 0.7; }
 .zne-fit { stroke: var(--accent); stroke-width: 1.8; stroke-dasharray: 6 4; }
