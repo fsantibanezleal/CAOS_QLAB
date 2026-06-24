@@ -5,14 +5,14 @@ attack it with the real, dedicated frameworks (Qiskit · PennyLane · Cirq · St
 method next to the classical baseline → read which one actually wins.* Today, on almost every case at lab
 scale, **classical still wins** — and QLab shows you exactly why, with the numbers on screen.
 
-**▶ Live app:** *(pending deploy — `qlab.fasl-work.com`, GitHub Pages)* · 📖 [Docs / wiki](docs/README.md) · 📝 [Changelog](CHANGELOG.md)
+**▶ Live app:** **https://qlab.fasl-work.com** · 📖 [Docs / wiki](docs/README.md) · 📝 [Changelog](CHANGELOG.md)
 
-> **Status:** v0.01.000 — **engine + pipeline live and real.** Two cases run end-to-end across multiple
-> real frameworks with committed, reproducible traces: **state preparation / entanglement** (Bell · GHZ ·
-> W, 7 variants, Qiskit gate circuits vs the direct classical amplitude vector) and **MaxCut** (6 graphs,
-> QAOA on **Qiskit** *and* **PennyLane** vs exact brute force + a greedy baseline — both quantum frameworks
-> reproduce the classical optimum, neither beats it). The web SPA is the next phase. Built in the open —
-> see the [changelog](CHANGELOG.md).
+> **Status:** v0.34.000 — **engine + 20-case catalog + the full web SPA are live.** The Problem × Solver
+> engine runs **20 cases** across **5 real frameworks** (Qiskit + Aer · PennyLane · Cirq · Stim ·
+> classical/NumPy + scikit-learn) with **119 committed, reproducible traces**; every quantum method is shown
+> next to its classical baseline. The React SPA ships the six standard pages (App · Introduction ·
+> Methodology · Implementation · Experiments · Benchmark), the full visualization suite, and a live
+> in-browser re-simulation lane. Built in the open — see the [changelog](CHANGELOG.md).
 
 ## Why this exists
 
@@ -20,8 +20,9 @@ Quantum computing is the most over-marketed corner of computing. Most tutorials 
 circuit or imply an "advantage" that does not exist yet. QLab does two honest things at once:
 
 1. **Teaches the real, state-of-the-art tools by running them** — not hand-rolled toy simulators. Each
-   method is a thin **adapter over a real framework** (Qiskit 2.x + Aer, PennyLane, Cirq, Stim, pytket,
-   Qulacs as they land), pinned and reproducible.
+   method is a thin **adapter over a real framework** (Qiskit 2.x + Aer, PennyLane, Cirq, Stim,
+   NumPy/scikit-learn for the classical baselines), pinned and reproducible. Adding a framework is one more
+   adapter (pytket, Qulacs, OpenFermion are candidates on the roadmap, not yet wired).
 2. **Keeps itself honest** — every quantum method is shown next to the **classical baseline that is still,
    today, more practical**, with both costs (qubits, gates, shots, wall-time) side by side. The conclusion
    of the field's own literature — *"does a quantum computer beat a classical one at anything you'd pay
@@ -48,14 +49,15 @@ QAOA-PennyLane vs brute force vs greedy).
 
 | Lane | Where it runs | What it's for |
 |---|---|---|
-| **Live** | your browser (JavaScript `quantum-circuit`, ≤12 qubits) | tune a small circuit, watch amplitudes/Bloch move in real time |
+| **Live** | your browser (a purpose-built **TypeScript** exact state-vector engine, ≤12 qubits) | tune a small circuit, watch amplitudes/Bloch move in real time |
 | **Precompute** | offline `.venv` (the real engines) → committed JSON trace, replayed | noise, optimization loops (VQE/QAOA), mid-circuit feed-forward, >12 qubits |
 | **Real-hardware** *(optional, opt-in)* | IBM Quantum Open / Braket / Azure → committed result | the *"this ran on a real 156-qubit quantum computer"* moment |
 
 The published site is **fully static** (GitHub Pages): no backend, no secrets. A run is a pure function of
 `(params, seed)` — the committed trace is the source of truth and the front end only animates it
-(*replay = truth*). Qiskit cannot run in the browser (no Pyodide wheels), so the live lane is a JS
-simulator and everything heavy is precomputed — see [docs/architecture.md](docs/architecture.md).
+(*replay = truth*). Qiskit cannot run in the browser (no Pyodide wheels), so the live lane is a small
+**exact state-vector simulator written in TypeScript** (`web/src/live/statevector.ts`) and everything heavy
+is precomputed — see [docs/architecture.md](docs/architecture.md).
 
 ## Quickstart (local)
 
@@ -80,15 +82,20 @@ Python **3.12**. Parallel PowerShell + bash scripts:
 and the **classical-vs-quantum verdict**. Artifacts land in `data/artifacts/<case>/<variant>.json` and
 `manifests/<case>__<variant>.json`.
 
-## Cases today (the catalog grows)
+## Cases today — 20, across all six families
 
-| Case | Category | Solvers (frameworks) | Lane | Honest verdict |
-|---|---|---|---|---|
-| **State preparation** (Bell Φ/Ψ, GHZ-3/4, W-3) | entanglement | gate circuit (**Qiskit**) · direct amplitudes (**classical**) | live | classical describes 2–4 qubits instantly; entanglement is the concept, not an advantage |
-| **MaxCut** (6 graphs, 3–6 nodes) | variational | QAOA (**Qiskit**) · QAOA (**PennyLane**) · brute force + greedy (**classical**) | precompute | exact optimum found classically in microseconds; QAOA matches but never beats it |
+**20 worked cases / 119 committed variant traces**, each solved by a quantum solver **and** a classical
+baseline shown head-to-head:
 
-The roadmap (oracle algorithms, Grover, QFT/QPE, Shor-toy, VQE, QML, noise + mitigation, QEC with Stim)
-and the framework matrix are tracked in the docs — see [docs/use-cases.md](docs/use-cases.md).
+- **Fundamentals** — single-qubit gates & the Bloch sphere · superposition & quantum RNG · phase & interference
+- **Entanglement** — Bell/GHZ/W state preparation · CHSH · teleportation · superdense coding
+- **Oracle algorithms** — Deutsch–Jozsa · Bernstein–Vazirani · Simon
+- **Flagship algorithms** — Grover · QFT · quantum phase estimation · Shor (toy, N=15)
+- **Variational** — MaxCut (QAOA) · VQE (H₂) · quantum-kernel ML
+- **Noise & QEC** — noise + ZNE mitigation · repetition code · surface code
+
+Honest headline: **0 of 20 show a practical, pay-for-it speedup today** — the quantum-vs-classical
+comparison is on screen for each. Full catalog + per-case docs: [docs/use-cases.md](docs/use-cases.md).
 
 ## How it's organized
 
@@ -102,7 +109,7 @@ qlab/
 data/artifacts/  committed compact JSON traces (the source of truth the web replays)
 manifests/       per-case manifests (lane verdict + measured numbers + viz bindings + provenance)
 docs/            the SimLab-style wiki (architecture · frameworks · problem-types · use-cases · guides)
-web/             the React SPA replay viewer (next phase)
+web/             the React SPA — six pages, full viz suite, live in-browser lane (deployed to Pages)
 ```
 
 ## Honesty

@@ -80,7 +80,7 @@ class QiskitQAOA(Solver):
             <thead><tr><th></th><th>{en ? "Live" : "Vivo"}</th><th>{en ? "Precompute" : "Precómputo"}</th><th>{en ? "Real hardware (opt-in)" : "Hardware real (opt-in)"}</th></tr></thead>
             <tbody>
               <tr><td>{en ? "Runs on" : "Corre en"}</td><td>{en ? "visitor's browser" : "navegador del visitante"}</td><td>{en ? "local .venv" : ".venv local"}</td><td>{en ? "a real QPU" : "una QPU real"}</td></tr>
-              <tr><td>{en ? "Engine" : "Motor"}</td><td>quantum-circuit (JS)</td><td>Qiskit+Aer · PennyLane · Stim</td><td>IBM Open / Braket / Azure</td></tr>
+              <tr><td>{en ? "Engine" : "Motor"}</td><td>state-vector (TS)</td><td>Qiskit+Aer · PennyLane · Stim</td><td>IBM Open / Braket / Azure</td></tr>
               <tr><td>{en ? "When" : "Cuándo"}</td><td>{en ? "clean unitary ≤12 q" : "unitario limpio ≤12 q"}</td><td>{en ? "noise, optimization, >12 q" : "ruido, optimización, >12 q"}</td><td>{en ? "the 'ran on real HW' moment" : "el momento 'corrió en HW real'"}</td></tr>
               <tr><td>{en ? "Cost" : "Costo"}</td><td>$0</td><td>{en ? "$0 (local)" : "$0 (local)"}</td><td>{en ? "free (IBM Open) → real $" : "gratis (IBM Open) → $ real"}</td></tr>
             </tbody>
