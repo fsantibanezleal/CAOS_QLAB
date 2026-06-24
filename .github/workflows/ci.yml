@@ -24,7 +24,7 @@ jobs:
       - name: Tests
         run: python -m pytest
       - name: Pipeline smoke (Bell-state trace + manifest regenerate)
-        run: python -m qlab.pipeline c01_bell
+        run: python -m qlab.pipeline state-prep --instance bell-phi-plus
 
   guards:
     runs-on: ubuntu-latest
