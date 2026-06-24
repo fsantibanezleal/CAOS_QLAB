@@ -3,19 +3,20 @@
 | | **Live** | **Precompute** | **Real-hardware** *(opt-in)* |
 |---|---|---|---|
 | Runs on | visitor's browser CPU | your local `.venv` | a real QPU (IBM/Braket/Azure) |
-| Engine | `quantum-circuit` (JS state-vector) | Qiskit + Aer, PennyLane, Stim, … | IBM Open / Braket / Azure |
+| Engine | exact state-vector sim (TypeScript) | Qiskit + Aer, PennyLane, Stim, … | IBM Open / Braket / Azure |
 | When | small clean unitary circuits, ≤12 q | noise, optimization, feed-forward, >12 q | the "ran on real hardware" moment |
 | Output | a fresh trace, instantly | a committed trace + manifest | a committed trace with `ran_on` provenance |
 | Cost | $0 | $0 (local) | free (IBM Open) → real money (see costs) |
 
-## Live (browser, JavaScript)
+## Live (browser, TypeScript)
 
 The "aha" of quantum is *interaction*: drag `RY` and watch the Bloch vector tip; slide a Grover iteration
-and watch the marked amplitude grow. Small, clean unitary circuits re-simulate in real time in a Web Worker
-via `quantum-circuit` (MIT, ≤ ~12 qubits responsive). **Qiskit is not used here** — no Pyodide wheels for
-`rustworkx`/`symengine`/`qiskit-aer`. The live engine and the committed traces share the same trace shape,
-so the renderer is identical. Cases that try to push the live sim too far fail gracefully and offer the
-precomputed trace.
+and watch the marked amplitude grow. Small, clean unitary circuits re-simulate in real time via a
+purpose-built **exact state-vector simulator written in TypeScript** (`web/src/live/statevector.ts`,
+≤ ~12 qubits responsive). **Qiskit is not used here** — no Pyodide wheels for
+`rustworkx`/`symengine`/`qiskit-aer` — and it is hand-written, not a third-party JS library. The live engine
+and the committed traces share the same trace shape, so the renderer is identical. Cases that try to push
+the live sim too far fail gracefully and offer the precomputed trace.
 
 ## Precompute (local `.venv`)
 

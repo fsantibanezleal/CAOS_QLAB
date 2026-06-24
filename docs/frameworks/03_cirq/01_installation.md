@@ -17,8 +17,8 @@ larger widths.
 ## Platform notes
 
 - Pure-Python wheels for `cirq-core`; works on Windows/macOS/Linux. No CUDA needed.
-- **Not browser-loadable** (it is a precompute-lane engine): no Pyodide build, and QLab's live lane is the
-  JavaScript `quantum-circuit` simulator regardless.
+- **Not browser-loadable** (it is a precompute-lane engine): no Pyodide build, and QLab's live lane is a
+  purpose-built TypeScript state-vector simulator regardless.
 - Pinned for reproducibility — a QAOA run is a pure function of `(graph, grid, seed)`.
 
 ## Read next
