@@ -1,7 +1,7 @@
 """The measured live-vs-precompute gate (the QLab analogue of SimLab's 4-gate rule).
 
-A case runs in the browser LIVE lane only if the in-browser JS state-vector simulator (quantum-circuit)
-can reproduce it responsively AND honestly:
+A case runs in the browser LIVE lane only if the in-browser exact state-vector simulator (a purpose-built
+TypeScript engine, web/src/live/statevector.ts) can reproduce it responsively AND honestly:
 
   1. qubits  <= LIVE_MAX_QUBITS   — 2**n amplitudes must stay interactive (~12 q ≈ 64 MB)
   2. unitary-only                 — no realistic NOISE model (needs Aer), no mid-circuit measurement +
