@@ -40,7 +40,7 @@ class QiskitQAOA(Solver):
       content: (
         <div className="method-body">
           <p>{en
-            ? "Two JSON contracts decouple the engine from the web. The trace (qlab-trace/1) is a replayable recording: for every step it stores the full statevector (2ⁿ complex amplitudes), the per-qubit reduced Bloch vector, and the basis probabilities, plus the final measurement histogram — and contains no Qiskit type, so the browser never depends on a Python library. A TypeScript mirror keeps the web in lockstep; drift fails the build."
+            ? "Two JSON contracts decouple the engine from the web. The trace (qlab-trace/1) is a replayable recording: for every step it stores the full statevector (2ⁿ complex amplitudes), the per-qubit reduced Bloch vector, and the basis probabilities, plus the final measurement histogram — and contains no Qiskit type, so the browser never depends on a Python library. A TypeScript mirror (contract.types.ts) tracks the Python schema per ADR-0057."
             : "Dos contratos JSON desacoplan el motor de la web. La traza (qlab-trace/1) es una grabación reproducible: por cada paso guarda el statevector completo (2ⁿ amplitudes complejas), el vector de Bloch reducido por qubit y las probabilidades de base, más el histograma final de medición — y no contiene ningún tipo de Qiskit, así que el navegador nunca depende de una librería de Python. Un espejo TypeScript mantiene la web sincronizada; la divergencia rompe el build."}</p>
           <p>{en
             ? "The manifest (qlab-manifest/1) records the lane verdict, the seed/shots/params that reproduce the trace, the viz bindings (which renderers to mount), and the engine provenance. The web reads the set of manifests as its catalog."
@@ -80,7 +80,7 @@ class QiskitQAOA(Solver):
             <thead><tr><th></th><th>{en ? "Live" : "Vivo"}</th><th>{en ? "Precompute" : "Precómputo"}</th><th>{en ? "Real hardware (opt-in)" : "Hardware real (opt-in)"}</th></tr></thead>
             <tbody>
               <tr><td>{en ? "Runs on" : "Corre en"}</td><td>{en ? "visitor's browser" : "navegador del visitante"}</td><td>{en ? "local .venv" : ".venv local"}</td><td>{en ? "a real QPU" : "una QPU real"}</td></tr>
-              <tr><td>{en ? "Engine" : "Motor"}</td><td>quantum-circuit (JS)</td><td>Qiskit+Aer · PennyLane · Stim</td><td>IBM Open / Braket / Azure</td></tr>
+              <tr><td>{en ? "Engine" : "Motor"}</td><td>state-vector (TS)</td><td>Qiskit+Aer · PennyLane · Stim</td><td>IBM Open / Braket / Azure</td></tr>
               <tr><td>{en ? "When" : "Cuándo"}</td><td>{en ? "clean unitary ≤12 q" : "unitario limpio ≤12 q"}</td><td>{en ? "noise, optimization, >12 q" : "ruido, optimización, >12 q"}</td><td>{en ? "the 'ran on real HW' moment" : "el momento 'corrió en HW real'"}</td></tr>
               <tr><td>{en ? "Cost" : "Costo"}</td><td>$0</td><td>{en ? "$0 (local)" : "$0 (local)"}</td><td>{en ? "free (IBM Open) → real $" : "gratis (IBM Open) → $ real"}</td></tr>
             </tbody>

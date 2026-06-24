@@ -10,7 +10,7 @@ A trace is a **replayable recording** of one circuit run. For every step (a gate
 state) it stores the full **statevector** (2ⁿ complex amplitudes), the per-qubit reduced **Bloch vector**
 `[⟨X⟩,⟨Y⟩,⟨Z⟩]`, and the basis-state **probabilities**, plus the final measurement **histogram**. It is
 JSON-first, compact (amplitudes rounded to 6 decimals), and contains **no Qiskit type** — so the browser
-never depends on a Python library. A TypeScript mirror keeps the web in lockstep; drift fails the build.
+never depends on a Python library. A TypeScript mirror (`web/src/lib/contract.types.ts`) tracks the Python schema (ADR-0057).
 
 Determinism is the contract: a run is a pure function of `(params, seed)`. The only stochastic step is
 measurement sampling, routed through one seeded NumPy generator, so the committed counts reproduce exactly.

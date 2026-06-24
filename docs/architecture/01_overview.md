@@ -26,10 +26,11 @@ We deliberately do not:
 Simulation cost and capability vary enormously, so work is split across three lanes — the choice between
 the first two is **measured, not guessed** ([03_trace-and-gate.md](./03_trace-and-gate.md)):
 
-1. **Live (browser, JavaScript).** Small, clean unitary circuits re-simulate in real time as you move a
-   slider, via the `quantum-circuit` JS state-vector engine (≤ 12 qubits). Zero server compute. **Qiskit
-   cannot run in the browser** — its core (`rustworkx`, `symengine`) and `qiskit-aer` (C++) have no Pyodide
-   wheels — so the live lane is a purpose-built JS simulator, not Python-in-WASM.
+1. **Live (browser, TypeScript).** Small, clean unitary circuits re-simulate in real time as you move a
+   slider, via a purpose-built **exact state-vector engine written in TypeScript** (`web/src/live/statevector.ts`,
+   ≤ 12 qubits). Zero server compute. **Qiskit cannot run in the browser** — its core (`rustworkx`,
+   `symengine`) and `qiskit-aer` (C++) have no Pyodide wheels — so the live lane is hand-written TS, not
+   Python-in-WASM and not a third-party JS library.
 2. **Precompute (local `.venv`).** The real, heavy engines (Qiskit + Aer, PennyLane, Stim, …) run **offline**
    into a committed seeded trace + manifest, replayed in the app with a step scrubber. Required whenever a
    case needs realistic **noise** (Aer), **mid-circuit measurement + feed-forward** (teleportation, QEC),
