@@ -38,7 +38,7 @@ const SLIDES: Slide[] = [
     id: "trace",
     label: { en: "Trace contract", es: "Contrato de traza" },
     body: {
-      en: "What flows between Python and the browser. Each step records the full statevector, the per-qubit Bloch vector and the probabilities, plus the measurement counts — as plain JSON with no Qiskit type. A TypeScript mirror keeps the web in lockstep; drift fails the build.",
+      en: "What flows between Python and the browser. Each step records the full statevector, the per-qubit Bloch vector and the probabilities, plus the measurement counts — as plain JSON with no Qiskit type. A TypeScript mirror (contract.types.ts) tracks the Python schema per ADR-0057.",
       es: "Qué fluye entre Python y el navegador. Cada paso registra el statevector completo, el vector de Bloch por qubit y las probabilidades, más los conteos de medición — como JSON plano sin ningún tipo de Qiskit. Un espejo TypeScript mantiene la web sincronizada; la divergencia rompe el build.",
     },
     diagram: TraceContractDiagram,

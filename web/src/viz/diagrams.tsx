@@ -97,7 +97,7 @@ export function TraceContractDiagram({ lang }: { lang: Lang }) {
       <rect className="arch-contract" x="436" y="78" width="150" height="64" rx="8" />
       <text className="arch-t" x="511" y="100" textAnchor="middle">qlab-trace/1</text>
       <text className="arch-s" x="511" y="118" textAnchor="middle">{en ? "JSON · no Qiskit type" : "JSON · sin tipo Qiskit"}</text>
-      <text className="arch-s arch-em" x="511" y="134" textAnchor="middle">{en ? "TS mirror · drift fails CI" : "espejo TS · drift rompe CI"}</text>
+      <text className="arch-s arch-em" x="511" y="134" textAnchor="middle">{en ? "TS mirror (ADR-0057)" : "espejo TS (ADR-0057)"}</text>
       <path className="arch-arrow" d="M586 110 L638 110" markerEnd={`url(#${m})`} />
       <rect className="arch-spa" x="638" y="86" width="112" height="48" rx="8" />
       <text className="arch-t" x="694" y="106" textAnchor="middle">{en ? "Renderers" : "Renderers"}</text>
