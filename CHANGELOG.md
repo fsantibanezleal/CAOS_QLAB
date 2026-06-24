@@ -4,6 +4,22 @@ All notable changes to CAOS_QLAB. Format: newest → oldest. Versions follow `X.
 (major.minor.patch); patch (`.00X`) for fixes. Kept `0.x` while the web SPA and the framework/case matrix
 are still landing. Tags from day one.
 
+## [0.33.000] — 2026-06-23 — ⓘ architecture modal (ADR-0058) + shared diagram module (screenshot-verified)
+
+### Added
+- **ⓘ "How QLab works" modal** (`web/src/components/ArchModal.tsx`, ADR-0058) — a header ⓘ button opens a
+  modal with **five themed-SVG tabs**: Three lanes · The engine · Trace contract · The measured gate ·
+  Deploy, each with a bilingual explainer. Esc / backdrop / ✕ close it.
+- **Shared diagram module** (`web/src/viz/diagrams.tsx`) — extracted `ThreeLaneDiagram` (from Introduction)
+  and `EngineDiagram` (from Implementation) and added three new ones (`TraceContractDiagram`, `GateDiagram`,
+  `DeployDiagram`). The doc pages and the modal now render the same single source — no duplicated SVG.
+- **Screenshot-verified** (Playwright, no console errors): the modal's lanes/gate/trace tabs render in dark
+  and light, tab-switching works, and the refactored Introduction/Implementation pages are unchanged.
+- Refreshed the per-case footer note (the live lane + doc pages shipped, so it now points to the Live tab).
+
+### Still to build
+- (Optional) migrate to the shared `@fasl-work/caos-app-shell`. Deploy is gated by the "100% first" decision.
+
 ## [0.32.000] — 2026-06-23 — Live (in-browser) lane: interactive re-simulation (screenshot-verified)
 
 ### Added

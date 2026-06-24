@@ -2,52 +2,7 @@ import { useEffect, useState } from "react";
 import type { Catalog } from "../lib/contract.types";
 import { loadCatalog } from "../lib/data";
 import { useUI } from "../lib/ui";
-
-/** The three-lane architecture diagram (browser-live · local-precompute · real-hardware → one contract → SPA). */
-function ArchitectureSVG({ lang }: { lang: "en" | "es" }) {
-  const en = lang === "en";
-  return (
-    <svg viewBox="0 0 760 300" className="arch-svg" role="img"
-         aria-label={en ? "QLab three-lane architecture" : "Arquitectura de tres carriles de QLab"}>
-      {/* lanes */}
-      <g>
-        <rect className="arch-box" x="14" y="20" width="190" height="62" rx="8" />
-        <text className="arch-t" x="109" y="44" textAnchor="middle">{en ? "Browser — live lane" : "Navegador — carril vivo"}</text>
-        <text className="arch-s" x="109" y="62" textAnchor="middle">quantum-circuit (JS) · ≤12 qubits</text>
-
-        <rect className="arch-box arch-box-key" x="14" y="118" width="190" height="62" rx="8" />
-        <text className="arch-t" x="109" y="142" textAnchor="middle">{en ? "Local — precompute" : "Local — precómputo"}</text>
-        <text className="arch-s" x="109" y="160" textAnchor="middle">Qiskit·PennyLane·Cirq·Stim (.venv)</text>
-
-        <rect className="arch-box arch-box-dim" x="14" y="216" width="190" height="62" rx="8" />
-        <text className="arch-t arch-dim" x="109" y="240" textAnchor="middle">{en ? "Real hardware — replay" : "Hardware real — replay"}</text>
-        <text className="arch-s arch-dim" x="109" y="258" textAnchor="middle">{en ? "IBM/Braket/Azure · dormant" : "IBM/Braket/Azure · inactivo"}</text>
-      </g>
-      {/* arrows to contract */}
-      {[51, 149, 247].map((y, i) => (
-        <path key={i} className="arch-arrow" d={`M204 ${y} L300 150`} markerEnd="url(#qa-arrow)" />
-      ))}
-      {/* contract */}
-      <rect className="arch-contract" x="300" y="104" width="190" height="92" rx="10" />
-      <text className="arch-t" x="395" y="132" textAnchor="middle">qlab-trace/1</text>
-      <text className="arch-s" x="395" y="152" textAnchor="middle">{en ? "statevector · Bloch" : "vector · Bloch"}</text>
-      <text className="arch-s" x="395" y="168" textAnchor="middle">{en ? "counts · seeded" : "conteos · con semilla"}</text>
-      <text className="arch-s arch-em" x="395" y="186" textAnchor="middle">{en ? "replay = truth" : "replay = verdad"}</text>
-      {/* arrow to SPA */}
-      <path className="arch-arrow" d="M490 150 L556 150" markerEnd="url(#qa-arrow)" />
-      {/* SPA */}
-      <rect className="arch-spa" x="556" y="104" width="190" height="92" rx="10" />
-      <text className="arch-t" x="651" y="138" textAnchor="middle">{en ? "Static SPA" : "SPA estática"}</text>
-      <text className="arch-s" x="651" y="158" textAnchor="middle">React · GitHub Pages</text>
-      <text className="arch-s" x="651" y="174" textAnchor="middle">{en ? "animates the trace" : "anima la traza"}</text>
-      <defs>
-        <marker id="qa-arrow" markerWidth="8" markerHeight="8" refX="6" refY="3" orient="auto">
-          <path d="M0 0 L6 3 L0 6 Z" className="arch-arrowhead" />
-        </marker>
-      </defs>
-    </svg>
-  );
-}
+import { ThreeLaneDiagram } from "../viz/diagrams";
 
 const FRAMEWORKS: { name: string; role: { en: string; es: string } }[] = [
   { name: "Qiskit + Aer", role: { en: "IBM's SDK + high-perf simulator — circuits, statevector, noise models.", es: "SDK de IBM + simulador de alto rendimiento — circuitos, statevector, modelos de ruido." } },
@@ -99,7 +54,7 @@ export function Introduction() {
             ? "A run is a pure function of (parameters, seed). The heavy real engines run offline in a local Python .venv (the precompute lane) and commit a seeded trace — a statevector + Bloch vectors + measurement counts per step. The static site never computes physics; it replays that trace. A lightweight browser lane re-simulates small circuits live, and a real-hardware lane (dormant until approved) replays jobs from IBM/Braket/Azure through the same contract."
             : "Una corrida es una función pura de (parámetros, semilla). Los motores reales pesados corren offline en un .venv local de Python (el carril de precómputo) y commitean una traza con semilla — un statevector + vectores de Bloch + conteos de medición por paso. El sitio estático nunca computa física; reproduce esa traza. Un carril liviano en el navegador re-simula circuitos pequeños en vivo, y un carril de hardware real (inactivo hasta aprobarse) reproduce trabajos de IBM/Braket/Azure por el mismo contrato."}
         </p>
-        <div className="arch-wrap"><ArchitectureSVG lang={lang} /></div>
+        <div className="arch-wrap"><ThreeLaneDiagram lang={lang} /></div>
         <p className="fine">
           {en
             ? "The single contract is the point of the design: replay = truth. The same trace feeds the circuit diagram, the Bloch sphere, the histogram and the comparison panel — no recomputation, deterministic to screenshot."

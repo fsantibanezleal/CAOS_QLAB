@@ -1,5 +1,6 @@
 import { useEffect, useState } from "react";
 import { BrowserRouter, Link, NavLink, Route, Routes, useParams } from "react-router-dom";
+import { ArchModal } from "./components/ArchModal";
 import { CaseWorkbench } from "./components/CaseWorkbench";
 import type { Catalog } from "./lib/contract.types";
 import { CATEGORY_LABELS } from "./lib/contract.types";
@@ -27,7 +28,7 @@ const PAGE_TABS: { to: string; en: string; es: string }[] = [
   { to: "/benchmark", en: "Benchmark", es: "Benchmark" },
 ];
 
-function Header() {
+function Header({ onInfo }: { onInfo: () => void }) {
   const { lang, setLang, theme, setTheme } = useUI();
   return (
     <header className="qheader">
@@ -43,6 +44,8 @@ function Header() {
         ))}
       </nav>
       <div className="header-actions">
+        <button className="info-btn" onClick={onInfo}
+                title={lang === "en" ? "How QLab works" : "Cómo funciona QLab"} aria-label="How QLab works">ⓘ</button>
         <a href={EXTERNAL.github} target="_blank" rel="noreferrer">GitHub</a>
         <a href={EXTERNAL.personal} target="_blank" rel="noreferrer">Site</a>
         <a href={EXTERNAL.portfolio} target="_blank" rel="noreferrer">Portfolio</a>
@@ -143,18 +146,20 @@ function CasePage() {
       <CaseWorkbench caseEntry={c} />
       <p className="todo-note">
         {lang === "en"
-          ? "Coming next: a live in-browser tuning lane and the per-method documentation pages. Everything above — circuit, Bloch sphere, amplitudes, histogram, the QAOA landscape and the quantum-vs-classical comparison — is the real committed result."
-          : "Próximamente: un lane de ajuste en vivo en el navegador y las páginas de documentación por método. Todo lo de arriba — circuito, esfera de Bloch, amplitudes, histograma, el paisaje de QAOA y la comparación cuántico-vs-clásico — es el resultado commiteado real."}
+          ? "Everything above — circuit, Bloch sphere, amplitudes, histogram, the QAOA landscape and the quantum-vs-classical comparison — is the real committed result. On live-lane cases, switch to the Live (browser) tab and drag a slider to re-simulate in real time."
+          : "Todo lo de arriba — circuito, esfera de Bloch, amplitudes, histograma, el paisaje de QAOA y la comparación cuántico-vs-clásico — es el resultado commiteado real. En los casos del carril vivo, cambia a la pestaña En vivo (navegador) y mueve un slider para re-simular en tiempo real."}
       </p>
     </div>
   );
 }
 
 export default function App() {
+  const [info, setInfo] = useState(false);
   return (
     <UIProvider>
       <BrowserRouter>
-        <Header />
+        <Header onInfo={() => setInfo(true)} />
+        {info && <ArchModal onClose={() => setInfo(false)} />}
         <main className="shell">
           <Routes>
             <Route path="/" element={<Catalogue />} />

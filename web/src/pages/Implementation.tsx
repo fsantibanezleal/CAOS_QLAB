@@ -1,47 +1,6 @@
 import { type TabDef, Tabs } from "../components/Tabs";
 import { useUI } from "../lib/ui";
-
-/** Problem × Solver engine flow (formulation + adapters → registry → single pipeline → contract → web). */
-function EngineSVG({ lang }: { lang: "en" | "es" }) {
-  const en = lang === "en";
-  return (
-    <svg viewBox="0 0 760 230" className="arch-svg" role="img"
-         aria-label={en ? "Problem × Solver engine flow" : "Flujo del motor Problem × Solver"}>
-      <rect className="arch-box arch-box-key" x="12" y="18" width="186" height="48" rx="8" />
-      <text className="arch-t" x="105" y="40" textAnchor="middle">Problem</text>
-      <text className="arch-s" x="105" y="56" textAnchor="middle">{en ? "formulation · variants" : "formulación · variantes"}</text>
-
-      <rect className="arch-box" x="12" y="92" width="186" height="62" rx="8" />
-      <text className="arch-t" x="105" y="114" textAnchor="middle">{en ? "Solver adapters" : "Adaptadores Solver"}</text>
-      <text className="arch-s" x="105" y="130" textAnchor="middle">Qiskit·PennyLane·Cirq</text>
-      <text className="arch-s" x="105" y="144" textAnchor="middle">Stim · classical</text>
-
-      <path className="arch-arrow" d="M198 42 L262 96" markerEnd="url(#qa-arrow2)" />
-      <path className="arch-arrow" d="M198 123 L262 110" markerEnd="url(#qa-arrow2)" />
-
-      <rect className="arch-box" x="262" y="80" width="150" height="48" rx="8" />
-      <text className="arch-t" x="337" y="100" textAnchor="middle">registry</text>
-      <text className="arch-s" x="337" y="116" textAnchor="middle">solvers_for(problem)</text>
-
-      <path className="arch-arrow" d="M412 104 L470 104" markerEnd="url(#qa-arrow2)" />
-
-      <rect className="arch-contract" x="470" y="80" width="150" height="48" rx="8" />
-      <text className="arch-t" x="545" y="100" textAnchor="middle">pipeline</text>
-      <text className="arch-s" x="545" y="116" textAnchor="middle">{en ? "one execution path" : "un solo camino"}</text>
-
-      <path className="arch-arrow" d="M545 128 L545 168" markerEnd="url(#qa-arrow2)" />
-      <rect className="arch-box" x="430" y="168" width="230" height="46" rx="8" />
-      <text className="arch-t" x="545" y="188" textAnchor="middle">trace bundle + manifest</text>
-      <text className="arch-s" x="545" y="204" textAnchor="middle">{en ? "uniform JSON · web renders it" : "JSON uniforme · la web lo renderiza"}</text>
-
-      <defs>
-        <marker id="qa-arrow2" markerWidth="8" markerHeight="8" refX="6" refY="3" orient="auto">
-          <path d="M0 0 L6 3 L0 6 Z" className="arch-arrowhead" />
-        </marker>
-      </defs>
-    </svg>
-  );
-}
+import { EngineDiagram } from "../viz/diagrams";
 
 export function Implementation() {
   const { lang } = useUI();
@@ -56,7 +15,7 @@ export function Implementation() {
           <p>{en
             ? "QLab is not a folder of one-off scripts; it is a small engine with one execution path. A Problem declares what to compute (solver-agnostic); a Solver is a thin adapter over one real framework that returns a uniform SolverResult; the registry and pipeline are the plug-in seam. Adding a framework or a case is purely additive — one subclass and a decorator, nothing rewired."
             : "QLab no es una carpeta de scripts sueltos; es un motor pequeño con un solo camino de ejecución. Un Problem declara qué computar (agnóstico al solver); un Solver es un adaptador delgado sobre un framework real que devuelve un SolverResult uniforme; el registry y el pipeline son la costura de plug-in. Agregar un framework o un caso es puramente aditivo — una subclase y un decorador, sin recablear nada."}</p>
-          <div className="arch-wrap"><EngineSVG lang={lang} /></div>
+          <div className="arch-wrap"><EngineDiagram lang={lang} /></div>
           <pre className="code"><code>{`@register_solver
 class QiskitQAOA(Solver):
     name, framework, paradigm = "qaoa-qiskit", "qiskit", QUANTUM_SIM
