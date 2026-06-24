@@ -124,6 +124,26 @@ a { color: inherit; text-decoration: none; }
 .circ-plus { stroke: var(--accent); stroke-width: 1.6; }
 .circ-link { stroke: var(--accent); stroke-width: 1.6; }
 
+/* live lane */
+.mode-toggle { display: inline-flex; gap: 0; border: 1px solid var(--border); border-radius: 8px;
+  overflow: hidden; margin: 0.25rem 0 0.9rem; }
+.mode-toggle button { background: var(--panel); color: var(--fg-subtle); border: none; padding: 0.4rem 0.9rem;
+  font-size: 0.84rem; cursor: pointer; }
+.mode-toggle button.on { background: var(--accent); color: #fff; font-weight: 600; }
+.live-panel { display: flex; flex-direction: column; gap: 0.6rem; }
+.live-head { display: flex; align-items: center; gap: 0.5rem; font-weight: 600; font-size: 0.92rem; flex-wrap: wrap; }
+.live-dot { width: 9px; height: 9px; border-radius: 50%; background: #3fb950; box-shadow: 0 0 0 3px rgba(63,185,80,0.2); }
+.live-sub { color: var(--fg-subtle); font-weight: 400; font-size: 0.8rem; }
+.live-knobs { display: flex; flex-wrap: wrap; align-items: center; gap: 0.5rem 1.1rem; background: var(--panel);
+  border: 1px solid var(--border); border-radius: 10px; padding: 0.7rem 0.95rem; }
+.live-knob { display: inline-flex; align-items: center; gap: 0.5rem; font-size: 0.82rem; }
+.knob-name { font: 0.78rem ui-monospace, monospace; color: var(--accent); min-width: 56px; }
+.live-knob input[type="range"] { width: 130px; accent-color: var(--accent); }
+.knob-val { font: 0.76rem ui-monospace, monospace; color: var(--fg-subtle); min-width: 42px; text-align: right; }
+.live-reset { background: var(--panel); border: 1px solid var(--border); color: var(--fg-subtle);
+  border-radius: 7px; padding: 0.3rem 0.7rem; font-size: 0.8rem; cursor: pointer; }
+.live-reset:hover { color: var(--fg); border-color: var(--accent); }
+
 /* Bloch sphere */
 .bloch-svg { touch-action: none; cursor: grab; max-width: 360px; margin: 0 auto; }
 .bloch-svg:active { cursor: grabbing; }

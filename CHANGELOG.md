@@ -4,6 +4,27 @@ All notable changes to CAOS_QLAB. Format: newest → oldest. Versions follow `X.
 (major.minor.patch); patch (`.00X`) for fixes. Kept `0.x` while the web SPA and the framework/case matrix
 are still landing. Tags from day one.
 
+## [0.32.000] — 2026-06-23 — Live (in-browser) lane: interactive re-simulation (screenshot-verified)
+
+### Added
+- **The live JS lane** — `web/src/live/statevector.ts`, an exact TypeScript state-vector simulator (≤12 q):
+  the 1-qubit gates H/X/Y/Z/S/Sdg/T/Tdg/RX/RY/RZ/P and the 2-qubit CX/CZ/SWAP/CP/RZZ, exact reduced-density
+  Bloch vectors, and seeded shot sampling. `liveTrace.ts` runs `circuit_ops` (with slider overrides) into the
+  committed **Step/Measurements shape**, so the existing renderers (circuit · Bloch · amplitudes · histogram)
+  animate the fresh trace verbatim.
+- **`LivePanel`** + a **Replay (committed) / Live (browser)** toggle in the workbench, shown only for
+  `live`-lane cases whose every op is supported. A slider per rotation gate re-simulates the circuit in real
+  time — drag RY and watch the Bloch vector tip, the amplitudes, and the histogram all respond.
+- Chosen as a purpose-built engine over the `quantum-circuit` library (same reasoning as the hand-rolled
+  Bloch SVG): exact physics, the exact `Trace` output shape (renderers reused), a lighter bundle, and
+  deterministic output. Docs node `docs/guides/02_live-lane.md` updated to match the real implementation.
+- **Physics-verified** (Playwright, no console errors): with sliders at the committed angles the live result
+  reproduces the Qiskit trace bit-for-bit — Bell Φ⁻ shows |00⟩ phase 0 + |11⟩ phase π exactly; RY(π/3) gives
+  the 0.75/0.25 split and Bloch (0.866, 0, 0.5); moving the slider re-simulates live. Verified dark + light.
+
+### Still to build
+- The ⓘ ADR-0058 architecture modal; migrate to the shared `@fasl-work/caos-app-shell`; Pages deploy.
+
 ## [0.31.000] — 2026-06-23 — Web SPA: Benchmark page — the six standard pages COMPLETE (screenshot-verified)
 
 ### Added
