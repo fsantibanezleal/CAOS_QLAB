@@ -1,5 +1,7 @@
 import katex from "katex";
 import { type ReactNode, useState } from "react";
+import { useUI } from "../lib/ui";
+import type { Bilingual } from "../lib/contract.types";
 
 export interface TabDef {
   id: string;
@@ -28,10 +30,20 @@ export function Tabs({ tabs, initial }: { tabs: TabDef[]; initial?: string }) {
   );
 }
 
-/** A centered display equation, typeset with KaTeX (font-based HTML — deterministic to screenshot). */
-export function Eq({ tex }: { tex: string }) {
+/**
+ * A centered display equation, typeset with KaTeX (font-based HTML — deterministic
+ * to screenshot). `caption` is bilingual (ADR-0017 §2: every <Equation> carries a
+ * bilingual caption=) and renders under the math block.
+ */
+export function Eq({ tex, caption }: { tex: string; caption?: Bilingual }) {
+  const { lang } = useUI();
   const html = katex.renderToString(tex, { displayMode: true, throwOnError: false });
-  return <div className="eq" dangerouslySetInnerHTML={{ __html: html }} />;
+  return (
+    <div className="equation">
+      <div className="eq-math" dangerouslySetInnerHTML={{ __html: html }} />
+      {caption && <div className="eq-cap">{caption[lang]}</div>}
+    </div>
+  );
 }
 
 /** Inline KaTeX (for math inside a sentence). */
