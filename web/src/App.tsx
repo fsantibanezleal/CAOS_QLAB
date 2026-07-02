@@ -62,7 +62,7 @@ function Header({ onInfo }: { onInfo: () => void }) {
 function Footer() {
   return (
     <footer className="qfooter">
-      Built by Felipe Santibáñez-Leal · A CAOS research project ·{" "}
+      Developed by Felipe Santibáñez-Leal · A CAOS research project ·{" "}
       <a href={EXTERNAL.github} target="_blank" rel="noreferrer">Source</a> · MIT
     </footer>
   );
