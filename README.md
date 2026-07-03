@@ -1,5 +1,10 @@
 # CAOS_QLAB — Quantum Laboratory
 
+[![CI](https://img.shields.io/github/actions/workflow/status/fsantibanezleal/CAOS_QLAB/ci.yml?branch=main&label=CI)](https://github.com/fsantibanezleal/CAOS_QLAB/actions)
+[![License](https://img.shields.io/github/license/fsantibanezleal/CAOS_QLAB)](LICENSE)
+[![Version](https://img.shields.io/github/v/tag/fsantibanezleal/CAOS_QLAB?label=version&sort=semver)](https://github.com/fsantibanezleal/CAOS_QLAB/tags)
+[![Live demo](https://img.shields.io/badge/demo-live-2ea44f)](https://qlab.fasl-work.com)
+
 **A public, didactic laboratory for quantum computing.** Learn it the honest way: *formulate a problem →
 attack it with the real, dedicated frameworks (Qiskit · PennyLane · Cirq · Stim · …) → put every quantum
 method next to the classical baseline → read which one actually wins.* Today, on almost every case at lab
