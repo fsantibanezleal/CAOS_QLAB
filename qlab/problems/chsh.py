@@ -69,6 +69,6 @@ class CHSH(Problem):
                 iid, {"en": label, "es": label},
                 {"n": 2, "a0": angles[0], "a1": angles[1], "b0": angles[2], "b1": angles[3], "entangled": ent},
                 {"en": f"{'Bell pair' if ent else 'product state'} — see whether S exceeds the classical 2.",
-                 "es": f"{'par de Bell' if ent else 'estado producto'} — ve si S supera el clásico 2."},
+                 "es": f"{'par de Bell' if ent else 'estado producto'} — muestra si S supera el clásico 2."},
             ))
         return out

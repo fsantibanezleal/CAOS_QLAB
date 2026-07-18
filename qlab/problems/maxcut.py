@@ -2,7 +2,7 @@
 
 Partition a graph's vertices into two sets to maximize the number of edges crossing the cut. It is the
 canonical QAOA benchmark, and the canonical honesty lesson: QAOA (a quantum variational heuristic, run
-here on Qiskit AND PennyLane) is compared head-to-head with the classical baselines on the SAME graph —
+here on Qiskit AND PennyLane) is compared head-to-head with the classical baselines on the same graph —
 exact brute force (provably optimal, microseconds at this scale) and a greedy heuristic. The dossier
 verdict holds: at these sizes classical wins decisively. The variant-bar exposes a family of graphs.
 """
@@ -24,15 +24,15 @@ class MaxCut(Problem):
             "MaxCut splits a graph's vertices into two groups to cut as many edges as possible — NP-hard "
             "in general. QAOA encodes it as an Ising cost Hamiltonian and alternates cost/mixer layers, "
             "optimizing the angles (γ, β) classically. We run QAOA on Qiskit and PennyLane and put it "
-            "next to exact brute force and a greedy heuristic on the SAME graph. The honest result: at "
+            "next to exact brute force and a greedy heuristic on the same graph. The honest result: at "
             "these sizes the classical optimum is found in microseconds and QAOA does not win."
         ),
         "es": (
             "MaxCut divide los vértices de un grafo en dos grupos para cortar la mayor cantidad de aristas "
             "posible — NP-difícil en general. QAOA lo codifica como un Hamiltoniano de costo tipo Ising y "
-            "alterna capas de costo/mezcla, optimizando los ángulos (γ, β) de forma clásica. Corremos QAOA "
+            "alterna capas de costo/mezcla, optimizando los ángulos (γ, β) de forma clásica. Ejecutamos QAOA "
             "en Qiskit y PennyLane y lo ponemos junto a la fuerza bruta exacta y una heurística voraz sobre "
-            "el MISMO grafo. El resultado honesto: a estos tamaños el óptimo clásico se encuentra en "
+            "el mismo grafo. El resultado honesto: a estos tamaños el óptimo clásico se encuentra en "
             "microsegundos y QAOA no gana."
         ),
     }
@@ -40,7 +40,7 @@ class MaxCut(Problem):
     references = [
         {"label": "Farhi, Goldstone & Gutmann, A Quantum Approximate Optimization Algorithm (2014)",
          "url": "https://arxiv.org/abs/1411.4028"},
-        {"label": "Goemans & Williamson, .878-approximation for MAX CUT via SDP (1995)",
+        {"label": "Goemans & Williamson, .878-approximation for MaxCut via SDP (1995)",
          "doi": "10.1145/227683.227684"},
         {"label": "Barak & Marwaha, Classical algorithms vs low-depth QAOA on high-girth graphs (2021)",
          "url": "https://arxiv.org/abs/2106.05900"},

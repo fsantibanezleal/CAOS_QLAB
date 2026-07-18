@@ -1,5 +1,5 @@
 // Build a live (in-browser) trace from circuit_ops + slider overrides, reusing the committed Step/Measurements
-// shapes so the SAME renderers (circuit, Bloch, amplitudes, histogram) animate it — replay-shape = live-shape.
+// shapes so the same renderers (circuit, Bloch, amplitudes, histogram) animate it — replay-shape = live-shape.
 
 import type { Amp, Measurements, Step } from "../lib/contract.types";
 import { applyOp, blochOf, type Op, probabilities, sampleCounts, type State, zeroState } from "./statevector";

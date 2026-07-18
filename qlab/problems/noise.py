@@ -26,10 +26,10 @@ class Noise(Problem):
         "en": (
             "A Bell circuit has ideal parity ⟨Z₀Z₁⟩ = 1, but a noisy device returns less. We model the "
             "device with an Aer depolarizing noise model (worse for deeper circuits), measure the noisy "
-            "⟨Z₀Z₁⟩, then apply zero-noise extrapolation: deliberately AMPLIFY the noise by folding the "
+            "⟨Z₀Z₁⟩, then apply zero-noise extrapolation: deliberately amplify the noise by folding the "
             "circuit (U→U U† U…), measure at noise scales λ=1,3,5, and extrapolate back to λ=0. Mitigation "
             "claws back much of the lost signal — but note the honest limits: ZNE's sampling cost grows "
-            "exponentially with circuit size, it is mitigation (bias reduction) NOT correction, and at this "
+            "exponentially with circuit size, it is mitigation (bias reduction) not correction, and at this "
             "classically-simulable scale a statevector simulator just gives the exact 1.0 for free."
         ),
         "es": (
@@ -38,7 +38,7 @@ class Noise(Problem):
             "el circuito), medimos el ⟨Z₀Z₁⟩ ruidoso, y aplicamos extrapolación a ruido cero: AMPLIFICAMOS "
             "el ruido plegando el circuito (U→U U† U…), medimos a escalas λ=1,3,5 y extrapolamos a λ=0. La "
             "mitigación recupera buena parte de la señal perdida — pero con límites honestos: el costo de "
-            "muestreo de ZNE crece exponencialmente con el tamaño, es mitigación (reducción de sesgo) NO "
+            "muestreo de ZNE crece exponencialmente con el tamaño, es mitigación (reducción de sesgo) no "
             "corrección, y a esta escala simulable clásicamente un simulador de vector de estado da el 1.0 "
             "exacto gratis."
         ),

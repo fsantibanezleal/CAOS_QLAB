@@ -7,8 +7,8 @@
   "es": "MaxCut — QAOA vs clásico"
  },
  "concept": {
-  "en": "MaxCut splits a graph's vertices into two groups to cut as many edges as possible — NP-hard in general. QAOA encodes it as an Ising cost Hamiltonian and alternates cost/mixer layers, optimizing the angles (γ, β) classically. We run QAOA on Qiskit and PennyLane and put it next to exact brute force and a greedy heuristic on the SAME graph. The honest result: at these sizes the classical optimum is found in microseconds and QAOA does not win.",
-  "es": "MaxCut divide los vértices de un grafo en dos grupos para cortar la mayor cantidad de aristas posible — NP-difícil en general. QAOA lo codifica como un Hamiltoniano de costo tipo Ising y alterna capas de costo/mezcla, optimizando los ángulos (γ, β) de forma clásica. Corremos QAOA en Qiskit y PennyLane y lo ponemos junto a la fuerza bruta exacta y una heurística voraz sobre el MISMO grafo. El resultado honesto: a estos tamaños el óptimo clásico se encuentra en microsegundos y QAOA no gana."
+  "en": "MaxCut splits a graph's vertices into two groups to cut as many edges as possible — NP-hard in general. QAOA encodes it as an Ising cost Hamiltonian and alternates cost/mixer layers, optimizing the angles (γ, β) classically. We run QAOA on Qiskit and PennyLane and put it next to exact brute force and a greedy heuristic on the same graph. The honest result: at these sizes the classical optimum is found in microseconds and QAOA does not win.",
+  "es": "MaxCut divide los vértices de un grafo en dos grupos para cortar la mayor cantidad de aristas posible — NP-difícil en general. QAOA lo codifica como un Hamiltoniano de costo tipo Ising y alterna capas de costo/mezcla, optimizando los ángulos (γ, β) de forma clásica. Ejecutamos QAOA en Qiskit y PennyLane y lo ponemos junto a la fuerza bruta exacta y una heurística voraz sobre el mismo grafo. El resultado honesto: a estos tamaños el óptimo clásico se encuentra en microsegundos y QAOA no gana."
  },
  "metric": {
   "en": "cut value (edges crossing)",
@@ -61,8 +61,8 @@
    "es": "MaxCut — QAOA vs clásico"
   },
   "concept": {
-   "en": "MaxCut splits a graph's vertices into two groups to cut as many edges as possible — NP-hard in general. QAOA encodes it as an Ising cost Hamiltonian and alternates cost/mixer layers, optimizing the angles (γ, β) classically. We run QAOA on Qiskit and PennyLane and put it next to exact brute force and a greedy heuristic on the SAME graph. The honest result: at these sizes the classical optimum is found in microseconds and QAOA does not win.",
-   "es": "MaxCut divide los vértices de un grafo en dos grupos para cortar la mayor cantidad de aristas posible — NP-difícil en general. QAOA lo codifica como un Hamiltoniano de costo tipo Ising y alterna capas de costo/mezcla, optimizando los ángulos (γ, β) de forma clásica. Corremos QAOA en Qiskit y PennyLane y lo ponemos junto a la fuerza bruta exacta y una heurística voraz sobre el MISMO grafo. El resultado honesto: a estos tamaños el óptimo clásico se encuentra en microsegundos y QAOA no gana."
+   "en": "MaxCut splits a graph's vertices into two groups to cut as many edges as possible — NP-hard in general. QAOA encodes it as an Ising cost Hamiltonian and alternates cost/mixer layers, optimizing the angles (γ, β) classically. We run QAOA on Qiskit and PennyLane and put it next to exact brute force and a greedy heuristic on the same graph. The honest result: at these sizes the classical optimum is found in microseconds and QAOA does not win.",
+   "es": "MaxCut divide los vértices de un grafo en dos grupos para cortar la mayor cantidad de aristas posible — NP-difícil en general. QAOA lo codifica como un Hamiltoniano de costo tipo Ising y alterna capas de costo/mezcla, optimizando los ángulos (γ, β) de forma clásica. Ejecutamos QAOA en Qiskit y PennyLane y lo ponemos junto a la fuerza bruta exacta y una heurística voraz sobre el mismo grafo. El resultado honesto: a estos tamaños el óptimo clásico se encuentra en microsegundos y QAOA no gana."
   },
   "qubits": 4,
   "steps": [
@@ -1759,7 +1759,7 @@
     "url": "https://arxiv.org/abs/1411.4028"
    },
    {
-    "label": "Goemans & Williamson, .878-approximation for MAX CUT via SDP (1995)",
+    "label": "Goemans & Williamson, .878-approximation for MaxCut via SDP (1995)",
     "doi": "10.1145/227683.227684"
    },
    {
@@ -3270,7 +3270,7 @@
    "url": "https://arxiv.org/abs/1411.4028"
   },
   {
-   "label": "Goemans & Williamson, .878-approximation for MAX CUT via SDP (1995)",
+   "label": "Goemans & Williamson, .878-approximation for MaxCut via SDP (1995)",
    "doi": "10.1145/227683.227684"
   },
   {

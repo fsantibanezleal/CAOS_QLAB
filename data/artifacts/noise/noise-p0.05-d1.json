@@ -7,8 +7,8 @@
   "es": "Ruido y mitigación de errores (ZNE)"
  },
  "concept": {
-  "en": "A Bell circuit has ideal parity ⟨Z₀Z₁⟩ = 1, but a noisy device returns less. We model the device with an Aer depolarizing noise model (worse for deeper circuits), measure the noisy ⟨Z₀Z₁⟩, then apply zero-noise extrapolation: deliberately AMPLIFY the noise by folding the circuit (U→U U† U…), measure at noise scales λ=1,3,5, and extrapolate back to λ=0. Mitigation claws back much of the lost signal — but note the honest limits: ZNE's sampling cost grows exponentially with circuit size, it is mitigation (bias reduction) NOT correction, and at this classically-simulable scale a statevector simulator just gives the exact 1.0 for free.",
-  "es": "Un circuito de Bell tiene paridad ideal ⟨Z₀Z₁⟩ = 1, pero un dispositivo ruidoso devuelve menos. Modelamos el dispositivo con un modelo de ruido despolarizante de Aer (peor cuanto más profundo el circuito), medimos el ⟨Z₀Z₁⟩ ruidoso, y aplicamos extrapolación a ruido cero: AMPLIFICAMOS el ruido plegando el circuito (U→U U† U…), medimos a escalas λ=1,3,5 y extrapolamos a λ=0. La mitigación recupera buena parte de la señal perdida — pero con límites honestos: el costo de muestreo de ZNE crece exponencialmente con el tamaño, es mitigación (reducción de sesgo) NO corrección, y a esta escala simulable clásicamente un simulador de vector de estado da el 1.0 exacto gratis."
+  "en": "A Bell circuit has ideal parity ⟨Z₀Z₁⟩ = 1, but a noisy device returns less. We model the device with an Aer depolarizing noise model (worse for deeper circuits), measure the noisy ⟨Z₀Z₁⟩, then apply zero-noise extrapolation: deliberately amplify the noise by folding the circuit (U→U U† U…), measure at noise scales λ=1,3,5, and extrapolate back to λ=0. Mitigation claws back much of the lost signal — but note the honest limits: ZNE's sampling cost grows exponentially with circuit size, it is mitigation (bias reduction) not correction, and at this classically-simulable scale a statevector simulator just gives the exact 1.0 for free.",
+  "es": "Un circuito de Bell tiene paridad ideal ⟨Z₀Z₁⟩ = 1, pero un dispositivo ruidoso devuelve menos. Modelamos el dispositivo con un modelo de ruido despolarizante de Aer (peor cuanto más profundo el circuito), medimos el ⟨Z₀Z₁⟩ ruidoso, y aplicamos extrapolación a ruido cero: amplificamos el ruido plegando el circuito (U→U U† U…), medimos a escalas λ=1,3,5 y extrapolamos a λ=0. La mitigación recupera buena parte de la señal perdida — pero con límites honestos: el costo de muestreo de ZNE crece exponencialmente con el tamaño, es mitigación (reducción de sesgo) no corrección, y a esta escala simulable clásicamente un simulador de vector de estado da el 1.0 exacto gratis."
  },
  "metric": {
   "en": "⟨Z₀Z₁⟩ (ideal = 1)",
@@ -127,8 +127,8 @@
   "noisy": 0.8574,
   "mitigated": 0.9459,
   "verdict": {
-   "en": "Ideal ⟨Z₀Z₁⟩=1.0, noisy=0.8574 (error 0.1426), ZNE-mitigated=0.9459 (error 0.0541). Mitigation cut the error ~2.6×. But ZNE's sampling cost grows exponentially with size, it is bias-reduction NOT correction, and a classical statevector simulator returns the exact 1.0 for free at this scale.",
-   "es": "Ideal ⟨Z₀Z₁⟩=1.0, ruidoso=0.8574 (error 0.1426), mitigado-ZNE=0.9459 (error 0.0541). La mitigación redujo el error ~2.6×. Pero el costo de muestreo de ZNE crece exponencialmente, es reducción de sesgo NO corrección, y un simulador clásico de vector de estado da el 1.0 exacto gratis a esta escala."
+   "en": "Ideal ⟨Z₀Z₁⟩=1.0, noisy=0.8574 (error 0.1426), ZNE-mitigated=0.9459 (error 0.0541). Mitigation cut the error ~2.6×. But ZNE's sampling cost grows exponentially with size, it is bias-reduction, not correction, and a classical statevector simulator returns the exact 1.0 for free at this scale.",
+   "es": "Ideal ⟨Z₀Z₁⟩=1.0, ruidoso=0.8574 (error 0.1426), mitigado-ZNE=0.9459 (error 0.0541). La mitigación redujo el error ~2.6×. Pero el costo de muestreo de ZNE crece exponencialmente, es reducción de sesgo, no corrección, y un simulador clásico de vector de estado da el 1.0 exacto gratis a esta escala."
   }
  },
  "references": [

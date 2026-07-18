@@ -22,7 +22,7 @@ class DeutschJozsa(Problem):
     concept = {
         "en": (
             "An oracle hides a function f that is promised constant or balanced. Deutsch–Jozsa puts the "
-            "input register in uniform superposition with the answer qubit in |−⟩, queries the oracle ONCE "
+            "input register in uniform superposition with the answer qubit in |−⟩, queries the oracle once "
             "(phase kickback stamps (−1)^{f(x)}), and a final layer of Hadamards interferes the branches: "
             "the input register collapses to all-zeros iff f is constant, and to something non-zero iff f "
             "is balanced. One quantum query decides it; a deterministic classical algorithm may need "
@@ -31,7 +31,7 @@ class DeutschJozsa(Problem):
         "es": (
             "Un oráculo oculta una función f que se promete constante o balanceada. Deutsch–Jozsa pone el "
             "registro de entrada en superposición uniforme con el qubit de respuesta en |−⟩, consulta el "
-            "oráculo UNA vez (el phase kickback marca (−1)^{f(x)}), y una capa final de Hadamards interfiere "
+            "oráculo una vez (el phase kickback marca (−1)^{f(x)}), y una capa final de Hadamards interfiere "
             "las ramas: el registro de entrada colapsa a todo-ceros si f es constante, y a algo no nulo si f "
             "es balanceada. Una consulta cuántica lo decide; un algoritmo clásico determinista puede "
             "necesitar 2^{n-1}+1."

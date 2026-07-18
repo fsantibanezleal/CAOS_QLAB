@@ -32,7 +32,7 @@ class Simon(Problem):
         "es": (
             "Un oráculo oculta una función 2-a-1 con período s: f(x)=f(x⊕s). El circuito de Simon entrelaza "
             "un registro de entrada con la salida de f, y una capa final de Hadamards hace que el registro "
-            "de entrada dé, en cada corrida, una cadena aleatoria y con y·s = 0 (mod 2). Unas n−1 cadenas y "
+            "de entrada dé, en cada ejecución, una cadena aleatoria y con y·s = 0 (mod 2). Unas n−1 cadenas y "
             "independientes determinan s por eliminación gaussiana sobre GF(2) — O(n) consultas. "
             "Clásicamente hay que buscar una colisión f(x₁)=f(x₂), con ~2^{n/2} consultas (cota del "
             "cumpleaños). Es la primera ventaja cuántica exponencial demostrable — el ancestro de Shor."

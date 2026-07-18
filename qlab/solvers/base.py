@@ -1,8 +1,8 @@
 """Solver adapters — each subclass wraps ONE real framework to attack a problem.
 
 A `Solver` is the plug-in seam of the whole engine: adding a framework = one new subclass + one
-`@register_solver` line, with ZERO edits to the core, the pipeline, the registry mechanism, or the web.
-Every adapter returns the SAME `SolverResult` shape (value + cost + optional replay trace + bilingual
+`@register_solver` line, with zero edits to the core, the pipeline, the registry mechanism, or the web.
+Every adapter returns the same `SolverResult` shape (value + cost + optional replay trace + bilingual
 notes), so the comparison panel, the gate and the manifest treat Qiskit, PennyLane, Cirq, Stim and the
 classical baselines identically. There is exactly one execution path — "no parches que ejecutan todo por
 separado."
@@ -46,7 +46,7 @@ class Solver(ABC):
     label: dict[str, str] = {"en": "Solver", "es": "Solver"}
     framework: str = "?"
     paradigm: str = QUANTUM_SIM
-    # Real-hardware / paid adapters set this True so they NEVER run in a default `--all`; the pipeline
+    # Real-hardware / paid adapters set this True so they never run in a default `--all`; the pipeline
     # only invokes them when explicitly named (`--solver <name>`). Keeps QPU cost/queue strictly opt-in.
     requires_opt_in: bool = False
 

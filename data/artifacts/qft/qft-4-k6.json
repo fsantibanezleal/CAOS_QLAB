@@ -2021,8 +2021,8 @@
     "gate_complexity": "O(N log N)"
    },
    "notes": {
-    "en": "Classical FFT computes ALL 16 Fourier amplitudes (readable) in ~64 ops. The QFT is cheaper to apply but its output cannot be read out — that's the trade.",
-    "es": "La FFT clásica calcula TODAS las 16 amplitudes (legibles) en ~64 ops. La QFT es más barata de aplicar pero su salida no se puede leer — ese es el trade-off."
+    "en": "Classical FFT computes all 16 Fourier amplitudes (readable) in ~64 ops. The QFT is cheaper to apply but its output cannot be read out — that's the trade.",
+    "es": "La FFT clásica calcula todas las 16 amplitudes (legibles) en ~64 ops. La QFT es más barata de aplicar pero su salida no se puede leer — ese es el trade-off."
    },
    "optimal": true,
    "extra": {}
@@ -2048,8 +2048,8 @@
     "gate_complexity": "O(n^2)"
    },
    "notes": {
-    "en": "QFT|6⟩ via 14 gates (O(n²)); fidelity vs analytic DFT = 1.0000. But a measurement gives ONE sample — the spectrum is not readable.",
-    "es": "QFT|6⟩ con 14 compuertas (O(n²)); fidelidad vs DFT analítica = 1.0000. Pero una medición da UNA muestra — el espectro no es legible."
+    "en": "QFT|6⟩ via 14 gates (O(n²)); fidelity vs analytic DFT = 1.0000. But a measurement gives one sample — the spectrum is not readable.",
+    "es": "QFT|6⟩ con 14 compuertas (O(n²)); fidelidad vs DFT analítica = 1.0000. Pero una medición da una sola muestra — el espectro no es legible."
    },
    "optimal": false,
    "extra": {}
@@ -2060,8 +2060,8 @@
   "quantum_gates": 14,
   "classical_ops": 64,
   "verdict": {
-   "en": "The QFT matches the analytic DFT (fidelity 1.0). Quantum: 14 gates (O(n²)) to apply the transform; classical FFT: ~64 ops (O(n·2ⁿ)) but it returns the FULL readable spectrum. The QFT is exponentially cheaper to APPLY yet unreadable on measurement — a subroutine (QPE/Shor), not a standalone speedup.",
-   "es": "La QFT coincide con la DFT analítica (fidelidad 1.0). Cuántico: 14 compuertas (O(n²)) para aplicar la transformada; FFT clásica: ~64 ops (O(n·2ⁿ)) pero devuelve el espectro COMPLETO y legible. La QFT es exponencialmente más barata de APLICAR pero ilegible al medir — una subrutina (QPE/Shor), no un speedup por sí sola."
+   "en": "The QFT matches the analytic DFT (fidelity 1.0). Quantum: 14 gates (O(n²)) to apply the transform; classical FFT: ~64 ops (O(n·2ⁿ)) but it returns the full readable spectrum. The QFT is exponentially cheaper to apply yet unreadable on measurement — a subroutine (QPE/Shor), not a standalone speedup.",
+   "es": "La QFT coincide con la DFT analítica (fidelidad 1.0). Cuántico: 14 compuertas (O(n²)) para aplicar la transformada; FFT clásica: ~64 ops (O(n·2ⁿ)) pero devuelve el espectro completo y legible. La QFT es exponencialmente más barata de aplicar pero ilegible al medir — una subrutina (QPE/Shor), no un speedup por sí sola."
   }
  },
  "references": [

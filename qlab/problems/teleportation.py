@@ -6,7 +6,7 @@ The original is destroyed (no-cloning) and nothing travels faster than light (th
 needed). QLab runs the coherent (deferred-measurement) form so the statevector trace shows |ψ⟩'s Bloch
 vector hop from Alice's qubit to Bob's with fidelity 1. The honest comparison: with only classical
 resources (measure-and-resend) you cannot do better than average fidelity 2/3 — so teleportation is a
-genuine quantum protocol with no classical equivalent, but it is NOT faster-than-light communication and it
+genuine quantum protocol with no classical equivalent, but it is not faster-than-light communication and it
 *requires* pre-shared entanglement and a classical channel.
 """
 
@@ -42,7 +42,7 @@ class Teleportation(Problem):
             "Bell compartido y dos bits clásicos. Alice entrelaza |ψ⟩ con su mitad del par, mide ambos en la "
             "base de Bell y envía el resultado de 2 bits; Bob aplica el Pauli correspondiente (I/X/Z/XZ) y "
             "obtiene |ψ⟩ exacto. La copia de Alice desaparece (no-clonación), y los bits clásicos son "
-            "esenciales — así que no es más rápido que la luz. Corremos la versión coherente (medición "
+            "esenciales — así que no es más rápido que la luz. Ejecutamos la versión coherente (medición "
             "diferida): observa el vector de Bloch de |ψ⟩ salir del qubit de Alice y reaparecer en el de "
             "Bob, fidelidad 1. Clásicamente no puedes transmitir un qubit desconocido con fidelidad mayor a "
             "2/3 (medir y reenviar), así que es un protocolo cuántico real — aunque necesita entrelazamiento "

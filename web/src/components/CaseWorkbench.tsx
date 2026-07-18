@@ -12,11 +12,33 @@ import { isLandscape, LandscapeHeatmap } from "../viz/LandscapeHeatmap";
 import { isZne, ZneExtrapolation } from "../viz/ZneExtrapolation";
 import { LivePanel } from "./LivePanel";
 
-/** Per-case workbench: a variant-bar + the data-driven viz for the selected variant. */
-export function CaseWorkbench({ caseEntry }: { caseEntry: CatalogCase }) {
+/**
+ * Per-case workbench: a variant-bar + the data-driven viz for the selected variant.
+ *
+ * Can run controlled (the App landing drives the variant from its sidebar) or
+ * uncontrolled (the /case/:id deep-link page). When `variantId`/`onVariantChange`
+ * are supplied the selection is lifted to the parent; otherwise local state is used.
+ * `onBundle` reports the loaded bundle up so the sidebar can show a live read-out;
+ * `hideVariantBar` lets the App suppress the in-pane chips (they live in the aside).
+ */
+export function CaseWorkbench({
+  caseEntry,
+  variantId,
+  onVariantChange,
+  onBundle,
+  hideVariantBar,
+}: {
+  caseEntry: CatalogCase;
+  variantId?: string;
+  onVariantChange?: (id: string) => void;
+  onBundle?: (b: Bundle | null) => void;
+  hideVariantBar?: boolean;
+}) {
   const t = useT();
   const { lang } = useUI();
-  const [vid, setVid] = useState(caseEntry.variants[0].id);
+  const [localVid, setLocalVid] = useState(caseEntry.variants[0].id);
+  const vid = variantId ?? localVid;
+  const setVid = (id: string) => (onVariantChange ? onVariantChange(id) : setLocalVid(id));
   const [bundle, setBundle] = useState<Bundle | null>(null);
   const [err, setErr] = useState<string | null>(null);
   const [mode, setMode] = useState<"replay" | "live">("replay");
@@ -25,10 +47,20 @@ export function CaseWorkbench({ caseEntry }: { caseEntry: CatalogCase }) {
   useEffect(() => {
     let live = true;
     setBundle(null);
+    onBundle?.(null);
     setErr(null);
     setMode("replay");
-    loadBundle(variant.path).then((b) => live && setBundle(b)).catch((e) => live && setErr(String(e)));
+    loadBundle(variant.path)
+      .then((b) => {
+        if (live) {
+          setBundle(b);
+          onBundle?.(b);
+        }
+      })
+      .catch((e) => live && setErr(String(e)));
     return () => { live = false; };
+    // onBundle is a stable callback from the parent; intentionally not in deps.
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [variant.path]);
 
   const finalStep = bundle?.trace?.steps?.[bundle.trace.steps.length - 1];
@@ -46,14 +78,16 @@ export function CaseWorkbench({ caseEntry }: { caseEntry: CatalogCase }) {
 
   return (
     <div className="workbench">
-      <div className="variant-bar">
-        {caseEntry.variants.map((v) => (
-          <button key={v.id} className={`variant-chip ${v.id === vid ? "on" : ""}`} onClick={() => setVid(v.id)}>
-            {t(v.title)}
-          </button>
-        ))}
-        <span className="lane-badge">{variant.lane}</span>
-      </div>
+      {!hideVariantBar && (
+        <div className="variant-bar">
+          {caseEntry.variants.map((v) => (
+            <button key={v.id} className={`variant-chip ${v.id === vid ? "on" : ""}`} onClick={() => setVid(v.id)}>
+              {t(v.title)}
+            </button>
+          ))}
+          <span className="lane-badge">{variant.lane}</span>
+        </div>
+      )}
       {variant.note && <p className="variant-note">{t(variant.note)}</p>}
 
       {err && <p className="err">Failed to load: {err}</p>}

@@ -30,7 +30,7 @@
   },
   "note": {
    "en": "Apply H to |0⟩ — watch the Bloch vector.",
-   "es": "Aplica H a |0⟩ — observa el vector de Bloch."
+   "es": "Aplica H a |0⟩ — observar el vector de Bloch."
   }
  },
  "qubits": 1,

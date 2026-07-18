@@ -2,7 +2,7 @@
 
 A quantum feature map embeds a data point x into a quantum state |φ(x)⟩; the fidelity kernel
 K(x,x') = |⟨φ(x)|φ(x')⟩|² then feeds a classical SVM. QLab runs this on small 2-D datasets and puts it next
-to a classical RBF-SVM on the SAME data. The honest, literature-backed verdict: on these toy sets both reach
+to a classical RBF-SVM on the same data. The honest, literature-backed verdict: on these toy sets both reach
 high accuracy and the quantum kernel shows NO advantage; provable quantum-kernel separations are contrived
 (built around problems like discrete-log), and on real data quantum kernels are competitive-at-best, usually
 worse, and suffer data-loading bottlenecks. QML is one of the most over-hyped corners of the field — this
@@ -28,7 +28,7 @@ class QMLClassifier(Problem):
             "A quantum feature map sends a 2-D point x to a state |φ(x)⟩; the fidelity kernel "
             "K(x,x')=|⟨φ(x)|φ(x')⟩|² is estimated on the quantum device and handed to a classical SVM. We "
             "compare it to a classical RBF-SVM on the same toy datasets (linear, circles, moons, XOR). Both "
-            "classify well — and that is the point: the quantum kernel buys NO advantage here. The few "
+            "classify well — and that is the point: the quantum kernel buys no advantage here. The few "
             "provable quantum-kernel speedups are built around contrived problems (discrete-log); on real "
             "data quantum kernels are competitive at best, usually worse, and bottlenecked by data loading. "
             "QML is heavily over-hyped; this case shows it honestly."

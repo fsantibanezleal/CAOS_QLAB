@@ -462,8 +462,8 @@
   "decoded": "10",
   "correct": true,
   "verdict": {
-   "en": "Alice sent the 2 bits 10 through ONE transmitted qubit; Bob decoded 10 (correct). Classically one qubit carries at most 1 bit (Holevo), so this is a real 2-for-1 — but it spends a pre-shared Bell pair, so it is a resource trade (the dual of teleportation), not free extra bandwidth.",
-   "es": "Alice envió los 2 bits 10 por UN qubit transmitido; Bob decodificó 10 (correcto). Clásicamente un qubit lleva a lo más 1 bit (Holevo), así que esto es un 2-por-1 real — pero gasta un par de Bell compartido, así que es un intercambio de recursos (el dual de la teletransportación), no ancho de banda gratis."
+   "en": "Alice sent the 2 bits 10 through one transmitted qubit; Bob decoded 10 (correct). Classically one qubit carries at most 1 bit (Holevo), so this is a real 2-for-1 — but it spends a pre-shared Bell pair, so it is a resource trade (the dual of teleportation), not free extra bandwidth.",
+   "es": "Alice envió los 2 bits 10 por un qubit transmitido; Bob decodificó 10 (correcto). Clásicamente un qubit lleva a lo más 1 bit (Holevo), así que esto es un 2-por-1 real — pero gasta un par de Bell compartido, así que es un intercambio de recursos (el dual de la teletransportación), no ancho de banda gratis."
   }
  },
  "references": [
