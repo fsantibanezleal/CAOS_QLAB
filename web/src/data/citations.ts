@@ -1,6 +1,6 @@
 // Reference integrity per ADR-0017 §4 / ADR-0016 §7.
-// Every entry MUST carry a real, verifiable `doi` (preferred) or `url`. A bare
-// author-year with no link is a FAIL (it reads as fabricated). DOI-verified.
+// Every entry must carry a real, verifiable `doi` (preferred) or `url`. A bare
+// author-year with no link is a fail (it reads as fabricated). DOI-verified.
 //
 // id convention: authorYYYY[suffix] — lowercase, no spaces.
 

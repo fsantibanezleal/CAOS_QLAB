@@ -291,8 +291,8 @@
   "classical_intensity": 0.1464,
   "fringe": "mixed",
   "verdict": {
-   "en": "The qubit's P(0) = 0.1464 (mixed) matches a classical wave's intensity 0.1464 exactly — both follow cos²(φ/2). Interference is NOT, by itself, a quantum advantage: an optical Mach–Zehnder does the same. What is quantum is that this happens for one particle's probability amplitude — and steering it so wrong answers cancel is the engine behind Grover, the QFT and the oracle algorithms.",
-   "es": "El P(0) = 0.1464 (mixed) del qubit coincide exactamente con la intensidad 0.1464 de una onda clásica — ambos siguen cos²(φ/2). La interferencia NO es, por sí sola, una ventaja cuántica: un Mach–Zehnder óptico hace lo mismo. Lo cuántico es que ocurre para la amplitud de probabilidad de una partícula — y dirigirla para que las respuestas erróneas se cancelen es el motor de Grover, la QFT y los algoritmos de oráculo."
+   "en": "The qubit's P(0) = 0.1464 (mixed) matches a classical wave's intensity 0.1464 exactly — both follow cos²(φ/2). Interference is not, by itself, a quantum advantage: an optical Mach–Zehnder does the same. What is quantum is that this happens for one particle's probability amplitude — and steering it so wrong answers cancel is the engine behind Grover, the QFT and the oracle algorithms.",
+   "es": "El P(0) = 0.1464 (mixed) del qubit coincide exactamente con la intensidad 0.1464 de una onda clásica — ambos siguen cos²(φ/2). La interferencia no es, por sí sola, una ventaja cuántica: un Mach–Zehnder óptico hace lo mismo. Lo cuántico es que ocurre para la amplitud de probabilidad de una partícula — y dirigirla para que las respuestas erróneas se cancelen es el motor de Grover, la QFT y los algoritmos de oráculo."
   }
  },
  "references": [

@@ -2,7 +2,7 @@
 
 The Variational Quantum Eigensolver is a hybrid loop: a parametrized circuit prepares a trial state, the
 quantum computer measures ⟨H⟩, and a classical optimizer tunes the parameters to minimize the energy
-(variational principle: ⟨ψ(θ)|H|ψ(θ)⟩ ≥ E₀). QLab runs it on the REAL H₂ molecular Hamiltonian (built by
+(variational principle: ⟨ψ(θ)|H|ψ(θ)⟩ ≥ E₀). QLab runs it on the real H₂ molecular Hamiltonian (built by
 PennyLane's differentiable Hartree-Fock, STO-3G, 4 qubits) along a dissociation curve, against the exact
 ground state by diagonalization. Honest framing: H₂ in a minimal basis is a 4×4 problem — trivial
 classically — so VQE here is pedagogical, not advantageous; scaling it hits barren plateaus and deep
@@ -30,7 +30,7 @@ class VQE(Problem):
             "prepares a trial state |ψ(θ)⟩; the device measures the energy ⟨ψ(θ)|H|ψ(θ)⟩; a classical "
             "optimizer lowers it toward the true ground energy (the variational principle guarantees it "
             "never goes below). We sweep the H–H bond length to trace the dissociation curve, using the "
-            "REAL H₂ Hamiltonian (PennyLane differentiable Hartree-Fock, STO-3G, 4 qubits). It is a genuine "
+            "real H₂ Hamiltonian (PennyLane differentiable Hartree-Fock, STO-3G, 4 qubits). It is a genuine "
             "learned method — but H₂ minimal-basis is a 4×4 matrix a laptop diagonalizes instantly, so the "
             "honest verdict is pedagogy, not advantage."
         ),
@@ -40,7 +40,7 @@ class VQE(Problem):
             "de doble excitación) prepara un estado de prueba |ψ(θ)⟩; el dispositivo mide la energía "
             "⟨ψ(θ)|H|ψ(θ)⟩; un optimizador clásico la baja hacia la energía fundamental real (el principio "
             "variacional garantiza que nunca baja de ella). Barremos la distancia de enlace H–H para trazar "
-            "la curva de disociación, usando el Hamiltoniano REAL de H₂ (Hartree-Fock diferenciable de "
+            "la curva de disociación, usando el Hamiltoniano real de H₂ (Hartree-Fock diferenciable de "
             "PennyLane, STO-3G, 4 qubits). Es un método aprendido genuino — pero H₂ en base mínima es una "
             "matriz 4×4 que un laptop diagonaliza al instante, así que el veredicto honesto es pedagogía, no "
             "ventaja."

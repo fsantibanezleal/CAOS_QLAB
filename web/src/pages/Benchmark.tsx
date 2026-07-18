@@ -11,21 +11,21 @@ type Lang = "en" | "es";
 /* ════════════════════════════════════════════════════════════════════════════
    BENCHMARK — the honesty spine, quantified (ADR-0017 §2 Benchmark floor).
 
-   EVERY number on this page is read at runtime from a COMMITTED artifact
+   Every number on this page is read at runtime from a committed artifact
    (web/public/data/artifacts/<case>/<variant>.json, schema qlab-trace/1) — the
    same manifests the precompute pipeline emits. Nothing is typed in. The page:
      • loads one canonical variant bundle per case and extracts its `comparison`
        block + the quantum & classical `solvers[].value` head-to-head;
      • renders a real metric <table> straight from those fields;
-     • runs a LIVE in-browser recompute on a real committed trace — it resamples
+     • runs a live in-browser recompute on a real committed trace — it resamples
        the raw measured `trace.measurements.counts` at an adjustable shot budget
        and re-derives the quantum metric, next to the classical baseline (≥1
-       quantum + ≥1 classical on the SAME real dataset);
+       quantum + ≥1 classical on the same real dataset);
      • classifies each case (genuine edge / query advantage / QEC-that-scales /
        classical-still-wins) from the measured numbers, not from prose.
    ════════════════════════════════════════════════════════════════════════════ */
 
-/* ── The four honest edge classes (theme-aware tokens; ZERO hex). ─────────── */
+/* ── The four honest edge classes (theme-aware tokens; zero hex). ─────────── */
 type ClassId = "genuine" | "query" | "qec" | "classical";
 
 const CLASSES: Record<ClassId, { label: Bilingual; blurb: Bilingual }> = {
@@ -302,8 +302,8 @@ const SPECS: Record<string, MetricSpec> = {
     q: (b) => `P(0) = ${num(cmpv(b, "quantum_p0"))}`,
     c: (b) => `I = ${num(cmpv(b, "classical_intensity"))}`,
     edge: (b) => ({
-      en: `P(0) = ${num(cmpv(b, "quantum_p0"))} follows cos²(φ/2) — a classical wave gives the SAME intensity ${num(cmpv(b, "classical_intensity"))}. Interference alone isn't an advantage, but steering amplitude cancellation IS the engine of every quantum algorithm.`,
-      es: `P(0) = ${num(cmpv(b, "quantum_p0"))} sigue cos²(φ/2) — una onda clásica da la MISMA intensidad ${num(cmpv(b, "classical_intensity"))}. La interferencia por sí sola no es ventaja, pero dirigir la cancelación de amplitudes ES el motor de todo algoritmo cuántico.`,
+      en: `P(0) = ${num(cmpv(b, "quantum_p0"))} follows cos²(φ/2) — a classical wave gives the same intensity ${num(cmpv(b, "classical_intensity"))}. Interference alone isn't an advantage, but steering amplitude cancellation is the engine of every quantum algorithm.`,
+      es: `P(0) = ${num(cmpv(b, "quantum_p0"))} sigue cos²(φ/2) — una onda clásica da la misma intensidad ${num(cmpv(b, "classical_intensity"))}. La interferencia por sí sola no es ventaja, pero dirigir la cancelación de amplitudes es el motor de todo algoritmo cuántico.`,
     }),
   },
 };
@@ -323,7 +323,7 @@ const LIVE_CASES: LiveCase[] = [
   { id: "qrng", variant: "qrng-3", metric: "qrng-entropy", name: { en: "QRNG · entropy H", es: "QRNG · entropía H" } },
 ];
 
-/* Subsample the FIRST `budget` shots from committed counts, deterministically
+/* Subsample the first `budget` shots from committed counts, deterministically
    (counts are integer multiplicities → expand in key order, truncate). Pure. */
 function subsampleCounts(counts: Record<string, number>, budget: number): Record<string, number> {
   const keys = Object.keys(counts).sort();
@@ -356,7 +356,7 @@ function recompute(metric: LiveMetric, counts: Record<string, number>, b: Bundle
   const total = Object.values(counts).reduce((a, x) => a + x, 0);
   if (metric === "qrng-entropy") return { value: shannonBits(counts), total };
   if (metric === "grover-success") {
-    // marked bitstring = the argmax of the FULL committed counts (the engine's answer)
+    // marked bitstring = the argmax of the full committed counts (the engine's answer)
     const full = b.trace?.measurements.counts ?? {};
     const marked = Object.entries(full).sort((a, x) => x[1] - a[1])[0]?.[0];
     const hit = marked ? counts[marked] ?? 0 : 0;
@@ -428,7 +428,7 @@ function TaxonomyDiagram({ lang }: { lang: Lang }) {
 
       <text className="arch-s" x="380" y="222" textAnchor="middle">{en
         ? "three real, narrower edges are measured below — the fourth, a pay-for-it speedup on a problem you care about, is not (yet) here"
-        : "tres ventajas reales y más estrechas se miden abajo — la cuarta, un speedup rentable en un problema que te importa, no está (todavía) aquí"}</text>
+        : "tres ventajas reales y más estrechas se miden abajo — la cuarta, un speedup rentable en un problema que importa, no está (todavía) aquí"}</text>
     </svg>
   );
 }
@@ -459,7 +459,7 @@ function RecomputeDiagram({ lang }: { lang: Lang }) {
       <text className="arch-t" x="533" y="72" textAnchor="middle">{en ? "re-derive the metric" : "re-deriva la métrica"}</text>
       <text className="arch-s" x="533" y="90" textAnchor="middle">P(marked) · S · H</text>
       <text className="arch-s arch-em" x="533" y="108" textAnchor="middle">{en ? "same formula as the pipeline" : "misma fórmula que el pipeline"}</text>
-      <text className="arch-s" x="533" y="124" textAnchor="middle">{en ? "in your browser" : "en tu navegador"}</text>
+      <text className="arch-s" x="533" y="124" textAnchor="middle">{en ? "in your browser" : "en el navegador"}</text>
       <path className="arch-arrow" d="M618 90 L666 90" markerEnd={`url(#${m})`} />
 
       <rect className="proto-okbox" x="666" y="56" width="84" height="68" rx="8" />
@@ -521,7 +521,7 @@ function LiveRecompute() {
     return pts;
   }, [bundle, sel, counts, fullShots]);
 
-  // chart geometry (theme-aware via classes; ZERO hex)
+  // chart geometry (theme-aware via classes; zero hex)
   const W = 520, H = 150, padL = 44, padR = 12, padT = 14, padB = 26;
   const vmax = sel.metric === "qrng-entropy" ? 3.2 : sel.metric === "chsh-S" ? 3.0 : 1.0;
   const xOf = (i: number) => padL + (i / (sweep.length - 1 || 1)) * (W - padL - padR);
@@ -532,8 +532,8 @@ function LiveRecompute() {
   return (
     <div className="live-panel">
       <div className="live-head">
-        <span className="live-dot" /> {en ? "Live — recomputed in your browser" : "En vivo — recalculado en tu navegador"}
-        <span className="live-sub">{en ? "real committed counts · move the shot budget to re-derive the metric" : "conteos reales commiteados · mueve el presupuesto de shots para re-derivar la métrica"}</span>
+        <span className="live-dot" /> {en ? "Live — recomputed in your browser" : "En vivo — recalculado en el navegador"}
+        <span className="live-sub">{en ? "real committed counts · move the shot budget to re-derive the metric" : "conteos reales commiteados · mover el presupuesto de shots para re-derivar la métrica"}</span>
       </div>
 
       <div className="variant-bar">
@@ -598,8 +598,8 @@ function LiveRecompute() {
 
           <p className="note">
             {en
-              ? `Quantum solver: ${qsolver(bundle)?.label.en ?? ""} (${qsolver(bundle)?.framework ?? ""}); classical baseline: ${csolver(bundle)?.label.en ?? ""}. The curve is the SAME measured counts truncated to k shots — fewer shots show the sampling noise the head-to-head metric rides on; at the full ${fullShots} it reproduces the committed comparison number.`
-              : `Solver cuántico: ${qsolver(bundle)?.label.es ?? ""} (${qsolver(bundle)?.framework ?? ""}); baseline clásico: ${csolver(bundle)?.label.es ?? ""}. La curva son los MISMOS conteos medidos truncados a k shots — menos shots muestran el ruido de muestreo sobre el que cabalga la métrica; a los ${fullShots} completos reproduce el número de comparación commiteado.`}
+              ? `Quantum solver: ${qsolver(bundle)?.label.en ?? ""} (${qsolver(bundle)?.framework ?? ""}); classical baseline: ${csolver(bundle)?.label.en ?? ""}. The curve is the same measured counts truncated to k shots — fewer shots show the sampling noise the head-to-head metric rides on; at the full ${fullShots} it reproduces the committed comparison number.`
+              : `Solver cuántico: ${qsolver(bundle)?.label.es ?? ""} (${qsolver(bundle)?.framework ?? ""}); baseline clásico: ${csolver(bundle)?.label.es ?? ""}. La curva son los mismos conteos medidos truncados a k shots — menos shots muestran el ruido de muestreo sobre el que cabalga la métrica; a los ${fullShots} completos reproduce el número de comparación commiteado.`}
           </p>
         </>
       )}
@@ -619,7 +619,7 @@ export function Benchmark() {
   useEffect(() => { loadCatalog().then(setCat).catch(() => {}); }, []);
 
   // load the canonical variant bundle per case (the head-to-head numbers live in
-  // each bundle's `comparison`); the table/cards read ONLY from these.
+  // each bundle's `comparison`); the table/cards read only from these.
   useEffect(() => {
     if (!cat) return;
     let alive = true;
@@ -665,7 +665,7 @@ export function Benchmark() {
         <p className="lede">
           {en
             ? "The honesty spine, quantified — and built only from committed artifacts. Every case runs a quantum method next to a classical baseline; this page reads the head-to-head numbers straight from the shipped trace manifests, never from typed-in values, and re-derives one metric live in your browser. The honest headline: across the catalog, zero cases show a practical, pay-for-it wall-clock speedup today."
-            : "La columna de honestidad, cuantificada — y construida solo desde artefactos commiteados. Cada caso corre un método cuántico junto a un baseline clásico; esta página lee los números head-to-head directo de los manifiestos de traza enviados, nunca de valores tipeados, y re-deriva una métrica en vivo en tu navegador. El titular honesto: en todo el catálogo, cero casos muestran un speedup práctico y rentable en wall-clock hoy."}
+            : "La columna de honestidad, cuantificada — y construida solo desde artefactos commiteados. Cada caso ejecuta un método cuántico junto a un baseline clásico; esta página lee los números head-to-head directo de los manifiestos de traza enviados, nunca de valores escritos a mano, y re-deriva una métrica en vivo en el navegador. El titular honesto: en todo el catálogo, cero casos muestran un speedup práctico y rentable en wall-clock hoy."}
         </p>
       </div>
 
@@ -711,7 +711,7 @@ export function Benchmark() {
         <Refs ids={["preskill2018", "arute2019", "gidney2025"]} />
       </section>
 
-      {/* ── THE METRIC TABLE (numbers ONLY from committed artifacts) ───────── */}
+      {/* ── THE METRIC TABLE (numbers only from committed artifacts) ───────── */}
       <section className="doc-section">
         <h2>{en ? "Head-to-head — every case, from the committed traces" : "Head-to-head — cada caso, desde las trazas commiteadas"}</h2>
         <p>{en
@@ -757,16 +757,16 @@ export function Benchmark() {
         )}
         <p className="fig-cap">{en
           ? "Every numeric cell is the value loaded from the shipped artifact — nothing on this page is hand-typed. Click a case to open its full trace."
-          : "Cada celda numérica es el valor cargado del artefacto enviado — nada en esta página está escrito a mano. Haz clic en un caso para abrir su traza completa."}</p>
+          : "Cada celda numérica es el valor cargado del artefacto enviado — nada en esta página está escrito a mano. Hacer clic en un caso para abrir su traza completa."}</p>
         <Refs ids={["chsh1969", "grover1996", "shor1997", "havlicek2019"]} />
       </section>
 
       {/* ── LIVE RECOMPUTE ─────────────────────────────────────────────────── */}
       <section className="doc-section">
-        <h2>{en ? "Live recompute — the metric re-derived in your browser" : "Recálculo en vivo — la métrica re-derivada en tu navegador"}</h2>
+        <h2>{en ? "Live recompute — the metric re-derived in your browser" : "Recálculo en vivo — la métrica re-derivada en el navegador"}</h2>
         <p>{en
           ? "A benchmark you cannot reproduce is a claim, not a measurement. Pick a case and drag the shot budget: the panel resamples the SAME measured counts committed in the trace, re-derives the quantum metric with the exact formula the pipeline uses, and draws it converging toward the value the benchmark reports — next to the classical baseline. This is ≥1 quantum method and ≥1 classical baseline on identical, committed data."
-          : "Un benchmark que no puedes reproducir es una afirmación, no una medición. Elige un caso y mueve el presupuesto de shots: el panel remuestrea los MISMOS conteos medidos commiteados en la traza, re-deriva la métrica cuántica con la fórmula exacta del pipeline, y la dibuja convergiendo al valor que reporta el benchmark — junto al baseline clásico. Esto es ≥1 método cuántico y ≥1 baseline clásico sobre datos idénticos y commiteados."}</p>
+          : "Un benchmark que no se puede reproducir es una afirmación, no una medición. Elegir un caso y mover el presupuesto de shots: el panel remuestrea los mismos conteos medidos commiteados en la traza, re-deriva la métrica cuántica con la fórmula exacta del pipeline, y la dibuja convergiendo al valor que reporta el benchmark — junto al baseline clásico. Esto es ≥1 método cuántico y ≥1 baseline clásico sobre datos idénticos y commiteados."}</p>
 
         <Eq tex="P(\text{marked}) = \frac{c_{\text{marked}}}{\sum_x c_x}, \quad S = 4\,\frac{|\langle A B\rangle|}{\sqrt2}, \quad H = -\!\sum_x p_x \log_2 p_x"
             caption={{
@@ -817,12 +817,12 @@ export function Benchmark() {
 
       {/* ── THE CAVEAT ─────────────────────────────────────────────────────── */}
       <section className="doc-section">
-        <h2>{en ? "Read this before you read the numbers" : "Lee esto antes de leer los números"}</h2>
+        <h2>{en ? "Read this before the numbers" : "Leer esto antes de los números"}</h2>
         <div className="callout">
           <strong>{en ? "Caveat — these are toy instances on a noiseless simulator." : "Salvedad — son instancias de juguete en un simulador sin ruido."}</strong>{" "}
           {en
             ? "The query separations are genuine (1 vs n, √N vs N, exponential) but measured at sizes where a classical loop finishes in microseconds, so wall-clock favours classical everywhere here. The variational and noise cases (VQE, QML, MaxCut, ZNE) run on problems small enough for exact classical solution — they are pedagogy and hype-checks, not advantage claims. Shor factors only 15; the genuine edges (CHSH, teleportation, superdense, QRNG) are real but are nonlocality / resource / randomness results, not faster computation. The QEC cases show error-correction scaling below threshold, on a stabilizer simulator (Stim), not on hardware. Nothing here re-hosts restricted data; all instances are the labelled regimes the manifests ship. The honest summary is unchanged by every number above: no pay-for-it speedup, yet."
-            : "Las separaciones de consultas son genuinas (1 vs n, √N vs N, exponencial) pero medidas a tamaños donde un bucle clásico termina en microsegundos, así que el wall-clock favorece a lo clásico en todo lo de aquí. Los casos variacionales y de ruido (VQE, QML, MaxCut, ZNE) corren sobre problemas suficientemente pequeños para solución clásica exacta — son pedagogía y chequeos al hype, no afirmaciones de ventaja. Shor factoriza solo 15; las ventajas genuinas (CHSH, teleportación, superdense, QRNG) son reales pero son resultados de no-localidad / recurso / aleatoriedad, no cómputo más rápido. Los casos de QEC muestran escala de corrección de errores bajo umbral, en un simulador de estabilizadores (Stim), no en hardware. Nada aquí re-aloja datos restringidos; todas las instancias son los regímenes etiquetados que envían los manifiestos. El resumen honesto no cambia por ningún número de arriba: sin speedup rentable, todavía."}
+            : "Las separaciones de consultas son genuinas (1 vs n, √N vs N, exponencial) pero medidas a tamaños donde un bucle clásico termina en microsegundos, así que el wall-clock favorece a lo clásico en todo lo de aquí. Los casos variacionales y de ruido (VQE, QML, MaxCut, ZNE) se ejecutan sobre problemas suficientemente pequeños para solución clásica exacta — son pedagogía y chequeos al hype, no afirmaciones de ventaja. Shor factoriza solo 15; las ventajas genuinas (CHSH, teleportación, superdensa, QRNG) son reales pero son resultados de no-localidad / recurso / aleatoriedad, no cómputo más rápido. Los casos de QEC muestran escala de corrección de errores bajo umbral, en un simulador de estabilizadores (Stim), no en hardware. Nada aquí re-aloja datos restringidos; todas las instancias son los regímenes etiquetados que envían los manifiestos. El resumen honesto no cambia por ningún número de arriba: sin speedup rentable, todavía."}
         </div>
         <Refs ids={["preskill2018", "gidney2025", "google2024willow", "gidney2021stim"]} />
       </section>

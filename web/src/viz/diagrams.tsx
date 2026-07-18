@@ -1,7 +1,7 @@
 // Hand-authored, themed architecture diagrams (ADR-0058 — the in-app ⓘ modal).
 // Every colour is a CSS-variable PALETTE TOKEN (var(--accent), var(--good), var(--warn),
 // var(--border), var(--panel), var(--panel-2), var(--fg), var(--fg-subtle), var(--accent-soft)).
-// ZERO hardcoded hex — the only `#` allowed are HTML entities (&#8594; &#8804; &#215; &#8776; …).
+// Zero hardcoded hex — the only `#` allowed are HTML entities (&#8594; &#8804; &#215; &#8776; …).
 // The SVGs are inlined in the React DOM (not <img>), so they inherit the live theme variables;
 // each carries a <style> block with the semantic class vocabulary required by the FLOOR.
 //
@@ -91,8 +91,8 @@ export function AppLifecycleDiagram({ lang }: { lang: Lang }) {
           cd: "docs/use-cases/*.md", a: en ? "algorithm, equations" : "algoritmo, ecuaciones", b: en ? "+ refs (DOIs)" : "+ refs (DOIs)", c: en ? "decide live vs precompute" : "decidir vivo vs precómputo" },
         { x: 188, cls: "bx", t: en ? "2 · Implement engine" : "2 · Implementar motor",
           cd: "qlab/problems/<name>.py", a: en ? "Problem + Solver adapters" : "Problem + adaptadores Solver", b: "qlab/solvers/*_solvers.py", c: en ? "one adapter per framework" : "un adaptador por framework" },
-        { x: 362, cls: "bx-compute", t: en ? "3 · Precompute / bake" : "3 · Precomputar / hornear",
-          cd: "python -m qlab.pipeline", a: en ? "run all solvers, seed 42" : "corre todos los solvers, semilla 42", b: "data/artifacts/ + manifests/", c: en ? "seeded JSON trace committed" : "traza JSON con semilla, commiteada" },
+        { x: 362, cls: "bx-compute", t: en ? "3 · Precompute / bake" : "3 · Precomputar",
+          cd: "python -m qlab.pipeline", a: en ? "run all solvers, seed 42" : "ejecuta todos los solvers, semilla 42", b: "data/artifacts/ + manifests/", c: en ? "seeded JSON trace committed" : "traza JSON con semilla, commiteada" },
         { x: 536, cls: "bx-web", t: en ? "4 · Build SPA" : "4 · Construir SPA",
           cd: "web/  (React + Vite)", a: "prebuild: copy-data.mjs", b: en ? "overlay traces + manifests" : "superpone trazas + manifiestos", c: en ? "live engine inlined (TS)" : "motor vivo inline (TS)" },
         { x: 710, cls: "bx-hi", t: en ? "5 · Deploy" : "5 · Desplegar",
@@ -111,7 +111,7 @@ export function AppLifecycleDiagram({ lang }: { lang: Lang }) {
 
       {/* feedback loop */}
       <path className="flow-hi" d="M788 278 C 788 330, 92 330, 92 282" markerEnd={`url(#${m}-hi)`} />
-      <text className="lbl-em" x="350" y="324">{en ? "iterate: refine fiche, re-bake, re-deploy" : "iterar: afinar ficha, re-hornear, re-desplegar"}</text>
+      <text className="lbl-em" x="350" y="324">{en ? "iterate: refine fiche, re-bake, re-deploy" : "iterar: afinar ficha, re-precomputar, re-desplegar"}</text>
 
       {/* the six pages footer band */}
       <rect className="band" x="14" y="350" width="852" height="2" />
@@ -130,7 +130,7 @@ export function AppLifecycleDiagram({ lang }: { lang: Lang }) {
           <text className="sub" x={p.x + 12} y="422">{p.s}</text>
         </g>
       ))}
-      <text className="mu" x="14" y="460">{en ? "App re-runs the engine live on its controls; the doc pages illustrate the method with the same themed SVGs." : "App re-corre el motor en vivo con sus controles; las páginas-doc ilustran el método con los mismos SVG temáticos."}</text>
+      <text className="mu" x="14" y="460">{en ? "App re-runs the engine live on its controls; the doc pages illustrate the method with the same themed SVGs." : "App vuelve a ejecutar el motor en vivo con sus controles; las páginas-doc ilustran el método con los mismos SVG temáticos."}</text>
     </svg>
   );
 }
@@ -166,7 +166,7 @@ export function ThreeLaneDiagram({ lang }: { lang: Lang }) {
       <text className="it" x="42" y="268">Qiskit + Aer · PennyLane · Cirq · Stim</text>
       <text className="it" x="42" y="284">{en ? "noise · feed-forward · VQE/QAOA loop · &gt; 12 q" : "ruido · feed-forward · loop VQE/QAOA · &gt; 12 q"}</text>
       <text className="mu" x="42" y="302">{en ? "commits a seeded trace + manifest to git" : "commitea traza con semilla + manifiesto a git"}</text>
-      <text className="mu" x="42" y="318">{en ? "+ the classical baseline runs here too" : "+ la línea base clásica corre aquí también"}</text>
+      <text className="mu" x="42" y="318">{en ? "+ the classical baseline runs here too" : "+ la línea base clásica se ejecuta aquí también"}</text>
 
       {/* COMPUTE / hardware lane (dormant) */}
       <rect className="band" x="14" y="350" width="430" height="98" rx="8" />
@@ -231,7 +231,7 @@ export function WebAppFlowDiagram({ lang }: { lang: Lang }) {
 
       {/* live branch */}
       <path className="flow-hi" d="M204 70 L262 70" markerEnd={`url(#${m}-hi)`} />
-      <text className="lbl-em" x="208" y="62">{en ? "slider moves → re-run" : "slider → re-corre"}</text>
+      <text className="lbl-em" x="208" y="62">{en ? "slider moves → re-run" : "slider → re-ejecuta"}</text>
       <rect className="bx-web" x="262" y="40" width="200" height="64" rx="9" />
       <text className="ttl-web" x="274" y="62">{en ? "Live re-sim (browser)" : "Re-sim vivo (navegador)"}</text>
       <text className="cd" x="274" y="80">live/liveTrace.ts</text>
@@ -288,7 +288,7 @@ export function WebAppFlowDiagram({ lang }: { lang: Lang }) {
       <text className="mu" x="726" y="314">{en ? "404.html = deep-link SPA fallback" : "404.html = fallback SPA"}</text>
 
       <text className="mu" x="14" y="362">{en ? "Copy-data overlays the seeded traces; the TypeScript mirror gates the build so the web schema can never silently drift from the Python one." : "Copy-data superpone las trazas con semilla; el espejo TypeScript controla el build para que el esquema web no se desincronice del de Python."}</text>
-      <text className="mu" x="14" y="382">{en ? "Result: a single static bundle — no server, no database, no secrets — that re-runs small circuits live and replays the rest." : "Resultado: un único bundle estático — sin servidor, BD ni secretos — que re-corre circuitos pequeños en vivo y reproduce el resto."}</text>
+      <text className="mu" x="14" y="382">{en ? "Result: a single static bundle — no server, no database, no secrets — that re-runs small circuits live and replays the rest." : "Resultado: un único bundle estático — sin servidor, BD ni secretos — que vuelve a ejecutar circuitos pequeños en vivo y reproduce el resto."}</text>
     </svg>
   );
 }
@@ -366,7 +366,7 @@ export function ScienceDiagram({ lang }: { lang: Lang }) {
 
       {/* honesty footer */}
       <rect className="bx-store" x="14" y="442" width="852" height="100" rx="10" />
-      <text className="ttl-hi" x="28" y="464">{en ? "The honest verdict — baked into every case" : "El veredicto honesto — horneado en cada caso"}</text>
+      <text className="ttl-hi" x="28" y="464">{en ? "The honest verdict — baked into every case" : "El veredicto honesto — integrado en cada caso"}</text>
       <text className="it" x="28" y="486">{en ? "At lab scale the classical answer is usually trivial and optimal. MaxCut/QAOA matches but does NOT win;" : "A escala de laboratorio la respuesta clásica suele ser trivial y óptima. MaxCut/QAOA empata pero NO gana;"}</text>
       <text className="it" x="28" y="504">{en ? "Grover's √N is asymptotic; VQE on H₂ is a 16×16 matrix a laptop diagonalizes in microseconds (pedagogy)." : "el √N de Grover es asintótico; VQE en H₂ es una matriz 16×16 que un laptop diagonaliza en microsegundos."}</text>
       <text className="mu" x="28" y="528">{en ? "Interference alone computes nothing special; harnessed across many qubits it is the whole game." : "La interferencia sola no computa nada especial; usada en muchos qubits es todo el juego."}</text>
@@ -394,12 +394,12 @@ export function DataContractDiagram({ lang }: { lang: Lang }) {
       <rect className="bx-store" x="14" y="38" width="420" height="170" rx="10" />
       <text className="ttl-hi" x="28" y="60">{en ? "Artifact contract" : "Contrato de artefacto"}</text>
       <text className="cd" x="28" y="78">schema  qlab-trace/1  ·  core/trace.py</text>
-      <text className="it" x="28" y="100">{en ? "a replayable recording of one circuit run" : "grabación reproducible de una corrida"}</text>
+      <text className="it" x="28" y="100">{en ? "a replayable recording of one circuit run" : "grabación reproducible de una ejecución"}</text>
       <text className="it" x="28" y="120">{en ? "per step: statevector (2ⁿ complex amplitudes)" : "por paso: statevector (2ⁿ amplitudes complejas)"}</text>
       <text className="it" x="28" y="138">{en ? "per qubit: Bloch [⟨X⟩,⟨Y⟩,⟨Z⟩] + probabilities" : "por qubit: Bloch [⟨X⟩,⟨Y⟩,⟨Z⟩] + probabilidades"}</text>
       <text className="it" x="28" y="156">{en ? "final: measurement histogram (counts)" : "final: histograma de medición (conteos)"}</text>
       <text className="cd" x="28" y="176">JSON · 6-dp rounded · no Qiskit type</text>
-      <text className="mu" x="28" y="196">{en ? "run = pure function of (params, seed) → replay = truth" : "corrida = función pura de (params, semilla) → replay = verdad"}</text>
+      <text className="mu" x="28" y="196">{en ? "run = pure function of (params, seed) → replay = truth" : "ejecución = función pura de (params, semilla) → replay = verdad"}</text>
 
       {/* manifest contract */}
       <rect className="bx-store" x="446" y="38" width="420" height="170" rx="10" />

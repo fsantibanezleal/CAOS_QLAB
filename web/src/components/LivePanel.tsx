@@ -16,7 +16,7 @@ function piLabel(x: number): string {
 
 /**
  * The live (in-browser) lane: re-simulate the circuit in real time as the sliders move. Pure TypeScript
- * state-vector engine (exact, ≤12 qubits); the SAME renderers animate the fresh trace.
+ * state-vector engine (exact, ≤12 qubits); the same renderers animate the fresh trace.
  */
 export function LivePanel({ ops, qubits, seed, shots }: { ops: Op[]; qubits: number; seed: number; shots: number }) {
   const { lang } = useUI();
@@ -41,8 +41,8 @@ export function LivePanel({ ops, qubits, seed, shots }: { ops: Op[]; qubits: num
   return (
     <div className="live-panel">
       <div className="live-head">
-        <span className="live-dot" /> {en ? "Live — running in your browser" : "En vivo — corriendo en tu navegador"}
-        <span className="live-sub">{en ? "exact state-vector engine · drag a slider to re-simulate" : "motor de statevector exacto · mueve un slider para re-simular"}</span>
+        <span className="live-dot" /> {en ? "Live — running in your browser" : "En vivo — ejecutándose en el navegador"}
+        <span className="live-sub">{en ? "exact state-vector engine · drag a slider to re-simulate" : "motor de statevector exacto · arrastrar un slider para re-simular"}</span>
       </div>
 
       {knobs.length > 0 ? (

@@ -31,7 +31,7 @@
   },
   "note": {
    "en": "Apply RX(π/2) to |0⟩ — watch the Bloch vector.",
-   "es": "Aplica RX(π/2) a |0⟩ — observa el vector de Bloch."
+   "es": "Aplica RX(π/2) a |0⟩ — observar el vector de Bloch."
   }
  },
  "qubits": 1,

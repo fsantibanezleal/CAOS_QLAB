@@ -1,8 +1,8 @@
 // Citation infrastructure per ADR-0017 §4 / ADR-0016 §7.
 //   • <CitationsProvider items={CITATIONS}> mounted once at the App root.
-//   • <Refs ids={[…]} label /> — a per-section reference list (THE house style).
+//   • <Refs ids={[…]} label /> — a per-section reference list (the house style).
 //   • <Cite id paren /> — an inline reference inside prose.
-// NEVER a full-registry / bottom-of-page bibliography dump.
+// Never a full-registry / bottom-of-page bibliography dump.
 
 import { createContext, useContext, useMemo } from "react";
 import type { Citation } from "../data/citations";

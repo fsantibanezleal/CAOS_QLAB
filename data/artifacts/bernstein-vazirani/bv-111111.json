@@ -7,8 +7,8 @@
   "es": "Bernstein–Vazirani — 1 consulta vs n"
  },
  "concept": {
-  "en": "A hidden string s is encoded in an oracle f(x) = s·x mod 2. Bernstein–Vazirani puts the input register in uniform superposition, the answer qubit in |−⟩, queries the oracle ONCE — phase kickback stamps (−1)^{s·x} onto each branch — and a final layer of Hadamards interferes the branches so that measuring the input register yields s exactly. Classically you must query the oracle n times (once per bit). One quantum query vs n classical queries.",
-  "es": "Una cadena oculta s se codifica en un oráculo f(x) = s·x mod 2. Bernstein–Vazirani pone el registro de entrada en superposición uniforme, el qubit de respuesta en |−⟩, consulta el oráculo UNA vez — el phase kickback marca (−1)^{s·x} en cada rama — y una capa final de Hadamards interfiere las ramas de modo que medir el registro de entrada da s exactamente. Clásicamente hay que consultar el oráculo n veces (una por bit). Una consulta cuántica vs n."
+  "en": "A hidden string s is encoded in an oracle f(x) = s·x mod 2. Bernstein–Vazirani puts the input register in uniform superposition, the answer qubit in |−⟩, queries the oracle once — phase kickback stamps (−1)^{s·x} onto each branch — and a final layer of Hadamards interferes the branches so that measuring the input register yields s exactly. Classically you must query the oracle n times (once per bit). One quantum query vs n classical queries.",
+  "es": "Una cadena oculta s se codifica en un oráculo f(x) = s·x mod 2. Bernstein–Vazirani pone el registro de entrada en superposición uniforme, el qubit de respuesta en |−⟩, consulta el oráculo una vez — el phase kickback marca (−1)^{s·x} en cada rama — y una capa final de Hadamards interfiere las ramas de modo que medir el registro de entrada da s exactamente. Clásicamente hay que consultar el oráculo n veces (una por bit). Una consulta cuántica vs n."
  },
  "metric": {
   "en": "recovered hidden string",
@@ -42,8 +42,8 @@
    "es": "Bernstein–Vazirani — 1 consulta vs n"
   },
   "concept": {
-   "en": "A hidden string s is encoded in an oracle f(x) = s·x mod 2. Bernstein–Vazirani puts the input register in uniform superposition, the answer qubit in |−⟩, queries the oracle ONCE — phase kickback stamps (−1)^{s·x} onto each branch — and a final layer of Hadamards interferes the branches so that measuring the input register yields s exactly. Classically you must query the oracle n times (once per bit). One quantum query vs n classical queries.",
-   "es": "Una cadena oculta s se codifica en un oráculo f(x) = s·x mod 2. Bernstein–Vazirani pone el registro de entrada en superposición uniforme, el qubit de respuesta en |−⟩, consulta el oráculo UNA vez — el phase kickback marca (−1)^{s·x} en cada rama — y una capa final de Hadamards interfiere las ramas de modo que medir el registro de entrada da s exactamente. Clásicamente hay que consultar el oráculo n veces (una por bit). Una consulta cuántica vs n."
+   "en": "A hidden string s is encoded in an oracle f(x) = s·x mod 2. Bernstein–Vazirani puts the input register in uniform superposition, the answer qubit in |−⟩, queries the oracle once — phase kickback stamps (−1)^{s·x} onto each branch — and a final layer of Hadamards interferes the branches so that measuring the input register yields s exactly. Classically you must query the oracle n times (once per bit). One quantum query vs n classical queries.",
+   "es": "Una cadena oculta s se codifica en un oráculo f(x) = s·x mod 2. Bernstein–Vazirani pone el registro de entrada en superposición uniforme, el qubit de respuesta en |−⟩, consulta el oráculo una vez — el phase kickback marca (−1)^{s·x} en cada rama — y una capa final de Hadamards interfiere las ramas de modo que medir el registro de entrada da s exactamente. Clásicamente hay que consultar el oráculo n veces (una por bit). Una consulta cuántica vs n."
   },
   "qubits": 7,
   "steps": [
@@ -14799,8 +14799,8 @@
     "oracle_queries": 6
    },
    "notes": {
-    "en": "Recovered s=111111 bit-by-bit in 6 oracle queries (one per bit) — instant at this scale; the quantum win is in query COUNT, not wall-time.",
-    "es": "Recuperó s=111111 bit a bit en 6 consultas al oráculo (una por bit) — instantáneo a esta escala; la ventaja cuántica es en NÚMERO de consultas, no en tiempo."
+    "en": "Recovered s=111111 bit-by-bit in 6 oracle queries (one per bit) — instant at this scale; the quantum win is in query count, not wall-time.",
+    "es": "Recuperó s=111111 bit a bit en 6 consultas al oráculo (una por bit) — instantáneo a esta escala; la ventaja cuántica es en número de consultas, no en tiempo."
    },
    "optimal": true,
    "extra": {}

@@ -1,8 +1,8 @@
 // Per-case physics annotations for the App workbench sidebar (ADR-0017 §3).
 // Sourced verbatim-in-substance from docs/use-cases/*.md (the accurate wiki). These drive
-// the live "quantum-vs-classical verdict" read-out: a crisp advantage CLASS + a one-line
+// the live "quantum-vs-classical verdict" read-out: a crisp advantage class + a one-line
 // defining relation + a teaching point. The per-variant numeric verdict still comes live
-// from the committed bundle (bundle.comparison.verdict); this map adds the honest LABEL.
+// from the committed bundle (bundle.comparison.verdict); this map adds the honest label.
 
 import type { Bilingual } from "../lib/contract.types";
 
@@ -284,8 +284,8 @@ export const CASE_PHYSICS: Record<string, CasePhysics> = {
       es: "Un Mach–Zehnder H·P(φ)·H produce la franja P(0)=cos²(φ/2): las amplitudes se recombinan constructiva o destructivamente al barrer la fase φ — el direccionamiento de la cancelación de amplitud.",
     },
     honest: {
-      en: "A classical wave gives the same curve, so interference alone is no advantage — but steering amplitude cancellation IS the engine of every quantum algorithm.",
-      es: "Una onda clásica da la misma curva, así que la interferencia sola no es ventaja — pero direccionar la cancelación de amplitud ES el motor de todo algoritmo cuántico.",
+      en: "A classical wave gives the same curve, so interference alone is no advantage — but steering amplitude cancellation is the engine of every quantum algorithm.",
+      es: "Una onda clásica da la misma curva, así que la interferencia sola no es ventaja — pero direccionar la cancelación de amplitud es el motor de todo algoritmo cuántico.",
     },
   },
 };

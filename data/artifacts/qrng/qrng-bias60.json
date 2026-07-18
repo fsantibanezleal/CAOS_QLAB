@@ -179,8 +179,8 @@
     "shots": 2048
    },
    "notes": {
-    "en": "A classical PRNG produces the same flat statistics (entropy 1.000/1 bits) — but it is fully DETERMINISTIC given its seed. Statistically indistinguishable here; the quantum edge is certifiable true randomness, not better numbers.",
-    "es": "Un PRNG clásico produce las mismas estadísticas planas (entropía 1.000/1 bits) — pero es totalmente DETERMINISTA dada su semilla. Estadísticamente indistinguible aquí; la ventaja cuántica es aleatoriedad verdadera certificable."
+    "en": "A classical PRNG produces the same flat statistics (entropy 1.000/1 bits) — but it is fully deterministic given its seed. Statistically indistinguishable here; the quantum edge is certifiable true randomness, not better numbers.",
+    "es": "Un PRNG clásico produce las mismas estadísticas planas (entropía 1.000/1 bits) — pero es totalmente determinista dada su semilla. Estadísticamente indistinguible aquí; la ventaja cuántica es aleatoriedad verdadera certificable."
    },
    "optimal": true,
    "extra": {}
@@ -218,8 +218,8 @@
   "classical_entropy": 1.0,
   "max_entropy": 1,
   "verdict": {
-   "en": "Quantum sampling entropy 0.8113/1 bits vs a classical PRNG 1.0/1 bits — statistically indistinguishable. The difference is in kind, not quality: quantum randomness is fundamental (measurement collapse) and can be CERTIFIED, while the PRNG is deterministic from its seed. Certifiable true randomness is the genuine quantum value here.",
-   "es": "Entropía del muestreo cuántico 0.8113/1 bits vs un PRNG clásico 1.0/1 bits — estadísticamente indistinguibles. La diferencia es de tipo, no de calidad: la aleatoriedad cuántica es fundamental (colapso de medición) y CERTIFICABLE, mientras el PRNG es determinista desde su semilla. La aleatoriedad verdadera certificable es el valor real."
+   "en": "Quantum sampling entropy 0.8113/1 bits vs a classical PRNG 1.0/1 bits — statistically indistinguishable. The difference is in kind, not quality: quantum randomness is fundamental (measurement collapse) and can be certified, while the PRNG is deterministic from its seed. Certifiable true randomness is the genuine quantum value here.",
+   "es": "Entropía del muestreo cuántico 0.8113/1 bits vs un PRNG clásico 1.0/1 bits — estadísticamente indistinguibles. La diferencia es de tipo, no de calidad: la aleatoriedad cuántica es fundamental (colapso de medición) y certificable, mientras el PRNG es determinista desde su semilla. La aleatoriedad verdadera certificable es el valor real."
   }
  },
  "references": [

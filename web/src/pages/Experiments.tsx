@@ -37,7 +37,7 @@ function Head({ id }: { id: string }) {
    ════════════════════════════════════════════════════════════════════════ */
 
 /** The reproducibility protocol: (params, seed) → one execution path → exact
- *  statevector + ONE seeded sampler → committed trace that replays bit-for-bit. */
+ *  statevector + one seeded sampler → committed trace that replays bit-for-bit. */
 function ReproDiagram({ lang }: { lang: Lang }) {
   const en = lang === "en";
   const m = "ex-repro";
@@ -70,14 +70,14 @@ function ReproDiagram({ lang }: { lang: Lang }) {
 
       <text className="arch-s" x="380" y="36" textAnchor="middle">{en
         ? "a run is a pure function of (params, seed) — re-running reproduces the committed counts exactly"
-        : "una corrida es función pura de (params, seed) — re-ejecutar reproduce los conteos commiteados exactamente"}</text>
+        : "una ejecución es función pura de (params, seed) — re-ejecutar reproduce los conteos commiteados exactamente"}</text>
     </svg>
   );
 }
 
-/** The leakage-safe held-out protocol — the GOOD split (fit on TRAIN, score on
- *  the untouched TEST) AND the FORBIDDEN anti-pattern (fit then score on the
- *  SAME data), drawn and then struck out (ADR-0017 §2). */
+/** The leakage-safe held-out protocol — the good split (fit on TRAIN, score on
+ *  the untouched TEST) and the forbidden anti-pattern (fit then score on the
+ *  same data), drawn and then struck out (ADR-0017 §2). */
 function HeldOutDiagram({ lang }: { lang: Lang }) {
   const en = lang === "en";
   const m = "ex-held";
@@ -114,13 +114,13 @@ function HeldOutDiagram({ lang }: { lang: Lang }) {
       <text className="proto-oklabel" x="682" y="74">acc</text>
       <text className="proto-oklabel" x="682" y="90">↦ Benchmark</text>
       <text className="arch-s" x="430" y="158" textAnchor="middle">{en
-        ? "the quantum fidelity kernel and the classical RBF kernel see the SAME split — comparison is apples-to-apples"
-        : "el kernel de fidelidad cuántico y el kernel RBF clásico ven el MISMO split — comparación pareja"}</text>
+        ? "the quantum fidelity kernel and the classical RBF kernel see the same split — comparison is apples-to-apples"
+        : "el kernel de fidelidad cuántico y el kernel RBF clásico ven el mismo split — comparación pareja"}</text>
 
       {/* divider */}
       <line className="bloch-axis" x1="14" y1="184" x2="746" y2="184" />
 
-      {/* ── BOTTOM: the FORBIDDEN anti-pattern, drawn then struck out ── */}
+      {/* ── BOTTOM: the forbidden anti-pattern, drawn then struck out ── */}
       <text className="proto-banlabel" x="14" y="214">{en ? "✗ FORBIDDEN — train-on-test leakage" : "✗ PROHIBIDO — fuga: evaluar sobre lo entrenado"}</text>
       <rect className="proto-badbox" x="14" y="226" width="150" height="58" rx="8" />
       <text className="arch-t" x="89" y="250" textAnchor="middle">{en ? "whole dataset" : "dataset completo"}</text>
@@ -197,7 +197,7 @@ interface CaseRow {
   precompute: number;
   frameworks: string[];
   hasClassical: boolean;
-  /** the catalog ships LABELLED-synthetic regimes (no public restricted dataset)
+  /** the catalog ships labelled-synthetic regimes (no public restricted dataset)
    *  for the data-driven cases; everything else is exact engine output. */
   source: "engine" | "synthetic";
 }
@@ -268,13 +268,13 @@ export function Experiments() {
           <p>
             {en
               ? "Every experiment in QLab is reproducible by construction, and the discipline is simple enough to state in one sentence: a run is a pure function of (params, seed). There is exactly one source of randomness in the whole pipeline — measurement sampling — and it is routed through a single, explicitly-seeded NumPy bit-generator (np.random.default_rng(42)). The state-vector evolution that precedes it is exact: applying a gate is a deterministic matrix–vector product on 2ⁿ complex amplitudes, with no floating-point nondeterminism beyond IEEE-754 rounding, so the amplitudes, the probabilities and the Bloch vectors are fixed before a single shot is drawn. Re-running any case with the same seed reproduces the committed counts bit-for-bit; this is what lets the web app replay a recording instead of re-deriving it."
-              : "Cada experimento en QLab es reproducible por construcción, y la disciplina cabe en una frase: una corrida es función pura de (params, seed). Hay exactamente una fuente de azar en todo el pipeline — el muestreo de medición — y pasa por un único generador de bits de NumPy con semilla explícita (np.random.default_rng(42)). La evolución del statevector que la precede es exacta: aplicar una compuerta es un producto matriz–vector determinista sobre 2ⁿ amplitudes complejas, sin no-determinismo de punto flotante más allá del redondeo IEEE-754, así que las amplitudes, las probabilidades y los vectores de Bloch quedan fijos antes de tirar un solo shot. Re-ejecutar cualquier caso con la misma semilla reproduce los conteos commiteados bit a bit; eso es lo que permite que la web reproduzca una grabación en vez de re-derivarla."}
+              : "Cada experimento en QLab es reproducible por construcción, y la disciplina cabe en una frase: una ejecución es función pura de (params, seed). Hay exactamente una fuente de azar en todo el pipeline — el muestreo de medición — y pasa por un único generador de bits de NumPy con semilla explícita (np.random.default_rng(42)). La evolución del statevector que la precede es exacta: aplicar una compuerta es un producto matriz–vector determinista sobre 2ⁿ amplitudes complejas, sin no-determinismo de punto flotante más allá del redondeo IEEE-754, así que las amplitudes, las probabilidades y los vectores de Bloch quedan fijos antes de tirar un solo shot. Re-ejecutar cualquier caso con la misma semilla reproduce los conteos commiteados bit a bit; eso es lo que permite que la web reproduzca una grabación en vez de re-derivarla."}
           </p>
           <Eq
             tex={String.raw`\text{counts}=\mathcal{S}\bigl(\,\lvert\psi\rangle=U(\text{params})\,\lvert\psi_0\rangle,\ \text{shots}=2048;\ \text{seed}=42\,\bigr),\qquad |\psi\rangle\ \text{is exact}`}
             caption={{
               en: "A committed result is the seeded sampler 𝒮 applied to an exact state vector; only 𝒮 is stochastic, and its seed (42) is fixed, so the counts are deterministic across re-runs.",
-              es: "Un resultado commiteado es el sampler con semilla 𝒮 aplicado a un statevector exacto; solo 𝒮 es estocástico, y su semilla (42) es fija, así que los conteos son deterministas entre re-corridas.",
+              es: "Un resultado commiteado es el sampler con semilla 𝒮 aplicado a un statevector exacto; solo 𝒮 es estocástico, y su semilla (42) es fija, así que los conteos son deterministas entre re-ejecuciones.",
             }}
           />
           <p>
@@ -300,8 +300,8 @@ export function Experiments() {
               ? "The exact numbers are the ground truth; the sampled counts carry an honest ±1.1% that we never hide."
               : "Los números exactos son la verdad de referencia; los conteos muestreados cargan un ±1.1% honesto que nunca ocultamos."}>
             {en
-              ? "QLab reports BOTH the analytic probabilities (from the exact state vector) and the 2048-shot empirical counts. Where a case claims fidelity 1.000 or P(marked)=1, that is the exact figure; the histogram beside it is the sampled approximation, and its scatter is the quantified shot noise above."
-              : "QLab reporta AMBOS: las probabilidades analíticas (del statevector exacto) y los conteos empíricos de 2048 shots. Donde un caso afirma fidelidad 1.000 o P(marcado)=1, esa es la cifra exacta; el histograma al lado es la aproximación muestreada, y su dispersión es el ruido de shots cuantificado arriba."}
+              ? "QLab reports both the analytic probabilities (from the exact state vector) and the 2048-shot empirical counts. Where a case claims fidelity 1.000 or P(marked)=1, that is the exact figure; the histogram beside it is the sampled approximation, and its scatter is the quantified shot noise above."
+              : "QLab reporta ambos: las probabilidades analíticas (del statevector exacto) y los conteos empíricos de 2048 shots. Donde un caso afirma fidelidad 1.000 o P(marcado)=1, esa es la cifra exacta; el histograma al lado es la aproximación muestreada, y su dispersión es el ruido de shots cuantificado arriba."}
           </Callout>
           <Refs ids={["nielsen2010", "knuth1997", "qiskit2024"]} label={refLabel} />
         </div>
@@ -378,7 +378,7 @@ export function Experiments() {
             tex={String.raw`\mathrm{TVD}(p,q)=\tfrac12\sum_{x}\lvert p_x-q_x\rvert,\qquad F(p,q)=\Bigl(\sum_x\sqrt{p_x\,q_x}\Bigr)^{\!2}\in[0,1]`}
             caption={{
               en: "Total variation distance and (classical Bhattacharyya) fidelity between the circuit's distribution p and the analytic target q over the 2ⁿ outcomes; a perfect run gives TVD=0, F=1.",
-              es: "Distancia de variación total y fidelidad (Bhattacharyya clásica) entre la distribución p del circuito y el objetivo analítico q sobre los 2ⁿ resultados; una corrida perfecta da TVD=0, F=1.",
+              es: "Distancia de variación total y fidelidad (Bhattacharyya clásica) entre la distribución p del circuito y el objetivo analítico q sobre los 2ⁿ resultados; una ejecución perfecta da TVD=0, F=1.",
             }}
           />
           <p>
@@ -443,7 +443,7 @@ export function Experiments() {
           <p>
             {en
               ? "A quantum result is only trustworthy if two independent engines agree on it — the SimLab 'two engines on one problem' discipline. The flagship example is MaxCut QAOA: QLab runs the identical p=1 ansatz on three independent frameworks — Qiskit + Aer, PennyLane and Cirq — and they must return the same optimal cut on every lab graph (3–6 nodes). Because the three stacks share no simulation code, a disagreement would have to be a bug in one of them rather than a property of the physics; agreement across all three is the audit trail. On the shipped graphs all three frameworks converge to the identical cut, and none of them beats the exact brute-force optimum (which is computed in microseconds at this size)."
-              : "Un resultado cuántico solo es confiable si dos motores independientes coinciden — la disciplina SimLab de 'dos motores sobre un problema'. El ejemplo insignia es MaxCut QAOA: QLab corre el ansatz idéntico p=1 en tres frameworks independientes — Qiskit + Aer, PennyLane y Cirq — y deben devolver el mismo corte óptimo en cada grafo del lab (3–6 nodos). Como los tres stacks no comparten código de simulación, una discrepancia tendría que ser un bug en uno de ellos y no una propiedad de la física; la coincidencia entre los tres es el registro de auditoría. En los grafos shippeados los tres frameworks convergen al corte idéntico, y ninguno le gana al óptimo exacto por fuerza bruta (computado en microsegundos a este tamaño)."}
+              : "Un resultado cuántico solo es confiable si dos motores independientes coinciden — la disciplina SimLab de 'dos motores sobre un problema'. El ejemplo insignia es MaxCut QAOA: QLab ejecuta el ansatz idéntico p=1 en tres frameworks independientes — Qiskit + Aer, PennyLane y Cirq — y deben devolver el mismo corte óptimo en cada grafo del lab (3–6 nodos). Como los tres stacks no comparten código de simulación, una discrepancia tendría que ser un bug en uno de ellos y no una propiedad de la física; la coincidencia entre los tres es el registro de auditoría. En los grafos publicados los tres frameworks convergen al corte idéntico, y ninguno le gana al óptimo exacto por fuerza bruta (computado en microsegundos a este tamaño)."}
           </p>
           <Eq
             tex={String.raw`\text{cut}_{\text{Qiskit}}=\text{cut}_{\text{PennyLane}}=\text{cut}_{\text{Cirq}}\ \overset{?}{=}\ \arg\max_{z}\,C(z),\qquad C(z)=\!\!\sum_{(i,j)\in E}\!\!\tfrac{1-z_i z_j}{2}`}
@@ -475,7 +475,7 @@ export function Experiments() {
               : "No hay dónde esconder un número erróneo: cada resultado cuántico se contrasta contra un motor independiente o una referencia analítica exacta."}>
             {en
               ? "each quantum solver is also run against its classical baseline in the same execution, and the comparison verdict on every case is recorded — so the audit is twofold: engine-vs-engine (or engine-vs-analytic) for correctness, and quantum-vs-classical for the honest advantage claim."
-              : "cada solver cuántico también se corre contra su baseline clásico en la misma ejecución, y el veredicto de comparación de cada caso queda registrado — así la auditoría es doble: motor-vs-motor (o motor-vs-analítico) para corrección, y cuántico-vs-clásico para la afirmación honesta de ventaja."}
+              : "cada solver cuántico también se ejecuta contra su baseline clásico en la misma ejecución, y el veredicto de comparación de cada caso queda registrado — así la auditoría es doble: motor-vs-motor (o motor-vs-analítico) para corrección, y cuántico-vs-clásico para la afirmación honesta de ventaja."}
           </Callout>
           <Refs ids={["qiskit2024", "pennylane2018", "gidney2021stim", "higgott2022", "google2024willow", "nielsen2010"]} label={refLabel} />
         </div>
@@ -491,7 +491,7 @@ export function Experiments() {
           <p>
             {en
               ? "The central experiment QLab runs is not 'does the circuit work' — it does — but 'does quantum actually beat classical here, and in what sense'. Every case ships its quantum solver next to a real classical baseline solved in the same run, and the honest verdict falls into one of four buckets. The first is no advantage by construction: state preparation, single-qubit gates, superposition/RNG and interference are foundational concepts where a classical computer writes the 2ⁿ amplitude vector down instantly at these sizes — the cases teach the substrate, not a speedup."
-              : "El experimento central que corre QLab no es '¿funciona el circuito?' — sí funciona — sino '¿le gana de verdad lo cuántico a lo clásico aquí, y en qué sentido?'. Cada caso shippea su solver cuántico junto a un baseline clásico real resuelto en la misma corrida, y el veredicto honesto cae en uno de cuatro grupos. El primero es sin ventaja por construcción: preparación de estados, compuertas de un qubit, superposición/RNG e interferencia son conceptos fundacionales donde una computadora clásica escribe el vector de 2ⁿ amplitudes al instante a estos tamaños — los casos enseñan el sustrato, no una aceleración."}
+              : "El experimento central que ejecuta QLab no es '¿funciona el circuito?' — sí funciona — sino '¿le gana de verdad lo cuántico a lo clásico aquí, y en qué sentido?'. Cada caso incluye su solver cuántico junto a un baseline clásico real resuelto en la misma ejecución, y el veredicto honesto cae en uno de cuatro grupos. El primero es sin ventaja por construcción: preparación de estados, compuertas de un qubit, superposición/RNG e interferencia son conceptos fundacionales donde una computadora clásica escribe el vector de 2ⁿ amplitudes al instante a estos tamaños — los casos enseñan el sustrato, no una aceleración."}
           </p>
           <p>
             {en
@@ -535,7 +535,7 @@ export function Experiments() {
               : "Contar victorias es fácil; reportar los empates y derrotas bajo un protocolo sin fuga es el experimento real."}>
             {en
               ? "QLab does not claim quantum supremacy from a browser. It claims something narrower and verifiable: each circuit is correct, each comparison is fair, and the advantage — where it exists — is exactly the kind the resource numbers support (query, asymptotic, or nonlocality), never a marketing 'exponential speedup' on a task you would pay for."
-              : "QLab no afirma supremacía cuántica desde un navegador. Afirma algo más estrecho y verificable: cada circuito es correcto, cada comparación es justa, y la ventaja — donde existe — es exactamente del tipo que los números de recursos respaldan (consultas, asintótica o no-localidad), nunca un 'speedup exponencial' de marketing sobre una tarea que pagarías."}
+              : "QLab no afirma supremacía cuántica desde un navegador. Afirma algo más estrecho y verificable: cada circuito es correcto, cada comparación es justa, y la ventaja — donde existe — es exactamente del tipo que los números de recursos respaldan (consultas, asintótica o no-localidad), nunca un 'speedup exponencial' de marketing sobre una tarea por la que valga la pena pagar."}
           </Callout>
           <Refs ids={["bernstein1997", "simon1997", "grover1996", "shor1997", "gidney2025", "huang2021", "chsh1969", "preskill2018"]} label={refLabel} />
         </div>
@@ -551,7 +551,7 @@ export function Experiments() {
           <p>
             {en
               ? "A single headline number can hide fragility, so the cases that have a free parameter ship a full sweep over it rather than one cherry-picked point. Grover sweeps the iteration count k and shows the over-rotation curve P_succ(k)=sin²((2k+1)θ): the probability climbs to its peak at k★≈(π/4)√(N/M) and then falls again if you keep iterating — a non-monotone curve that a one-point claim would erase. CHSH sweeps the measurement angles and traces S from the separable-state 1.414 through sub-optimal settings up to the Tsirelson 2.828, so the violation is shown as a continuum, not a single lucky angle. Interference sweeps the phase φ and reproduces the full P(0)=cos²(φ/2) fringe, including the exact cancellation at φ=π."
-              : "Un único número titular puede esconder fragilidad, así que los casos con un parámetro libre shippean un barrido completo en vez de un punto elegido a dedo. Grover barre el conteo de iteraciones k y muestra la curva de sobre-rotación P_éxito(k)=sin²((2k+1)θ): la probabilidad sube a su pico en k★≈(π/4)√(N/M) y luego cae de nuevo si sigues iterando — una curva no monótona que una afirmación de un punto borraría. CHSH barre los ángulos de medición y traza S desde el 1.414 del estado separable, pasando por ajustes subóptimos, hasta el 2.828 de Tsirelson, así que la violación se muestra como un continuo, no un único ángulo afortunado. La interferencia barre la fase φ y reproduce la franja completa P(0)=cos²(φ/2), incluida la cancelación exacta en φ=π."}
+              : "Un único número titular puede esconder fragilidad, así que los casos con un parámetro libre incluyen un barrido completo en vez de un punto elegido a dedo. Grover barre el conteo de iteraciones k y muestra la curva de sobre-rotación P_éxito(k)=sin²((2k+1)θ): la probabilidad sube a su pico en k★≈(π/4)√(N/M) y luego cae de nuevo si se sigue iterando — una curva no monótona que una afirmación de un punto borraría. CHSH barre los ángulos de medición y traza S desde el 1.414 del estado separable, pasando por ajustes subóptimos, hasta el 2.828 de Tsirelson, así que la violación se muestra como un continuo, no un único ángulo afortunado. La interferencia barre la fase φ y reproduce la franja completa P(0)=cos²(φ/2), incluida la cancelación exacta en φ=π."}
           </p>
           <Eq
             tex={String.raw`P_0(\varphi)=\cos^2\!\tfrac{\varphi}{2}\ \xrightarrow{\ \varphi=\pi\ }\ 0\quad(\text{exact cancellation}),\qquad S(\theta)\ \text{swept from }1.414\to 2\to 2.828`}
@@ -596,7 +596,7 @@ export function Experiments() {
           <p>
             {en
               ? "This table is generated live from the committed catalog — the set of shipped manifests — so it can never drift from what the build actually contains. Each row is one case: how many parametric regimes (variants) it ships, how those split across the live (clean, in-browser) and precompute (needs noise / feed-forward / optimisation / >12 qubits) lanes, which frameworks produced it, whether it carries a classical baseline, and where its data comes from. Most cases are exact engine output with no external dataset; the four data-driven cases use a labelled, generated regime family rather than a re-hosted external dataset, and those cells are tagged SYNTHETIC so the distinction is never blurred."
-              : "Esta tabla se genera en vivo desde el catálogo commiteado — el conjunto de manifiestos shippeados — así que nunca puede desviarse de lo que el build realmente contiene. Cada fila es un caso: cuántos regímenes paramétricos (variantes) shippea, cómo se reparten entre los carriles live (limpio, en navegador) y precompute (necesita ruido / feed-forward / optimización / >12 qubits), qué frameworks lo produjeron, si lleva un baseline clásico, y de dónde vienen sus datos. La mayoría de los casos son salida exacta del motor sin dataset externo; los cuatro casos basados en datos usan una familia de regímenes generada y etiquetada en vez de un dataset externo re-hospedado, y esas celdas se marcan SYNTHETIC para que la distinción nunca se difumine."}
+              : "Esta tabla se genera en vivo desde el catálogo commiteado — el conjunto de manifiestos publicados — así que nunca puede desviarse de lo que el build realmente contiene. Cada fila es un caso: cuántos regímenes paramétricos (variantes) incluye, cómo se reparten entre los carriles live (limpio, en navegador) y precompute (necesita ruido / feed-forward / optimización / >12 qubits), qué frameworks lo produjeron, si lleva un baseline clásico, y de dónde vienen sus datos. La mayoría de los casos son salida exacta del motor sin dataset externo; los cuatro casos basados en datos usan una familia de regímenes generada y etiquetada en vez de un dataset externo re-hospedado, y esas celdas se marcan SYNTHETIC para que la distinción nunca se difumine."}
           </p>
           {cat ? (
             <>
@@ -625,7 +625,7 @@ export function Experiments() {
               </table>
               <p className="fine">{en
                 ? "Lane key — live: a clean small unitary that re-runs exactly in the browser (≤12 qubits). precompute: needs a noise model, mid-circuit feed-forward, variational optimisation or stabiliser sampling, so it ships as a committed trace replayed in the browser. Both lanes use the identical renderer; the only difference is where the numbers were produced."
-                : "Clave de carril — live: un unitario limpio y chico que se re-ejecuta exacto en el navegador (≤12 qubits). precompute: necesita un modelo de ruido, feed-forward a mitad de circuito, optimización variacional o muestreo de estabilizadores, así que se shippea como traza commiteada reproducida en el navegador. Ambos carriles usan el renderer idéntico; la única diferencia es dónde se produjeron los números."}</p>
+                : "Clave de carril — live: un unitario limpio y chico que se re-ejecuta exacto en el navegador (≤12 qubits). precompute: necesita un modelo de ruido, feed-forward a mitad de circuito, optimización variacional o muestreo de estabilizadores, así que se publica como traza commiteada reproducida en el navegador. Ambos carriles usan el renderer idéntico; la única diferencia es dónde se produjeron los números."}</p>
             </>
           ) : <p className="note">{en ? "Loading the committed catalog…" : "Cargando el catálogo commiteado…"}</p>}
           <Callout
@@ -635,7 +635,7 @@ export function Experiments() {
               : "Ningún dataset externo restringido se re-hospeda aquí; los casos basados en datos usan regímenes generados y balanceados por clase, y lo dicen."}>
             {en
               ? "the QML and the two optimisation cases (QAOA/MaxCut, VQE) draw their inputs from a deterministic, seeded generator (the two-moons / parametric-graph / bond-length families) — labelled SYNTHETIC above — precisely so the leakage-safe protocol can be applied without licensing a real dataset. Every quantum and physics case is exact engine output, with the classical baseline computed in the same run."
-              : "el caso QML y los dos casos de optimización (QAOA/MaxCut, VQE) toman sus entradas de un generador determinista con semilla (las familias de dos-lunas / grafo-paramétrico / longitud-de-enlace) — etiquetadas SYNTHETIC arriba — justamente para que el protocolo sin fuga pueda aplicarse sin licenciar un dataset real. Todo caso cuántico y de física es salida exacta del motor, con el baseline clásico computado en la misma corrida."}
+              : "el caso QML y los dos casos de optimización (QAOA/MaxCut, VQE) toman sus entradas de un generador determinista con semilla (las familias de dos-lunas / grafo-paramétrico / longitud-de-enlace) — etiquetadas SYNTHETIC arriba — justamente para que el protocolo sin fuga pueda aplicarse sin licenciar un dataset real. Todo caso cuántico y de física es salida exacta del motor, con el baseline clásico computado en la misma ejecución."}
           </Callout>
           <Refs ids={["ecma404", "qiskit2024", "huang2021", "peruzzo2014"]} label={refLabel} />
         </div>

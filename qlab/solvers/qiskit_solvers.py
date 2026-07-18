@@ -859,9 +859,9 @@ class QiskitQFT(Solver):
             cost={"wall_ms": round(wall, 3), "qubits": n, "gates": gate_count,
                   "gate_complexity": "O(n^2)"},
             notes={"en": f"QFT|{k}⟩ via {gate_count} gates (O(n²)); fidelity vs analytic DFT = {fid:.4f}. "
-                         "But a measurement gives ONE sample — the spectrum is not readable.",
+                         "But a measurement gives one sample — the spectrum is not readable.",
                    "es": f"QFT|{k}⟩ con {gate_count} compuertas (O(n²)); fidelidad vs DFT analítica = "
-                         f"{fid:.4f}. Pero una medición da UNA muestra — el espectro no es legible."},
+                         f"{fid:.4f}. Pero una medición da una sola muestra — el espectro no es legible."},
             trace=trace,
         )
 

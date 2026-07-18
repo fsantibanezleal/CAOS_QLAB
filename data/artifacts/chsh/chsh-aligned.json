@@ -30,7 +30,7 @@
   },
   "note": {
    "en": "Bell pair — see whether S exceeds the classical 2.",
-   "es": "par de Bell — ve si S supera el clásico 2."
+   "es": "par de Bell — muestra si S supera el clásico 2."
   }
  },
  "qubits": 2,
@@ -310,8 +310,8 @@
   "tsirelson_bound": 2.8284,
   "exceeds_classical": false,
   "verdict": {
-   "en": "Quantum CHSH value S = 2.0 vs the classical local-hidden-variable bound 2 (Tsirelson max 2.8284). No violation here — and this is one of the FEW places quantum genuinely beats classical: it rules out local realism (2022 Nobel). But it is a nonlocality result, not a faster computation; and a separable state never violates it (entanglement is required).",
-   "es": "Valor CHSH cuántico S = 2.0 vs la cota clásica de variables ocultas locales 2 (máx de Tsirelson 2.8284). Sin violación aquí — y este es uno de los POCOS casos donde lo cuántico gana de verdad: descarta el realismo local (Nobel 2022). Pero es un resultado de no-localidad, no un cálculo más rápido; y un estado separable nunca la viola (se requiere entrelazamiento)."
+   "en": "Quantum CHSH value S = 2.0 vs the classical local-hidden-variable bound 2 (Tsirelson max 2.8284). No violation here — and this is one of the few places quantum genuinely beats classical: it rules out local realism (2022 Nobel). But it is a nonlocality result, not a faster computation; and a separable state never violates it (entanglement is required).",
+   "es": "Valor CHSH cuántico S = 2.0 vs la cota clásica de variables ocultas locales 2 (máx de Tsirelson 2.8284). Sin violación aquí — y este es uno de los pocos casos donde lo cuántico gana de verdad: descarta el realismo local (Nobel 2022). Pero es un resultado de no-localidad, no un cálculo más rápido; y un estado separable nunca la viola (se requiere entrelazamiento)."
   }
  },
  "references": [

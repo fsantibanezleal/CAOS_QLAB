@@ -125,7 +125,7 @@ export function Introduction() {
         <p className="lede">
           {en
             ? <>QLab is a didactic quantum-computing laboratory: it runs the <em>real</em> frameworks on small problems, animates the quantum state on a Bloch sphere as <Tex tex={String.raw`\lvert\psi\rangle=\sum_x c_x\lvert x\rangle`} />, and — always — places each quantum method next to the classical baseline that is still, in 2025–2026, more practical at these scales. It is a teaching and workforce instrument, <strong>not</strong> a claim that quantum beats classical today.</>
-            : <>QLab es un laboratorio didáctico de computación cuántica: corre los frameworks <em>reales</em> sobre problemas pequeños, anima el estado cuántico en una esfera de Bloch como <Tex tex={String.raw`\lvert\psi\rangle=\sum_x c_x\lvert x\rangle`} />, y — siempre — pone cada método cuántico junto al baseline clásico que en 2025–2026 sigue siendo más práctico a estas escalas. Es un instrumento de enseñanza y formación, <strong>no</strong> una afirmación de que lo cuántico le gane a lo clásico hoy.</>}
+            : <>QLab es un laboratorio didáctico de computación cuántica: ejecuta los frameworks <em>reales</em> sobre problemas pequeños, anima el estado cuántico en una esfera de Bloch como <Tex tex={String.raw`\lvert\psi\rangle=\sum_x c_x\lvert x\rangle`} />, y — siempre — pone cada método cuántico junto al baseline clásico que en 2025–2026 sigue siendo más práctico a estas escalas. Es un instrumento de enseñanza y formación, <strong>no</strong> una afirmación de que lo cuántico le gane a lo clásico hoy.</>}
         </p>
       </div>
 
@@ -141,7 +141,7 @@ export function Introduction() {
         <p className="fine">
           {en
             ? "Read this as a contract, not a slogan: the quantum and classical lanes consume the same problem definition and write the same kind of result, so the comparison is apples-to-apples and on screen for every case."
-            : "Léelo como un contrato, no un eslogan: los carriles cuántico y clásico consumen la misma definición del problema y escriben el mismo tipo de resultado, así que la comparación es justa y está en pantalla para cada caso."}
+            : "Es un contrato, no un eslogan: los carriles cuántico y clásico consumen la misma definición del problema y escriben el mismo tipo de resultado, así que la comparación es justa y está en pantalla para cada caso."}
         </p>
         <Refs ids={["feynman1982", "preskill2018", "nielsen2010"]} label={en ? "Sources" : "Fuentes"} />
       </section>
@@ -157,7 +157,7 @@ export function Introduction() {
         <p>
           {en
             ? <>That error sets how deep a circuit can go before noise destroys the signal. With per-gate error <Tex tex={String.raw`\varepsilon\approx10^{-3}`} />, a circuit of ~1000 two-qubit gates already accumulates order-1 expected error, so <em>useful</em> depth before noise dominates is in the low thousands of gates at best. Qubit count is the most over-marketed number: IBM's 1,121-qubit Condor is mostly a milestone, and IBM itself pivoted its useful roadmap to the 120–156-qubit Heron/Nighthawk line — because depth and fidelity, not raw count, gate what runs.</>
-            : <>Ese error fija qué tan profundo puede ir un circuito antes de que el ruido destruya la señal. Con error por compuerta <Tex tex={String.raw`\varepsilon\approx10^{-3}`} />, un circuito de ~1000 compuertas de dos qubits ya acumula error esperado de orden 1, así que la profundidad <em>útil</em> antes de que el ruido domine está, en el mejor caso, en los miles bajos de compuertas. El conteo de qubits es el número más sobre-vendido: el Condor de 1121 qubits de IBM es sobre todo un hito, e IBM misma reorientó su hoja de ruta útil a la línea Heron/Nighthawk de 120–156 qubits — porque la profundidad y la fidelidad, no el conteo bruto, deciden qué corre.</>}
+            : <>Ese error fija qué tan profundo puede ir un circuito antes de que el ruido destruya la señal. Con error por compuerta <Tex tex={String.raw`\varepsilon\approx10^{-3}`} />, un circuito de ~1000 compuertas de dos qubits ya acumula error esperado de orden 1, así que la profundidad <em>útil</em> antes de que el ruido domine está, en el mejor caso, en los miles bajos de compuertas. El conteo de qubits es el número más sobre-vendido: el Condor de 1121 qubits de IBM es sobre todo un hito, e IBM misma reorientó su hoja de ruta útil a la línea Heron/Nighthawk de 120–156 qubits — porque la profundidad y la fidelidad, no el conteo bruto, deciden qué se ejecuta.</>}
         </p>
         <p>
           {en
@@ -190,7 +190,7 @@ export function Introduction() {
         <p>
           {en
             ? "The catch is measurement: you never read the amplitudes directly. A measurement returns a single classical bitstring with probability equal to the squared magnitude of its amplitude (the Born rule), then collapses the state. Everything an algorithm achieves it must achieve by shaping those probabilities before the measurement — which is why naïvely 'reading 2ⁿ amplitudes at once' is a myth, and why a classical computer can often match small quantum circuits by simply writing the 2ⁿ vector down."
-            : "El truco es la medición: nunca lees las amplitudes directamente. Una medición devuelve una sola cadena de bits clásica con probabilidad igual al módulo al cuadrado de su amplitud (la regla de Born), y luego colapsa el estado. Todo lo que un algoritmo logra debe lograrlo dando forma a esas probabilidades antes de medir — por eso 'leer 2ⁿ amplitudes a la vez' es un mito, y por eso una computadora clásica a menudo iguala circuitos cuánticos pequeños con solo escribir el vector de 2ⁿ."}
+            : "El truco es la medición: las amplitudes nunca se leen directamente. Una medición devuelve una sola cadena de bits clásica con probabilidad igual al módulo al cuadrado de su amplitud (la regla de Born), y luego colapsa el estado. Todo lo que un algoritmo logra debe lograrlo dando forma a esas probabilidades antes de medir — por eso 'leer 2ⁿ amplitudes a la vez' es un mito, y por eso una computadora clásica a menudo iguala circuitos cuánticos pequeños con solo escribir el vector de 2ⁿ."}
         </p>
         <Refs ids={["nielsen2010", "feynman1965", "epr1935", "bell1964"]} label={en ? "Sources" : "Fuentes"} />
       </section>
@@ -257,7 +257,7 @@ export function Introduction() {
         <p>
           {en
             ? "Nothing on the published site computes physics on demand. A run is a pure function of (parameters, seed); the result is committed and the front end only animates it (replay = truth). The pipeline, in order:"
-            : "Nada en el sitio publicado computa física a demanda. Una corrida es una función pura de (parámetros, semilla); el resultado se commitea y el front end solo lo anima (replay = verdad). El pipeline, en orden:"}
+            : "Nada en el sitio publicado computa física a demanda. Una ejecución es una función pura de (parámetros, semilla); el resultado se commitea y el front end solo lo anima (replay = verdad). El pipeline, en orden:"}
         </p>
         <ol className="gate-list">
           <li>{en
@@ -268,7 +268,7 @@ export function Introduction() {
             : <><strong>Vincular solvers reales.</strong> Cada <em>Solver</em> es un adaptador delgado sobre un framework real — sim-cuántico (Qiskit-Aer, PennyLane), clásico (NumPy/scikit-learn), hardware-cuántico opcional. Un registro lista cada solver que puede atacar el problema.</>}</li>
           <li>{en
             ? <><strong>Classify the lane (measured, not guessed).</strong> Four conditions — qubits ≤ 12, unitary-only, run-time ≤ 1.5 s, trace ≤ 1 MB — decide whether the case runs <em>live</em> in the browser or must be <em>precomputed</em> offline.</>
-            : <><strong>Clasificar el carril (medido, no adivinado).</strong> Cuatro condiciones — qubits ≤ 12, solo-unitario, tiempo ≤ 1,5 s, traza ≤ 1 MB — deciden si el caso corre <em>vivo</em> en el navegador o debe <em>precomputarse</em> offline.</>}</li>
+            : <><strong>Clasificar el carril (medido, no adivinado).</strong> Cuatro condiciones — qubits ≤ 12, solo-unitario, tiempo ≤ 1,5 s, traza ≤ 1 MB — deciden si el caso se ejecuta <em>en vivo</em> en el navegador o debe <em>precomputarse</em> offline.</>}</li>
           <li>{en
             ? <><strong>Run and trace.</strong> The engine executes the circuit and records, per step, the statevector, Bloch vectors and probabilities, plus the measurement counts — all under one JSON contract (qlab-trace), with no framework-specific type leaking through.</>
             : <><strong>Correr y trazar.</strong> El motor ejecuta el circuito y registra, por paso, el statevector, vectores de Bloch y probabilidades, más los conteos de medición — todo bajo un solo contrato JSON (qlab-trace), sin que se filtre ningún tipo específico del framework.</>}</li>
@@ -304,13 +304,13 @@ export function Introduction() {
         <p>
           {en
             ? <><strong>Illustrative:</strong> the <em>scale</em>. Everything here runs at lab scale (a handful of qubits), where a classical computer simply writes the 2ⁿ amplitude vector down. Grover's √N, Shor's polynomial factoring and QAOA's approximation are real asymptotics that do <em>not</em> show up as a win at N this small — Shor here is a toy N=15, real RSA-2048 needs on the order of 10⁶ noisy physical qubits (Gidney 2025). The mechanism is exact; the advantage is illustrative of what larger, fault-tolerant machines might one day do.</>
-            : <><strong>Ilustrativo:</strong> la <em>escala</em>. Todo aquí corre a escala de lab (un puñado de qubits), donde una computadora clásica simplemente escribe el vector de 2ⁿ amplitudes. El √N de Grover, la factorización polinomial de Shor y la aproximación de QAOA son asintóticas reales que <em>no</em> aparecen como ventaja a una N tan pequeña — Shor aquí es un juguete N=15, y el RSA-2048 real necesita del orden de 10⁶ qubits físicos ruidosos (Gidney 2025). El mecanismo es exacto; la ventaja es ilustrativa de lo que máquinas mayores y tolerantes a fallos podrían hacer algún día.</>}
+            : <><strong>Ilustrativo:</strong> la <em>escala</em>. Todo aquí se ejecuta a escala de lab (un puñado de qubits), donde una computadora clásica simplemente escribe el vector de 2ⁿ amplitudes. El √N de Grover, la factorización polinomial de Shor y la aproximación de QAOA son asintóticas reales que <em>no</em> aparecen como ventaja a una N tan pequeña — Shor aquí es un juguete N=15, y el RSA-2048 real necesita del orden de 10⁶ qubits físicos ruidosos (Gidney 2025). El mecanismo es exacto; la ventaja es ilustrativa de lo que máquinas mayores y tolerantes a fallos podrían hacer algún día.</>}
         </p>
         <div className="callout">
           <strong>{en ? "The honest frame (2025–2026)." : "El marco honesto (2025–2026)."}</strong>{" "}
           {en
             ? "Does a quantum computer beat a classical one at anything you'd pay for? Not yet. Error correction crossed a genuine threshold (Google Willow, Dec 2024), but that was one logical qubit used as memory — about 8 orders of magnitude from breaking cryptography, and no useful computation. Of the cases shipped here, zero show a practical, pay-for-it speedup today; the quantum-vs-classical comparison is on screen for each so you can see exactly why."
-            : "¿Una computadora cuántica le gana a una clásica en algo que pagarías? Todavía no. La corrección de errores cruzó un umbral real (Google Willow, dic 2024), pero fue un qubit lógico usado como memoria — a unos 8 órdenes de magnitud de romper criptografía, y sin computación útil. De los casos incluidos aquí, cero muestran una aceleración práctica y pagable hoy; la comparación cuántico-vs-clásico está en pantalla para cada uno para que veas exactamente por qué."}
+            : "¿Una computadora cuántica le gana a una clásica en algo por lo que valga la pena pagar? Todavía no. La corrección de errores cruzó un umbral real (Google Willow, dic 2024), pero fue un qubit lógico usado como memoria — a unos 8 órdenes de magnitud de romper criptografía, y sin computación útil. De los casos incluidos aquí, cero muestran una aceleración práctica y pagable hoy; la comparación cuántico-vs-clásico está en pantalla para cada uno para ver exactamente por qué."}
           <span className="callout-pt">
             {en
               ? "That sentence is the reason QLab exists, and the reason every case ships with a classical solver."
@@ -338,7 +338,7 @@ export function Introduction() {
 
       {/* ── What you can explore ──────────────────────────────────────────── */}
       <section className="doc-section">
-        <h2>{en ? "What you can explore" : "Lo que puedes explorar"}</h2>
+        <h2>{en ? "What you can explore" : "Lo que se puede explorar"}</h2>
         <p>
           {en
             ? `${nCases} worked cases across all six families (${nVariants} committed variant traces), each solved end-to-end by a quantum solver and a classical baseline:`
@@ -370,13 +370,13 @@ export function Introduction() {
             <span className="tag is-tag">{en ? "IS" : "ES"}</span>
             <p>{en
               ? "A teaching + workforce lab that runs the real frameworks on small problems, animates the quantum state, and honestly compares quantum to classical with both costs on screen."
-              : "Un laboratorio de enseñanza y formación que corre los frameworks reales sobre problemas pequeños, anima el estado cuántico y compara honestamente lo cuántico con lo clásico con ambos costos en pantalla."}</p>
+              : "Un laboratorio de enseñanza y formación que ejecuta los frameworks reales sobre problemas pequeños, anima el estado cuántico y compara honestamente lo cuántico con lo clásico con ambos costos en pantalla."}</p>
           </div>
           <div className="isnt">
             <span className="tag isnt-tag">{en ? "IS NOT" : "NO ES"}</span>
             <p>{en
               ? "A claim that quantum beats classical today (it does not, at these scales); a production quantum-advantage engine; a service that runs arbitrary circuits on hardware for you."
-              : "Una afirmación de que lo cuántico le gana a lo clásico hoy (no lo hace, a estas escalas); un motor de ventaja cuántica en producción; un servicio que corre circuitos arbitrarios en hardware por ti."}</p>
+              : "Una afirmación de que lo cuántico le gana a lo clásico hoy (no lo hace, a estas escalas); un motor de ventaja cuántica en producción; un servicio que ejecuta circuitos arbitrarios en hardware por el usuario."}</p>
           </div>
         </div>
         <Refs ids={["preskill2018", "kim2023", "barak2021"]} label={en ? "Sources" : "Fuentes"} />

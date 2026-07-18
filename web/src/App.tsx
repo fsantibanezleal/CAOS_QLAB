@@ -143,9 +143,9 @@ function groupByCategory(cases: CatalogCase[]): [string, CatalogCase[]][] {
 }
 
 /* ============================================================================
-   The App landing (/) — the TOOL, not a catalogue. ADR-0017 §3:
+   The App landing (/) — the tool, not a catalogue. ADR-0017 §3:
    page-body qlab-layout = a control aside (case selector grouped by category +
-   variant chips + a LIVE quantum-vs-classical read-out) + a 1fr main = the
+   variant chips + a live quantum-vs-classical read-out) + a 1fr main = the
    CaseWorkbench for the selected case. Every control drives a recompute/reload.
    ========================================================================= */
 function Workbench() {
@@ -196,7 +196,7 @@ function Workbench() {
           <p className="qlab-side-lede">
             {en
               ? "Pick a case and a variant; each runs the real framework and replays the committed trace next to the classical baseline."
-              : "Elige un caso y una variante; cada uno corre el framework real y reproduce la traza commiteada junto al baseline clásico."}
+              : "Elegir un caso y una variante; cada uno ejecuta el framework real y reproduce la traza commiteada junto al baseline clásico."}
           </p>
         </div>
 
@@ -268,7 +268,7 @@ function Workbench() {
           </div>
         </div>
 
-        {/* the LIVE quantum-vs-classical read-out (updates with every selection) */}
+        {/* the live quantum-vs-classical read-out (updates with every selection) */}
         <div className={`qlab-readout edge-${advEdge}`}>
           <div className="qlab-readout-head">
             <span className="qlab-readout-title">{en ? "Quantum vs classical" : "Cuántico vs clásico"}</span>
@@ -322,7 +322,7 @@ function Workbench() {
         <p className="qlab-main-note">
           {en
             ? "Circuit, Bloch sphere, amplitudes, histogram, any landscape/extrapolation, and the quantum-vs-classical table are the real committed results. On live-lane cases switch to the Live (browser) tab and drag a slider to re-simulate in real time."
-            : "El circuito, la esfera de Bloch, las amplitudes, el histograma, cualquier paisaje/extrapolación y la tabla cuántico-vs-clásico son los resultados commiteados reales. En casos del carril vivo cambia a la pestaña En vivo (navegador) y mueve un slider para re-simular en tiempo real."}
+            : "El circuito, la esfera de Bloch, las amplitudes, el histograma, cualquier paisaje/extrapolación y la tabla cuántico-vs-clásico son los resultados commiteados reales. En casos del carril vivo, cambiar a la pestaña En vivo (navegador) y mover un slider para re-simular en tiempo real."}
         </p>
       </main>
     </div>
@@ -347,7 +347,7 @@ function AllCases() {
         <p className="lede">
           {en
             ? `Every case in the lab, grouped by family. Open one in the workbench, or jump to its standalone page. ${cat.count} cases.`
-            : `Todos los casos del laboratorio, agrupados por familia. Abre uno en el banco de trabajo o salta a su página individual. ${cat.count} casos.`}
+            : `Todos los casos del laboratorio, agrupados por familia. Abrir uno en el banco de trabajo o saltar a su página individual. ${cat.count} casos.`}
         </p>
       </div>
       {grouped.map(([category, cases]) => (
@@ -399,7 +399,7 @@ function CasePage() {
       <p className="todo-note">
         {en
           ? "Everything above — circuit, Bloch sphere, amplitudes, histogram, the QAOA landscape and the quantum-vs-classical comparison — is the real committed result. On live-lane cases, switch to the Live (browser) tab and drag a slider to re-simulate in real time."
-          : "Todo lo de arriba — circuito, esfera de Bloch, amplitudes, histograma, el paisaje de QAOA y la comparación cuántico-vs-clásico — es el resultado commiteado real. En los casos del carril vivo, cambia a la pestaña En vivo (navegador) y mueve un slider para re-simular en tiempo real."}
+          : "Todo lo de arriba — circuito, esfera de Bloch, amplitudes, histograma, el paisaje de QAOA y la comparación cuántico-vs-clásico — es el resultado commiteado real. En los casos del carril vivo, cambiar a la pestaña En vivo (navegador) y mover un slider para re-simular en tiempo real."}
       </p>
     </div>
   );

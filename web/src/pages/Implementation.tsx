@@ -24,7 +24,7 @@ function WhereWorks({
 function Boundary({ en, runs, live }: { en: boolean; runs: ReactNode; live: ReactNode }) {
   return (
     <div className="bound-row">
-      <span className="bound-chip"><b>{en ? "runs in" : "corre en"}</b> {runs}</span>
+      <span className="bound-chip"><b>{en ? "runs in" : "se ejecuta en"}</b> {runs}</span>
       <span className="bound-chip"><b>{en ? "boundary" : "frontera"}</b> {live}</span>
     </div>
   );
@@ -138,7 +138,7 @@ function TraceDiagram({ lang }: { lang: Lang }) {
                         : "Contrato de traza: registro por paso a JSON a espejo TS a renderers"}>
       <defs><Head id={m} /></defs>
       <rect className="arch-box arch-box-key" x="12" y="84" width="150" height="56" rx="8" />
-      <text className="arch-t" x="87" y="106" textAnchor="middle">{en ? "circuit run" : "corrida"}</text>
+      <text className="arch-t" x="87" y="106" textAnchor="middle">{en ? "circuit run" : "ejecución"}</text>
       <text className="arch-s" x="87" y="124" textAnchor="middle">f(params, seed)</text>
       <path className="arch-arrow" d="M162 112 L214 112" markerEnd={`url(#${m})`} />
       <rect className="arch-box" x="214" y="58" width="178" height="108" rx="8" />
@@ -161,8 +161,8 @@ function TraceDiagram({ lang }: { lang: Lang }) {
   );
 }
 
-/** The measured gate: classify_lane reads four measurements; ALL pass → live,
- *  ANY fails → precompute. The verdict + numbers are written to the manifest. */
+/** The measured gate: classify_lane reads four measurements; all pass → live,
+ *  any fails → precompute. The verdict + numbers are written to the manifest. */
 function GateDiagram({ lang }: { lang: Lang }) {
   const en = lang === "en";
   const m = "im-gate";
@@ -215,7 +215,7 @@ function EngineSeamDiagram({ lang }: { lang: Lang }) {
       <path className="arch-arrow" d="M400 125 L456 125" markerEnd={`url(#${m})`} />
       <rect className="arch-contract" x="456" y="96" width="150" height="58" rx="8" />
       <text className="arch-t" x="531" y="120" textAnchor="middle">pipeline</text>
-      <text className="arch-s" x="531" y="138" textAnchor="middle">{en ? "run all applicable" : "corre los aplicables"}</text>
+      <text className="arch-s" x="531" y="138" textAnchor="middle">{en ? "run all applicable" : "ejecuta los aplicables"}</text>
       <path className="arch-arrow" d="M606 125 L654 125" markerEnd={`url(#${m})`} />
       <rect className="arch-spa" x="654" y="96" width="96" height="58" rx="8" />
       <text className="arch-t" x="702" y="120" textAnchor="middle">{en ? "bundle" : "bundle"}</text>
@@ -245,11 +245,11 @@ export function Implementation() {
             <span className="seal">{en ? "deterministic" : "determinista"}</span>
             <span>{en
               ? "Every run is a pure function of (params, seed). The only stochastic step is measurement sampling, routed through one seeded NumPy bit-generator (PCG64), so committed counts reproduce byte-for-byte; statevector evolution is exact. Re-running the offline pipeline reproduces the committed trace exactly."
-              : "Cada corrida es función pura de (params, seed). El único paso estocástico es el muestreo de medición, por un único bit-generator NumPy con semilla (PCG64), así que los conteos commiteados reproducen byte a byte; la evolución del statevector es exacta. Re-correr el pipeline offline reproduce la traza commiteada exactamente."}</span>
+              : "Cada ejecución es función pura de (params, seed). El único paso estocástico es el muestreo de medición, por un único bit-generator NumPy con semilla (PCG64), así que los conteos commiteados reproducen byte a byte; la evolución del statevector es exacta. Re-ejecutar el pipeline offline reproduce la traza commiteada exactamente."}</span>
           </div>
           <p>{en
             ? "QLab is built around one idea: the heavy quantum physics runs OFFLINE in a local Python environment, and the published web app is a thin static client. The four real simulation engines (Qiskit+Aer, PennyLane, Cirq/Stim, and the classical baselines in NumPy/scikit-learn) are funneled through a single pipeline that emits a uniform committed artifact — a trace plus a manifest. That artifact is the only thing the browser depends on; it carries no Qiskit type, so the web never imports a Python framework. A small, hand-written state-vector simulator in TypeScript re-runs the clean unitary cases live, sharing the exact same trace shape so one renderer animates both lanes."
-            : "QLab se construye sobre una idea: la física cuántica pesada corre OFFLINE en un entorno Python local, y la web publicada es un cliente estático delgado. Los cuatro motores reales de simulación (Qiskit+Aer, PennyLane, Cirq/Stim y los baselines clásicos en NumPy/scikit-learn) pasan por un único pipeline que emite un artefacto uniforme commiteado — una traza más un manifiesto. Ese artefacto es lo único de lo que depende el navegador; no lleva ningún tipo de Qiskit, así que la web nunca importa un framework de Python. Un pequeño simulador de statevector escrito a mano en TypeScript re-corre en vivo los casos unitarios limpios, compartiendo exactamente la misma forma de traza, así que un solo renderer anima ambos carriles."}</p>
+            : "QLab se construye sobre una idea: la física cuántica pesada se ejecuta offline en un entorno Python local, y la web publicada es un cliente estático delgado. Los cuatro motores reales de simulación (Qiskit+Aer, PennyLane, Cirq/Stim y los baselines clásicos en NumPy/scikit-learn) pasan por un único pipeline que emite un artefacto uniforme commiteado — una traza más un manifiesto. Ese artefacto es lo único de lo que depende el navegador; no lleva ningún tipo de Qiskit, así que la web nunca importa un framework de Python. Un pequeño simulador de statevector escrito a mano en TypeScript vuelve a ejecutar en vivo los casos unitarios limpios, compartiendo exactamente la misma forma de traza, así que un solo renderer anima ambos carriles."}</p>
           <div className="fig-svg wide"><ArchitectureDiagram lang={lang} />
             <p className="fig-cap">{en
               ? "Offline-heavy engines → one pipeline → the committed trace + manifest (the seam) → a thin live TS engine and a static SPA on a CDN. The real-hardware lane attaches at the same seam but stays dormant on the published site."
@@ -263,7 +263,7 @@ export function Implementation() {
             }}
           />
           <ul className="sym-list">
-            <li><b>𝓡</b>{en ? "the deterministic run map (evolve statevector, record per step)" : "el mapa de corrida determinista (evoluciona statevector, registra por paso)"}</li>
+            <li><b>𝓡</b>{en ? "the deterministic run map (evolve statevector, record per step)" : "el mapa de ejecución determinista (evoluciona statevector, registra por paso)"}</li>
             <li><b>params</b>{en ? "gates, angles, graph, shots — the full case vector" : "compuertas, ángulos, grafo, shots — el vector del caso"}</li>
             <li><b>seed</b>{en ? "the integer seeding the NumPy PCG64 bit-generator" : "el entero que siembra el bit-generator PCG64 de NumPy"}</li>
             <li><b>p_b</b>{en ? "probability of basis state b = |⟨b|ψ⟩|²" : "probabilidad del estado base b = |⟨b|ψ⟩|²"}</li>
@@ -285,21 +285,21 @@ export function Implementation() {
         <div className="method-body">
           <p>{en
             ? "QLab is not a folder of one-off scripts that each run a framework their own way; it is a small engine with one execution path. A Problem declares what to compute (its bilingual identity, its variant instances, the reported metric, a live_capable hint) and imports no quantum framework. A Solver is a thin adapter that wraps exactly ONE real framework to attack a problem and returns a uniform SolverResult — the answer value, its cost, an optional replay trace, and bilingual notes. Solvers come in three paradigms: quantum-sim (Qiskit-Aer, PennyLane, Cirq/qsim), quantum-hardware (a real QPU run with provenance), and classical (the honest still-more-practical baseline: brute force, Goemans–Williamson, exact diagonalization, FFT, sklearn)."
-            : "QLab no es una carpeta de scripts sueltos que cada uno corre un framework a su manera; es un motor pequeño con un solo camino de ejecución. Un Problem declara qué computar (su identidad bilingüe, sus instancias variantes, la métrica reportada, un hint live_capable) y no importa ningún framework cuántico. Un Solver es un adaptador delgado que envuelve exactamente UN framework real para atacar un problema y devuelve un SolverResult uniforme — el valor de la respuesta, su costo, una traza de replay opcional y notas bilingües. Los solvers vienen en tres paradigmas: quantum-sim (Qiskit-Aer, PennyLane, Cirq/qsim), quantum-hardware (una corrida en QPU real con procedencia) y classical (el baseline honesto aún-más-práctico: fuerza bruta, Goemans–Williamson, diagonalización exacta, FFT, sklearn)."}</p>
+            : "QLab no es una carpeta de scripts sueltos que cada uno ejecuta un framework a su manera; es un motor pequeño con un solo camino de ejecución. Un Problem declara qué computar (su identidad bilingüe, sus instancias variantes, la métrica reportada, un hint live_capable) y no importa ningún framework cuántico. Un Solver es un adaptador delgado que envuelve exactamente un framework real para atacar un problema y devuelve un SolverResult uniforme — el valor de la respuesta, su costo, una traza de replay opcional y notas bilingües. Los solvers vienen en tres paradigmas: quantum-sim (Qiskit-Aer, PennyLane, Cirq/qsim), quantum-hardware (una ejecución en QPU real con procedencia) y classical (el baseline honesto aún-más-práctico: fuerza bruta, Goemans–Williamson, diagonalización exacta, FFT, sklearn)."}</p>
           <pre className="code"><code>{`@register_solver
 class QiskitQAOA(Solver):
     name, framework, paradigm = "qaoa-qiskit", "qiskit", QUANTUM_SIM
     def applicable(self, problem) -> bool:
         return problem.id == "maxcut"
     def run(self, problem, instance, seed, shots) -> SolverResult:
-        ...  # the ONLY method that touches Qiskit`}</code></pre>
+        ...  # the only method that touches Qiskit`}</code></pre>
           <p>{en
             ? "Problems and solvers self-register via decorators. The pipeline asks the registry for the solvers applicable() to a case and calls solver.run(...) with a uniform signature; it never names a framework. A complex case is attacked by many solvers at once and compared head-to-head: MaxCut on one graph runs QAOA-Qiskit + QAOA-PennyLane + brute-force + greedy in one pass, the pipeline emits all four side by side plus a verdict (exact classical optimum = 4 in 0.013 ms; QAOA reached 4 but did not win), and the two independent QAOA frameworks cross-check each other on the cut value. The adapter boundary is deliberately thin and uniform, and the web never imports a framework — it renders the generic JSON trace, so a new solver appears the moment its trace is committed, with zero frontend change."
-            : "Problemas y solvers se auto-registran por decoradores. El pipeline le pide al registry los solvers applicable() a un caso y llama solver.run(...) con una firma uniforme; nunca nombra un framework. Un caso complejo es atacado por muchos solvers a la vez y comparado cara a cara: MaxCut sobre un grafo corre QAOA-Qiskit + QAOA-PennyLane + fuerza bruta + greedy en una pasada, el pipeline emite los cuatro lado a lado más un veredicto (óptimo clásico exacto = 4 en 0.013 ms; QAOA llegó a 4 pero no ganó), y los dos frameworks QAOA independientes se validan cruzadamente en el valor del corte. El borde del adaptador es deliberadamente delgado y uniforme, y la web nunca importa un framework — renderiza la traza JSON genérica, así que un nuevo solver aparece al commitear su traza, sin cambio alguno en el frontend."}</p>
+            : "Problemas y solvers se auto-registran por decoradores. El pipeline le pide al registry los solvers applicable() a un caso y llama solver.run(...) con una firma uniforme; nunca nombra un framework. Un caso complejo es atacado por muchos solvers a la vez y comparado cara a cara: MaxCut sobre un grafo ejecuta QAOA-Qiskit + QAOA-PennyLane + fuerza bruta + greedy en una pasada, el pipeline emite los cuatro lado a lado más un veredicto (óptimo clásico exacto = 4 en 0.013 ms; QAOA llegó a 4 pero no ganó), y los dos frameworks QAOA independientes se validan cruzadamente en el valor del corte. El borde del adaptador es deliberadamente delgado y uniforme, y la web nunca importa un framework — renderiza la traza JSON genérica, así que un nuevo solver aparece al commitear su traza, sin cambio alguno en el frontend."}</p>
           <div className="fig-svg wide"><EngineSeamDiagram lang={lang} />
             <p className="fig-cap">{en
               ? "The adapter seam: a Problem declares what; thin Solvers each wrap one framework behind run(...) → SolverResult; the registry self-attaches the applicable ones; the single pipeline runs them all and writes the bundle + manifest."
-              : "La costura de adaptadores: un Problem declara qué; los Solvers delgados envuelven un framework cada uno tras run(...) → SolverResult; el registry engancha los aplicables; el único pipeline los corre todos y escribe el bundle + manifiesto."}</p>
+              : "La costura de adaptadores: un Problem declara qué; los Solvers delgados envuelven un framework cada uno tras run(...) → SolverResult; el registry engancha los aplicables; el único pipeline los ejecuta todos y escribe el bundle + manifiesto."}</p>
           </div>
           <Eq
             tex={String.raw`\text{run}:\;(\,\text{Problem},\,\text{Instance},\,\text{seed},\,\text{shots}\,)\;\longrightarrow\;\text{SolverResult}=(\text{value},\,\text{cost},\,\text{trace}?,\,\text{notes})`}
@@ -317,7 +317,7 @@ class QiskitQAOA(Solver):
             <li><b>cost</b>{en ? "wall-time + shots/queries the method spent" : "tiempo + shots/consultas que gastó el método"}</li>
           </ul>
           <table className="impl-table">
-            <thead><tr><th>{en ? "To add…" : "Para agregar…"}</th><th>{en ? "You write…" : "Escribes…"}</th><th>{en ? "You touch…" : "Tocas…"}</th></tr></thead>
+            <thead><tr><th>{en ? "To add…" : "Para agregar…"}</th><th>{en ? "Write…" : "Se escribe…"}</th><th>{en ? "Touch…" : "Se toca…"}</th></tr></thead>
             <tbody>
               <tr><td>{en ? "a framework/method" : "un framework/método"}</td><td><code>Solver</code> + <code>@register_solver</code></td><td>{en ? "nothing in core/pipeline/web" : "nada en core/pipeline/web"}</td></tr>
               <tr><td>{en ? "a problem" : "un problema"}</td><td><code>Problem</code> + <code>@register_problem</code></td><td>{en ? "nothing — solvers self-attach" : "nada — los solvers se enganchan solos"}</td></tr>
@@ -350,12 +350,12 @@ class QiskitQAOA(Solver):
         <div className="method-body">
           <p>{en
             ? "The live lane is a purpose-built, exact state-vector simulator hand-written in TypeScript — not a third-party JS library and not Qiskit-in-the-browser (there are no usable Pyodide wheels for rustworkx/symengine/qiskit-aer). It holds the amplitudes ψ as a flat Float64Array of 2·2ⁿ reals (interleaved Re,Im). A single-qubit gate U on qubit q is applied in-place by iterating the 2ⁿ⁻¹ index pairs (i, i+2^q) that differ only in bit q, and overwriting each pair with the 2×2 matrix–vector product; a controlled gate restricts the update to the indices whose control bit is 1. This is the standard O(2ⁿ) per-gate Schrödinger update, and it is exact (no truncation). After each step the engine reads the per-qubit Bloch vector and the basis probabilities directly from ψ; measurement draws shots from the categorical distribution {|ψ_b|²} via one seeded PRNG so the live histogram matches the committed convention."
-            : "El carril vivo es un simulador de statevector exacto, hecho a medida y escrito a mano en TypeScript — no una librería JS de terceros ni Qiskit-en-el-navegador (no hay wheels Pyodide usables para rustworkx/symengine/qiskit-aer). Mantiene las amplitudes ψ como un Float64Array plano de 2·2ⁿ reales (Re,Im intercalados). Una compuerta de un qubit U sobre el qubit q se aplica in-place iterando los 2ⁿ⁻¹ pares de índices (i, i+2^q) que difieren solo en el bit q, sobrescribiendo cada par con el producto matriz–vector 2×2; una compuerta controlada restringe la actualización a los índices cuyo bit de control es 1. Es la actualización de Schrödinger estándar O(2ⁿ) por compuerta, y es exacta (sin truncamiento). Tras cada paso el motor lee el vector de Bloch por qubit y las probabilidades base directamente de ψ; la medición toma shots de la distribución categórica {|ψ_b|²} con un PRNG con semilla para que el histograma vivo siga la convención commiteada."}</p>
+            : "El carril vivo es un simulador de statevector exacto, hecho a medida y escrito a mano en TypeScript — no una biblioteca JS de terceros ni Qiskit-en-el-navegador (no hay wheels Pyodide usables para rustworkx/symengine/qiskit-aer). Mantiene las amplitudes ψ como un Float64Array plano de 2·2ⁿ reales (Re,Im intercalados). Una compuerta de un qubit U sobre el qubit q se aplica in-place iterando los 2ⁿ⁻¹ pares de índices (i, i+2^q) que difieren solo en el bit q, sobrescribiendo cada par con el producto matriz–vector 2×2; una compuerta controlada restringe la actualización a los índices cuyo bit de control es 1. Es la actualización de Schrödinger estándar O(2ⁿ) por compuerta, y es exacta (sin truncamiento). Tras cada paso el motor lee el vector de Bloch por qubit y las probabilidades base directamente de ψ; la medición toma shots de la distribución categórica {|ψ_b|²} con un PRNG con semilla para que el histograma vivo siga la convención commiteada."}</p>
           <Eq
             tex={String.raw`\psi'_{i}=U_{00}\psi_{i}+U_{01}\psi_{i+2^{q}},\quad \psi'_{i+2^{q}}=U_{10}\psi_{i}+U_{11}\psi_{i+2^{q}}\quad\forall\, i:\ (i\,\&\,2^{q})=0`}
             caption={{
               en: "The in-place single-qubit gate kernel: for every index pair differing only in bit q, apply the 2×2 gate matrix — the O(2ⁿ) exact Schrödinger update the live engine runs per gate.",
-              es: "El kernel in-place de compuerta de un qubit: para cada par de índices que difiere solo en el bit q, aplica la matriz 2×2 — la actualización de Schrödinger exacta O(2ⁿ) que el motor vivo corre por compuerta.",
+              es: "El kernel in-place de compuerta de un qubit: para cada par de índices que difiere solo en el bit q, aplica la matriz 2×2 — la actualización de Schrödinger exacta O(2ⁿ) que el motor vivo ejecuta por compuerta.",
             }}
           />
           <Eq
@@ -380,7 +380,7 @@ class QiskitQAOA(Solver):
             okHead={en ? "Where it works" : "Dónde funciona"}
             failHead={en ? "Where it fails" : "Dónde falla"}
             ok={<>
-              <li>{en ? "clean unitary circuits ≤ 12 qubits — drag RY and the Bloch vector tips instantly" : "circuitos unitarios limpios ≤ 12 qubits — arrastra RY y el vector de Bloch responde al instante"}</li>
+              <li>{en ? "clean unitary circuits ≤ 12 qubits — drag RY and the Bloch vector tips instantly" : "circuitos unitarios limpios ≤ 12 qubits — arrastrar RY y el vector de Bloch responde al instante"}</li>
               <li>{en ? "exact: amplitudes are full-precision Float64, no truncation" : "exacto: amplitudes en Float64 completo, sin truncamiento"}</li>
               <li>{en ? "Bell/GHZ/W, oracles, QFT, Grover — the interactive cases" : "Bell/GHZ/W, oráculos, QFT, Grover — los casos interactivos"}</li>
             </>}
@@ -498,12 +498,12 @@ class QiskitQAOA(Solver):
         <div className="method-body">
           <p>{en
             ? "Stim is the stabilizer adapter — the engine that makes quantum error correction tractable at code-relevant sizes. By the Gottesman–Knill theorem, a circuit built only from Clifford gates (H, S, CNOT) and measurements can be simulated classically in polynomial time, because the state is tracked as a set of n stabilizer generators (Pauli strings) rather than 2ⁿ amplitudes. Stim does exactly this with a bit-packed tableau, so distance-3/5 repetition and surface-code circuits run in milliseconds — far beyond the state-vector wall. The build samples detection events (parity flips between rounds) and feeds them to PyMatching, which decodes via minimum-weight perfect matching on the detector graph: it pairs up defects to infer the most-likely error chain and a correction. Sweeping physical error rate p reveals the threshold — below it, raising code distance d lowers the logical error; above it, more qubits make things worse."
-            : "Stim es el adaptador estabilizador — el motor que hace tratable la corrección cuántica de errores a tamaños relevantes. Por el teorema de Gottesman–Knill, un circuito construido solo con compuertas de Clifford (H, S, CNOT) y mediciones se simula clásicamente en tiempo polinomial, porque el estado se rastrea como un conjunto de n generadores estabilizadores (cadenas de Pauli) en vez de 2ⁿ amplitudes. Stim hace justo esto con un tableau empaquetado en bits, así que circuitos de código de repetición/superficie de distancia 3/5 corren en milisegundos — mucho más allá del muro del statevector. El build muestrea eventos de detección (cambios de paridad entre rondas) y los pasa a PyMatching, que decodifica vía emparejamiento perfecto de peso mínimo en el grafo de detectores: empareja defectos para inferir la cadena de error más probable y una corrección. Barrer la tasa de error físico p revela el umbral — por debajo, subir la distancia d baja el error lógico; por encima, más qubits empeoran."}</p>
+            : "Stim es el adaptador estabilizador — el motor que hace tratable la corrección cuántica de errores a tamaños relevantes. Por el teorema de Gottesman–Knill, un circuito construido solo con compuertas de Clifford (H, S, CNOT) y mediciones se simula clásicamente en tiempo polinomial, porque el estado se rastrea como un conjunto de n generadores estabilizadores (cadenas de Pauli) en vez de 2ⁿ amplitudes. Stim hace justo esto con un tableau empaquetado en bits, así que circuitos de código de repetición/superficie de distancia 3/5 se ejecutan en milisegundos — mucho más allá del muro del statevector. El build muestrea eventos de detección (cambios de paridad entre rondas) y los pasa a PyMatching, que decodifica vía emparejamiento perfecto de peso mínimo en el grafo de detectores: empareja defectos para inferir la cadena de error más probable y una corrección. Barrer la tasa de error físico p revela el umbral — por debajo, subir la distancia d baja el error lógico; por encima, más qubits empeoran."}</p>
           <Eq
             tex={String.raw`p_L \;\propto\; \Big(\tfrac{p}{p_{\text{th}}}\Big)^{\lfloor (d+1)/2\rfloor},\qquad d\uparrow \Rightarrow p_L\downarrow \iff p<p_{\text{th}}`}
             caption={{
-              en: "The QEC threshold law: the logical error rate falls exponentially in code distance d ONLY below the threshold p_th; above it, adding qubits increases failure. The Clifford restriction is what lets Stim simulate this at scale.",
-              es: "La ley de umbral de QEC: la tasa de error lógico cae exponencialmente en la distancia d SOLO por debajo del umbral p_th; por encima, agregar qubits aumenta el fallo. La restricción de Clifford es lo que permite a Stim simular esto a escala.",
+              en: "The QEC threshold law: the logical error rate falls exponentially in code distance d only below the threshold p_th; above it, adding qubits increases failure. The Clifford restriction is what lets Stim simulate this at scale.",
+              es: "La ley de umbral de QEC: la tasa de error lógico cae exponencialmente en la distancia d solo por debajo del umbral p_th; por encima, agregar qubits aumenta el fallo. La restricción de Clifford es lo que permite a Stim simular esto a escala.",
             }}
           />
           <ul className="sym-list">
@@ -543,11 +543,11 @@ class QiskitQAOA(Solver):
         <div className="method-body">
           <p>{en
             ? "The trace (schema qlab-trace/1) is the artifact every adapter produces and the only thing the browser depends on. It is a replayable recording of one circuit run: for every step (a gate, a barrier, a prepared state) it stores the full statevector (2ⁿ complex amplitudes), the per-qubit reduced Bloch vector [⟨X⟩,⟨Y⟩,⟨Z⟩], and the basis-state probabilities, plus the final measurement histogram. It is JSON-first and compact (amplitudes rounded to 6 decimals) and contains no Qiskit type, so the browser never depends on a Python library. A hand-maintained TypeScript mirror (the contract types) tracks the Python schema per ADR-0057; a divergence between the two is caught at build time, so the web and engine cannot drift apart silently."
-            : "La traza (esquema qlab-trace/1) es el artefacto que produce cada adaptador y lo único de lo que depende el navegador. Es una grabación reproducible de una corrida: por cada paso (una compuerta, una barrera, un estado preparado) guarda el statevector completo (2ⁿ amplitudes complejas), el vector de Bloch reducido por qubit [⟨X⟩,⟨Y⟩,⟨Z⟩] y las probabilidades de los estados base, más el histograma final de medición. Es JSON-first y compacto (amplitudes redondeadas a 6 decimales) y no contiene ningún tipo de Qiskit, así que el navegador nunca depende de una librería de Python. Un espejo TypeScript mantenido a mano (los tipos del contrato) rastrea el esquema Python según ADR-0057; una divergencia entre ambos se detecta en build, así que web y motor no pueden separarse en silencio."}</p>
+            : "La traza (esquema qlab-trace/1) es el artefacto que produce cada adaptador y lo único de lo que depende el navegador. Es una grabación reproducible de una ejecución: por cada paso (una compuerta, una barrera, un estado preparado) guarda el statevector completo (2ⁿ amplitudes complejas), el vector de Bloch reducido por qubit [⟨X⟩,⟨Y⟩,⟨Z⟩] y las probabilidades de los estados base, más el histograma final de medición. Es JSON-first y compacto (amplitudes redondeadas a 6 decimales) y no contiene ningún tipo de Qiskit, así que el navegador nunca depende de una biblioteca de Python. Un espejo TypeScript mantenido a mano (los tipos del contrato) rastrea el esquema Python según ADR-0057; una divergencia entre ambos se detecta en build, así que web y motor no pueden separarse en silencio."}</p>
           <div className="fig-svg wide"><TraceDiagram lang={lang} />
             <p className="fig-cap">{en
               ? "From a circuit run to the renderers: each step records statevector + Bloch + probabilities (and a final histogram), serialized to JSON with no Qiskit type, mirrored 1:1 in TypeScript, and animated by the same renderers for both lanes."
-              : "De la corrida a los renderers: cada paso registra statevector + Bloch + probabilidades (y un histograma final), serializado a JSON sin tipo Qiskit, espejado 1:1 en TypeScript, y animado por los mismos renderers en ambos carriles."}</p>
+              : "De la ejecución a los renderers: cada paso registra statevector + Bloch + probabilidades (y un histograma final), serializado a JSON sin tipo Qiskit, espejado 1:1 en TypeScript, y animado por los mismos renderers en ambos carriles."}</p>
           </div>
           <Eq
             tex={String.raw`\text{step}_t=\big\{\,\psi_t\in\mathbb{C}^{2^n},\ \mathbf r_q=(\langle X\rangle,\langle Y\rangle,\langle Z\rangle)_q,\ \{p_b\}\,\big\},\qquad \text{counts}=\text{hist}_{\text{final}}`}
@@ -565,7 +565,7 @@ class QiskitQAOA(Solver):
           </ul>
           <Boundary en={en}
             runs={en ? "written offline; read in the browser" : "escrito offline; leído en el navegador"}
-            live={en ? "this JSON IS the live/precompute boundary — no framework crosses it" : "este JSON ES la frontera vivo/precómputo — ningún framework la cruza"} />
+            live={en ? "this JSON is the live/precompute boundary — no framework crosses it" : "este JSON es la frontera vivo/precómputo — ningún framework la cruza"} />
           <WhereWorks
             okHead={en ? "What it guarantees" : "Qué garantiza"}
             failHead={en ? "What it deliberately omits" : "Qué omite a propósito"}
@@ -617,7 +617,7 @@ class QiskitQAOA(Solver):
           </ul>
           <Boundary en={en}
             runs={en ? "written offline; the web's only catalog" : "escrito offline; el único catálogo de la web"}
-            live={en ? "no DB / no server — the manifest SET is the index" : "sin BD / sin servidor — el CONJUNTO de manifiestos es el índice"} />
+            live={en ? "no DB / no server — the manifest set is the index" : "sin BD / sin servidor — el conjunto de manifiestos es el índice"} />
           <WhereWorks
             okHead={en ? "What it enables" : "Qué habilita"}
             failHead={en ? "What it is not" : "Qué no es"}
@@ -644,7 +644,7 @@ class QiskitQAOA(Solver):
         <div className="method-body">
           <p>{en
             ? "Whether a case runs live in the browser or is precomputed is decided by measurement, not taste (classify_lane). A case runs live only if ALL FOUR conditions hold: qubits ≤ 12 (the 2ⁿ amplitudes must stay interactive in JS — ~12 q ≈ 64 MB); unitary-only (no realistic noise, which needs Aer; no mid-circuit measurement + feed-forward; no optimization loop); run_ms ≤ 1500 (the offline build time, used as a proxy for browser responsiveness); and trace_bytes ≤ ~1 MB. Otherwise the case is precompute. The verdict and the numbers behind it are written into the manifest, and CI fails the build if a live-tagged case breaches a gate — mislabeling cannot ship. Both lanes render through one code path, so the only visible difference to the visitor is whether they can re-simulate from scratch or replay a committed run."
-            : "Si un caso corre vivo en el navegador o se precomputa lo decide la medición, no el gusto (classify_lane). Un caso corre vivo solo si se cumplen LAS CUATRO condiciones: qubits ≤ 12 (las 2ⁿ amplitudes deben seguir interactivas en JS — ~12 q ≈ 64 MB); solo-unitario (sin ruido realista, que necesita Aer; sin medición intermedia + feed-forward; sin bucle de optimización); run_ms ≤ 1500 (el tiempo de build offline, usado como proxy de la respuesta del navegador); y trace_bytes ≤ ~1 MB. En otro caso es precómputo. El veredicto y los números detrás se escriben en el manifiesto, y CI rompe el build si un caso etiquetado live viola una compuerta — el mal etiquetado no puede publicarse. Ambos carriles renderizan por un mismo camino, así que la única diferencia visible para el visitante es si puede re-simular desde cero o hacer replay de una corrida commiteada."}</p>
+            : "Si un caso se ejecuta en vivo en el navegador o se precomputa lo decide la medición, no el gusto (classify_lane). Un caso se ejecuta en vivo solo si se cumplen las cuatro condiciones: qubits ≤ 12 (las 2ⁿ amplitudes deben seguir interactivas en JS — ~12 q ≈ 64 MB); solo-unitario (sin ruido realista, que necesita Aer; sin medición intermedia + feed-forward; sin bucle de optimización); run_ms ≤ 1500 (el tiempo de build offline, usado como proxy de la respuesta del navegador); y trace_bytes ≤ ~1 MB. En otro caso es precómputo. El veredicto y los números detrás se escriben en el manifiesto, y CI rompe el build si un caso etiquetado live viola una compuerta — el mal etiquetado no puede publicarse. Ambos carriles renderizan por un mismo camino, así que la única diferencia visible para el visitante es si puede re-simular desde cero o hacer replay de una ejecución commiteada."}</p>
           <div className="fig-svg wide"><GateDiagram lang={lang} />
             <p className="fig-cap">{en
               ? "classify_lane reads four measurements; ALL pass → LIVE (in-browser re-sim), ANY fails → PRECOMPUTE (committed trace, replayed). The verdict and its numbers are written to the manifest and enforced in CI."
@@ -667,7 +667,7 @@ class QiskitQAOA(Solver):
             ? "state-prep (≤ 4 q, pure unitary, ~1–2 ms, ~9 KB) → live; maxcut (≤ 6 q, but a p=1 QAOA carries an offline (γ,β) grid-search optimization loop, so unitary_only = false) → precompute, and the committed trace still replays the optimal-parameter circuit."
             : "state-prep (≤ 4 q, unitario puro, ~1–2 ms, ~9 KB) → vivo; maxcut (≤ 6 q, pero un QAOA p=1 lleva una búsqueda offline en grilla (γ,β), así que unitary_only = false) → precómputo, y la traza commiteada igual hace replay del circuito de parámetros óptimos."}</p>
           <Boundary en={en}
-            runs={en ? "the gate runs offline; it decides the browser's lane" : "la compuerta corre offline; decide el carril del navegador"}
+            runs={en ? "the gate runs offline; it decides the browser's lane" : "la compuerta se ejecuta offline; decide el carril del navegador"}
             live={en ? "live ⇒ ψ re-sims in JS · precompute ⇒ trace replays" : "vivo ⇒ ψ re-sim en JS · precómputo ⇒ replay de traza"} />
           <Refs ids={["nielsen2010", "preskill2018"]} label={refLabel} />
         </div>
@@ -682,7 +682,7 @@ class QiskitQAOA(Solver):
         <div className="method-body">
           <p>{en
             ? "A case can be submitted to a real QPU; the returned counts are committed as a trace with a ran_on badge (e.g. IBM Heron r2 · ibm_kingston · 2026-…). This lane attaches at the exact same seam as the simulators — the same Solver interface, the same trace shape — so a hardware result renders identically to a simulated one, only labelled with its provenance. Crucially, it runs LOCALLY, with an access token pulled from the private vault; the published static site ships no secrets and makes no live hardware calls. The trace it produces is just data, so once committed it is served like any other case. The cheapest honest path is IBM Quantum Open: free, ~10 minutes of QPU per 28-day window on a 156-qubit Heron r2 — enough to commit a genuine ran-on-real-hardware moment without spending money."
-            : "Un caso puede enviarse a una QPU real; los conteos devueltos se commitean como una traza con un badge ran_on (p. ej. IBM Heron r2 · ibm_kingston · 2026-…). Este carril se engancha en la misma costura que los simuladores — la misma interfaz Solver, la misma forma de traza — así que un resultado de hardware se renderiza idéntico a uno simulado, solo etiquetado con su procedencia. Crucialmente, corre LOCALMENTE, con un token de acceso del vault privado; el sitio estático publicado no lleva secretos ni hace llamadas en vivo a hardware. La traza que produce es solo datos, así que una vez commiteada se sirve como cualquier otro caso. El camino honesto más barato es IBM Quantum Open: gratis, ~10 minutos de QPU por ventana de 28 días en un Heron r2 de 156 qubits — suficiente para commitear un momento genuino de corrió-en-hardware-real sin gastar dinero."}</p>
+            : "Un caso puede enviarse a una QPU real; los conteos devueltos se commitean como una traza con un badge ran_on (p. ej. IBM Heron r2 · ibm_kingston · 2026-…). Este carril se engancha en la misma costura que los simuladores — la misma interfaz Solver, la misma forma de traza — así que un resultado de hardware se renderiza idéntico a uno simulado, solo etiquetado con su procedencia. Crucialmente, se ejecuta localmente, con un token de acceso del vault privado; el sitio estático publicado no lleva secretos ni hace llamadas en vivo a hardware. La traza que produce es solo datos, así que una vez commiteada se sirve como cualquier otro caso. El camino honesto más barato es IBM Quantum Open: gratis, ~10 minutos de QPU por ventana de 28 días en un Heron r2 de 156 qubits — suficiente para commitear un momento genuino de ejecución-en-hardware-real sin gastar dinero."}</p>
           <Eq
             tex={String.raw`\widehat{\langle O\rangle}=\frac{1}{S}\sum_{s=1}^{S} O(b_s),\qquad \text{SE}\approx\frac{\sigma_O}{\sqrt{S}}\quad(\text{shot noise on real counts})`}
             caption={{
@@ -691,7 +691,7 @@ class QiskitQAOA(Solver):
             }}
           />
           <ul className="sym-list">
-            <li><b>S</b>{en ? "number of shots run on the QPU" : "número de shots corridos en la QPU"}</li>
+            <li><b>S</b>{en ? "number of shots run on the QPU" : "número de shots ejecutados en la QPU"}</li>
             <li><b>b_s</b>{en ? "the s-th measured bitstring" : "el s-ésimo bitstring medido"}</li>
             <li><b>O(b)</b>{en ? "the observable evaluated on a bitstring" : "el observable evaluado en un bitstring"}</li>
             <li><b>ran_on</b>{en ? "provenance badge: device, backend, date" : "badge de procedencia: dispositivo, backend, fecha"}</li>
@@ -704,7 +704,7 @@ class QiskitQAOA(Solver):
             okHead={en ? "Where it works" : "Dónde funciona"}
             failHead={en ? "Where it does not" : "Dónde no"}
             ok={<>
-              <li>{en ? "a genuine 'ran on real hardware' result, committed with provenance" : "un resultado genuino de 'corrió en hardware real', commiteado con procedencia"}</li>
+              <li>{en ? "a genuine 'ran on real hardware' result, committed with provenance" : "un resultado genuino de 'ejecutado en hardware real', commiteado con procedencia"}</li>
               <li>{en ? "renders identically to simulation — same seam, same trace" : "se renderiza idéntico a la simulación — misma costura, misma traza"}</li>
               <li>{en ? "free via IBM Quantum Open (~10 min QPU / 28-day window)" : "gratis vía IBM Quantum Open (~10 min QPU / ventana de 28 días)"}</li>
             </>}
@@ -729,7 +729,7 @@ class QiskitQAOA(Solver):
             : "QLab es un producto estático: sin servidor de aplicación, sin base de datos en tiempo de request, sin backend que simule a demanda. La SPA en React la construye Vite y se sirve desde GitHub Pages. El pipeline offline commitea bundles de trazas y manifiestos al árbol de datos; un paso de prebuild los superpone en la salida de build, y el catálogo se genera del conjunto de manifiestos. El workflow de deploy publica el sitio construido a Pages al hacer push a la rama principal cuando cambian las fuentes web, los artefactos commiteados, los manifiestos o el motor — así que commitear una traza nueva re-publica el sitio. Un fallback de deep-link copia el HTML de entrada a una página 404 para que las rutas y refrescos del cliente no den 404 en Pages."}</p>
           <p>{en
             ? "Reproducibility is a deploy guarantee, not a hope: what ships is the exact engine source plus seeded traces, and re-running the offline pipeline reproduces the committed bytes. CI guards reject a real secrets file, raw or heavy data blobs (npy/npz/h5/parquet), and any leaked local machine path in tracked files, so the static bundle stays clean and reproducible. The custom domain is set on the Actions deploy via the Pages API (a domain file alone does not set it on Actions deploys), overriding the wildcard, then the site is redeployed."
-            : "La reproducibilidad es una garantía de deploy, no una esperanza: lo que se publica es el código exacto del motor más trazas con semilla, y re-correr el pipeline offline reproduce los bytes commiteados. Los guards de CI rechazan un archivo de secretos real, blobs de datos crudos o pesados (npy/npz/h5/parquet) y cualquier ruta local filtrada en archivos versionados, así que el bundle estático queda limpio y reproducible. El dominio personalizado se fija en el deploy de Actions vía la API de Pages (un archivo de dominio solo no lo fija en deploys de Actions), sobreescribiendo el comodín, y luego el sitio se re-despliega."}</p>
+            : "La reproducibilidad es una garantía de deploy, no una esperanza: lo que se publica es el código exacto del motor más trazas con semilla, y re-ejecutar el pipeline offline reproduce los bytes commiteados. Los guards de CI rechazan un archivo de secretos real, blobs de datos crudos o pesados (npy/npz/h5/parquet) y cualquier ruta local filtrada en archivos versionados, así que el bundle estático queda limpio y reproducible. El dominio personalizado se fija en el deploy de Actions vía la API de Pages (un archivo de dominio solo no lo fija en deploys de Actions), sobreescribiendo el comodín, y luego el sitio se re-despliega."}</p>
           <Eq
             tex={String.raw`\text{dist}=\text{Vite}\big(\text{web}\big)\ \cup\ \text{overlay}\big(\text{traces},\,\text{manifests}\big),\qquad \text{commit(trace)}\Rightarrow\text{re-publish}`}
             caption={{
@@ -751,7 +751,7 @@ class QiskitQAOA(Solver):
             failHead={en ? "Its honest constraints" : "Sus restricciones honestas"}
             ok={<>
               <li>{en ? "zero hosting cost, CDN-fast, no server to maintain or secure" : "cero costo de hosting, rápido por CDN, sin servidor que mantener o asegurar"}</li>
-              <li>{en ? "reproducible: re-running the pipeline reproduces the shipped bytes" : "reproducible: re-correr el pipeline reproduce los bytes publicados"}</li>
+              <li>{en ? "reproducible: re-running the pipeline reproduces the shipped bytes" : "reproducible: re-ejecutar el pipeline reproduce los bytes publicados"}</li>
               <li>{en ? "no secrets in the bundle; CI enforces it" : "sin secretos en el bundle; CI lo aplica"}</li>
             </>}
             fail={<>
@@ -772,7 +772,7 @@ class QiskitQAOA(Solver):
         <p className="lede">
           {en
             ? "How the lab is built — not a stack list. The heavy quantum physics runs offline in real frameworks behind a thin Problem × Solver adapter seam; a single pipeline emits a deterministic committed artifact (trace + manifest); a measured gate routes each case to a hand-written live state-vector engine in the browser or a replayed precompute, all rendered by one renderer; and the whole thing ships as a static site with no backend. Every run is a pure function of (params, seed) — replay = truth."
-            : "Cómo está construido el lab — no una lista de stack. La física cuántica pesada corre offline en frameworks reales tras una costura delgada de adaptadores Problem × Solver; un único pipeline emite un artefacto commiteado determinista (traza + manifiesto); una compuerta medida enruta cada caso a un motor de statevector vivo escrito a mano en el navegador o a un replay precomputado, todo renderizado por un solo renderer; y todo se publica como sitio estático sin backend. Cada corrida es función pura de (params, seed) — replay = verdad."}
+            : "Cómo está construido el lab — no una lista de stack. La física cuántica pesada se ejecuta offline en frameworks reales tras una costura delgada de adaptadores Problem × Solver; un único pipeline emite un artefacto commiteado determinista (traza + manifiesto); una compuerta medida enruta cada caso a un motor de statevector vivo escrito a mano en el navegador o a un replay precomputado, todo renderizado por un solo renderer; y todo se publica como sitio estático sin backend. Cada ejecución es función pura de (params, seed) — replay = verdad."}
         </p>
       </div>
       <Tabs tabs={tabs} />

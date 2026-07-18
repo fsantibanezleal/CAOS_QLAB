@@ -7,8 +7,8 @@
   "es": "Preparación de estados y entrelazamiento"
  },
  "concept": {
-  "en": "Build canonical multi-qubit states from gates and watch entanglement appear. A Bell pair (H then CNOT) cannot be written as two independent qubits; GHZ and W are the two inequivalent species of three-qubit entanglement. Every solver prepares the SAME target — the point is the state, not the framework.",
-  "es": "Construye estados multi-qubit canónicos a partir de compuertas y observa aparecer el entrelazamiento. Un par de Bell (H y luego CNOT) no se puede escribir como dos qubits independientes; GHZ y W son las dos especies no equivalentes de entrelazamiento de tres qubits. Cada solver prepara el MISMO objetivo: lo importante es el estado, no el framework."
+  "en": "Build canonical multi-qubit states from gates and watch entanglement appear. A Bell pair (H then CNOT) cannot be written as two independent qubits; GHZ and W are the two inequivalent species of three-qubit entanglement. Every solver prepares the same target — the point is the state, not the framework.",
+  "es": "Construye estados multi-qubit canónicos a partir de compuertas y observa aparecer el entrelazamiento. Un par de Bell (H y luego CNOT) no se puede escribir como dos qubits independientes; GHZ y W son las dos especies no equivalentes de entrelazamiento de tres qubits. Cada solver prepara el mismo objetivo: lo importante es el estado, no el framework."
  },
  "metric": {
   "en": "prepared state fidelity",
@@ -42,8 +42,8 @@
    "es": "Preparación de estados y entrelazamiento"
   },
   "concept": {
-   "en": "Build canonical multi-qubit states from gates and watch entanglement appear. A Bell pair (H then CNOT) cannot be written as two independent qubits; GHZ and W are the two inequivalent species of three-qubit entanglement. Every solver prepares the SAME target — the point is the state, not the framework.",
-   "es": "Construye estados multi-qubit canónicos a partir de compuertas y observa aparecer el entrelazamiento. Un par de Bell (H y luego CNOT) no se puede escribir como dos qubits independientes; GHZ y W son las dos especies no equivalentes de entrelazamiento de tres qubits. Cada solver prepara el MISMO objetivo: lo importante es el estado, no el framework."
+   "en": "Build canonical multi-qubit states from gates and watch entanglement appear. A Bell pair (H then CNOT) cannot be written as two independent qubits; GHZ and W are the two inequivalent species of three-qubit entanglement. Every solver prepares the same target — the point is the state, not the framework.",
+   "es": "Construye estados multi-qubit canónicos a partir de compuertas y observa aparecer el entrelazamiento. Un par de Bell (H y luego CNOT) no se puede escribir como dos qubits independientes; GHZ y W son las dos especies no equivalentes de entrelazamiento de tres qubits. Cada solver prepara el mismo objetivo: lo importante es el estado, no el framework."
   },
   "qubits": 3,
   "steps": [

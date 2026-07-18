@@ -3,7 +3,7 @@
 A concept problem: the "answer" is the prepared statevector itself. It teaches superposition and the two
 inequivalent kinds of tripartite entanglement (GHZ vs W). The honest framing (its classical baseline): at
 2–4 qubits a classical computer writes down all 2^n amplitudes instantly — entanglement here is the
-*concept*, not a computational advantage. Solvers build the SAME target on different frameworks.
+*concept*, not a computational advantage. Solvers build the same target on different frameworks.
 """
 
 from __future__ import annotations
@@ -21,14 +21,14 @@ class StatePrep(Problem):
         "en": (
             "Build canonical multi-qubit states from gates and watch entanglement appear. A Bell pair "
             "(H then CNOT) cannot be written as two independent qubits; GHZ and W are the two "
-            "inequivalent species of three-qubit entanglement. Every solver prepares the SAME target — "
+            "inequivalent species of three-qubit entanglement. Every solver prepares the same target — "
             "the point is the state, not the framework."
         ),
         "es": (
             "Construye estados multi-qubit canónicos a partir de compuertas y observa aparecer el "
             "entrelazamiento. Un par de Bell (H y luego CNOT) no se puede escribir como dos qubits "
             "independientes; GHZ y W son las dos especies no equivalentes de entrelazamiento de tres "
-            "qubits. Cada solver prepara el MISMO objetivo: lo importante es el estado, no el framework."
+            "qubits. Cada solver prepara el mismo objetivo: lo importante es el estado, no el framework."
         ),
     }
     metric = {"en": "prepared state fidelity", "es": "fidelidad del estado preparado"}

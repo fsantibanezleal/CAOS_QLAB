@@ -4,7 +4,7 @@ The rotated surface code is the front-runner for building a fault-tolerant qubit
 a 2-D lattice, X- and Z-stabilizers measured every round, decoded by minimum-weight matching. Unlike the
 repetition code (bit-flips only), it corrects BOTH X and Z errors. QLab runs the real Stim + PyMatching
 pipeline for distance 3 and 5 across noise rates spanning the ~1% threshold, so you can watch the textbook
-behavior: BELOW threshold a bigger code is better; ABOVE threshold a bigger code is WORSE (more qubits =
+behavior: below threshold a bigger code is better; above threshold a bigger code is worse (more qubits =
 more places to fail). This is exactly the regime Google's Willow chip entered in 2024 — and a sober
 reminder that one good logical qubit is still ~1000 physical qubits and many orders of magnitude from a
 useful machine.
@@ -35,10 +35,10 @@ class QECSurface(Problem):
         ),
         "es": (
             "El código de superficie rotado coloca qubits de datos y de medición en una red 2-D y mide "
-            "estabilizadores de paridad X y Z cada ronda, corrigiendo bit- y phase-flips. Corremos el stack "
+            "estabilizadores de paridad X y Z cada ronda, corrigiendo bit- y phase-flips. Ejecutamos el stack "
             "real — Stim simula el circuito ruidoso, PyMatching decodifica — para distancia 3 (≈26 qubits) y "
             "5 (≈64 qubits) a tasas de ruido alrededor del umbral del ~1%. Bajo umbral el error lógico de "
-            "distancia-5 es menor que el de distancia-3 (agregar qubits ayuda); sobre umbral es MAYOR "
+            "distancia-5 es menor que el de distancia-3 (agregar qubits ayuda); sobre umbral es mayor "
             "(agregar qubits empeora). Ver ese cruce es la esencia de la tolerancia a fallos — y la "
             "verificación honesta de escala: un qubit lógico útil son ~1000 físicos, y una máquina útil "
             "necesita miles."
