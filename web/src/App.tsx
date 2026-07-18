@@ -1,10 +1,9 @@
 import { useEffect, useMemo, useState } from "react";
 import { BrowserRouter, Link, NavLink, Route, Routes, useParams } from "react-router-dom";
-import { Atom, Briefcase, ChevronDown, ChevronRight, GitBranch, Globe, Info, Languages, LayoutGrid, Moon, Sun, User } from "lucide-react";
+import { Atom, Briefcase, ChevronDown, ChevronRight, GitBranch, Globe, Info, Languages, LayoutGrid, Moon, Sun } from "lucide-react";
 import { ArchModal } from "./components/ArchModal";
 import { CitationsProvider } from "./lib/citations";
 import { CITATIONS } from "./data/citations";
-import { VERSION } from "./lib/version";
 import { CaseWorkbench } from "./components/CaseWorkbench";
 import { Tex } from "./components/Tabs";
 import type { Bundle, Catalog, CatalogCase } from "./lib/contract.types";
@@ -94,28 +93,10 @@ function Header({ onInfo }: { onInfo: () => void }) {
 }
 
 function Footer() {
-  const { lang } = useUI();
-  const en = lang === "en";
   return (
     <footer className="qfooter">
-      <div className="qfooter-inner">
-        <span>
-          {en ? "Built by Felipe Santibáñez-Leal · A CAOS research project · MIT"
-              : "Hecho por Felipe Santibáñez-Leal · Un proyecto de investigación CAOS · MIT"}
-        </span>
-        <span className="foot-links">
-          <a href={EXTERNAL.github} target="_blank" rel="noreferrer">
-            <GitBranch size={14} /> {en ? "Source" : "Código"}
-          </a>
-          <a href={EXTERNAL.personal} target="_blank" rel="noreferrer">
-            <User size={14} /> {en ? "Site" : "Sitio"}
-          </a>
-          <a href={EXTERNAL.portfolio} target="_blank" rel="noreferrer">
-            <Globe size={14} /> Portfolio
-          </a>
-          <span className="foot-version">v{VERSION}</span>
-        </span>
-      </div>
+      Developed by Felipe Santibáñez-Leal · A CAOS research project ·{" "}
+      <a href={EXTERNAL.github} target="_blank" rel="noreferrer">Source</a> · MIT
     </footer>
   );
 }
