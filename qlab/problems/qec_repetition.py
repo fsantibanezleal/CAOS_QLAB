@@ -1,4 +1,4 @@
-"""Quantum error CORRECTION — the repetition (bit-flip) code, and the below-threshold idea.
+"""Quantum error correction — the repetition (bit-flip) code, and the below-threshold idea.
 
 Unlike error *mitigation* (which only reduces bias and does not scale), error *correction* encodes one
 logical qubit in many physical qubits, measures stabilizers to detect errors, and decodes them — and it
@@ -28,15 +28,15 @@ class QECRepetition(Problem):
             "The repetition code encodes one logical qubit in d physical qubits and corrects bit-flips by "
             "measuring parity (Z₀Z₁, Z₁Z₂, …) stabilizers and majority-decoding. We run the real QEC stack — "
             "Stim simulates the noisy stabilizer circuit, PyMatching decodes the syndromes — for distance 3 "
-            "and 5 over several noise rates, and compare the encoded LOGICAL error to an unprotected qubit. "
-            "Below a noise threshold the logical error drops AND a larger code beats a smaller one — adding "
+            "and 5 over several noise rates, and compare the encoded logical error to an unprotected qubit. "
+            "Below a noise threshold the logical error drops and a larger code beats a smaller one — adding "
             "qubits makes the logical qubit better. That is the whole premise of fault tolerance, and the "
             "miniature of Google's Willow below-threshold result; the honest caveat is that this is one "
             "logical qubit, vastly short of the thousands needed for anything useful."
         ),
         "es": (
             "El código de repetición codifica un qubit lógico en d qubits físicos y corrige bit-flips "
-            "midiendo estabilizadores de paridad (Z₀Z₁, Z₁Z₂, …) y decodificando por mayoría. Corremos el "
+            "midiendo estabilizadores de paridad (Z₀Z₁, Z₁Z₂, …) y decodificando por mayoría. Ejecutamos el "
             "stack real de QEC — Stim simula el circuito ruidoso de estabilizadores, PyMatching decodifica "
             "los síndromes — para distancia 3 y 5 con varias tasas de ruido, y comparamos el error LÓGICO "
             "codificado con un qubit sin proteger. Bajo un umbral de ruido el error lógico baja Y un código "

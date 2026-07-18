@@ -53,7 +53,7 @@ def solvers_for(problem, only: str | None = None) -> list:
     """Instantiated solvers applicable to `problem` (optionally filtered to one solver name).
 
     Solvers marked `requires_opt_in = True` (e.g. real-hardware adapters that cost money / queue) are
-    EXCLUDED from the default set and run ONLY when explicitly named via `only` — so a plain
+    EXCLUDED from the default set and run only when explicitly named via `only` — so a plain
     `pipeline <case> --all` never touches a QPU.
     """
     _ensure_loaded()

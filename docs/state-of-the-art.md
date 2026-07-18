@@ -47,7 +47,7 @@ Google showed, for the first time on a superconducting chip, **quantum error cor
 surface-code threshold**: scaling the code from distance 3→5→7 made the logical error rate *fall* (~2.14×
 per step); the distance-7 logical qubit (101 physical qubits) hit ~0.143% logical error per cycle.
 **Means:** the central premise of fault tolerance — adding physical qubits makes the logical qubit *better*
-— is now experimentally real. **Does NOT mean:** it was **one** logical qubit used as a memory (not a
+— is now experimentally real. **Does not mean:** it was **one** logical qubit used as a memory (not a
 computation); the ~10⁻³/cycle logical error is still ~8 orders of magnitude from crypto-scale needs; no
 useful computation was demonstrated.
 

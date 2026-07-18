@@ -68,6 +68,6 @@ class SingleQubit(Problem):
             out.append(Instance(
                 iid, {"en": label, "es": label}, {"n": 1, "gates": gates},
                 {"en": f"Apply {label.split(' · ')[0]} to |0⟩ — watch the Bloch vector.",
-                 "es": f"Aplica {label.split(' · ')[0]} a |0⟩ — observa el vector de Bloch."},
+                 "es": f"Aplica {label.split(' · ')[0]} a |0⟩ — observar el vector de Bloch."},
             ))
         return out

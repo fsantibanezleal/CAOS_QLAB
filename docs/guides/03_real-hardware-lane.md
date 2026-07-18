@@ -14,11 +14,11 @@ provenance badge. This is the *"this actually ran on a 156-qubit quantum compute
 
 ```bash
 .venv/bin/python -m pip install -r requirements-hardware.txt   # qiskit-ibm-runtime (+ braket/azure, optional)
-cp .env.example .env                                            # then paste your token (NEVER commit .env)
+cp .env.example .env                                            # then paste your token (never commit .env)
 python tools/check_backends.py                                  # confirms the token reaches IBM + lists devices
 ```
 
-Run a case on real hardware (opt-in — it NEVER runs in a default `--all`):
+Run a case on real hardware (opt-in — it never runs in a default `--all`):
 
 ```bash
 python -m qlab.pipeline bernstein-vazirani --instance bv-101 --solver ibm-hardware

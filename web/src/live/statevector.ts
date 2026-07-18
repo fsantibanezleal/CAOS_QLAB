@@ -1,5 +1,5 @@
 // An exact state-vector simulator for the live (in-browser) lane — ≤12 qubits, pure TypeScript.
-// It is NOT an approximation: amplitudes evolve exactly (the only stochastic step is shot sampling,
+// It is not an approximation: amplitudes evolve exactly (the only stochastic step is shot sampling,
 // seeded). Convention matches the committed traces: little-endian index (bit i = qubit i); measurement
 // bitstrings are big-endian (qubit n-1 … qubit 0), as Qiskit reports them.
 

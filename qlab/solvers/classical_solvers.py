@@ -132,9 +132,9 @@ class ClassicalBV(Solver):
             value={"recovered": recovered, "correct": recovered == secret, "classical_queries": n},
             cost={"wall_ms": round(wall, 4), "oracle_queries": n},
             notes={"en": f"Recovered s={recovered} bit-by-bit in {n} oracle queries (one per bit) — instant "
-                         "at this scale; the quantum win is in query COUNT, not wall-time.",
+                         "at this scale; the quantum win is in query count, not wall-time.",
                    "es": f"Recuperó s={recovered} bit a bit en {n} consultas al oráculo (una por bit) — "
-                         "instantáneo a esta escala; la ventaja cuántica es en NÚMERO de consultas, no en tiempo."},
+                         "instantáneo a esta escala; la ventaja cuántica es en número de consultas, no en tiempo."},
             optimal=True,
         )
 
@@ -173,9 +173,9 @@ class ClassicalDJ(Solver):
             value={"verdict": verdict, "correct": verdict == expected, "classical_queries": queries},
             cost={"wall_ms": round(wall, 4), "oracle_queries": queries},
             notes={"en": f"Decided f is {verdict} after {queries} oracle queries (worst case "
-                         f"{half + 1}); the quantum win is in query COUNT, not wall-time.",
+                         f"{half + 1}); the quantum win is in query count, not wall-time.",
                    "es": f"Decidió que f es {verdict} tras {queries} consultas (peor caso {half + 1}); "
-                         "la ventaja cuántica es en NÚMERO de consultas, no en tiempo."},
+                         "la ventaja cuántica es en número de consultas, no en tiempo."},
             optimal=True,
         )
 
@@ -309,10 +309,10 @@ class ClassicalPRNG(Solver):
                    "true_randomness": False},
             cost={"wall_ms": 0.0, "shots": shots},
             notes={"en": f"A classical PRNG produces the same flat statistics (entropy {entropy:.3f}/{n} bits) "
-                         "— but it is fully DETERMINISTIC given its seed. Statistically indistinguishable here; "
+                         "— but it is fully deterministic given its seed. Statistically indistinguishable here; "
                          "the quantum edge is certifiable true randomness, not better numbers.",
                    "es": f"Un PRNG clásico produce las mismas estadísticas planas (entropía {entropy:.3f}/{n} "
-                         "bits) — pero es totalmente DETERMINISTA dada su semilla. Estadísticamente "
+                         "bits) — pero es totalmente determinista dada su semilla. Estadísticamente "
                          "indistinguible aquí; la ventaja cuántica es aleatoriedad verdadera certificable."},
             optimal=True,
         )
@@ -357,7 +357,7 @@ class ClassicalInterference(Solver):
 
     def run(self, problem, instance: Instance, seed: int, shots: int) -> SolverResult:
         # A classical optical Mach–Zehnder: two paths with a relative phase φ recombine, and the output
-        # intensity is I(φ) = cos²(φ/2) — the SAME fringe as the qubit. Interference is not, by itself,
+        # intensity is I(φ) = cos²(φ/2) — the same fringe as the qubit. Interference is not, by itself,
         # quantum; what is quantum is that it occurs for a single particle's probability amplitude.
         phi = float(instance.params["phi"])
         intensity = round(float(np.cos(phi / 2) ** 2), 4)
@@ -466,7 +466,7 @@ class ClassicalUnprotected(Solver):
     def run(self, problem, instance: Instance, seed: int, shots: int) -> SolverResult:
         p, rounds = instance.params["p"], instance.params["rounds"]
         t0 = time.perf_counter()
-        # A single UNPROTECTED qubit under the same depolarizing model: per round, X or Y flips the Z value
+        # A single unprotected qubit under the same depolarizing model: per round, X or Y flips the Z value
         # with probability 2p/3; over `rounds` rounds the net flip prob (odd number of flips) is
         #   p_phys = (1 - (1 - 2·q)^rounds) / 2,  q = 2p/3.
         q = 2 * p / 3
@@ -603,9 +603,9 @@ class ClassicalDFT(Solver):
             value={"spectrum_uniform_prob": round(1.0 / N, 6), "ops": ops, "readable": True,
                    "amp0_phase_deg": round(float(np.angle(u[0], deg=True)), 3)},
             cost={"wall_ms": round(wall, 4), "ops": ops, "gate_complexity": "O(N log N)"},
-            notes={"en": f"Classical FFT computes ALL {N} Fourier amplitudes (readable) in ~{ops} ops. The "
+            notes={"en": f"Classical FFT computes all {N} Fourier amplitudes (readable) in ~{ops} ops. The "
                          "QFT is cheaper to apply but its output cannot be read out — that's the trade.",
-                   "es": f"La FFT clásica calcula TODAS las {N} amplitudes (legibles) en ~{ops} ops. La QFT "
+                   "es": f"La FFT clásica calcula todas las {N} amplitudes (legibles) en ~{ops} ops. La QFT "
                          "es más barata de aplicar pero su salida no se puede leer — ese es el trade-off."},
             optimal=True,
         )

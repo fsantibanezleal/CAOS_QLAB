@@ -22,7 +22,7 @@ class BernsteinVazirani(Problem):
     concept = {
         "en": (
             "A hidden string s is encoded in an oracle f(x) = s·x mod 2. Bernstein–Vazirani puts the input "
-            "register in uniform superposition, the answer qubit in |−⟩, queries the oracle ONCE — phase "
+            "register in uniform superposition, the answer qubit in |−⟩, queries the oracle once — phase "
             "kickback stamps (−1)^{s·x} onto each branch — and a final layer of Hadamards interferes the "
             "branches so that measuring the input register yields s exactly. Classically you must query the "
             "oracle n times (once per bit). One quantum query vs n classical queries."
@@ -30,7 +30,7 @@ class BernsteinVazirani(Problem):
         "es": (
             "Una cadena oculta s se codifica en un oráculo f(x) = s·x mod 2. Bernstein–Vazirani pone el "
             "registro de entrada en superposición uniforme, el qubit de respuesta en |−⟩, consulta el "
-            "oráculo UNA vez — el phase kickback marca (−1)^{s·x} en cada rama — y una capa final de "
+            "oráculo una vez — el phase kickback marca (−1)^{s·x} en cada rama — y una capa final de "
             "Hadamards interfiere las ramas de modo que medir el registro de entrada da s exactamente. "
             "Clásicamente hay que consultar el oráculo n veces (una por bit). Una consulta cuántica vs n."
         ),

@@ -31,7 +31,7 @@
   },
   "note": {
    "en": "Apply RY(π/3) to |0⟩ — watch the Bloch vector.",
-   "es": "Aplica RY(π/3) a |0⟩ — observa el vector de Bloch."
+   "es": "Aplica RY(π/3) a |0⟩ — observar el vector de Bloch."
   }
  },
  "qubits": 1,

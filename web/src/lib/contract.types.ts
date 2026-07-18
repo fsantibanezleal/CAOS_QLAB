@@ -11,7 +11,7 @@ export interface Amp {
   im: number;
 }
 
-/** One animation frame: the state immediately AFTER applying `gate` (schema qlab-trace/1). */
+/** One animation frame: the state immediately after applying `gate` (schema qlab-trace/1). */
 export interface Step {
   index: number;
   gate: string;

@@ -4,7 +4,7 @@ stays Qiskit-free (live-thin); only the precompute solvers import this.
 Given a Qiskit circuit built gate-by-gate, `evolve` replays it one instruction at a time on a
 `Statevector`, recording — after every step — the full statevector, the per-qubit reduced Bloch vector,
 and the basis-state probabilities. That sequence of `Step`s IS the animation the web app replays. Any
-circuit-model solver (Qiskit, Cirq via QASM, …) funnels through here so every framework yields the SAME
+circuit-model solver (Qiskit, Cirq via QASM, …) funnels through here so every framework yields the same
 trace shape — the adapter boundary the registry depends on.
 
 Qubit/index convention (documented once, used everywhere): Qiskit's native little-endian — basis index

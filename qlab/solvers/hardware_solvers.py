@@ -10,7 +10,7 @@ vault). The published static site ships NO secrets and makes no hardware calls â
 lane does. The returned counts are committed as a trace with `ran_on` provenance, and the app shows the
 noisy real-hardware histogram next to the ideal simulator.
 
-This module builds the SAME `Trace`/`SolverResult` shape as every other adapter, so it is a pure add-on
+This module builds the same `Trace`/`SolverResult` shape as every other adapter, so it is a pure add-on
 (the extensibility contract). It is dormant until a token exists; importing it never requires the token.
 """
 
