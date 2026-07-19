@@ -440,10 +440,10 @@ function RecomputeDiagram({ lang }: { lang: Lang }) {
   const m = "bm-rc";
   return (
     <svg viewBox="0 0 760 180" className="arch-svg" role="img"
-         aria-label={en ? "Live recompute from committed measured counts" : "Recálculo en vivo desde conteos medidos commiteados"}>
+         aria-label={en ? "Live recompute from committed measured counts" : "Recálculo en vivo desde conteos medidos versionados"}>
       <defs><Head id={m} /></defs>
       <rect className="arch-box arch-box-key" x="14" y="56" width="160" height="68" rx="8" />
-      <text className="arch-t" x="94" y="80" textAnchor="middle">{en ? "committed trace" : "traza commiteada"}</text>
+      <text className="arch-t" x="94" y="80" textAnchor="middle">{en ? "committed trace" : "traza versionada"}</text>
       <text className="arch-s" x="94" y="98" textAnchor="middle">measurements.counts</text>
       <text className="arch-s arch-em" x="94" y="114" textAnchor="middle">shots = 2048</text>
       <path className="arch-arrow" d="M174 90 L226 90" markerEnd={`url(#${m})`} />
@@ -468,7 +468,7 @@ function RecomputeDiagram({ lang }: { lang: Lang }) {
 
       <text className="arch-s" x="380" y="160" textAnchor="middle">{en
         ? "at full budget it reproduces the committed comparison number exactly — fewer shots show the sampling noise the metric is built on"
-        : "a presupuesto completo reproduce exactamente el número de comparación commiteado — menos shots muestran el ruido de muestreo sobre el que se construye la métrica"}</text>
+        : "a presupuesto completo reproduce exactamente el número de comparación versionado — menos shots muestran el ruido de muestreo sobre el que se construye la métrica"}</text>
     </svg>
   );
 }
@@ -476,7 +476,7 @@ function RecomputeDiagram({ lang }: { lang: Lang }) {
 /* ════════════════════════════════════════════════════════════════════════════
    The live recompute panel — loads one committed bundle, resamples its measured
    counts at an adjustable shot budget, re-derives the quantum metric, draws it
-   converging toward the classical baseline. ≥1 quantum + ≥1 classical, SAME data.
+   converging toward the classical baseline. ≥1 quantum + ≥1 classical, same data.
    ════════════════════════════════════════════════════════════════════════════ */
 function LiveRecompute() {
   const { lang } = useUI();
@@ -533,7 +533,7 @@ function LiveRecompute() {
     <div className="live-panel">
       <div className="live-head">
         <span className="live-dot" /> {en ? "Live — recomputed in your browser" : "En vivo — recalculado en el navegador"}
-        <span className="live-sub">{en ? "real committed counts · move the shot budget to re-derive the metric" : "conteos reales commiteados · mover el presupuesto de shots para re-derivar la métrica"}</span>
+        <span className="live-sub">{en ? "real committed counts · move the shot budget to re-derive the metric" : "conteos reales versionados · mover el presupuesto de shots para re-derivar la métrica"}</span>
       </div>
 
       <div className="variant-bar">
@@ -545,7 +545,7 @@ function LiveRecompute() {
       </div>
 
       {!bundle ? (
-        <p className="note">{en ? "Loading committed trace…" : "Cargando traza commiteada…"}</p>
+        <p className="note">{en ? "Loading committed trace…" : "Cargando traza versionada…"}</p>
       ) : (
         <>
           <div className="live-knobs">
@@ -569,12 +569,12 @@ function LiveRecompute() {
             </div>
             <div className="stat">
               <b>{fullVal != null ? fullVal.toFixed(4) : "—"}{unit}</b>
-              <span>{en ? "@ full budget (= committed)" : "@ presupuesto total (= commiteado)"}</span>
+              <span>{en ? "@ full budget (= committed)" : "@ presupuesto total (= versionado)"}</span>
             </div>
           </div>
 
           <svg viewBox={`0 0 ${W} ${H}`} className="arch-svg" role="img"
-               aria-label={en ? "Metric vs shot budget, converging to the committed value" : "Métrica vs presupuesto de shots, convergiendo al valor commiteado"}>
+               aria-label={en ? "Metric vs shot budget, converging to the committed value" : "Métrica vs presupuesto de shots, convergiendo al valor versionado"}>
             {/* axes */}
             <line className="bloch-axis" x1={padL} y1={padT} x2={padL} y2={H - padB} />
             <line className="bloch-axis" x1={padL} y1={H - padB} x2={W - padR} y2={H - padB} />
@@ -599,7 +599,7 @@ function LiveRecompute() {
           <p className="note">
             {en
               ? `Quantum solver: ${qsolver(bundle)?.label.en ?? ""} (${qsolver(bundle)?.framework ?? ""}); classical baseline: ${csolver(bundle)?.label.en ?? ""}. The curve is the same measured counts truncated to k shots — fewer shots show the sampling noise the head-to-head metric rides on; at the full ${fullShots} it reproduces the committed comparison number.`
-              : `Solver cuántico: ${qsolver(bundle)?.label.es ?? ""} (${qsolver(bundle)?.framework ?? ""}); baseline clásico: ${csolver(bundle)?.label.es ?? ""}. La curva son los mismos conteos medidos truncados a k shots — menos shots muestran el ruido de muestreo sobre el que cabalga la métrica; a los ${fullShots} completos reproduce el número de comparación commiteado.`}
+              : `Solver cuántico: ${qsolver(bundle)?.label.es ?? ""} (${qsolver(bundle)?.framework ?? ""}); baseline clásico: ${csolver(bundle)?.label.es ?? ""}. La curva son los mismos conteos medidos truncados a k shots — menos shots muestran el ruido de muestreo sobre el que cabalga la métrica; a los ${fullShots} completos reproduce el número de comparación versionado.`}
           </p>
         </>
       )}
@@ -665,7 +665,7 @@ export function Benchmark() {
         <p className="lede">
           {en
             ? "The honesty spine, quantified — and built only from committed artifacts. Every case runs a quantum method next to a classical baseline; this page reads the head-to-head numbers straight from the shipped trace manifests, never from typed-in values, and re-derives one metric live in your browser. The honest headline: across the catalog, zero cases show a practical, pay-for-it wall-clock speedup today."
-            : "La columna de honestidad, cuantificada — y construida solo desde artefactos commiteados. Cada caso ejecuta un método cuántico junto a un baseline clásico; esta página lee los números head-to-head directo de los manifiestos de traza enviados, nunca de valores escritos a mano, y re-deriva una métrica en vivo en el navegador. El titular honesto: en todo el catálogo, cero casos muestran un speedup práctico y rentable en wall-clock hoy."}
+            : "La columna de honestidad, cuantificada — y construida solo desde artefactos versionados. Cada caso ejecuta un método cuántico junto a un baseline clásico; esta página lee los números head-to-head directo de los manifiestos de traza enviados, nunca de valores escritos a mano, y re-deriva una métrica en vivo en el navegador. El titular honesto: en todo el catálogo, cero casos muestran un speedup práctico y rentable en wall-clock hoy."}
         </p>
       </div>
 
@@ -713,13 +713,13 @@ export function Benchmark() {
 
       {/* ── THE METRIC TABLE (numbers only from committed artifacts) ───────── */}
       <section className="doc-section">
-        <h2>{en ? "Head-to-head — every case, from the committed traces" : "Head-to-head — cada caso, desde las trazas commiteadas"}</h2>
+        <h2>{en ? "Head-to-head — every case, from the committed traces" : "Head-to-head — cada caso, desde las trazas versionadas"}</h2>
         <p>{en
           ? "One row per case, at the canonical regime. The quantum and classical columns are read at runtime from each shipped manifest's comparison block — refresh and they cannot drift from what the pipeline actually produced. The provenance column names the solver framework and the exact committed variant."
-          : "Una fila por caso, en el régimen canónico. Las columnas cuántica y clásica se leen en tiempo de ejecución desde el bloque de comparación de cada manifiesto enviado — al refrescar no pueden divergir de lo que el pipeline produjo. La columna de procedencia nombra el framework del solver y la variante commiteada exacta."}</p>
+          : "Una fila por caso, en el régimen canónico. Las columnas cuántica y clásica se leen en tiempo de ejecución desde el bloque de comparación de cada manifiesto enviado — al refrescar no pueden divergir de lo que el pipeline produjo. La columna de procedencia nombra el framework del solver y la variante versionada exacta."}</p>
 
         {rows.length === 0 ? (
-          <p className="note">{en ? "Loading committed manifests…" : "Cargando manifiestos commiteados…"}</p>
+          <p className="note">{en ? "Loading committed manifests…" : "Cargando manifiestos versionados…"}</p>
         ) : (
           <table className="cmp-table">
             <thead>
@@ -765,19 +765,19 @@ export function Benchmark() {
       <section className="doc-section">
         <h2>{en ? "Live recompute — the metric re-derived in your browser" : "Recálculo en vivo — la métrica re-derivada en el navegador"}</h2>
         <p>{en
-          ? "A benchmark you cannot reproduce is a claim, not a measurement. Pick a case and drag the shot budget: the panel resamples the SAME measured counts committed in the trace, re-derives the quantum metric with the exact formula the pipeline uses, and draws it converging toward the value the benchmark reports — next to the classical baseline. This is ≥1 quantum method and ≥1 classical baseline on identical, committed data."
-          : "Un benchmark que no se puede reproducir es una afirmación, no una medición. Elegir un caso y mover el presupuesto de shots: el panel remuestrea los mismos conteos medidos commiteados en la traza, re-deriva la métrica cuántica con la fórmula exacta del pipeline, y la dibuja convergiendo al valor que reporta el benchmark — junto al baseline clásico. Esto es ≥1 método cuántico y ≥1 baseline clásico sobre datos idénticos y commiteados."}</p>
+          ? "A benchmark you cannot reproduce is a claim, not a measurement. Pick a case and drag the shot budget: the panel resamples the same measured counts committed in the trace, re-derives the quantum metric with the exact formula the pipeline uses, and draws it converging toward the value the benchmark reports — next to the classical baseline. This is ≥1 quantum method and ≥1 classical baseline on identical, committed data."
+          : "Un benchmark que no se puede reproducir es una afirmación, no una medición. Elegir un caso y mover el presupuesto de shots: el panel remuestrea los mismos conteos medidos versionados en la traza, re-deriva la métrica cuántica con la fórmula exacta del pipeline, y la dibuja convergiendo al valor que reporta el benchmark — junto al baseline clásico. Esto es ≥1 método cuántico y ≥1 baseline clásico sobre datos idénticos y versionados."}</p>
 
         <Eq tex="P(\text{marked}) = \frac{c_{\text{marked}}}{\sum_x c_x}, \quad S = 4\,\frac{|\langle A B\rangle|}{\sqrt2}, \quad H = -\!\sum_x p_x \log_2 p_x"
             caption={{
               en: "The three live metrics, each a pure function of the committed counts cₓ: Grover's success probability (fraction landing on the marked string), the CHSH value S reconstructed from the equal/differ correlator, and the Shannon entropy H of the output distribution.",
-              es: "Las tres métricas en vivo, cada una función pura de los conteos commiteados cₓ: la probabilidad de éxito de Grover (fracción que cae en la cadena marcada), el valor CHSH S reconstruido del correlador igual/distinto, y la entropía de Shannon H de la distribución de salida.",
+              es: "Las tres métricas en vivo, cada una función pura de los conteos versionados cₓ: la probabilidad de éxito de Grover (fracción que cae en la cadena marcada), el valor CHSH S reconstruido del correlador igual/distinto, y la entropía de Shannon H de la distribución de salida.",
             }} />
 
         <div className="fig-svg wide"><RecomputeDiagram lang={lang} /></div>
         <p className="fig-cap">{en
           ? "The recompute path: committed counts → resample the first k shots (deterministic) → re-derive the metric — no engine call, so it is reproducible from the artifact alone."
-          : "El camino de recálculo: conteos commiteados → remuestrea los primeros k shots (determinista) → re-deriva la métrica — sin llamada al motor, así que es reproducible solo desde el artefacto."}</p>
+          : "El camino de recálculo: conteos versionados → remuestrea los primeros k shots (determinista) → re-deriva la métrica — sin llamada al motor, así que es reproducible solo desde el artefacto."}</p>
 
         <LiveRecompute />
         <Refs ids={["nielsen2010", "chsh1969", "grover1996", "ecma404"]} />

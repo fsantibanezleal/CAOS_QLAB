@@ -92,7 +92,7 @@ export function AppLifecycleDiagram({ lang }: { lang: Lang }) {
         { x: 188, cls: "bx", t: en ? "2 · Implement engine" : "2 · Implementar motor",
           cd: "qlab/problems/<name>.py", a: en ? "Problem + Solver adapters" : "Problem + adaptadores Solver", b: "qlab/solvers/*_solvers.py", c: en ? "one adapter per framework" : "un adaptador por framework" },
         { x: 362, cls: "bx-compute", t: en ? "3 · Precompute / bake" : "3 · Precomputar",
-          cd: "python -m qlab.pipeline", a: en ? "run all solvers, seed 42" : "ejecuta todos los solvers, semilla 42", b: "data/artifacts/ + manifests/", c: en ? "seeded JSON trace committed" : "traza JSON con semilla, commiteada" },
+          cd: "python -m qlab.pipeline", a: en ? "run all solvers, seed 42" : "ejecuta todos los solvers, semilla 42", b: "data/artifacts/ + manifests/", c: en ? "seeded JSON trace committed" : "traza JSON con semilla, versionada" },
         { x: 536, cls: "bx-web", t: en ? "4 · Build SPA" : "4 · Construir SPA",
           cd: "web/  (React + Vite)", a: "prebuild: copy-data.mjs", b: en ? "overlay traces + manifests" : "superpone trazas + manifiestos", c: en ? "live engine inlined (TS)" : "motor vivo inline (TS)" },
         { x: 710, cls: "bx-hi", t: en ? "5 · Deploy" : "5 · Desplegar",
@@ -165,7 +165,7 @@ export function ThreeLaneDiagram({ lang }: { lang: Lang }) {
       <text className="cd" x="42" y="250">python -m qlab.pipeline &lt;case&gt;</text>
       <text className="it" x="42" y="268">Qiskit + Aer · PennyLane · Cirq · Stim</text>
       <text className="it" x="42" y="284">{en ? "noise · feed-forward · VQE/QAOA loop · &gt; 12 q" : "ruido · feed-forward · loop VQE/QAOA · &gt; 12 q"}</text>
-      <text className="mu" x="42" y="302">{en ? "commits a seeded trace + manifest to git" : "commitea traza con semilla + manifiesto a git"}</text>
+      <text className="mu" x="42" y="302">{en ? "commits a seeded trace + manifest to git" : "versiona traza con semilla + manifiesto a git"}</text>
       <text className="mu" x="42" y="318">{en ? "+ the classical baseline runs here too" : "+ la línea base clásica se ejecuta aquí también"}</text>
 
       {/* COMPUTE / hardware lane (dormant) */}
@@ -241,7 +241,7 @@ export function WebAppFlowDiagram({ lang }: { lang: Lang }) {
       <path className="flow" d="M204 130 L262 130" markerEnd={`url(#${m})`} />
       <text className="lbl" x="208" y="122">{en ? "else → replay" : "si no → replay"}</text>
       <rect className="bx" x="262" y="116" width="200" height="64" rx="9" />
-      <text className="ttl" x="274" y="138">{en ? "Replay committed trace" : "Replay de traza commiteada"}</text>
+      <text className="ttl" x="274" y="138">{en ? "Replay committed trace" : "Replay de traza versionada"}</text>
       <text className="cd" x="274" y="156">lib/data.ts → /artifacts</text>
       <text className="mu" x="274" y="173">{en ? "step scrubber over the trace" : "scrubber paso a paso sobre la traza"}</text>
 
@@ -258,7 +258,7 @@ export function WebAppFlowDiagram({ lang }: { lang: Lang }) {
       <text className="bandl" x="14" y="224">{en ? "Build pipeline — how the data + types get into the bundle" : "Pipeline de build — cómo entran datos + tipos al bundle"}</text>
 
       <rect className="bx" x="14" y="236" width="196" height="92" rx="9" />
-      <text className="ttl" x="26" y="258">{en ? "Committed data" : "Datos commiteados"}</text>
+      <text className="ttl" x="26" y="258">{en ? "Committed data" : "Datos versionados"}</text>
       <text className="cd" x="26" y="278">data/artifacts/*.json</text>
       <text className="cd" x="26" y="294">manifests/*.json</text>
       <text className="mu" x="26" y="314">{en ? "traces + per-case index" : "trazas + índice por caso"}</text>
@@ -446,7 +446,7 @@ export function DataContractDiagram({ lang }: { lang: Lang }) {
       <rect className="bx-web" x="60" y="482" width="300" height="30" rx="8" />
       <text className="ttl-web" x="74" y="502">LIVE — {en ? "in-browser re-sim" : "re-sim en navegador"}</text>
       <rect className="bx-compute" x="520" y="482" width="300" height="30" rx="8" />
-      <text className="ttl" x="534" y="502">PRECOMPUTE — {en ? "committed trace, replayed" : "traza commiteada, replay"}</text>
+      <text className="ttl" x="534" y="502">PRECOMPUTE — {en ? "committed trace, replayed" : "traza versionada, replay"}</text>
 
       <text className="mu" x="14" y="540">{en ? "The verdict + its numbers are written into the manifest; CI fails the build if a live-tagged case breaches a gate — mislabeling cannot ship." : "El veredicto + sus números van al manifiesto; CI rompe el build si un caso etiquetado vivo viola una compuerta — el mal etiquetado no se publica."}</text>
     </svg>
