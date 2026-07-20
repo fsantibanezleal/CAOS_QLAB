@@ -177,7 +177,7 @@ function Workbench() {
           <p className="qlab-side-lede">
             {en
               ? "Pick a case and a variant; each runs the real framework and replays the committed trace next to the classical baseline."
-              : "Elegir un caso y una variante; cada uno ejecuta el framework real y reproduce la traza commiteada junto al baseline clásico."}
+              : "Elegir un caso y una variante; cada uno ejecuta el framework real y reproduce la traza versionada junto al baseline clásico."}
           </p>
         </div>
 
@@ -303,7 +303,7 @@ function Workbench() {
         <p className="qlab-main-note">
           {en
             ? "Circuit, Bloch sphere, amplitudes, histogram, any landscape/extrapolation, and the quantum-vs-classical table are the real committed results. On live-lane cases switch to the Live (browser) tab and drag a slider to re-simulate in real time."
-            : "El circuito, la esfera de Bloch, las amplitudes, el histograma, cualquier paisaje/extrapolación y la tabla cuántico-vs-clásico son los resultados commiteados reales. En casos del carril vivo, cambiar a la pestaña En vivo (navegador) y mover un slider para re-simular en tiempo real."}
+            : "El circuito, la esfera de Bloch, las amplitudes, el histograma, cualquier paisaje/extrapolación y la tabla cuántico-vs-clásico son los resultados versionados reales. En casos del carril vivo, cambiar a la pestaña En vivo (navegador) y mover un slider para re-simular en tiempo real."}
         </p>
       </main>
     </div>
@@ -380,7 +380,7 @@ function CasePage() {
       <p className="todo-note">
         {en
           ? "Everything above — circuit, Bloch sphere, amplitudes, histogram, the QAOA landscape and the quantum-vs-classical comparison — is the real committed result. On live-lane cases, switch to the Live (browser) tab and drag a slider to re-simulate in real time."
-          : "Todo lo de arriba — circuito, esfera de Bloch, amplitudes, histograma, el paisaje de QAOA y la comparación cuántico-vs-clásico — es el resultado commiteado real. En los casos del carril vivo, cambiar a la pestaña En vivo (navegador) y mover un slider para re-simular en tiempo real."}
+          : "Todo lo de arriba — circuito, esfera de Bloch, amplitudes, histograma, el paisaje de QAOA y la comparación cuántico-vs-clásico — es el resultado versionado real. En los casos del carril vivo, cambiar a la pestaña En vivo (navegador) y mover un slider para re-simular en tiempo real."}
       </p>
     </div>
   );

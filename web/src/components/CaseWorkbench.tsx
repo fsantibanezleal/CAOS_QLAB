@@ -98,7 +98,7 @@ export function CaseWorkbench({
           {canLive && (
             <div className="mode-toggle">
               <button className={mode === "replay" ? "on" : ""} onClick={() => setMode("replay")}>
-                {lang === "en" ? "Replay (committed)" : "Replay (commiteado)"}
+                {lang === "en" ? "Replay (committed)" : "Replay (versionado)"}
               </button>
               <button className={mode === "live" ? "on" : ""} onClick={() => setMode("live")}>
                 {lang === "en" ? "Live (browser)" : "En vivo (navegador)"}

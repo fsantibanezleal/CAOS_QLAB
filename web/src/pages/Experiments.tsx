@@ -65,12 +65,12 @@ function ReproDiagram({ lang }: { lang: Lang }) {
       <path className="arch-arrow" d="M574 107 L624 107" markerEnd={`url(#${m})`} />
 
       <rect className="arch-spa" x="624" y="74" width="122" height="66" rx="8" />
-      <text className="arch-t" x="685" y="100" textAnchor="middle">{en ? "committed trace" : "traza commiteada"}</text>
+      <text className="arch-t" x="685" y="100" textAnchor="middle">{en ? "committed trace" : "traza versionada"}</text>
       <text className="arch-s arch-em" x="685" y="120" textAnchor="middle">{en ? "replays bit-for-bit" : "replay bit a bit"}</text>
 
       <text className="arch-s" x="380" y="36" textAnchor="middle">{en
         ? "a run is a pure function of (params, seed) — re-running reproduces the committed counts exactly"
-        : "una ejecución es función pura de (params, seed) — re-ejecutar reproduce los conteos commiteados exactamente"}</text>
+        : "una ejecución es función pura de (params, seed) — re-ejecutar reproduce los conteos versionados exactamente"}</text>
     </svg>
   );
 }
@@ -268,19 +268,19 @@ export function Experiments() {
           <p>
             {en
               ? "Every experiment in QLab is reproducible by construction, and the discipline is simple enough to state in one sentence: a run is a pure function of (params, seed). There is exactly one source of randomness in the whole pipeline — measurement sampling — and it is routed through a single, explicitly-seeded NumPy bit-generator (np.random.default_rng(42)). The state-vector evolution that precedes it is exact: applying a gate is a deterministic matrix–vector product on 2ⁿ complex amplitudes, with no floating-point nondeterminism beyond IEEE-754 rounding, so the amplitudes, the probabilities and the Bloch vectors are fixed before a single shot is drawn. Re-running any case with the same seed reproduces the committed counts bit-for-bit; this is what lets the web app replay a recording instead of re-deriving it."
-              : "Cada experimento en QLab es reproducible por construcción, y la disciplina cabe en una frase: una ejecución es función pura de (params, seed). Hay exactamente una fuente de azar en todo el pipeline — el muestreo de medición — y pasa por un único generador de bits de NumPy con semilla explícita (np.random.default_rng(42)). La evolución del statevector que la precede es exacta: aplicar una compuerta es un producto matriz–vector determinista sobre 2ⁿ amplitudes complejas, sin no-determinismo de punto flotante más allá del redondeo IEEE-754, así que las amplitudes, las probabilidades y los vectores de Bloch quedan fijos antes de tirar un solo shot. Re-ejecutar cualquier caso con la misma semilla reproduce los conteos commiteados bit a bit; eso es lo que permite que la web reproduzca una grabación en vez de re-derivarla."}
+              : "Cada experimento en QLab es reproducible por construcción, y la disciplina cabe en una frase: una ejecución es función pura de (params, seed). Hay exactamente una fuente de azar en todo el pipeline — el muestreo de medición — y pasa por un único generador de bits de NumPy con semilla explícita (np.random.default_rng(42)). La evolución del statevector que la precede es exacta: aplicar una compuerta es un producto matriz–vector determinista sobre 2ⁿ amplitudes complejas, sin no-determinismo de punto flotante más allá del redondeo IEEE-754, así que las amplitudes, las probabilidades y los vectores de Bloch quedan fijos antes de tirar un solo shot. Re-ejecutar cualquier caso con la misma semilla reproduce los conteos versionados bit a bit; eso es lo que permite que la web reproduzca una grabación en vez de re-derivarla."}
           </p>
           <Eq
             tex={String.raw`\text{counts}=\mathcal{S}\bigl(\,\lvert\psi\rangle=U(\text{params})\,\lvert\psi_0\rangle,\ \text{shots}=2048;\ \text{seed}=42\,\bigr),\qquad |\psi\rangle\ \text{is exact}`}
             caption={{
               en: "A committed result is the seeded sampler 𝒮 applied to an exact state vector; only 𝒮 is stochastic, and its seed (42) is fixed, so the counts are deterministic across re-runs.",
-              es: "Un resultado commiteado es el sampler con semilla 𝒮 aplicado a un statevector exacto; solo 𝒮 es estocástico, y su semilla (42) es fija, así que los conteos son deterministas entre re-ejecuciones.",
+              es: "Un resultado versionado es el sampler con semilla 𝒮 aplicado a un statevector exacto; solo 𝒮 es estocástico, y su semilla (42) es fija, así que los conteos son deterministas entre re-ejecuciones.",
             }}
           />
           <p>
             {en
               ? "The shot count is a fixed, declared constant — 2048 shots per case — chosen so the sampling error on a probability p is small but visible: the standard error of an estimated frequency is √(p(1−p)/N), which at N=2048 is at most 0.011 (worst case p=½). That is why a Bell-pair histogram reads 0.50/0.50 to two decimals rather than exactly ½, and why the App shows the empirical counts next to the exact probabilities — the gap between them is the honest, quantified shot noise, not a bug. Cases that need optimisation (QAOA, VQE) or stabiliser sampling (QEC) declare their own additional constants (grid size, θ-scan length, syndrome rounds), and every one of those constants is written into the committed trace's provenance block alongside the engine version, the lane and the seed."
-              : "El número de shots es una constante fija y declarada — 2048 shots por caso — elegida para que el error de muestreo sobre una probabilidad p sea pequeño pero visible: el error estándar de una frecuencia estimada es √(p(1−p)/N), que con N=2048 es a lo más 0.011 (peor caso p=½). Por eso un histograma de par de Bell se lee 0.50/0.50 a dos decimales y no exactamente ½, y por eso la App muestra los conteos empíricos junto a las probabilidades exactas — la brecha entre ambos es el ruido de shots honesto y cuantificado, no un bug. Los casos que necesitan optimización (QAOA, VQE) o muestreo de estabilizadores (QEC) declaran sus propias constantes adicionales (tamaño de grilla, largo del barrido en θ, rondas de síndrome), y cada una queda escrita en el bloque de procedencia de la traza commiteada junto a la versión del motor, el carril y la semilla."}
+              : "El número de shots es una constante fija y declarada — 2048 shots por caso — elegida para que el error de muestreo sobre una probabilidad p sea pequeño pero visible: el error estándar de una frecuencia estimada es √(p(1−p)/N), que con N=2048 es a lo más 0.011 (peor caso p=½). Por eso un histograma de par de Bell se lee 0.50/0.50 a dos decimales y no exactamente ½, y por eso la App muestra los conteos empíricos junto a las probabilidades exactas — la brecha entre ambos es el ruido de shots honesto y cuantificado, no un bug. Los casos que necesitan optimización (QAOA, VQE) o muestreo de estabilizadores (QEC) declaran sus propias constantes adicionales (tamaño de grilla, largo del barrido en θ, rondas de síndrome), y cada una queda escrita en el bloque de procedencia de la traza versionada junto a la versión del motor, el carril y la semilla."}
           </p>
           <Eq
             tex={String.raw`\mathrm{SE}(\hat p)=\sqrt{\tfrac{p(1-p)}{N}}\ \le\ \tfrac{1}{2\sqrt N}=\tfrac{1}{2\sqrt{2048}}\approx 0.0110,\qquad N=2048`}
@@ -292,7 +292,7 @@ export function Experiments() {
           <div className="fig-svg wide"><ReproDiagram lang={lang} />
             <p className="fig-cap">{en
               ? "The single execution path: (params, seed) → exact state vector → one seeded sampler at 2048 shots → a committed trace that replays bit-for-bit. Only the sampler is stochastic, and its seed is fixed."
-              : "El único camino de ejecución: (params, seed) → statevector exacto → un sampler con semilla a 2048 shots → una traza commiteada que reproduce bit a bit. Solo el sampler es estocástico, y su semilla es fija."}</p>
+              : "El único camino de ejecución: (params, seed) → statevector exacto → un sampler con semilla a 2048 shots → una traza versionada que reproduce bit a bit. Solo el sampler es estocástico, y su semilla es fija."}</p>
           </div>
           <Callout
             title={en ? "Exact vs sampled —" : "Exacto vs muestreado —"}
@@ -460,7 +460,7 @@ export function Experiments() {
           <p>
             {en
               ? "The other cases self-validate against a known reference instead of against a sibling engine, because for them an exact analytic answer exists. The QFT output is checked against the analytic discrete Fourier transform (both sign conventions) and reports fidelity 1.000 on every committed variant. Teleportation and superdense coding are validated by recovery: every input state teleports back with fidelity 1, and every two-bit message decodes exactly from the single transmitted qubit. The error-correction cases use a different but equally independent oracle — Stim's Clifford-frame stabiliser simulator generates the syndromes and PyMatching's minimum-weight perfect-matching decoder corrects them — and the below-threshold scaling (d=5 outperforming d=3) is reproduced, the Willow result in miniature."
-              : "Los demás casos se autovalidan contra una referencia conocida en vez de contra un motor hermano, porque para ellos existe una respuesta analítica exacta. La salida de la QFT se contrasta con la transformada de Fourier discreta analítica (ambas convenciones de signo) y reporta fidelidad 1.000 en cada variante commiteada. La teleportación y la codificación superdensa se validan por recuperación: cada estado de entrada se teleporta de vuelta con fidelidad 1, y cada mensaje de dos bits decodifica exactamente del único qubit transmitido. Los casos de corrección de errores usan un oráculo distinto pero igual de independiente — el simulador de estabilizadores en marco de Clifford de Stim genera los síndromes y el decodificador de matching perfecto de peso mínimo de PyMatching los corrige — y el escalamiento bajo umbral (d=5 superando a d=3) se reproduce, el resultado de Willow en miniatura."}
+              : "Los demás casos se autovalidan contra una referencia conocida en vez de contra un motor hermano, porque para ellos existe una respuesta analítica exacta. La salida de la QFT se contrasta con la transformada de Fourier discreta analítica (ambas convenciones de signo) y reporta fidelidad 1.000 en cada variante versionada. La teleportación y la codificación superdensa se validan por recuperación: cada estado de entrada se teleporta de vuelta con fidelidad 1, y cada mensaje de dos bits decodifica exactamente del único qubit transmitido. Los casos de corrección de errores usan un oráculo distinto pero igual de independiente — el simulador de estabilizadores en marco de Clifford de Stim genera los síndromes y el decodificador de matching perfecto de peso mínimo de PyMatching los corrige — y el escalamiento bajo umbral (d=5 superando a d=3) se reproduce, el resultado de Willow en miniatura."}
           </p>
           <ul className="fw-list">
             <li><strong>QAOA × 3</strong> — {en ? "Qiskit, PennyLane and Cirq return the same cut on all lab graphs; none beats the exact optimum." : "Qiskit, PennyLane y Cirq devuelven el mismo corte en todos los grafos; ninguno gana al óptimo exacto."}</li>
@@ -596,7 +596,7 @@ export function Experiments() {
           <p>
             {en
               ? "This table is generated live from the committed catalog — the set of shipped manifests — so it can never drift from what the build actually contains. Each row is one case: how many parametric regimes (variants) it ships, how those split across the live (clean, in-browser) and precompute (needs noise / feed-forward / optimisation / >12 qubits) lanes, which frameworks produced it, whether it carries a classical baseline, and where its data comes from. Most cases are exact engine output with no external dataset; the four data-driven cases use a labelled, generated regime family rather than a re-hosted external dataset, and those cells are tagged SYNTHETIC so the distinction is never blurred."
-              : "Esta tabla se genera en vivo desde el catálogo commiteado — el conjunto de manifiestos publicados — así que nunca puede desviarse de lo que el build realmente contiene. Cada fila es un caso: cuántos regímenes paramétricos (variantes) incluye, cómo se reparten entre los carriles live (limpio, en navegador) y precompute (necesita ruido / feed-forward / optimización / >12 qubits), qué frameworks lo produjeron, si lleva un baseline clásico, y de dónde vienen sus datos. La mayoría de los casos son salida exacta del motor sin dataset externo; los cuatro casos basados en datos usan una familia de regímenes generada y etiquetada en vez de un dataset externo re-hospedado, y esas celdas se marcan SYNTHETIC para que la distinción nunca se difumine."}
+              : "Esta tabla se genera en vivo desde el catálogo versionado — el conjunto de manifiestos publicados — así que nunca puede desviarse de lo que el build realmente contiene. Cada fila es un caso: cuántos regímenes paramétricos (variantes) incluye, cómo se reparten entre los carriles live (limpio, en navegador) y precompute (necesita ruido / feed-forward / optimización / >12 qubits), qué frameworks lo produjeron, si lleva un baseline clásico, y de dónde vienen sus datos. La mayoría de los casos son salida exacta del motor sin dataset externo; los cuatro casos basados en datos usan una familia de regímenes generada y etiquetada en vez de un dataset externo re-hospedado, y esas celdas se marcan SYNTHETIC para que la distinción nunca se difumine."}
           </p>
           {cat ? (
             <>
@@ -625,9 +625,9 @@ export function Experiments() {
               </table>
               <p className="fine">{en
                 ? "Lane key — live: a clean small unitary that re-runs exactly in the browser (≤12 qubits). precompute: needs a noise model, mid-circuit feed-forward, variational optimisation or stabiliser sampling, so it ships as a committed trace replayed in the browser. Both lanes use the identical renderer; the only difference is where the numbers were produced."
-                : "Clave de carril — live: un unitario limpio y chico que se re-ejecuta exacto en el navegador (≤12 qubits). precompute: necesita un modelo de ruido, feed-forward a mitad de circuito, optimización variacional o muestreo de estabilizadores, así que se publica como traza commiteada reproducida en el navegador. Ambos carriles usan el renderer idéntico; la única diferencia es dónde se produjeron los números."}</p>
+                : "Clave de carril — live: un unitario limpio y chico que se re-ejecuta exacto en el navegador (≤12 qubits). precompute: necesita un modelo de ruido, feed-forward a mitad de circuito, optimización variacional o muestreo de estabilizadores, así que se publica como traza versionada reproducida en el navegador. Ambos carriles usan el renderer idéntico; la única diferencia es dónde se produjeron los números."}</p>
             </>
-          ) : <p className="note">{en ? "Loading the committed catalog…" : "Cargando el catálogo commiteado…"}</p>}
+          ) : <p className="note">{en ? "Loading the committed catalog…" : "Cargando el catálogo versionado…"}</p>}
           <Callout
             title={en ? "Synthetic where labelled, exact everywhere else —" : "Sintético donde se etiqueta, exacto en el resto —"}
             pt={en
@@ -650,7 +650,7 @@ export function Experiments() {
         <p className="lede">
           {en
             ? "How QLab earns its claims: the seeded, reproducible protocol behind every committed trace; the leakage-safe held-out evaluation for the only learned cases; the exact metric for each experimental question; the three-engine cross-check that catches a wrong number; the honest quantum-vs-classical scorecard; the degradation sweeps; and the live coverage of cases × frameworks. It is not a 'we tested it, it works' page — it is the audit."
-            : "Cómo QLab gana sus afirmaciones: el protocolo con semilla y reproducible detrás de cada traza commiteada; la evaluación held-out sin fuga para los únicos casos aprendidos; la métrica exacta de cada pregunta experimental; la validación de tres motores que atrapa un número erróneo; la tarjeta honesta cuántico-vs-clásico; los barridos de degradación; y la cobertura en vivo de casos × frameworks. No es una página de 'lo probamos, funciona' — es la auditoría."}
+            : "Cómo QLab gana sus afirmaciones: el protocolo con semilla y reproducible detrás de cada traza versionada; la evaluación held-out sin fuga para los únicos casos aprendidos; la métrica exacta de cada pregunta experimental; la validación de tres motores que atrapa un número erróneo; la tarjeta honesta cuántico-vs-clásico; los barridos de degradación; y la cobertura en vivo de casos × frameworks. No es una página de 'lo probamos, funciona' — es la auditoría."}
         </p>
       </div>
       <Tabs tabs={tabs} initial="protocol" />

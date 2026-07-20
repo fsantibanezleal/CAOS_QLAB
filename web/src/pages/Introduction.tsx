@@ -257,7 +257,7 @@ export function Introduction() {
         <p>
           {en
             ? "Nothing on the published site computes physics on demand. A run is a pure function of (parameters, seed); the result is committed and the front end only animates it (replay = truth). The pipeline, in order:"
-            : "Nada en el sitio publicado computa física a demanda. Una ejecución es una función pura de (parámetros, semilla); el resultado se commitea y el front end solo lo anima (replay = verdad). El pipeline, en orden:"}
+            : "Nada en el sitio publicado computa física a demanda. Una ejecución es una función pura de (parámetros, semilla); el resultado se versiona y el front end solo lo anima (replay = verdad). El pipeline, en orden:"}
         </p>
         <ol className="gate-list">
           <li>{en
@@ -277,7 +277,7 @@ export function Introduction() {
             : <><strong>Comparar contra el baseline clásico.</strong> El mismo problema también se resuelve clásicamente; ambos costos (qubits, compuertas, shots, tiempo) y respuestas se registran lado a lado, y se calcula el veredicto cara a cara.</>}</li>
           <li>{en
             ? <><strong>Commit + replay.</strong> The seeded trace + manifest are committed to the repo; the static SPA loads them and a single set of replay code animates the circuit, Bloch sphere, histogram and comparison panel — deterministic to screenshot.</>
-            : <><strong>Commitear + replay.</strong> La traza con semilla + el manifiesto se commitean; la SPA estática los carga y un único conjunto de código de replay anima el circuito, la esfera de Bloch, el histograma y el panel de comparación — determinista para captura.</>}</li>
+            : <><strong>Versionar + replay.</strong> La traza con semilla + el manifiesto se versionan; la SPA estática los carga y un único conjunto de código de replay anima el circuito, la esfera de Bloch, el histograma y el panel de comparación — determinista para captura.</>}</li>
         </ol>
         <div className="arch-wrap"><ThreeLaneDiagram lang={lang} /></div>
         <p className="fine">
@@ -299,7 +299,7 @@ export function Introduction() {
         <p>
           {en
             ? <><strong>Exact:</strong> the quantum state evolution and the measurement statistics. The committed traces come from the real frameworks (Qiskit + Aer, PennyLane, Cirq, Stim) or a purpose-built exact state-vector engine; numbers are computed by those engines, never typed in. The classical baselines are real solvers too (brute force, Goemans–Williamson, full configuration interaction, kernel methods).</>
-            : <><strong>Exacto:</strong> la evolución del estado cuántico y la estadística de medición. Las trazas commiteadas vienen de los frameworks reales (Qiskit + Aer, PennyLane, Cirq, Stim) o de un motor de statevector exacto hecho a medida; los números los calculan esos motores, nunca se escriben a mano. Los baselines clásicos también son solvers reales (fuerza bruta, Goemans–Williamson, interacción de configuraciones completa, métodos de kernel).</>}
+            : <><strong>Exacto:</strong> la evolución del estado cuántico y la estadística de medición. Las trazas versionadas vienen de los frameworks reales (Qiskit + Aer, PennyLane, Cirq, Stim) o de un motor de statevector exacto hecho a medida; los números los calculan esos motores, nunca se escriben a mano. Los baselines clásicos también son solvers reales (fuerza bruta, Goemans–Williamson, interacción de configuraciones completa, métodos de kernel).</>}
         </p>
         <p>
           {en
@@ -342,7 +342,7 @@ export function Introduction() {
         <p>
           {en
             ? `${nCases} worked cases across all six families (${nVariants} committed variant traces), each solved end-to-end by a quantum solver and a classical baseline:`
-            : `${nCases} casos resueltos en las seis familias (${nVariants} trazas de variante commiteadas), cada uno resuelto de extremo a extremo por un solver cuántico y un baseline clásico:`}
+            : `${nCases} casos resueltos en las seis familias (${nVariants} trazas de variante versionadas), cada uno resuelto de extremo a extremo por un solver cuántico y un baseline clásico:`}
         </p>
         <div className="cat-grid">
           {[
