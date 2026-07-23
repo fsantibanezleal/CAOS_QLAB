@@ -1,0 +1,315 @@
+{
+ "meta": {
+  "n_cases": 20,
+  "total_traces": 119,
+  "frameworks": [
+   "cirq",
+   "pennylane",
+   "qiskit",
+   "qiskit-aer",
+   "stim"
+  ],
+  "classical_faster_walltime": 20,
+  "note": "QLab honest quantum-vs-classical benchmark; classical wins wall-time at lab scale"
+ },
+ "cases": [
+  {
+   "case": "bernstein-vazirani",
+   "category": "oracle-algorithms",
+   "qubits": 4,
+   "n_variants": 6,
+   "classical_wall_ms": 0.0077,
+   "quantum_wall_ms": 7.083,
+   "q_frameworks": [
+    "qiskit"
+   ]
+  },
+  {
+   "case": "chsh",
+   "category": "entanglement",
+   "qubits": 2,
+   "n_variants": 6,
+   "classical_wall_ms": 0.0,
+   "quantum_wall_ms": 0.815,
+   "q_frameworks": [
+    "qiskit"
+   ]
+  },
+  {
+   "case": "deutsch-jozsa",
+   "category": "oracle-algorithms",
+   "qubits": 3,
+   "n_variants": 6,
+   "classical_wall_ms": 0.0067,
+   "quantum_wall_ms": 4.805,
+   "q_frameworks": [
+    "qiskit"
+   ]
+  },
+  {
+   "case": "grover",
+   "category": "flagship-algorithms",
+   "qubits": 2,
+   "n_variants": 6,
+   "classical_wall_ms": 0.0051,
+   "quantum_wall_ms": 4.963,
+   "q_frameworks": [
+    "qiskit"
+   ]
+  },
+  {
+   "case": "interference",
+   "category": "fundamentals",
+   "qubits": 1,
+   "n_variants": 6,
+   "classical_wall_ms": 0.0,
+   "quantum_wall_ms": 0.452,
+   "q_frameworks": [
+    "qiskit"
+   ]
+  },
+  {
+   "case": "maxcut",
+   "category": "variational",
+   "qubits": 5,
+   "n_variants": 6,
+   "classical_wall_ms": 0.0236,
+   "quantum_wall_ms": 266.0,
+   "q_frameworks": [
+    "cirq",
+    "pennylane",
+    "qiskit"
+   ]
+  },
+  {
+   "case": "noise",
+   "category": "noise-and-qec",
+   "qubits": 2,
+   "n_variants": 6,
+   "classical_wall_ms": 0.445,
+   "quantum_wall_ms": 13.3,
+   "q_frameworks": [
+    "qiskit-aer"
+   ]
+  },
+  {
+   "case": "qec-repetition",
+   "category": "noise-and-qec",
+   "qubits": 1,
+   "n_variants": 6,
+   "classical_wall_ms": 0.0021,
+   "quantum_wall_ms": 7.6,
+   "q_frameworks": [
+    "stim"
+   ]
+  },
+  {
+   "case": "qec-surface",
+   "category": "noise-and-qec",
+   "qubits": 1,
+   "n_variants": 6,
+   "classical_wall_ms": 0.0021,
+   "quantum_wall_ms": 7.5,
+   "q_frameworks": [
+    "stim"
+   ]
+  },
+  {
+   "case": "qft",
+   "category": "flagship-algorithms",
+   "qubits": 3,
+   "n_variants": 6,
+   "classical_wall_ms": 1.4158,
+   "quantum_wall_ms": 4.906,
+   "q_frameworks": [
+    "qiskit"
+   ]
+  },
+  {
+   "case": "qml",
+   "category": "variational",
+   "qubits": 2,
+   "n_variants": 6,
+   "classical_wall_ms": 1.969,
+   "quantum_wall_ms": 1273.6,
+   "q_frameworks": [
+    "pennylane"
+   ]
+  },
+  {
+   "case": "qpe",
+   "category": "flagship-algorithms",
+   "qubits": 4,
+   "n_variants": 6,
+   "classical_wall_ms": 0.0678,
+   "quantum_wall_ms": 6.663,
+   "q_frameworks": [
+    "qiskit"
+   ]
+  },
+  {
+   "case": "qrng",
+   "category": "fundamentals",
+   "qubits": 1,
+   "n_variants": 6,
+   "classical_wall_ms": 0.0,
+   "quantum_wall_ms": 0.219,
+   "q_frameworks": [
+    "qiskit"
+   ]
+  },
+  {
+   "case": "shor",
+   "category": "flagship-algorithms",
+   "qubits": 8,
+   "n_variants": 6,
+   "classical_wall_ms": 0.003,
+   "quantum_wall_ms": 137.4,
+   "q_frameworks": [
+    "qiskit"
+   ]
+  },
+  {
+   "case": "simon",
+   "category": "oracle-algorithms",
+   "qubits": 2,
+   "n_variants": 6,
+   "classical_wall_ms": 0.0123,
+   "quantum_wall_ms": 4.944,
+   "q_frameworks": [
+    "qiskit"
+   ]
+  },
+  {
+   "case": "single-qubit",
+   "category": "fundamentals",
+   "qubits": 1,
+   "n_variants": 6,
+   "classical_wall_ms": 0.0,
+   "quantum_wall_ms": 0.215,
+   "q_frameworks": [
+    "qiskit"
+   ]
+  },
+  {
+   "case": "state-prep",
+   "category": "entanglement",
+   "qubits": 2,
+   "n_variants": 7,
+   "classical_wall_ms": 0.0123,
+   "quantum_wall_ms": 1.288,
+   "q_frameworks": [
+    "qiskit"
+   ]
+  },
+  {
+   "case": "superdense",
+   "category": "entanglement",
+   "qubits": 2,
+   "n_variants": 4,
+   "classical_wall_ms": 0.0,
+   "quantum_wall_ms": 0.386,
+   "q_frameworks": [
+    "qiskit"
+   ]
+  },
+  {
+   "case": "teleportation",
+   "category": "entanglement",
+   "qubits": 3,
+   "n_variants": 6,
+   "classical_wall_ms": 0.0,
+   "quantum_wall_ms": 1.261,
+   "q_frameworks": [
+    "qiskit"
+   ]
+  },
+  {
+   "case": "vqe",
+   "category": "variational",
+   "qubits": 4,
+   "n_variants": 6,
+   "classical_wall_ms": 0.763,
+   "quantum_wall_ms": 420.6,
+   "q_frameworks": [
+    "pennylane"
+   ]
+  }
+ ],
+ "chsh": [
+  {
+   "variant": "aligned",
+   "S": 2.0,
+   "exceeds": false
+  },
+  {
+   "variant": "optimal",
+   "S": 2.8284,
+   "exceeds": true
+  },
+  {
+   "variant": "product",
+   "S": 1.4142,
+   "exceeds": false
+  },
+  {
+   "variant": "rotated",
+   "S": 2.8284,
+   "exceeds": true
+  },
+  {
+   "variant": "suboptimal",
+   "S": 2.7321,
+   "exceeds": true
+  },
+  {
+   "variant": "weak",
+   "S": 2.5106,
+   "exceeds": true
+  }
+ ],
+ "grover": [
+  {
+   "variant": "2-3",
+   "qubits": 2,
+   "quantum_queries": 1,
+   "classical_queries": 1,
+   "success_prob": 1.0
+  },
+  {
+   "variant": "3-2",
+   "qubits": 3,
+   "quantum_queries": 2,
+   "classical_queries": 3,
+   "success_prob": 0.9453
+  },
+  {
+   "variant": "3-2marked",
+   "qubits": 3,
+   "quantum_queries": 1,
+   "classical_queries": 1,
+   "success_prob": 1.0
+  },
+  {
+   "variant": "3-5",
+   "qubits": 3,
+   "quantum_queries": 2,
+   "classical_queries": 7,
+   "success_prob": 0.9453
+  },
+  {
+   "variant": "4-0",
+   "qubits": 4,
+   "quantum_queries": 3,
+   "classical_queries": 7,
+   "success_prob": 0.9613
+  },
+  {
+   "variant": "4-10",
+   "qubits": 4,
+   "quantum_queries": 3,
+   "classical_queries": 4,
+   "success_prob": 0.9613
+  }
+ ]
+}

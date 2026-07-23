@@ -4,6 +4,14 @@
 [![License](https://img.shields.io/github/license/fsantibanezleal/CAOS_QLAB)](LICENSE)
 [![Version](https://img.shields.io/github/v/tag/fsantibanezleal/CAOS_QLAB?label=version&sort=semver)](https://github.com/fsantibanezleal/CAOS_QLAB/tags)
 [![Live demo](https://img.shields.io/badge/demo-live-2ea44f)](https://qlab.fasl-work.com)
+[![DOI](https://img.shields.io/badge/DOI-10.5281%2Fzenodo.21512647-blue)](https://doi.org/10.5281/zenodo.21512647)
+
+Technical report (CC-BY-4.0): *"Classical Still Wins the Wall-Clock: An Honest Quantum-vs-Classical Benchmark of
+Twenty Canonical Problems on Five Real Frameworks"*, concept DOI
+[10.5281/zenodo.21512647](https://doi.org/10.5281/zenodo.21512647) (source in
+[`manuscripts/quantum-vs-classical/`](manuscripts/quantum-vs-classical/)). From the 119 committed traces:
+classical wins wall-time on all 20 problems, while genuine quantum phenomena (CHSH nonlocality, Grover's query
+advantage) are real but not yet a practical speedup.
 
 **A public, didactic laboratory for quantum computing.** Learn it the honest way: *formulate a problem →
 attack it with the real, dedicated frameworks (Qiskit · PennyLane · Cirq · Stim · …) → put every quantum
