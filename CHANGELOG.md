@@ -4,6 +4,23 @@ All notable changes to CAOS_QLAB. Format: newest → oldest. Versions follow `X.
 (major.minor.patch); patch (`.00X`) for fixes. Kept `0.x` while the web SPA and the framework/case matrix
 are still landing. Tags from day one.
 
+## [0.34.001] — 2026-08-25 — Patch: CI green + footer version string; tag re-sync
+
+### Fixed
+- **CI red on `develop`**: three ruff `E702` (multiple statements on one line) in
+  `manuscripts/quantum-vs-classical/figures/make_figs.py` (added with the manuscript commit) failed the
+  lint step. Split the statements; `ruff check .` clean and the 145-test suite green again.
+- **Footer version string** (part of issue #13): `web/src/lib/version.ts` claimed it was "surfaced in the
+  footer" but was never imported anywhere. The footer now renders `v0.34.001`; `VERSION` holds the
+  display form `X.XX.XXX` (ADR-0068) while `web/package.json` keeps the semver form.
+
+### Changed
+- **Tag re-sync**: `v0.34.000` sat 18 commits behind `develop`. This patch folds the post-tag work under
+  one tag: the P0 honesty resync (#7/#9), the CI manifest-lane guard (#8), the Pages deploy + CNAME (#2),
+  the frontend-bar pass (workbench landing per issue #10, citations + case-physics + doc-page depth per
+  issue #11, the two new ⓘ modal tabs per issue #12), ADR-0065 community standards, the EN/ES
+  text-quality passes, and the Zenodo benchmark manuscript (DOI 10.5281/zenodo.21512647).
+
 ## [0.34.000] — 2026-06-23 — New case: Phase & interference (Mach–Zehnder) — catalog → 20 cases (verified)
 
 ### Added

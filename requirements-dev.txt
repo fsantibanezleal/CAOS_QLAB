@@ -1,3 +1,5 @@
 # Dev / CI tooling.
 pytest>=8.0
-ruff>=0.6
+# Pinned: ruff 0.16.x changed default rule sets and turned CI red against a clean local run.
+# Bump deliberately (run `ruff check .` locally with the new pin first), never by float.
+ruff==0.15.18

@@ -10,6 +10,7 @@ import type { Bundle, Catalog, CatalogCase } from "./lib/contract.types";
 import { CATEGORY_LABELS } from "./lib/contract.types";
 import { ADVANTAGE_EDGE, ADVANTAGE_LABEL, casePhysics } from "./data/casePhysics";
 import { loadCatalog } from "./lib/data";
+import { VERSION } from "./lib/version";
 import { Benchmark } from "./pages/Benchmark";
 import { Experiments } from "./pages/Experiments";
 import { Implementation } from "./pages/Implementation";
@@ -96,7 +97,7 @@ function Footer() {
   return (
     <footer className="qfooter">
       Developed by Felipe Santibáñez-Leal · A CAOS research project ·{" "}
-      <a href={EXTERNAL.github} target="_blank" rel="noreferrer">Source</a> · MIT
+      <a href={EXTERNAL.github} target="_blank" rel="noreferrer">Source</a> · MIT · v{VERSION}
     </footer>
   );
 }
