@@ -81,7 +81,8 @@ def fig_phenomena():
     axa.bar(x, S, color=cols, edgecolor=INK, linewidth=0.6, width=0.66, zorder=3)
     axa.axhline(2.0, color="#b23a48", linewidth=1.3, linestyle="--", label="classical bound = 2")
     axa.axhline(2 * np.sqrt(2), color="#2f7d3a", linewidth=1.2, linestyle=":", label="Tsirelson = 2$\\sqrt{2}$")
-    axa.set_xticks(x); axa.set_xticklabels(names, rotation=30, ha="right", fontsize=7.4)
+    axa.set_xticks(x)
+    axa.set_xticklabels(names, rotation=30, ha="right", fontsize=7.4)
     axa.set_ylabel("CHSH value $S$")
     axa.set_ylim(0, 3.1)
     axa.set_title("(a) CHSH: quantum genuinely\nviolates the classical bound", fontsize=8.4)
@@ -95,10 +96,12 @@ def fig_phenomena():
     gv = [g["variant"] for g in grover]
     qq = [g["quantum_queries"] for g in grover]
     cq = [g["classical_queries"] for g in grover]
-    x = np.arange(len(gv)); w = 0.38
+    x = np.arange(len(gv))
+    w = 0.38
     axb.bar(x - w / 2, cq, w, color=CLA, edgecolor=INK, linewidth=0.6, label="classical queries (~N/2)")
     axb.bar(x + w / 2, qq, w, color=QUA, edgecolor=INK, linewidth=0.6, label="quantum queries (~$\\sqrt{N}$)")
-    axb.set_xticks(x); axb.set_xticklabels(gv, rotation=30, ha="right", fontsize=7.4)
+    axb.set_xticks(x)
+    axb.set_xticklabels(gv, rotation=30, ha="right", fontsize=7.4)
     axb.set_ylabel("oracle queries")
     axb.set_title("(b) Grover: fewer queries\n(asymptotic, not wall-time)", fontsize=8.4)
     axb.grid(axis="y", color=GRID, linewidth=0.7, zorder=0)
