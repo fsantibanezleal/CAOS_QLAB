@@ -85,7 +85,7 @@ def fig_phenomena():
     axa.set_xticklabels(names, rotation=30, ha="right", fontsize=7.4)
     axa.set_ylabel("CHSH value $S$")
     axa.set_ylim(0, 3.1)
-    axa.set_title("(a) CHSH: quantum genuinely\nviolates the classical bound", fontsize=8.4)
+    axa.set_title("(a) CHSH: quantum violates\nthe classical bound", fontsize=8.4)
     axa.grid(axis="y", color=GRID, linewidth=0.7, zorder=0)
     axa.set_axisbelow(True)
     axa.legend(fontsize=7.0, frameon=True, facecolor="white", edgecolor=GRID, loc="lower left")
