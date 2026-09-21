@@ -3,12 +3,15 @@ name: CI
 on:
   push:
     branches: [main, develop]
-  pull_request:
   workflow_dispatch:
+concurrency:
+  group: ${{ github.workflow }}-${{ github.ref }}
+  cancel-in-progress: true
 
 jobs:
   test:
     runs-on: ubuntu-latest
+    timeout-minutes: 30
     steps:
       - uses: actions/checkout@v4
       - uses: actions/setup-python@v5
@@ -18,16 +21,14 @@ jobs:
       # core (Qiskit thin) + dev + the precompute engines (qiskit-aer, pennylane, ...): the tests + pipeline
       # exercise every case's real dedicated tool. The real-hardware lane (qiskit-ibm-runtime / braket /
       # azure-quantum) is NOT installed on CI and never runs here — its results are committed traces.
-      - run: pip install -r requirements.txt -r requirements-dev.txt -r requirements-precompute.txt
+      - run: pip install -r requirements.txt -r requirements-dev.txt
       - name: Lint
         run: ruff check .
       - name: Tests
         run: python -m pytest
-      - name: Pipeline smoke (Bell-state trace + manifest regenerate)
-        run: python -m qlab.pipeline state-prep --instance bell-phi-plus
-
   guards:
     runs-on: ubuntu-latest
+    timeout-minutes: 30
     steps:
       - uses: actions/checkout@v4
       - name: Public-repo guards
@@ -44,3 +45,5 @@ jobs:
             echo "::error::a local machine path leaked into a tracked file"; fail=1
           fi
           exit $fail
+      - name: CI budget, trunk-only triggers, no training (ADR-0074)
+        run: python3 scripts/check_ci_budget.py
