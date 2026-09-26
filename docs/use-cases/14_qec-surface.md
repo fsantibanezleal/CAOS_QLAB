@@ -1,4 +1,4 @@
-# 14 · QEC — surface code & the threshold crossover
+# 14 · QEC: surface code & the threshold crossover
 
 **Category:** noise-and-qec · **Lane:** precompute · **Solvers:** `qec-stim` (Stim + PyMatching),
 `qec-baseline` (unprotected qubit, classical model) · **Variants:** 6 (distance × p).
@@ -25,7 +25,7 @@ is around **~0.5–1%**.
 
 ## What each variant shows
 
-Distance 3 vs 5 at `p ∈ {0.005, 0.01, 0.02}` — straddling the threshold. The variant-bar makes the
+Distance 3 vs 5 at `p ∈ {0.005, 0.01, 0.02}`, straddling the threshold. The variant-bar makes the
 crossover visible: does the bigger code help or hurt?
 
 ## Solvers & results (from the committed traces, seed 42, 30 000 shots)
@@ -36,22 +36,22 @@ crossover visible: does the bigger code help or hurt?
 | 0.010 | 0.0277 | 0.0362 | ~ threshold | ✗ (crossing over) |
 | 0.020 | 0.0920 | 0.1799 | above threshold | ✗✗ (d5 ≫ d3) |
 
-At `p = 0.005` the distance-5 code beats distance-3 — **adding qubits makes the logical qubit better**. At
-`p = 0.02` the distance-5 code is twice as bad — **above threshold, more qubits = more failure modes**. The
+At `p = 0.005` the distance-5 code beats distance-3, **adding qubits makes the logical qubit better**. At
+`p = 0.02` the distance-5 code is twice as bad, **above threshold, more qubits = more failure modes**. The
 `p = 0.01` row sits right at the crossover. This is the textbook threshold behavior, on the real surface code.
 
 ## How to read & use the viz
 
 Put the d=3 and d=5 logical-error bars side by side as you step the noise rate up: the bars *cross* between
 `p = 0.005` and `0.02`. Below the crossing, scaling up wins; above it, scaling up loses. That crossing point
-is the threshold — the number every fault-tolerance roadmap is fighting to get the hardware below.
+is the threshold, the number every fault-tolerance roadmap is fighting to get the hardware below.
 
 ## Honest verdict
 
 > This is the heart of fault tolerance: **below threshold, error correction scales** (a bigger code = a
 > better logical qubit), and that is the regime Google's Willow chip entered in 2024. But everything here is
 > **one** logical qubit; a useful fault-tolerant computer needs **hundreds-to-thousands of logical qubits**,
-> each costing ~1000 physical qubits at low enough error — three-to-four orders of magnitude beyond any
+> each costing ~1000 physical qubits at low enough error, three-to-four orders of magnitude beyond any
 > machine today, and on vendor roadmaps no earlier than ~2029. Real, exciting, and far away.
 
 ## References

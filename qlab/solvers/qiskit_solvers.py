@@ -1,4 +1,4 @@
-"""Qiskit adapters — real Qiskit 2.x + quantum_info. Two solvers:
+"""Qiskit adapters, real Qiskit 2.x + quantum_info. Two solvers:
 
 - `state-qiskit`  : builds the entanglement targets gate-by-gate and emits a full step trace.
 - `qaoa-qiskit`   : p=1 QAOA for MaxCut, optimized by an exact statevector grid-search over (γ, β)
@@ -40,7 +40,7 @@ def _state_circuit(kind: str, variant: str, n: int) -> QuantumCircuit:
         qc.h(0)
         for q in range(n - 1):
             qc.cx(q, q + 1)
-    else:  # pragma: no cover — W handled via the exact-prepare path below
+    else:  # pragma: no cover, W handled via the exact-prepare path below
         raise ValueError(kind)
     return qc
 
@@ -396,9 +396,9 @@ class QiskitInterference(Solver):
             value={"phi": round(phi, 4), "p0": p0, "p1": p1, "fringe": fringe},
             cost={"wall_ms": round(wall, 3), "qubits": 1},
             notes={"en": f"H · P({phi:.3f}) · H gives P(0) = cos²(φ/2) = {p0} ({fringe}). The two paths' "
-                         f"amplitudes interfere — at φ=π they cancel exactly.",
+                         f"amplitudes interfere, at φ=π they cancel exactly.",
                    "es": f"H · P({phi:.3f}) · H da P(0) = cos²(φ/2) = {p0} ({fringe}). Las amplitudes de los "
-                         f"dos caminos interfieren — en φ=π se cancelan exactamente."},
+                         f"dos caminos interfieren, en φ=π se cancelan exactamente."},
             trace=trace,
         )
 
@@ -447,9 +447,9 @@ class QiskitSuperdense(Solver):
             value={"message": msg, "decoded": decoded, "correct": bool(decoded == msg),
                    "bits_decoded": 2, "qubits_sent": 1},
             cost={"wall_ms": round(wall, 3), "qubits": 2, "qubits_transmitted": 1},
-            notes={"en": f"Encoded message {msg} into 1 qubit; Bob decoded {decoded} — 2 classical bits from "
+            notes={"en": f"Encoded message {msg} into 1 qubit; Bob decoded {decoded}, 2 classical bits from "
                          "1 transmitted qubit (+ a pre-shared Bell pair).",
-                   "es": f"Codificó el mensaje {msg} en 1 qubit; Bob decodificó {decoded} — 2 bits clásicos "
+                   "es": f"Codificó el mensaje {msg} en 1 qubit; Bob decodificó {decoded}, 2 bits clásicos "
                          "desde 1 qubit transmitido (+ un par de Bell compartido)."},
             trace=trace,
         )
@@ -859,9 +859,9 @@ class QiskitQFT(Solver):
             cost={"wall_ms": round(wall, 3), "qubits": n, "gates": gate_count,
                   "gate_complexity": "O(n^2)"},
             notes={"en": f"QFT|{k}⟩ via {gate_count} gates (O(n²)); fidelity vs analytic DFT = {fid:.4f}. "
-                         "But a measurement gives one sample — the spectrum is not readable.",
+                         "But a measurement gives one sample, the spectrum is not readable.",
                    "es": f"QFT|{k}⟩ con {gate_count} compuertas (O(n²)); fidelidad vs DFT analítica = "
-                         f"{fid:.4f}. Pero una medición da una sola muestra — el espectro no es legible."},
+                         f"{fid:.4f}. Pero una medición da una sola muestra, el espectro no es legible."},
             trace=trace,
         )
 
@@ -950,7 +950,7 @@ class QiskitGrover(Solver):
 
 
 def _maxcut_cost_op(n: int, edges: list[list[int]]) -> SparsePauliOp:
-    """C = Σ_(u,v)∈E 0.5 (I − Z_u Z_v) — expectation = expected cut value."""
+    """C = Σ_(u,v)∈E 0.5 (I − Z_u Z_v), expectation = expected cut value."""
     sparse = []
     for u, v in edges:
         sparse.append(("ZZ", [u, v], -0.5))

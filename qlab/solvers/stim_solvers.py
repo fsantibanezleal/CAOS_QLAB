@@ -1,9 +1,9 @@
-"""Stim adapter (Phase-B framework) — the stabilizer/QEC engine.
+"""Stim adapter (Phase-B framework), the stabilizer/QEC engine.
 
 Stim simulates Clifford circuits with thousands of qubits (Gottesman-Knill), which is exactly what error
 correction needs: sample the noisy syndrome history of a code, then decode. QLab pairs Stim with PyMatching
 (minimum-weight perfect matching) to run the real QEC decoding pipeline for the repetition code. This is
-the standard toolchain that scales up to surface codes — a genuinely new simulation paradigm beside the
+the standard toolchain that scales up to surface codes, a genuinely new simulation paradigm beside the
 state-vector solvers (Qiskit/PennyLane/Cirq), added as one more adapter.
 """
 

@@ -1,11 +1,11 @@
-"""Quantum Phase Estimation — read an eigenphase into a register (the QFT's first payoff).
+"""Quantum Phase Estimation, read an eigenphase into a register (the QFT's first payoff).
 
 Given a unitary U and one of its eigenstates |ψ⟩ with U|ψ⟩ = e^{2πiφ}|ψ⟩, QPE writes a t-bit estimate of φ
 into a counting register using controlled-U^{2^j} powers and an inverse QFT. Here U = P(2πφ) (a phase
-gate) with eigenstate |1⟩, so φ is exactly known — which lets QLab *verify* the estimate. The honest
+gate) with eigenstate |1⟩, so φ is exactly known, which lets QLab *verify* the estimate. The honest
 framing: for a tiny unitary you can just diagonalize it classically and read φ exactly and instantly; QPE
 earns its keep only when U acts on an exponentially large space you cannot diagonalize (e.g. e^{iHt} for a
-molecular Hamiltonian — the heart of VQE-free chemistry and of Shor's order-finding). It is the QFT's first
+molecular Hamiltonian, the heart of VQE-free chemistry and of Shor's order-finding). It is the QFT's first
 real application, and it is *finite-precision*: t counting qubits resolve φ to 2^{-t}.
 """
 
@@ -25,19 +25,19 @@ class QPE(Problem):
         "en": (
             "QPE estimates the phase φ of an eigenvalue e^{2πiφ} of a unitary U. A counting register of t "
             "qubits is put in superposition; controlled-U^{2^j} kicks the phase back onto it; an inverse "
-            "QFT turns that phase ramp into a binary number — the t-bit estimate of φ. It is the first real "
+            "QFT turns that phase ramp into a binary number, the t-bit estimate of φ. It is the first real "
             "use of the QFT and the engine inside Shor's order-finding. Two honest caveats: it is "
             "finite-precision (t bits resolve φ to 2^{-t}), and at this toy scale a classical "
-            "eigendecomposition of U gives φ exactly and instantly — QPE only wins when U is too large to "
+            "eigendecomposition of U gives φ exactly and instantly, QPE only wins when U is too large to "
             "diagonalize."
         ),
         "es": (
             "QPE estima la fase φ de un autovalor e^{2πiφ} de un unitario U. Un registro de conteo de t "
             "qubits se pone en superposición; controlled-U^{2^j} le devuelve la fase (phase kickback); una "
-            "QFT inversa convierte esa rampa de fase en un número binario — la estimación de φ a t bits. Es "
+            "QFT inversa convierte esa rampa de fase en un número binario, la estimación de φ a t bits. Es "
             "el primer uso real de la QFT y el motor del order-finding de Shor. Dos salvedades honestas: es "
             "de precisión finita (t bits resuelven φ a 2^{-t}), y a esta escala de juguete una "
-            "diagonalización clásica de U da φ exacto e instantáneo — QPE solo gana cuando U es demasiado "
+            "diagonalización clásica de U da φ exacto e instantáneo, QPE solo gana cuando U es demasiado "
             "grande para diagonalizar."
         ),
     }

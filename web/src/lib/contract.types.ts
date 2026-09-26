@@ -1,5 +1,5 @@
 // TypeScript mirror of the QLab data contracts (qlab/core/trace.py, manifest.py, pipeline.py bundle).
-// ADR-0057: this must track the Python schema — if it drifts, the build/types break. Keep in lockstep.
+// ADR-0057: this must track the Python schema, if it drifts, the build/types break. Keep in lockstep.
 
 export interface Bilingual {
   en: string;

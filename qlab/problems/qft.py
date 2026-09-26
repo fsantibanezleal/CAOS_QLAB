@@ -1,9 +1,9 @@
-"""Quantum Fourier Transform — the flagship subroutine (and an honesty lesson).
+"""Quantum Fourier Transform, the flagship subroutine (and an honesty lesson).
 
-The QFT maps a basis state |k⟩ to a phase-ramp superposition (1/√N) Σ_j e^{2πi kj/N} |j⟩ — the quantum
+The QFT maps a basis state |k⟩ to a phase-ramp superposition (1/√N) Σ_j e^{2πi kj/N} |j⟩, the quantum
 analogue of the discrete Fourier transform. It applies the transform in O(n²) gates vs the classical
 FFT's O(N log N) = O(n·2ⁿ) operations: exponentially cheaper to *apply*. But measurement collapses the
-output to a single sample — you CANNOT read out the 2ⁿ Fourier amplitudes. That is exactly why the QFT is
+output to a single sample, you CANNOT read out the 2ⁿ Fourier amplitudes. That is exactly why the QFT is
 a *subroutine* (inside phase estimation / Shor), not a standalone speedup: the classical FFT, by contrast,
 hands you the full readable spectrum. QLab validates the QFT against the analytic DFT and shows this honestly.
 """
@@ -24,18 +24,18 @@ class QFT(Problem):
         "en": (
             "The QFT is the quantum discrete Fourier transform: it sends |k⟩ to a uniform superposition "
             "with a phase ramp e^{2πi kj/N}. Built from Hadamards and a ladder of controlled-phase "
-            "rotations (plus output swaps), it uses only O(n²) gates — exponentially fewer than the "
+            "rotations (plus output swaps), it uses only O(n²) gates, exponentially fewer than the "
             "classical FFT's O(n·2ⁿ). The catch: a measurement returns one sample, so you cannot extract "
             "the full transformed amplitudes. The QFT is therefore the engine *inside* phase estimation and "
-            "Shor, not a way to compute a readable spectrum faster — that is what the classical FFT is for."
+            "Shor, not a way to compute a readable spectrum faster, that is what the classical FFT is for."
         ),
         "es": (
             "La QFT es la transformada de Fourier discreta cuántica: envía |k⟩ a una superposición uniforme "
             "con una rampa de fase e^{2πi kj/N}. Construida con Hadamards y una escalera de rotaciones de "
-            "fase controladas (más swaps de salida), usa solo O(n²) compuertas — exponencialmente menos que "
+            "fase controladas (más swaps de salida), usa solo O(n²) compuertas, exponencialmente menos que "
             "el O(n·2ⁿ) de la FFT clásica. El truco: una medición devuelve una sola muestra, así que no "
             "puedes extraer todas las amplitudes transformadas. Por eso la QFT es el motor *dentro* de la "
-            "estimación de fase y de Shor, no una forma de obtener un espectro legible más rápido — eso lo "
+            "estimación de fase y de Shor, no una forma de obtener un espectro legible más rápido, eso lo "
             "hace la FFT clásica."
         ),
     }

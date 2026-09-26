@@ -1,11 +1,11 @@
-# 10 · VQE — H₂ ground state (the first learned method)
+# 10 · VQE: H₂ ground state (the first learned method)
 
 **Category:** variational · **Lane:** precompute · **Solvers:** `vqe-pennylane` (variational), `vqe-classical`
 (exact diagonalization / FCI) · **Variants:** 6 bond lengths.
 
 ## The problem
 
-Find the ground-state energy of the hydrogen molecule H₂ as a function of bond length — the dissociation
+Find the ground-state energy of the hydrogen molecule H₂ as a function of bond length, the dissociation
 curve. VQE is the flagship *learned* quantum method: a parametrized circuit is **trained** (its angle
 optimized) to minimize the measured energy. QLab runs it on the **real** H₂ Hamiltonian and checks it
 against exact diagonalization.
@@ -14,7 +14,7 @@ against exact diagonalization.
 
 - **Hamiltonian:** the real electronic Hamiltonian of H₂ in the STO-3G minimal basis, built by PennyLane's
   **differentiable Hartree-Fock** (no external chemistry backend), Jordan-Wigner mapped to **4 qubits**.
-- **Ansatz:** the Hartree-Fock reference `|1100⟩` plus a single `DoubleExcitation(θ)` — the one excitation
+- **Ansatz:** the Hartree-Fock reference `|1100⟩` plus a single `DoubleExcitation(θ)`: the one excitation
   that captures H₂'s correlation. One trainable parameter `θ`.
 
 ## Formalization
@@ -24,7 +24,7 @@ the true ground state:
 ```
 E_VQE = min_θ ⟨ψ(θ)| H |ψ(θ)⟩,   |ψ(θ)⟩ = DoubleExcitation(θ) · |HF⟩
 ```
-QLab scans `θ ∈ [−π, π]` (100 points, deterministic) and takes the minimum — and compares to the exact
+QLab scans `θ ∈ [−π, π]` (100 points, deterministic) and takes the minimum, and compares to the exact
 ground energy from diagonalizing the 16×16 Hamiltonian matrix (full configuration interaction in this basis).
 
 ## What each variant shows
@@ -50,14 +50,14 @@ textbook H₂/STO-3G value.
 ## How to read & use the viz
 
 The energy-vs-θ landscape is a single smooth well; VQE rolls to its bottom. Across the variant-bar the
-minima trace the dissociation curve — bonded around 0.74 Å, flattening as the atoms separate.
+minima trace the dissociation curve, bonded around 0.74 Å, flattening as the atoms separate.
 
 ## Honest verdict
 
-> VQE recovers the H₂ ground energy to chemical accuracy — a genuine learned/variational method. But H₂ in
+> VQE recovers the H₂ ground energy to chemical accuracy, a genuine learned/variational method. But H₂ in
 > a minimal basis is a **4×4 matrix** a laptop diagonalizes in microseconds, so there is **no advantage**
 > here; this is pedagogy. Scaling VQE to molecules classical methods *can't* handle runs into **barren
-> plateaus** (vanishing gradients) and deep ansätze — the open problem that keeps near-term quantum
+> plateaus** (vanishing gradients) and deep ansätze, the open problem that keeps near-term quantum
 > chemistry from a clean advantage.
 
 ## References

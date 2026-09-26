@@ -1,18 +1,18 @@
 # Attribution
 
-CAOS_QLAB — a CAOS research investigation by **Felipe Santibáñez-Leal**.
+CAOS_QLAB, a CAOS research investigation by **Felipe Santibáñez-Leal**.
 
 ## Frameworks & engines
 
-QLab is a teaching layer over the real quantum-computing ecosystem. It claims no novelty in the engines —
+QLab is a teaching layer over the real quantum-computing ecosystem. It claims no novelty in the engines, 
 its value is the honest, comparative curriculum and the uniform Problem × Solver harness around them.
 
-- **Qiskit** & **qiskit-aer** — IBM Quantum. https://www.ibm.com/quantum/qiskit
-- **PennyLane** & **Lightning** — Xanadu. https://pennylane.ai
-- **Cirq / qsim**, **Stim**, **OpenFermion** — Google Quantum AI / Craig Gidney. https://quantumai.google
-- **pytket / TKET** — Quantinuum. https://docs.quantinuum.com/tket
-- **Qulacs** — QunaSys et al. https://github.com/qulacs/qulacs
-- **Mitiq** — Unitary Foundation. https://mitiq.readthedocs.io
+- **Qiskit** & **qiskit-aer**: IBM Quantum. https://www.ibm.com/quantum/qiskit
+- **PennyLane** & **Lightning**: Xanadu. https://pennylane.ai
+- **Cirq / qsim**, **Stim**, **OpenFermion**: Google Quantum AI / Craig Gidney. https://quantumai.google
+- **pytket / TKET**: Quantinuum. https://docs.quantinuum.com/tket
+- **Qulacs**: QunaSys et al. https://github.com/qulacs/qulacs
+- **Mitiq**: Unitary Foundation. https://mitiq.readthedocs.io
 
 ## Didactic & scientific sources
 
@@ -23,10 +23,10 @@ QAOA (2014); Goemans–Williamson (1995); the hardware/limits literature catalog
 
 ## In-browser (web SPA)
 
-- **React** + **react-router-dom** + **Vite** (MIT) — the static single-page app.
-- **KaTeX** (MIT) — typeset display equations on the Methodology page.
-- **quantum-circuit** (quantastica, MIT) — live JS state-vector engine (next phase).
-- **Quirk** (Apache-2.0) — embedded drag-drop sandbox (next phase).
+- **React** + **react-router-dom** + **Vite** (MIT): the static single-page app.
+- **KaTeX** (MIT): typeset display equations on the Methodology page.
+- **quantum-circuit** (quantastica, MIT): live JS state-vector engine (next phase).
+- **Quirk** (Apache-2.0): embedded drag-drop sandbox (next phase).
 - The Bloch sphere / circuit / landscape / ZNE viz are hand-rolled SVG (no third-party chart lib).
 
 Synthetic or illustrative content is labeled as such throughout. Numbers shown are computed by the engines,

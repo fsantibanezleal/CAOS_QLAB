@@ -1,7 +1,7 @@
 import { useState } from "react";
 import type { Measurements } from "../lib/contract.types";
 
-/** Measurement histogram — SVG bars with value read-out on hover (interactive-visualization-rubric). */
+/** Measurement histogram, SVG bars with value read-out on hover (interactive-visualization-rubric). */
 export function Histogram({ measurements }: { measurements: Measurements }) {
   const [hover, setHover] = useState<string | null>(null);
   const entries = Object.entries(measurements.counts).sort((a, b) => a[0].localeCompare(b[0]));

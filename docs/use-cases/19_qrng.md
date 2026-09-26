@@ -43,16 +43,16 @@ classical PRNG produces statistically identical histograms.
 ## How to read & use the viz
 
 Watch the histogram fill toward flat as shots accumulate (uniform) or lopsided (biased). The entropy read-
-out converges to `n` (or less). Side by side, the quantum and classical histograms look the same — which is
+out converges to `n` (or less). Side by side, the quantum and classical histograms look the same, which is
 exactly the point.
 
 ## Honest verdict
 
-> Statistically, the quantum RNG and a good classical PRNG are **indistinguishable** at this scale — same
+> Statistically, the quantum RNG and a good classical PRNG are **indistinguishable** at this scale, same
 > flat histograms, same entropy. The difference is in *kind*, not quality: quantum randomness comes from
 > measurement collapse, so it is **fundamental and certifiable** (you can prove it wasn't pre-determined),
-> whereas a PRNG is fully deterministic given its seed. **Certifiable true randomness** — useful for
-> cryptographic keys and public random beacons — is the genuine quantum value here, not better numbers.
+> whereas a PRNG is fully deterministic given its seed. **Certifiable true randomness**, useful for
+> cryptographic keys and public random beacons, is the genuine quantum value here, not better numbers.
 > (Note: the committed trace fixes a seed for reproducibility; real-hardware measurement would be
 > irreducibly random.)
 

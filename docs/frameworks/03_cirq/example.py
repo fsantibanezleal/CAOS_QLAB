@@ -1,9 +1,9 @@
-"""Runnable example — p=1 QAOA for MaxCut on the triangle graph, in pure Cirq.
+"""Runnable example, p=1 QAOA for MaxCut on the triangle graph, in pure Cirq.
 
     .venv/Scripts/python.exe docs/frameworks/03_cirq/example.py
 
 Mirrors QLab's `qaoa-cirq` adapter: build the ansatz, grid-search (γ, β), read the cut off the exact
-statevector. The triangle K3 is frustrated — its optimum cut is 2 of 3 edges. Output is deterministic.
+statevector. The triangle K3 is frustrated, its optimum cut is 2 of 3 edges. Output is deterministic.
 """
 
 import cirq
@@ -45,7 +45,7 @@ def main() -> None:
     g, b, exp = best
     idx = int(np.argmax(probs(g, b)))
     bits = format(idx, f"0{N}b")
-    print(f"triangle K3 — best <C> = {exp:.4f} at (gamma={g:.3f}, beta={b:.3f})")
+    print(f"triangle K3, best <C> = {exp:.4f} at (gamma={g:.3f}, beta={b:.3f})")
     print(f"most-probable bitstring = {bits}  ->  cut = {cut_value(bits)}  (classical optimum = 2)")
 
 

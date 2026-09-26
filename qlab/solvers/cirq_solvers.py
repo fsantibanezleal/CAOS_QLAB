@@ -1,10 +1,10 @@
-"""Cirq adapter — real Cirq, a THIRD independent QAOA implementation for MaxCut.
+"""Cirq adapter, real Cirq, a THIRD independent QAOA implementation for MaxCut.
 
 This is the extensibility claim proven a third time: a new framework is one adapter + one registry line,
 no change to core/pipeline/web. With Qiskit + PennyLane + Cirq all attacking the same graph, agreement on
 the cut value is a strong three-way cross-check (disagreement would be a bug). Cirq builds the QAOA ansatz
 natively; the cut expectation ⟨C⟩ = Σ_x p(x)·cut(x) is read straight off the statevector, so the exact gate
-convention is irrelevant — what is reported is the true cut of the actual state.
+convention is irrelevant, what is reported is the true cut of the actual state.
 """
 
 from __future__ import annotations
@@ -77,7 +77,7 @@ class CirqQAOA(Solver):
             value={"cut": cut, "bitstring": bits, "expectation": round(exp_best, 4)},
             cost={"wall_ms": round(wall, 1), "qubits": n, "evaluations": self.GRID ** 2},
             notes={"en": "Independent QAOA on cirq.Simulator (same (γ,β) grid as Qiskit/PennyLane); "
-                         f"most-probable bitstring cuts {cut} edges — third cross-check.",
+                         f"most-probable bitstring cuts {cut} edges, third cross-check.",
                    "es": "QAOA independiente en cirq.Simulator (misma malla (γ,β) que Qiskit/PennyLane); "
-                         f"la cadena más probable corta {cut} aristas — tercera verificación cruzada."},
+                         f"la cadena más probable corta {cut} aristas, tercera verificación cruzada."},
         )

@@ -22,7 +22,7 @@ export function isZne(x: unknown): x is Zne {
 /**
  * Zero-noise extrapolation: the noisy expectation measured at amplified noise scales λ=1,3,5, the linear
  * fit back to λ=0 (the mitigated estimate = the intercept), and the ideal value. The residual gap to the
- * ideal is the honest point — ZNE reduces bias, it does not correct errors.
+ * ideal is the honest point: ZNE reduces bias, it does not correct errors.
  */
 export function ZneExtrapolation({ zne, ideal, metric = "⟨Z₀Z₁⟩" }: { zne: Zne; ideal?: number; metric?: string }) {
   const [hover, setHover] = useState<number | null>(null);
@@ -33,7 +33,7 @@ export function ZneExtrapolation({ zne, ideal, metric = "⟨Z₀Z₁⟩" }: { zn
   const plotH = H - PADT - PADB;
 
   const lamMax = Math.max(...lambdas) + 0.5;
-  // Auto-scale to the data (don't force 0 — the action lives in a narrow band near the ideal).
+  // Auto-scale to the data (don't force 0, the action lives in a narrow band near the ideal).
   const ys = [...expectations, intercept, ideal ?? 1];
   const lo = Math.min(...ys);
   const hi = Math.max(...ys);

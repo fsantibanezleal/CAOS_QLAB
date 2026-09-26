@@ -16,7 +16,7 @@ export function AmplitudeBars({ step, qubits }: { step: Step; qubits: number }) 
     return (
       <div className="viz">
         <div className="viz-title">State vector</div>
-        <p className="note">{2 ** qubits} amplitudes — too many to plot; see the histogram.</p>
+        <p className="note">{2 ** qubits} amplitudes, too many to plot; see the histogram.</p>
       </div>
     );
   }

@@ -2,12 +2,12 @@
 stays Qiskit-free (live-thin); only the precompute solvers import this.
 
 Given a Qiskit circuit built gate-by-gate, `evolve` replays it one instruction at a time on a
-`Statevector`, recording — after every step — the full statevector, the per-qubit reduced Bloch vector,
+`Statevector`, recording, after every step, the full statevector, the per-qubit reduced Bloch vector,
 and the basis-state probabilities. That sequence of `Step`s IS the animation the web app replays. Any
 circuit-model solver (Qiskit, Cirq via QASM, …) funnels through here so every framework yields the same
-trace shape — the adapter boundary the registry depends on.
+trace shape, the adapter boundary the registry depends on.
 
-Qubit/index convention (documented once, used everywhere): Qiskit's native little-endian — basis index
+Qubit/index convention (documented once, used everywhere): Qiskit's native little-endian, basis index
 `i` has qubit 0 as its least-significant bit. The web renderer uses the same arrays, never reversed.
 """
 
@@ -34,7 +34,7 @@ def bloch(sv: Statevector, n: int) -> list[list[float]]:
 
 
 def _scalar_params(params) -> list[float]:
-    """Keep only real scalar gate params (a UnitaryGate carries a matrix, not floats — skip those)."""
+    """Keep only real scalar gate params (a UnitaryGate carries a matrix, not floats, skip those)."""
     out: list[float] = []
     for x in params or []:
         try:

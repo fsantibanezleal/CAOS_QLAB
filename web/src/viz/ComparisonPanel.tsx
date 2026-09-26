@@ -34,7 +34,7 @@ export function ComparisonPanel({ bundle }: { bundle: Bundle }) {
   const { lang } = useUI();
   return (
     <div className="cmp">
-      <div className="viz-title">{lang === "en" ? "Solvers — quantum vs classical" : "Solvers — cuántico vs clásico"}</div>
+      <div className="viz-title">{lang === "en" ? "Solvers, quantum vs classical" : "Solvers, cuántico vs clásico"}</div>
       <table className="cmp-table">
         <thead>
           <tr>

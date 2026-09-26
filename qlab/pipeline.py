@@ -26,7 +26,7 @@ ROOT = Path(__file__).resolve().parent.parent
 ARTIFACTS = ROOT / "data" / "artifacts"
 MANIFESTS = ROOT / "manifests"
 
-# Which renderers the web app should mount for a category (viz bindings — the manifest's `viz`).
+# Which renderers the web app should mount for a category (viz bindings: the manifest's `viz`).
 VIZ_BY_CATEGORY = {
     "fundamentals": ["bloch", "amp_phase", "histogram", "circuit"],
     "entanglement": ["amp_phase", "histogram", "qsphere", "circuit"],
@@ -51,12 +51,12 @@ def _comparison(problem, results: list) -> dict:
         verdict_en = (
             f"Exact classical brute force found the optimum cut = {opt} in {ms_cls} ms. "
             f"QAOA (p=1) reached cut = {q}. At this scale the classical optimum is instant and QAOA does "
-            f"not win — the honest, expected result."
+            f"not win, the honest, expected result."
         )
         verdict_es = (
             f"La fuerza bruta clásica exacta halló el corte óptimo = {opt} en {ms_cls} ms. "
             f"QAOA (p=1) alcanzó corte = {q}. A esta escala el óptimo clásico es instantáneo y QAOA no "
-            f"gana — el resultado honesto y esperado."
+            f"gana, el resultado honesto y esperado."
         )
         return {"optimal_cut": opt, "qaoa_cut": q, "verdict": {"en": verdict_en, "es": verdict_es}}
     if problem.id == "qrng":
@@ -66,11 +66,11 @@ def _comparison(problem, results: list) -> dict:
         ce = cls.value.get("entropy_bits") if cls else None
         mx = q.value.get("max_entropy_bits") if q else None
         return {"quantum_entropy": qe, "classical_entropy": ce, "max_entropy": mx, "verdict": {
-            "en": f"Quantum sampling entropy {qe}/{mx} bits vs a classical PRNG {ce}/{mx} bits — "
+            "en": f"Quantum sampling entropy {qe}/{mx} bits vs a classical PRNG {ce}/{mx} bits, "
                   f"statistically indistinguishable. The difference is in kind, not quality: quantum "
                   f"randomness is fundamental (measurement collapse) and can be certified, while the PRNG is "
                   f"deterministic from its seed. Certifiable true randomness is the genuine quantum value here.",
-            "es": f"Entropía del muestreo cuántico {qe}/{mx} bits vs un PRNG clásico {ce}/{mx} bits — "
+            "es": f"Entropía del muestreo cuántico {qe}/{mx} bits vs un PRNG clásico {ce}/{mx} bits, "
                   f"estadísticamente indistinguibles. La diferencia es de tipo, no de calidad: la "
                   f"aleatoriedad cuántica es fundamental (colapso de medición) y certificable, mientras el "
                   f"PRNG es determinista desde su semilla. La aleatoriedad verdadera certificable es el valor real."}}
@@ -80,11 +80,11 @@ def _comparison(problem, results: list) -> dict:
         gates = "·".join(q.value.get("gates", [])) if q else None
         return {"bloch": bloch, "gates": gates, "verdict": {
             "en": f"After {gates}, the qubit's Bloch vector is {bloch} (on the unit sphere). A classical bit "
-                  f"has only two states (the poles); the qubit roams the whole sphere — but a measurement "
+                  f"has only two states (the poles); the qubit roams the whole sphere, but a measurement "
                   f"returns one bit and a single qubit stores no more classical info than a bit (Holevo). "
                   f"This is the foundation; the power comes later, from interference across many qubits.",
             "es": f"Tras {gates}, el vector de Bloch del qubit es {bloch} (en la esfera unitaria). Un bit "
-                  f"clásico tiene solo dos estados (los polos); el qubit recorre toda la esfera — pero una "
+                  f"clásico tiene solo dos estados (los polos); el qubit recorre toda la esfera, pero una "
                   f"medición devuelve un bit y un solo qubit no guarda más info clásica que un bit (Holevo). "
                   f"Esta es la base; el poder viene después, de la interferencia entre muchos qubits."}}
     if problem.id == "interference":
@@ -94,15 +94,15 @@ def _comparison(problem, results: list) -> dict:
         inten = cls.value.get("intensity") if cls else None
         fringe = q.value.get("fringe") if q else None
         return {"quantum_p0": p0, "classical_intensity": inten, "fringe": fringe, "verdict": {
-            "en": f"The qubit's P(0) = {p0} ({fringe}) matches a classical wave's intensity {inten} exactly — "
+            "en": f"The qubit's P(0) = {p0} ({fringe}) matches a classical wave's intensity {inten} exactly, "
                   f"both follow cos²(φ/2). Interference is not, by itself, a quantum advantage: an optical "
                   f"Mach–Zehnder does the same. What is quantum is that this happens for one particle's "
-                  f"probability amplitude — and steering it so wrong answers cancel is the engine behind "
+                  f"probability amplitude, and steering it so wrong answers cancel is the engine behind "
                   f"Grover, the QFT and the oracle algorithms.",
             "es": f"El P(0) = {p0} ({fringe}) del qubit coincide exactamente con la intensidad {inten} de una "
-                  f"onda clásica — ambos siguen cos²(φ/2). La interferencia no es, por sí sola, una ventaja "
+                  f"onda clásica, ambos siguen cos²(φ/2). La interferencia no es, por sí sola, una ventaja "
                   f"cuántica: un Mach–Zehnder óptico hace lo mismo. Lo cuántico es que ocurre para la amplitud "
-                  f"de probabilidad de una partícula — y dirigirla para que las respuestas erróneas se "
+                  f"de probabilidad de una partícula, y dirigirla para que las respuestas erróneas se "
                   f"cancelen es el motor de Grover, la QFT y los algoritmos de oráculo."}}
     if problem.id == "superdense":
         q = next((r for r in results if r.paradigm != "classical"), None)
@@ -112,11 +112,11 @@ def _comparison(problem, results: list) -> dict:
         return {"message": msg, "decoded": dec, "correct": ok, "verdict": {
             "en": f"Alice sent the 2 bits {msg} through one transmitted qubit; Bob decoded {dec} "
                   f"({'correct' if ok else 'wrong'}). Classically one qubit carries at most 1 bit (Holevo), so "
-                  f"this is a real 2-for-1 — but it spends a pre-shared Bell pair, so it is a resource trade "
+                  f"this is a real 2-for-1, but it spends a pre-shared Bell pair, so it is a resource trade "
                   f"(the dual of teleportation), not free extra bandwidth.",
             "es": f"Alice envió los 2 bits {msg} por un qubit transmitido; Bob decodificó {dec} "
                   f"({'correcto' if ok else 'incorrecto'}). Clásicamente un qubit lleva a lo más 1 bit "
-                  f"(Holevo), así que esto es un 2-por-1 real — pero gasta un par de Bell compartido, así que "
+                  f"(Holevo), así que esto es un 2-por-1 real, pero gasta un par de Bell compartido, así que "
                   f"es un intercambio de recursos (el dual de la teletransportación), no ancho de banda gratis."}}
     if problem.id == "teleportation":
         q = next((r for r in results if r.paradigm != "classical"), None)
@@ -126,11 +126,11 @@ def _comparison(problem, results: list) -> dict:
         return {"quantum_fidelity": f, "classical_fidelity": cf, "verdict": {
             "en": f"Teleportation transfers the unknown qubit with fidelity {f} (perfect), vs the best "
                   f"classical measure-and-resend fidelity {cf} (2/3). A genuine quantum protocol with no "
-                  f"classical equivalent — but it needs a pre-shared Bell pair and 2 classical bits, it "
+                  f"classical equivalent, but it needs a pre-shared Bell pair and 2 classical bits, it "
                   f"destroys the original (no-cloning), and it is not faster-than-light.",
             "es": f"La teletransportación transfiere el qubit desconocido con fidelidad {f} (perfecta), vs la "
                   f"mejor fidelidad clásica de medir-y-reenviar {cf} (2/3). Un protocolo cuántico genuino sin "
-                  f"equivalente clásico — pero necesita un par de Bell compartido y 2 bits clásicos, destruye "
+                  f"equivalente clásico, pero necesita un par de Bell compartido y 2 bits clásicos, destruye "
                   f"el original (no-clonación), y no es más rápido que la luz."}}
     if problem.id == "chsh":
         q = next((r for r in results if r.paradigm != "classical"), None)
@@ -142,11 +142,11 @@ def _comparison(problem, results: list) -> dict:
         return {"S": S, "classical_bound": 2.0, "tsirelson_bound": tsi, "exceeds_classical": exceeds,
                 "verdict": {
             "en": f"Quantum CHSH value S = {S} vs the classical local-hidden-variable bound 2 (Tsirelson "
-                  f"max {tsi}). {viol_en} — and this is one of the few places quantum genuinely beats "
+                  f"max {tsi}). {viol_en}, and this is one of the few places quantum genuinely beats "
                   f"classical: it rules out local realism (2022 Nobel). But it is a nonlocality result, not "
                   f"a faster computation; and a separable state never violates it (entanglement is required).",
             "es": f"Valor CHSH cuántico S = {S} vs la cota clásica de variables ocultas locales 2 (máx de "
-                  f"Tsirelson {tsi}). {viol_es} — y este es uno de los pocos casos donde lo cuántico gana de "
+                  f"Tsirelson {tsi}). {viol_es}, y este es uno de los pocos casos donde lo cuántico gana de "
                   f"verdad: descarta el realismo local (Nobel 2022). Pero es un resultado de no-localidad, "
                   f"no un cálculo más rápido; y un estado separable nunca la viola (se requiere entrelazamiento)."}}
     if problem.id == "qec-surface":
@@ -158,12 +158,12 @@ def _comparison(problem, results: list) -> dict:
         return {"logical_error_rate": ler, "distance": d, "physical_qubits": nq, "physical_p": p,
                 "verdict": {
             "en": f"Rotated surface code distance-{d} ({nq} qubits) at p={p}: logical error {ler}. The honest "
-                  f"lesson is in the variant-bar — below the ~1% threshold the distance-5 code beats "
+                  f"lesson is in the variant-bar, below the ~1% threshold the distance-5 code beats "
                   f"distance-3 (adding qubits helps), above it the distance-5 code is worse (more qubits = "
                   f"more failure modes). This is the regime Willow entered in 2024; a useful logical qubit is "
                   f"still ~1000 physical, and a useful machine needs thousands.",
             "es": f"Código de superficie rotado distancia-{d} ({nq} qubits) a p={p}: error lógico {ler}. La "
-                  f"lección honesta está en la barra de variantes — bajo el umbral del ~1% el código "
+                  f"lección honesta está en la barra de variantes, bajo el umbral del ~1% el código "
                   f"distancia-5 supera al distancia-3 (agregar qubits ayuda), sobre el umbral el distancia-5 "
                   f"es peor (más qubits = más modos de fallo). Es el régimen al que entró Willow en 2024; un "
                   f"qubit lógico útil son ~1000 físicos, y una máquina útil necesita miles."}}
@@ -177,11 +177,11 @@ def _comparison(problem, results: list) -> dict:
         return {"logical_error_rate": ler, "physical_error_rate": phys, "distance": d,
                 "below_threshold": wins, "verdict": {
             "en": f"Distance-{d} repetition code: logical error {ler} vs an unprotected qubit's {phys}. "
-                  f"{'Encoding wins' if wins else 'Encoding does not help'} here — this is error correction "
+                  f"{'Encoding wins' if wins else 'Encoding does not help'} here, this is error correction "
                   f"(it scales: below threshold, more distance is better), unlike mitigation. Honest caveat: "
                   f"one logical qubit; useful fault tolerance needs ~1000s of logical qubits.",
             "es": f"Código de repetición distancia-{d}: error lógico {ler} vs {phys} de un qubit sin "
-                  f"proteger. {'La codificación gana' if wins else 'La codificación no ayuda'} aquí — esto es "
+                  f"proteger. {'La codificación gana' if wins else 'La codificación no ayuda'} aquí, esto es "
                   f"corrección de errores (escala: bajo umbral, más distancia es mejor), a diferencia de la "
                   f"mitigación. Salvedad honesta: un qubit lógico; la tolerancia útil necesita ~miles."}}
     if problem.id == "noise":
@@ -206,11 +206,11 @@ def _comparison(problem, results: list) -> dict:
         ca = cls.value.get("test_acc") if cls else None
         return {"quantum_test_acc": qa, "classical_test_acc": ca, "verdict": {
             "en": f"Quantum-kernel SVM test accuracy {qa} vs classical RBF-SVM {ca} on the same data. "
-                  f"{'They tie' if qa == ca else 'Comparable'} — the quantum kernel shows no advantage. "
+                  f"{'They tie' if qa == ca else 'Comparable'}, the quantum kernel shows no advantage. "
                   f"Provable quantum-kernel separations are contrived; on real data quantum kernels are "
-                  f"competitive at best, usually worse. QML is over-hyped — here you see it honestly.",
+                  f"competitive at best, usually worse. QML is over-hyped, here you see it honestly.",
             "es": f"Exactitud de test del SVM de kernel cuántico {qa} vs SVM-RBF clásico {ca} sobre los "
-                  f"mismos datos. {'Empatan' if qa == ca else 'Comparables'} — el kernel cuántico no da "
+                  f"mismos datos. {'Empatan' if qa == ca else 'Comparables'}, el kernel cuántico no da "
                   f"ventaja. Las separaciones demostrables son artificiales; en datos reales los kernels "
                   f"cuánticos son competitivos en el mejor caso, usualmente peores. QML está sobrevalorado."}}
     if problem.id == "vqe":
@@ -222,13 +222,13 @@ def _comparison(problem, results: list) -> dict:
         chem = err is not None and err < 1.6e-3
         return {"vqe_energy": eq, "exact_energy": ee, "error_ha": round(err, 6) if err is not None else None,
                 "chemical_accuracy": chem, "verdict": {
-            "en": f"VQE ground energy {eq} Ha vs exact (FCI) {ee} Ha — error {err:.2e} Ha "
+            "en": f"VQE ground energy {eq} Ha vs exact (FCI) {ee} Ha, error {err:.2e} Ha "
                   f"({'within' if chem else 'outside'} chemical accuracy 1.6e-3). H₂ minimal-basis is a 4×4 "
-                  f"matrix a laptop diagonalizes instantly, so VQE wins nothing here — it is pedagogy, and "
+                  f"matrix a laptop diagonalizes instantly, so VQE wins nothing here, it is pedagogy, and "
                   f"scaling it hits barren plateaus.",
-            "es": f"Energía VQE {eq} Ha vs exacta (FCI) {ee} Ha — error {err:.2e} Ha "
+            "es": f"Energía VQE {eq} Ha vs exacta (FCI) {ee} Ha, error {err:.2e} Ha "
                   f"({'dentro' if chem else 'fuera'} de la exactitud química 1.6e-3). H₂ en base mínima es "
-                  f"una matriz 4×4 que un laptop diagonaliza al instante, así que VQE no gana nada aquí — es "
+                  f"una matriz 4×4 que un laptop diagonaliza al instante, así que VQE no gana nada aquí, es "
                   f"pedagogía, y escalarlo choca con mesetas áridas (barren plateaus)."}}
     if problem.id == "shor":
         cls = next((r for r in results if r.paradigm == "classical"), None)
@@ -240,12 +240,12 @@ def _comparison(problem, results: list) -> dict:
         return {"quantum_factors": qf, "order": r, "classical_factors": cf, "verdict": {
             "en": f"Quantum order-finding (base a={a}) found order r={r} ⇒ factors {qf}; trial division "
                   f"found {cf} in microseconds. Both factor 15 trivially. The honest scale: RSA-2048 needs "
-                  f"~10⁶ noisy physical qubits + full fault tolerance (Gidney 2025) — Shor is not a "
+                  f"~10⁶ noisy physical qubits + full fault tolerance (Gidney 2025), Shor is not a "
                   f"near-term cryptographic threat.",
             "es": f"El order-finding cuántico (base a={a}) halló orden r={r} ⇒ factores {qf}; la división de "
                   f"prueba halló {cf} en microsegundos. Ambos factorizan 15 trivialmente. La escala honesta: "
                   f"RSA-2048 necesita ~10⁶ qubits físicos ruidosos + tolerancia a fallos completa (Gidney "
-                  f"2025) — Shor no es una amenaza criptográfica de corto plazo."}}
+                  f"2025), Shor no es una amenaza criptográfica de corto plazo."}}
     if problem.id == "qpe":
         cls = next((r for r in results if r.paradigm == "classical"), None)
         q = next((r for r in results if r.paradigm != "classical"), None)
@@ -255,10 +255,10 @@ def _comparison(problem, results: list) -> dict:
         exact = cls.value.get("phi_exact") if cls else None
         return {"phi_estimate": est, "phi_exact": exact, "error": err, "verdict": {
             "en": f"QPE (t={tq}) estimates φ̂={est} vs the exact φ={exact} (error {err}, resolution 2^-{tq}). "
-                  f"Classically, diagonalizing this tiny U gives φ exactly and instantly — QPE earns its keep "
+                  f"Classically, diagonalizing this tiny U gives φ exactly and instantly, QPE earns its keep "
                   f"only when U is too large to diagonalize (e.g. e^{{iHt}} in Shor/chemistry).",
             "es": f"QPE (t={tq}) estima φ̂={est} vs el φ exacto={exact} (error {err}, resolución 2^-{tq}). "
-                  f"Clásicamente, diagonalizar esta U minúscula da φ exacto e instantáneo — QPE gana solo "
+                  f"Clásicamente, diagonalizar esta U minúscula da φ exacto e instantáneo, QPE gana solo "
                   f"cuando U es demasiado grande para diagonalizar (p.ej. e^{{iHt}} en Shor/química)."}}
     if problem.id == "qft":
         cls = next((r for r in results if r.paradigm == "classical"), None)
@@ -270,11 +270,11 @@ def _comparison(problem, results: list) -> dict:
             "en": f"The QFT matches the analytic DFT (fidelity {fid}). Quantum: {gates} gates (O(n²)) to "
                   f"apply the transform; classical FFT: ~{ops} ops (O(n·2ⁿ)) but it returns the FULL "
                   f"readable spectrum. The QFT is exponentially cheaper to apply yet unreadable on "
-                  f"measurement — a subroutine (QPE/Shor), not a standalone speedup.",
+                  f"measurement, a subroutine (QPE/Shor), not a standalone speedup.",
             "es": f"La QFT coincide con la DFT analítica (fidelidad {fid}). Cuántico: {gates} compuertas "
                   f"(O(n²)) para aplicar la transformada; FFT clásica: ~{ops} ops (O(n·2ⁿ)) pero devuelve "
                   f"el espectro completo y legible. La QFT es exponencialmente más barata de aplicar pero "
-                  f"ilegible al medir — una subrutina (QPE/Shor), no un speedup por sí sola."}}
+                  f"ilegible al medir, una subrutina (QPE/Shor), no un speedup por sí sola."}}
     if problem.id == "grover":
         cls = next((r for r in results if r.paradigm == "classical"), None)
         q = next((r for r in results if r.paradigm != "classical"), None)
@@ -283,10 +283,10 @@ def _comparison(problem, results: list) -> dict:
         sp = q.value.get("success_prob") if q else None
         return {"quantum_queries": qq, "classical_queries": kq, "success_prob": sp, "verdict": {
             "en": f"Quantum: {qq} Grover iteration(s) (~√N), P(marked)={sp}. Classical: {kq} queries to hit "
-                  f"a marked item (~N/2 average). A quadratic speedup — but asymptotic; at this tiny N the "
+                  f"a marked item (~N/2 average). A quadratic speedup, but asymptotic; at this tiny N the "
                   f"classical scan is still instant and cheaper in wall-time.",
             "es": f"Cuántico: {qq} iteración(es) de Grover (~√N), P(marcado)={sp}. Clásico: {kq} consultas "
-                  f"hasta un ítem marcado (~N/2 promedio). Speedup cuadrático — pero asintótico; a este N "
+                  f"hasta un ítem marcado (~N/2 promedio). Speedup cuadrático, pero asintótico; a este N "
                   f"minúsculo el barrido clásico es instantáneo y más barato en tiempo."}}
     if problem.id == "simon":
         cls = next((r for r in results if r.paradigm == "classical"), None)
@@ -297,10 +297,10 @@ def _comparison(problem, results: list) -> dict:
         return {"quantum_queries": qq, "classical_queries": kq, "verdict": {
             "en": f"Both recover the period s={s}. Quantum: O(n) = {qq} queries (sample y·s=0, GF(2) solve). "
                   f"Classical: {kq} queries to hit a collision (~2^(n/2) expected). The first provably "
-                  f"exponential query separation — though at this tiny n the classical search is instant.",
+                  f"exponential query separation, though at this tiny n the classical search is instant.",
             "es": f"Ambos recuperan el período s={s}. Cuántico: O(n) = {qq} consultas (muestrear y·s=0, "
                   f"resolver GF(2)). Clásico: {kq} consultas hasta una colisión (~2^(n/2) esperado). La "
-                  f"primera separación exponencial demostrable — aunque a este n minúsculo es instantáneo."}}
+                  f"primera separación exponencial demostrable, aunque a este n minúsculo es instantáneo."}}
     if problem.id == "deutsch-jozsa":
         cls = next((r for r in results if r.paradigm == "classical"), None)
         q = next((r for r in results if r.paradigm != "classical"), None)
@@ -310,10 +310,10 @@ def _comparison(problem, results: list) -> dict:
         worst = 2 ** (n - 1) + 1
         return {"quantum_queries": 1, "classical_queries": kq, "verdict": {
             "en": f"Both decide f is {verdict}. Quantum: 1 oracle query. Classical: {kq} queries "
-                  f"(worst case {worst} = 2^(n-1)+1). An exponential query-complexity gap — though at this "
+                  f"(worst case {worst} = 2^(n-1)+1). An exponential query-complexity gap, though at this "
                   f"size the classical decision is still instant.",
             "es": f"Ambos deciden que f es {verdict}. Cuántico: 1 consulta. Clásico: {kq} consultas "
-                  f"(peor caso {worst} = 2^(n-1)+1). Una brecha exponencial en complejidad de consultas — "
+                  f"(peor caso {worst} = 2^(n-1)+1). Una brecha exponencial en complejidad de consultas, "
                   f"aunque a este tamaño la decisión clásica es instantánea."}}
     if problem.id == "bernstein-vazirani":
         cls = next((r for r in results if r.paradigm == "classical"), None)
@@ -322,10 +322,10 @@ def _comparison(problem, results: list) -> dict:
         return {"quantum_queries": 1, "classical_queries": nq, "verdict": {
             "en": f"Both recover the hidden string s={s}. Quantum: 1 oracle query (phase kickback + "
                   f"interference). Classical: {nq} queries (one per bit). A real query-complexity advantage "
-                  f"— though at this size wall-time is trivial either way.",
+                  f", though at this size wall-time is trivial either way.",
             "es": f"Ambos recuperan la cadena s={s}. Cuántico: 1 consulta al oráculo (phase kickback + "
                   f"interferencia). Clásico: {nq} consultas (una por bit). Una ventaja real en complejidad de "
-                  f"consultas — aunque a este tamaño el tiempo de pared es trivial en ambos."}}
+                  f"consultas, aunque a este tamaño el tiempo de pared es trivial en ambos."}}
     if problem.id == "state-prep":
         return {"verdict": {
             "en": "Both a gate circuit and a direct classical amplitude vector prepare the same state; at "
@@ -402,7 +402,7 @@ def run_case(problem_id: str, instance_id: str | None, seed: int, shots: int, on
                   "unitary_only": verdict.unitary_only},
         viz=VIZ_BY_CATEGORY.get(problem.category, ["circuit", "histogram"]),
         engine=primary_trace.provenance["engine"] if primary_trace else results[0].framework,
-        engine_version=primary_trace.provenance["engine_version"] if primary_trace else "—",
+        engine_version=primary_trace.provenance["engine_version"] if primary_trace else "–",
         trace_path=str(out.relative_to(ROOT / "data" / "artifacts")).replace("\\", "/"),
         references=problem.references,
     )

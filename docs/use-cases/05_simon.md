@@ -1,4 +1,4 @@
-# 05 · Simon's algorithm — hidden period, exponential separation
+# 05 · Simon's algorithm: hidden period, exponential separation
 
 **Category:** oracle-algorithms · **Lane:** precompute · **Solvers:** `simon-qiskit` (circuit + GF(2)
 solve), `simon-classical` (collision search) · **Variants:** 6.
@@ -8,13 +8,13 @@ solve), `simon-classical` (collision search) · **Variants:** 6.
 An oracle hides a function `f:{0,1}ⁿ→{0,1}ⁿ` *promised* 2-to-1 with a hidden period `s`: `f(x)=f(x⊕s)` for
 all `x`. Recover `s`. Simon's algorithm needs **O(n)** quantum queries; any classical algorithm needs
 **~O(2^{n/2})** (you must hunt for a collision). This was the **first provably exponential** quantum
-query-complexity separation — and the direct conceptual ancestor of Shor's period-finding.
+query-complexity separation, and the direct conceptual ancestor of Shor's period-finding.
 
 ## Components & variables
 
 - **Input register:** `n` qubits. **Output register:** `n` qubits holding `f(x)`.
-- **Oracle:** copy `x` into the output (`CX(i,n+i)`), then — controlled on input qubit `j` (the
-  least-significant set bit of `s`) — XOR `s` into the output. This makes `f` exactly 2-to-1 with period `s`.
+- **Oracle:** copy `x` into the output (`CX(i,n+i)`), then: controlled on input qubit `j` (the
+  least-significant set bit of `s`), XOR `s` into the output. This makes `f` exactly 2-to-1 with period `s`.
 
 ## Formalization
 
@@ -28,7 +28,7 @@ collect y₁,…,y_{n−1} (independent),  solve  { y_k · s = 0 }  ⇒  the uni
 
 ## What each variant shows
 
-Periods of `n=2` (`s=11`) and `n=3` (`001, 101, 110, 011, 111`) — i.e. 4–6 qubits. Selecting one updates
+Periods of `n=2` (`s=11`) and `n=3` (`001, 101, 110, 011, 111`), i.e. 4–6 qubits. Selecting one updates
 the oracle gates, the step trace, the histogram of observed `y`'s (all orthogonal to `s`), and the
 comparison panel.
 
@@ -48,14 +48,14 @@ non-zero `s`. `simon-classical` queries `f` until two inputs collide → `s = x�
 
 ## How to read & use the viz
 
-The histogram shows only `y`'s orthogonal to `s` — exactly half the strings. The GF(2) panel turns those
+The histogram shows only `y`'s orthogonal to `s`, exactly half the strings. The GF(2) panel turns those
 `y`'s into the recovered `s`. The contrast with the classical collision search is the point: the quantum
 algorithm never needs to *find* a collision.
 
 ## Honest verdict
 
 > Quantum recovers `s` in **O(n)** queries; classical needs **~2^{n/2}** (birthday). This is the first
-> *exponential* query-complexity separation — genuinely deep — but it lives in the oracle/query model, and
+> *exponential* query-complexity separation, genuinely deep, but it lives in the oracle/query model, and
 > at the tiny `n` here the classical collision search still finishes instantly. Simon is the bridge from
 > the oracle algorithms to Shor.
 

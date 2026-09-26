@@ -1,11 +1,11 @@
-"""Quantum machine learning — a quantum-kernel classifier (the second learned method, and a hype check).
+"""Quantum machine learning, a quantum-kernel classifier (the second learned method, and a hype check).
 
 A quantum feature map embeds a data point x into a quantum state |φ(x)⟩; the fidelity kernel
 K(x,x') = |⟨φ(x)|φ(x')⟩|² then feeds a classical SVM. QLab runs this on small 2-D datasets and puts it next
 to a classical RBF-SVM on the same data. The honest, literature-backed verdict: on these toy sets both reach
 high accuracy and the quantum kernel shows NO advantage; provable quantum-kernel separations are contrived
 (built around problems like discrete-log), and on real data quantum kernels are competitive-at-best, usually
-worse, and suffer data-loading bottlenecks. QML is one of the most over-hyped corners of the field — this
+worse, and suffer data-loading bottlenecks. QML is one of the most over-hyped corners of the field, this
 case lets you see that honestly.
 """
 
@@ -22,13 +22,13 @@ class QMLClassifier(Problem):
     id = "qml"
     category = "variational"
     live_capable = False  # quantum-kernel Gram matrix + an SVM fit → precompute
-    title = {"en": "QML — quantum-kernel classifier", "es": "QML — clasificador de kernel cuántico"}
+    title = {"en": "QML, quantum-kernel classifier", "es": "QML, clasificador de kernel cuántico"}
     concept = {
         "en": (
             "A quantum feature map sends a 2-D point x to a state |φ(x)⟩; the fidelity kernel "
             "K(x,x')=|⟨φ(x)|φ(x')⟩|² is estimated on the quantum device and handed to a classical SVM. We "
             "compare it to a classical RBF-SVM on the same toy datasets (linear, circles, moons, XOR). Both "
-            "classify well — and that is the point: the quantum kernel buys no advantage here. The few "
+            "classify well, and that is the point: the quantum kernel buys no advantage here. The few "
             "provable quantum-kernel speedups are built around contrived problems (discrete-log); on real "
             "data quantum kernels are competitive at best, usually worse, and bottlenecked by data loading. "
             "QML is heavily over-hyped; this case shows it honestly."
@@ -37,7 +37,7 @@ class QMLClassifier(Problem):
             "Un mapa de características cuántico envía un punto 2-D x a un estado |φ(x)⟩; el kernel de "
             "fidelidad K(x,x')=|⟨φ(x)|φ(x')⟩|² se estima en el dispositivo cuántico y se pasa a un SVM "
             "clásico. Lo comparamos con un SVM-RBF clásico sobre los mismos datos de juguete (lineal, "
-            "círculos, lunas, XOR). Ambos clasifican bien — y ese es el punto: el kernel cuántico NO da "
+            "círculos, lunas, XOR). Ambos clasifican bien, y ese es el punto: el kernel cuántico NO da "
             "ventaja aquí. Las pocas separaciones demostrables se construyen sobre problemas artificiales "
             "(logaritmo discreto); en datos reales los kernels cuánticos son competitivos en el mejor caso, "
             "usualmente peores, y limitados por la carga de datos. QML está muy sobrevalorado; este caso lo "
@@ -107,7 +107,7 @@ class QMLClassifier(Problem):
             out.append(Instance(
                 f"qml-{kind}", {"en": f"dataset: {desc}", "es": f"dataset: {desc}"},
                 {"kind": kind, "n": 2},
-                {"en": f"2-D {desc} — quantum-kernel SVM vs classical RBF-SVM on the same split.",
-                 "es": f"2-D {desc} — SVM de kernel cuántico vs SVM-RBF clásico sobre la misma partición."},
+                {"en": f"2-D {desc}, quantum-kernel SVM vs classical RBF-SVM on the same split.",
+                 "es": f"2-D {desc}, SVM de kernel cuántico vs SVM-RBF clásico sobre la misma partición."},
             ))
         return out

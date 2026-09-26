@@ -1,4 +1,4 @@
-"""Pipeline smoke test — exercises the real engines (Qiskit, and PennyLane if present).
+"""Pipeline smoke test, exercises the real engines (Qiskit, and PennyLane if present).
 
 Skipped automatically if Qiskit is not installed (the live-thin env), so `pytest` stays green there;
 CI installs requirements-precompute.txt and runs it for real.

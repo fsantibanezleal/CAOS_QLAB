@@ -18,7 +18,7 @@ cp .env.example .env                                            # then paste you
 python tools/check_backends.py                                  # confirms the token reaches IBM + lists devices
 ```
 
-Run a case on real hardware (opt-in — it never runs in a default `--all`):
+Run a case on real hardware (opt-in, it never runs in a default `--all`):
 
 ```bash
 python -m qlab.pipeline bernstein-vazirani --instance bv-101 --solver ibm-hardware
@@ -40,7 +40,7 @@ counts = job.result()[0].data.meas.get_counts()     # → committed as a trace w
 ```
 
 The committed trace carries `provenance.ran_on = "ibm_<backend> · Heron r2 · <date>"`, and the app shows
-the **noisy real-hardware histogram next to the ideal simulator** — the most honest possible noise lesson.
+the **noisy real-hardware histogram next to the ideal simulator**, the most honest possible noise lesson.
 
 ## Costs (the honest reality)
 

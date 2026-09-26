@@ -1,4 +1,4 @@
-# 09 · Shor (toy: factor 15) — order-finding & the crypto-hype reality
+# 09 · Shor (toy: factor 15): order-finding & the crypto-hype reality
 
 **Category:** flagship-algorithms · **Lane:** precompute · **Solvers:** `shor-qiskit` (QPE order-finding),
 `shor-classical` (trial division) · **Variants:** 6 bases.
@@ -8,7 +8,7 @@
 Factor `N`. Shor reduces this to finding the multiplicative **order** `r` of a base `a` (the smallest `r`
 with `aʳ ≡ 1 mod N`), which a quantum computer does efficiently via phase estimation; the factors then fall
 out of `gcd(a^{r/2}±1, N)`. We run the *real* order-finding for `N = 15`. This is the algorithm behind
-"quantum will break RSA" — and the best case to see, honestly, how far that is.
+"quantum will break RSA", and the best case to see, honestly, how far that is.
 
 ## Formalization
 
@@ -23,7 +23,7 @@ powers `U_a^{2^j}`.
 
 ## What each variant shows
 
-The six bases `a ∈ {2,4,7,8,11,13}` of `N=15` — each with order `r = 2` or `4`. Selecting one updates the
+The six bases `a ∈ {2,4,7,8,11,13}` of `N=15`, each with order `r = 2` or `4`. Selecting one updates the
 modular-mult gates, the step trace, the counting-register histogram (peaks at `s/r·2ᵗ`), and the comparison
 panel. (Base 14 is excluded: `14 ≡ −1`, so `a^{r/2} = −1` and the method yields only the trivial factor.)
 
@@ -43,14 +43,14 @@ factors. `shor-classical` factors 15 by trial division in microseconds.
 
 ## How to read & use the viz
 
-The counting-register histogram peaks at the multiples of `2ᵗ/r` — read off `s/r`, run it through continued
+The counting-register histogram peaks at the multiples of `2ᵗ/r`, read off `s/r`, run it through continued
 fractions, and the order `r` appears. The resource panel beside it is the real lesson (below).
 
 ## Honest verdict (the headline)
 
-> The quantum order-finding genuinely works — 8 qubits factor 15 into 3×5. But **factoring 15 is trivial
+> The quantum order-finding genuinely works, 8 qubits factor 15 into 3×5. But **factoring 15 is trivial
 > classically**, and a cryptographically relevant Shor (RSA-2048) needs on the order of **a million noisy
-> physical qubits plus full fault tolerance** (Gidney 2025) — three-to-four orders of magnitude beyond
+> physical qubits plus full fault tolerance** (Gidney 2025), three-to-four orders of magnitude beyond
 > today's ~100-qubit machines, and not expected before ~2030 at the earliest. "Quantum breaks encryption
 > soon" is not supported by the resource numbers. ("Harvest-now-decrypt-later" is a real *policy* concern,
 > not a near-term capability.)

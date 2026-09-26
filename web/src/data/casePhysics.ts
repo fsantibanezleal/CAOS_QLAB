@@ -21,8 +21,8 @@ export const ADVANTAGE_LABEL: Record<AdvantageClass, Bilingual> = {
   exponential: { en: "Exponential separation", es: "Separación exponencial" },
   quadratic: { en: "Quadratic speedup", es: "Aceleración cuadrática" },
   query: { en: "Query-complexity edge", es: "Ventaja en complejidad de consultas" },
-  subroutine: { en: "Subroutine — no standalone edge", es: "Subrutina — sin ventaja aislada" },
-  concept: { en: "Foundational concept — no speedup", es: "Concepto fundacional — sin aceleración" },
+  subroutine: { en: "Subroutine, no standalone edge", es: "Subrutina, sin ventaja aislada" },
+  concept: { en: "Foundational concept, no speedup", es: "Concepto fundacional, sin aceleración" },
   none: { en: "Ties or loses to classical", es: "Empata o pierde contra el clásico" },
 };
 
@@ -41,7 +41,7 @@ export interface CasePhysics {
   advantage: AdvantageClass;
   /** A defining relation, rendered with KaTeX inline in the sidebar read-out. */
   relation: string;
-  /** What the case teaches — the structural lesson (bilingual, dense, ≥1 sentence). */
+  /** What the case teaches, the structural lesson (bilingual, dense, ≥1 sentence). */
   teaches: Bilingual;
   /** The honest scope / caveat that keeps the read-out from overclaiming. */
   honest: Bilingual;
@@ -52,8 +52,8 @@ export const CASE_PHYSICS: Record<string, CasePhysics> = {
     advantage: "concept",
     relation: "|\\Phi^+\\rangle=\\tfrac{1}{\\sqrt2}(|00\\rangle+|11\\rangle)",
     teaches: {
-      en: "Builds Bell / GHZ / W states from H and CX and watches entanglement appear — correlation no independent description of the qubits can reproduce. After CX the per-qubit Bloch vectors shrink to the origin (locally mixed, globally pure).",
-      es: "Construye estados de Bell / GHZ / W a partir de H y CX y observa aparecer el entrelazamiento — correlación que ninguna descripción independiente de los qubits puede reproducir. Tras CX, los vectores de Bloch por qubit colapsan al origen (localmente mixtos, globalmente puros).",
+      en: "Builds Bell / GHZ / W states from H and CX and watches entanglement appear, correlation no independent description of the qubits can reproduce. After CX the per-qubit Bloch vectors shrink to the origin (locally mixed, globally pure).",
+      es: "Construye estados de Bell / GHZ / W a partir de H y CX y observa aparecer el entrelazamiento, correlación que ninguna descripción independiente de los qubits puede reproducir. Tras CX, los vectores de Bloch por qubit colapsan al origen (localmente mixtos, globalmente puros).",
     },
     honest: {
       en: "A classical machine stores all 2ⁿ amplitudes instantly at 2–4 qubits: no speedup here. Entanglement is the concept everything else builds on, not an advantage.",
@@ -64,12 +64,12 @@ export const CASE_PHYSICS: Record<string, CasePhysics> = {
     advantage: "genuine",
     relation: "S=2\\sqrt2\\;>\\;2",
     teaches: {
-      en: "Measures the CHSH correlator under four angle settings. The quantum value S = 2√2 (Tsirelson) exceeds the local-hidden-variable bound S ≤ 2, ruling out local realism — the basis of the 2022 Nobel Prize.",
-      es: "Mide el correlador CHSH bajo cuatro configuraciones de ángulo. El valor cuántico S = 2√2 (Tsirelson) supera la cota de variables ocultas locales S ≤ 2, descartando el realismo local — base del Premio Nobel 2022.",
+      en: "Measures the CHSH correlator under four angle settings. The quantum value S = 2√2 (Tsirelson) exceeds the local-hidden-variable bound S ≤ 2, ruling out local realism, the basis of the 2022 Nobel Prize.",
+      es: "Mide el correlador CHSH bajo cuatro configuraciones de ángulo. El valor cuántico S = 2√2 (Tsirelson) supera la cota de variables ocultas locales S ≤ 2, descartando el realismo local, base del Premio Nobel 2022.",
     },
     honest: {
-      en: "A genuine, uniquely-quantum edge — but it is a nonlocality result (and a real edge in the CHSH game, ~85.4% vs 75%), not a computational speedup.",
-      es: "Una ventaja genuina y exclusivamente cuántica — pero es un resultado de no-localidad (y una ventaja real en el juego CHSH, ~85.4% vs 75%), no una aceleración computacional.",
+      en: "A genuine, uniquely-quantum edge, but it is a nonlocality result (and a real edge in the CHSH game, ~85.4% vs 75%), not a computational speedup.",
+      es: "Una ventaja genuina y exclusivamente cuántica, pero es un resultado de no-localidad (y una ventaja real en el juego CHSH, ~85.4% vs 75%), no una aceleración computacional.",
     },
   },
   "deutsch-jozsa": {
@@ -100,12 +100,12 @@ export const CASE_PHYSICS: Record<string, CasePhysics> = {
     advantage: "exponential",
     relation: "O(n)\\;\\text{vs}\\;\\Theta(2^{n/2})",
     teaches: {
-      en: "Finds a hidden period s with f(x)=f(x⊕s) using O(n) quantum queries plus a GF(2) linear solve, versus ~2ⁿ/² classical collision queries — the first proven exponential quantum–classical separation.",
-      es: "Encuentra un período oculto s con f(x)=f(x⊕s) usando O(n) consultas cuánticas más una resolución lineal en GF(2), frente a ~2ⁿ/² consultas clásicas de colisión — la primera separación cuántico-clásica exponencial demostrada.",
+      en: "Finds a hidden period s with f(x)=f(x⊕s) using O(n) quantum queries plus a GF(2) linear solve, versus ~2ⁿ/² classical collision queries, the first proven exponential quantum–classical separation.",
+      es: "Encuentra un período oculto s con f(x)=f(x⊕s) usando O(n) consultas cuánticas más una resolución lineal en GF(2), frente a ~2ⁿ/² consultas clásicas de colisión, la primera separación cuántico-clásica exponencial demostrada.",
     },
     honest: {
-      en: "A genuine exponential query separation — though still in the oracle model, and the classical collision search is fast at the simulable n shown here.",
-      es: "Una separación exponencial genuina en consultas — aún en el modelo de oráculo, y la búsqueda clásica de colisiones es rápida con los n simulables aquí mostrados.",
+      en: "A genuine exponential query separation, though still in the oracle model, and the classical collision search is fast at the simulable n shown here.",
+      es: "Una separación exponencial genuina en consultas, aún en el modelo de oráculo, y la búsqueda clásica de colisiones es rápida con los n simulables aquí mostrados.",
     },
   },
   grover: {
@@ -116,16 +116,16 @@ export const CASE_PHYSICS: Record<string, CasePhysics> = {
       es: "Amplificación de amplitud: un oráculo marca el objetivo y un difusor refleja respecto a la media, rotando amplitud hacia el ítem marcado para hallarlo en ~√N consultas frente a un escaneo clásico ~N/2.",
     },
     honest: {
-      en: "A quadratic speedup — the most broadly useful quantum result — but asymptotic: at browser-simulable N the classical scan is still instant and cheaper in wall-time.",
-      es: "Una aceleración cuadrática — el resultado cuántico más ampliamente útil — pero asintótica: con N simulable en navegador el escaneo clásico sigue siendo instantáneo y más barato en tiempo de pared.",
+      en: "A quadratic speedup, the most broadly useful quantum result, but asymptotic: at browser-simulable N the classical scan is still instant and cheaper in wall-time.",
+      es: "Una aceleración cuadrática, el resultado cuántico más ampliamente útil, pero asintótica: con N simulable en navegador el escaneo clásico sigue siendo instantáneo y más barato en tiempo de pared.",
     },
   },
   qft: {
     advantage: "subroutine",
     relation: "O(n^2)\\;\\text{vs}\\;O(n\\,2^{n})",
     teaches: {
-      en: "Applies the Fourier transform in O(n²) gates versus the classical FFT's O(n·2ⁿ) — exponentially cheaper to apply, encoding the spectrum in relative phases of the statevector.",
-      es: "Aplica la transformada de Fourier en O(n²) puertas frente al O(n·2ⁿ) de la FFT clásica — exponencialmente más barato de aplicar, codificando el espectro en fases relativas del statevector.",
+      en: "Applies the Fourier transform in O(n²) gates versus the classical FFT's O(n·2ⁿ), exponentially cheaper to apply, encoding the spectrum in relative phases of the statevector.",
+      es: "Aplica la transformada de Fourier en O(n²) puertas frente al O(n·2ⁿ) de la FFT clásica, exponencialmente más barato de aplicar, codificando el espectro en fases relativas del statevector.",
     },
     honest: {
       en: "Measurement returns one sample, so the transformed amplitudes are unreadable. That is why the QFT lives inside QPE and Shor, not as a faster spectrum calculator.",
@@ -136,8 +136,8 @@ export const CASE_PHYSICS: Record<string, CasePhysics> = {
     advantage: "subroutine",
     relation: "\\hat\\varphi\\;\\text{to}\\;2^{-t}\\;\\text{bits}",
     teaches: {
-      en: "Estimates an eigenphase φ of a unitary U to t bits (2⁻ᵗ resolution) using controlled-powers of U and an inverse QFT — the workhorse subroutine behind Shor and quantum chemistry.",
-      es: "Estima una fase propia φ de un unitario U a t bits (resolución 2⁻ᵗ) usando potencias controladas de U y una QFT inversa — la subrutina caballo de batalla detrás de Shor y la química cuántica.",
+      en: "Estimates an eigenphase φ of a unitary U to t bits (2⁻ᵗ resolution) using controlled-powers of U and an inverse QFT, the workhorse subroutine behind Shor and quantum chemistry.",
+      es: "Estima una fase propia φ de un unitario U a t bits (resolución 2⁻ᵗ) usando potencias controladas de U y una QFT inversa, la subrutina caballo de batalla detrás de Shor y la química cuántica.",
     },
     honest: {
       en: "At this toy scale classical eigendecomposition returns φ exactly and instantly. QPE only earns its keep when U acts on an exponentially large space you cannot diagonalize.",
@@ -164,8 +164,8 @@ export const CASE_PHYSICS: Record<string, CasePhysics> = {
       es: "Minimiza variacionalmente ⟨ψ(θ)|H|ψ(θ)⟩ sobre un ansatz parametrizado para hallar la energía del estado base de H₂, igualando a FCI con precisión química a lo largo de la curva de disociación (el primer método aprendido).",
     },
     honest: {
-      en: "H₂ in a minimal basis is a 4×4 problem classical diagonalization solves exactly — this is pedagogy and a NISQ template, not an advantage at this size.",
-      es: "H₂ en base mínima es un problema 4×4 que la diagonalización clásica resuelve exactamente — esto es pedagogía y una plantilla NISQ, no una ventaja a este tamaño.",
+      en: "H₂ in a minimal basis is a 4×4 problem classical diagonalization solves exactly, this is pedagogy and a NISQ template, not an advantage at this size.",
+      es: "H₂ en base mínima es un problema 4×4 que la diagonalización clásica resuelve exactamente, esto es pedagogía y una plantilla NISQ, no una ventaja a este tamaño.",
     },
   },
   qml: {
@@ -176,8 +176,8 @@ export const CASE_PHYSICS: Record<string, CasePhysics> = {
       es: "Construye un kernel cuántico de fidelidad K(x,x')=|⟨φ(x)|φ(x')⟩|² y lo alimenta a un SVM, comparado de tú a tú con un RBF-SVM clásico sobre los mismos datos (el segundo método aprendido).",
     },
     honest: {
-      en: "On these datasets the quantum kernel ties or loses to the classical SVM — an honest QML hype-check: a quantum feature map is not automatically better.",
-      es: "Sobre estos datos el kernel cuántico empata o pierde contra el SVM clásico — una verificación honesta del bombo de QML: un mapa de características cuántico no es automáticamente mejor.",
+      en: "On these datasets the quantum kernel ties or loses to the classical SVM, an honest QML hype-check: a quantum feature map is not automatically better.",
+      es: "Sobre estos datos el kernel cuántico empata o pierde contra el SVM clásico, una verificación honesta del bombo de QML: un mapa de características cuántico no es automáticamente mejor.",
     },
   },
   maxcut: {
@@ -188,8 +188,8 @@ export const CASE_PHYSICS: Record<string, CasePhysics> = {
       es: "QAOA prepara un estado de p capas costo+mezclador para maximizar el objetivo de MaxCut, ejecutado idénticamente en Qiskit, PennyLane y Cirq, contra baselines clásicos de fuerza bruta y voraz.",
     },
     honest: {
-      en: "At 3–6 nodes the exact optimum is found in microseconds; all three QAOA frameworks match but none beats classical — a faithful cross-framework parity check.",
-      es: "Con 3–6 nodos el óptimo exacto se halla en microsegundos; los tres frameworks QAOA igualan pero ninguno supera al clásico — una verificación fiel de paridad entre frameworks.",
+      en: "At 3–6 nodes the exact optimum is found in microseconds; all three QAOA frameworks match but none beats classical, a faithful cross-framework parity check.",
+      es: "Con 3–6 nodos el óptimo exacto se halla en microsegundos; los tres frameworks QAOA igualan pero ninguno supera al clásico, una verificación fiel de paridad entre frameworks.",
     },
   },
   noise: {
@@ -200,16 +200,16 @@ export const CASE_PHYSICS: Record<string, CasePhysics> = {
       es: "Ejecuta un circuito bajo un modelo de ruido Aer, luego pliega puertas para amplificar el ruido y extrapola (Richardson) el observable al límite de ruido cero (ZNE), reduciendo el error ~11×→1.5× al crecer el ruido.",
     },
     honest: {
-      en: "Mitigation is not correction — ZNE reduces bias but adds variance and does not scale. At this size the classical statevector is exact and free.",
-      es: "La mitigación no es corrección — ZNE reduce el sesgo pero añade varianza y no escala. A este tamaño el statevector clásico es exacto y gratis.",
+      en: "Mitigation is not correction, ZNE reduces bias but adds variance and does not scale. At this size the classical statevector is exact and free.",
+      es: "La mitigación no es corrección, ZNE reduce el sesgo pero añade varianza y no escala. A este tamaño el statevector clásico es exacto y gratis.",
     },
   },
   "qec-repetition": {
     advantage: "concept",
     relation: "p_L\\sim (p/p_{th})^{\\lfloor d/2\\rfloor+1}",
     teaches: {
-      en: "Encodes one logical bit across d physical qubits, decodes syndromes with MWPM (PyMatching), and shows d=5 beating d=3 below threshold — error correction that actually scales (Willow in miniature).",
-      es: "Codifica un bit lógico en d qubits físicos, decodifica síndromes con MWPM (PyMatching) y muestra d=5 superando a d=3 por debajo del umbral — corrección de errores que sí escala (Willow en miniatura).",
+      en: "Encodes one logical bit across d physical qubits, decodes syndromes with MWPM (PyMatching), and shows d=5 beating d=3 below threshold, error correction that actually scales (Willow in miniature).",
+      es: "Codifica un bit lógico en d qubits físicos, decodifica síndromes con MWPM (PyMatching) y muestra d=5 superando a d=3 por debajo del umbral, corrección de errores que sí escala (Willow en miniatura).",
     },
     honest: {
       en: "The repetition code only protects against bit-flips (one error basis); above threshold larger codes get worse. It is a stepping stone to the surface code.",
@@ -220,8 +220,8 @@ export const CASE_PHYSICS: Record<string, CasePhysics> = {
     advantage: "concept",
     relation: "p_L\\propto (p/p_{th})^{(d+1)/2}",
     teaches: {
-      en: "Runs a rotated surface code correcting both X and Z errors with MWPM decoding, exhibiting the threshold crossover: d=5 beats d=3 below ~1% and is worse above — the fault-tolerance front-runner.",
-      es: "Ejecuta un código de superficie rotado que corrige errores X y Z con decodificación MWPM, exhibiendo el cruce de umbral: d=5 supera a d=3 por debajo de ~1% y empeora por encima — el favorito para la tolerancia a fallos.",
+      en: "Runs a rotated surface code correcting both X and Z errors with MWPM decoding, exhibiting the threshold crossover: d=5 beats d=3 below ~1% and is worse above, the fault-tolerance front-runner.",
+      es: "Ejecuta un código de superficie rotado que corrige errores X y Z con decodificación MWPM, exhibiendo el cruce de umbral: d=5 supera a d=3 por debajo de ~1% y empeora por encima, el favorito para la tolerancia a fallos.",
     },
     honest: {
       en: "Below threshold the logical error falls exponentially in distance; the cost is a large physical-qubit overhead. This is the architecture every roadmap targets, not a speedup.",
@@ -244,32 +244,32 @@ export const CASE_PHYSICS: Record<string, CasePhysics> = {
     advantage: "genuine",
     relation: "2\\;\\text{cbits per}\\;1\\;\\text{qubit}",
     teaches: {
-      en: "Sends 2 classical bits by transmitting a single qubit, applying one of {I,X,Z,XZ} to half of a shared Bell pair — the dual of teleportation, beating the Holevo limit of 1 bit per qubit.",
-      es: "Envía 2 bits clásicos transmitiendo un solo qubit, aplicando uno de {I,X,Z,XZ} a la mitad de un par de Bell compartido — el dual de la teletransportación, superando el límite de Holevo de 1 bit por qubit.",
+      en: "Sends 2 classical bits by transmitting a single qubit, applying one of {I,X,Z,XZ} to half of a shared Bell pair, the dual of teleportation, beating the Holevo limit of 1 bit per qubit.",
+      es: "Envía 2 bits clásicos transmitiendo un solo qubit, aplicando uno de {I,X,Z,XZ} a la mitad de un par de Bell compartido, el dual de la teletransportación, superando el límite de Holevo de 1 bit por qubit.",
     },
     honest: {
-      en: "The edge is real but spends a pre-shared Bell pair — a resource trade, not free capacity. Without prior entanglement the Holevo bound of 1 bit/qubit holds.",
-      es: "La ventaja es real pero gasta un par de Bell compartido — un intercambio de recursos, no capacidad gratis. Sin entrelazamiento previo se mantiene la cota de Holevo de 1 bit/qubit.",
+      en: "The edge is real but spends a pre-shared Bell pair, a resource trade, not free capacity. Without prior entanglement the Holevo bound of 1 bit/qubit holds.",
+      es: "La ventaja es real pero gasta un par de Bell compartido, un intercambio de recursos, no capacidad gratis. Sin entrelazamiento previo se mantiene la cota de Holevo de 1 bit/qubit.",
     },
   },
   "single-qubit": {
     advantage: "concept",
     relation: "|\\psi\\rangle=\\cos\\tfrac\\theta2|0\\rangle+e^{i\\phi}\\sin\\tfrac\\theta2|1\\rangle",
     teaches: {
-      en: "Drives a single qubit through gate sequences and traces its path on the Bloch sphere — the continuous (θ,φ) state space that is the substrate of every algorithm.",
-      es: "Conduce un solo qubit a través de secuencias de puertas y traza su recorrido en la esfera de Bloch — el espacio de estados continuo (θ,φ) que es el sustrato de todo algoritmo.",
+      en: "Drives a single qubit through gate sequences and traces its path on the Bloch sphere, the continuous (θ,φ) state space that is the substrate of every algorithm.",
+      es: "Conduce un solo qubit a través de secuencias de puertas y traza su recorrido en la esfera de Bloch, el espacio de estados continuo (θ,φ) que es el sustrato de todo algoritmo.",
     },
     honest: {
-      en: "A qubit roams the whole Bloch sphere yet stores at most one classical bit on measurement (Holevo) — rich dynamics, no standalone advantage.",
-      es: "Un qubit recorre toda la esfera de Bloch pero al medir guarda como máximo un bit clásico (Holevo) — dinámica rica, sin ventaja aislada.",
+      en: "A qubit roams the whole Bloch sphere yet stores at most one classical bit on measurement (Holevo), rich dynamics, no standalone advantage.",
+      es: "Un qubit recorre toda la esfera de Bloch pero al medir guarda como máximo un bit clásico (Holevo), dinámica rica, sin ventaja aislada.",
     },
   },
   qrng: {
     advantage: "concept",
     relation: "H=n\\;\\text{bits},\\;P(\\text{each})=2^{-n}",
     teaches: {
-      en: "Hadamards put n qubits into uniform superposition; measurement yields n bits of entropy with each outcome equally likely — randomness from the Born rule, not an algorithm.",
-      es: "Las Hadamard ponen n qubits en superposición uniforme; la medición entrega n bits de entropía con cada resultado equiprobable — aleatoriedad de la regla de Born, no un algoritmo.",
+      en: "Hadamards put n qubits into uniform superposition; measurement yields n bits of entropy with each outcome equally likely, randomness from the Born rule, not an algorithm.",
+      es: "Las Hadamard ponen n qubits en superposición uniforme; la medición entrega n bits de entropía con cada resultado equiprobable, aleatoriedad de la regla de Born, no un algoritmo.",
     },
     honest: {
       en: "Statistically identical to a good PRNG; the quantum edge is certifiable true randomness (device-independent), not better statistics.",
@@ -280,12 +280,12 @@ export const CASE_PHYSICS: Record<string, CasePhysics> = {
     advantage: "concept",
     relation: "P(0)=\\cos^2(\\varphi/2)",
     teaches: {
-      en: "A Mach–Zehnder H·P(φ)·H produces the fringe P(0)=cos²(φ/2): amplitudes recombine constructively or destructively as the phase φ is swept — the steering of amplitude cancellation.",
-      es: "Un Mach–Zehnder H·P(φ)·H produce la franja P(0)=cos²(φ/2): las amplitudes se recombinan constructiva o destructivamente al barrer la fase φ — el direccionamiento de la cancelación de amplitud.",
+      en: "A Mach–Zehnder H·P(φ)·H produces the fringe P(0)=cos²(φ/2): amplitudes recombine constructively or destructively as the phase φ is swept, the steering of amplitude cancellation.",
+      es: "Un Mach–Zehnder H·P(φ)·H produce la franja P(0)=cos²(φ/2): las amplitudes se recombinan constructiva o destructivamente al barrer la fase φ, el direccionamiento de la cancelación de amplitud.",
     },
     honest: {
-      en: "A classical wave gives the same curve, so interference alone is no advantage — but steering amplitude cancellation is the engine of every quantum algorithm.",
-      es: "Una onda clásica da la misma curva, así que la interferencia sola no es ventaja — pero direccionar la cancelación de amplitud es el motor de todo algoritmo cuántico.",
+      en: "A classical wave gives the same curve, so interference alone is no advantage, but steering amplitude cancellation is the engine of every quantum algorithm.",
+      es: "Una onda clásica da la misma curva, así que la interferencia sola no es ventaja, pero direccionar la cancelación de amplitud es el motor de todo algoritmo cuántico.",
     },
   },
 };

@@ -1,4 +1,4 @@
-// An exact state-vector simulator for the live (in-browser) lane — ≤12 qubits, pure TypeScript.
+// An exact state-vector simulator for the live (in-browser) lane, ≤12 qubits, pure TypeScript.
 // It is not an approximation: amplitudes evolve exactly (the only stochastic step is shot sampling,
 // seeded). Convention matches the committed traces: little-endian index (bit i = qubit i); measurement
 // bitstrings are big-endian (qubit n-1 … qubit 0), as Qiskit reports them.
@@ -153,7 +153,7 @@ export function blochOf(st: State, q: number): [number, number, number] {
   return [2 * re01, -2 * im01, r0 - r1];
 }
 
-// mulberry32 — a tiny seeded PRNG so live sampling reproduces.
+// mulberry32, a tiny seeded PRNG so live sampling reproduces.
 function mulberry32(seed: number) {
   let a = seed >>> 0;
   return () => {
