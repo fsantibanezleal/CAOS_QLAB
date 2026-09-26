@@ -2,7 +2,7 @@
 // Every entry must carry a real, verifiable `doi` (preferred) or `url`. A bare
 // author-year with no link is a fail (it reads as fabricated). DOI-verified.
 //
-// id convention: authorYYYY[suffix] — lowercase, no spaces.
+// id convention: authorYYYY[suffix], lowercase, no spaces.
 
 export interface Citation {
   id: string;
@@ -10,9 +10,9 @@ export interface Citation {
   label: string;
   /** Full bibliographic string (authors, title, venue, year). */
   citation: string;
-  /** Preferred — a DOI (bare, e.g. "10.1038/…"). */
+  /** Preferred, a DOI (bare, e.g. "10.1038/…"). */
   doi?: string;
-  /** Fallback — only for standards / books / software with no DOI. */
+  /** Fallback, only for standards / books / software with no DOI. */
   url?: string;
 }
 
@@ -358,7 +358,7 @@ export const CITATIONS: Citation[] = [
     id: "knuth1997",
     label: "L’Ecuyer & PCG (deterministic RNG)",
     citation:
-      "M. E. O’Neill, “PCG: A family of simple fast space-efficient statistically good algorithms for random number generation,” HMC-CS-2014-0905 (2014) — the bit-generator family underlying NumPy’s default_rng.",
+      "M. E. O’Neill, “PCG: A family of simple fast space-efficient statistically good algorithms for random number generation,” HMC-CS-2014-0905 (2014), the bit-generator family underlying NumPy’s default_rng.",
     url: "https://www.pcg-random.org/paper.html",
   },
   {

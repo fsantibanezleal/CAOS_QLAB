@@ -1,4 +1,4 @@
-"""Problem formulations — what to compute, independent of the method that computes it.
+"""Problem formulations, what to compute, independent of the method that computes it.
 
 A `Problem` declares its didactic identity (bilingual title/concept, category) and its set of
 `Instance`s (the variant regimes the App's variant-bar exposes; ADR-0017 targets ≥6 where a meaningful

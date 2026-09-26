@@ -41,7 +41,7 @@ export function LivePanel({ ops, qubits, seed, shots }: { ops: Op[]; qubits: num
   return (
     <div className="live-panel">
       <div className="live-head">
-        <span className="live-dot" /> {en ? "Live — running in your browser" : "En vivo — ejecutándose en el navegador"}
+        <span className="live-dot" /> {en ? "Live, running in your browser" : "En vivo, ejecutándose en el navegador"}
         <span className="live-sub">{en ? "exact state-vector engine · drag a slider to re-simulate" : "motor de statevector exacto · arrastrar un slider para re-simular"}</span>
       </div>
 
@@ -62,8 +62,8 @@ export function LivePanel({ ops, qubits, seed, shots }: { ops: Op[]; qubits: num
         </div>
       ) : (
         <p className="note">{en
-          ? "This circuit has no continuous parameters — the gates are fixed (H, CX, …). It still re-simulates live below."
-          : "Este circuito no tiene parámetros continuos — las compuertas son fijas (H, CX, …). Igual se re-simula en vivo abajo."}</p>
+          ? "This circuit has no continuous parameters, the gates are fixed (H, CX, …). It still re-simulates live below."
+          : "Este circuito no tiene parámetros continuos, las compuertas son fijas (H, CX, …). Igual se re-simula en vivo abajo."}</p>
       )}
 
       {liveOps.length ? <CircuitDiagram ops={liveOps} qubits={qubits} /> : null}

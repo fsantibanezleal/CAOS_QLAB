@@ -1,4 +1,4 @@
-# 08 · Quantum Phase Estimation — read an eigenphase
+# 08 · Quantum Phase Estimation: read an eigenphase
 
 **Category:** flagship-algorithms · **Lane:** live · **Solvers:** `qpe-qiskit` (controlled-powers + inverse
 QFT), `qpe-classical` (eigendecomposition) · **Variants:** 6.
@@ -7,7 +7,7 @@ QFT), `qpe-classical` (eigendecomposition) · **Variants:** 6.
 
 Given a unitary `U` and an eigenstate `|ψ⟩` with `U|ψ⟩ = e^{2πiφ}|ψ⟩`, estimate the phase `φ`. QPE is the
 QFT's first real application and the engine inside Shor's order-finding and quantum chemistry. Here
-`U = P(2πφ)` (a phase gate) with eigenstate `|1⟩`, so `φ` is exactly known — which lets us **verify** the
+`U = P(2πφ)` (a phase gate) with eigenstate `|1⟩`, so `φ` is exactly known, which lets us **verify** the
 estimate.
 
 ## Formalization
@@ -45,12 +45,12 @@ with the textbook dominant probability. `qpe-classical` diagonalizes the 2×2 `U
 
 Step through the trace: each controlled-phase tilts a counting qubit's Bloch vector; the inverse QFT
 focuses the phase ramp into one bitstring. The histogram is the estimate. Increase `t` (more counting
-qubits) to watch the resolution sharpen — and watch an inexact `φ` spread over neighboring bins.
+qubits) to watch the resolution sharpen, and watch an inexact `φ` spread over neighboring bins.
 
 ## Honest verdict
 
 > QPE estimates `φ` to `t` bits (`2^{-t}` resolution). At this toy scale the classical eigendecomposition
-> of `U` returns `φ` *exactly and instantly* — QPE only earns its keep when `U` acts on an exponentially
+> of `U` returns `φ` *exactly and instantly*, QPE only earns its keep when `U` acts on an exponentially
 > large space you cannot diagonalize (e.g. `e^{iHt}` for a molecular Hamiltonian, or the modular-exponent
 > unitary in Shor). It is a subroutine, and a finite-precision one.
 

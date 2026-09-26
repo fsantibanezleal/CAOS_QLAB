@@ -1,4 +1,4 @@
-# 04 · Deutsch–Jozsa — constant vs balanced in one query
+# 04 · Deutsch–Jozsa: constant vs balanced in one query
 
 **Category:** oracle-algorithms · **Lane:** live · **Solvers:** `dj-qiskit` (circuit), `dj-classical`
 (oracle queries) · **Variants:** 6.
@@ -8,13 +8,13 @@
 An oracle hides a function `f:{0,1}ⁿ→{0,1}` *promised* to be either **constant** (same output everywhere)
 or **balanced** (0 on exactly half the inputs). Decide which. Deutsch–Jozsa decides with a **single**
 quantum query; a deterministic classical algorithm may need `2ⁿ⁻¹+1` queries (just over half the inputs) to
-be certain — the historical first exponential quantum–classical query separation.
+be certain, the historical first exponential quantum–classical query separation.
 
 ## Components & variables
 
 - **Input register:** `n` qubits. **Answer qubit (ancilla):** in `|−⟩` for phase kickback.
 - **Oracle:** constant-0 = identity; constant-1 = `X` on the ancilla (a global `−1` phase); balanced =
-  `f(x)=s·x` (CNOTs from input qubits in `s` to the ancilla) — a balanced function for any `s≠0`.
+  `f(x)=s·x` (CNOTs from input qubits in `s` to the ancilla), a balanced function for any `s≠0`.
 
 ## Formalization
 
@@ -45,7 +45,7 @@ for constant, away from it for balanced), and the comparison panel.
 | dj-bal-1011 (4) | balanced | balanced ✓ | **1** | 2 (9) | live |
 
 `dj-classical` stops early on balanced (two differing outputs decide it), but on **constant** it must query
-just over half the inputs — the worst case the quantum algorithm avoids entirely.
+just over half the inputs, the worst case the quantum algorithm avoids entirely.
 
 ## How to read & use the viz
 
@@ -56,7 +56,7 @@ verdict visible at a glance.
 ## Honest verdict
 
 > Quantum decides in **1** query; deterministic classical needs up to **2ⁿ⁻¹+1**. A real (exponential)
-> query-complexity separation in the oracle model — the foundational DJ result — but at these sizes the
+> query-complexity separation in the oracle model, the foundational DJ result, but at these sizes the
 > classical decision is still instant. It teaches interference + the promise-problem structure honestly.
 
 ## References

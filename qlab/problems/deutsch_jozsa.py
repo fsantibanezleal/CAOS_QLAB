@@ -1,8 +1,8 @@
-"""Deutsch–Jozsa — decide constant vs balanced in one query.
+"""Deutsch–Jozsa, decide constant vs balanced in one query.
 
 Promised that f:{0,1}^n→{0,1} is either constant (same output for all inputs) or balanced (0 on exactly
 half the inputs), Deutsch–Jozsa decides which with a SINGLE quantum oracle query. Deterministically,
-classically you may need 2^{n-1}+1 queries (just over half the inputs) to be certain — an exponential
+classically you may need 2^{n-1}+1 queries (just over half the inputs) to be certain, an exponential
 query-complexity gap. The honest nuance (the comparison panel says it): it is an oracle-model, query-count
 advantage; at these sizes the classical decision is still instant.
 """
@@ -18,7 +18,7 @@ class DeutschJozsa(Problem):
     id = "deutsch-jozsa"
     category = "oracle-algorithms"
     live_capable = True
-    title = {"en": "Deutsch–Jozsa — constant vs balanced", "es": "Deutsch–Jozsa — constante vs balanceada"}
+    title = {"en": "Deutsch–Jozsa, constant vs balanced", "es": "Deutsch–Jozsa, constante vs balanceada"}
     concept = {
         "en": (
             "An oracle hides a function f that is promised constant or balanced. Deutsch–Jozsa puts the "
@@ -69,7 +69,7 @@ class DeutschJozsa(Problem):
             worst = 2 ** (params["n"] - 1) + 1
             out.append(Instance(
                 iid, {"en": label, "es": label}, params,
-                {"en": f"f is {kind} — 1 quantum query vs up to {worst} classical (worst case).",
-                 "es": f"f es {kind} — 1 consulta cuántica vs hasta {worst} clásicas (peor caso)."},
+                {"en": f"f is {kind}, 1 quantum query vs up to {worst} classical (worst case).",
+                 "es": f"f es {kind}, 1 consulta cuántica vs hasta {worst} clásicas (peor caso)."},
             ))
         return out

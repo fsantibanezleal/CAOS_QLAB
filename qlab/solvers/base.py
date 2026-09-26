@@ -1,10 +1,10 @@
-"""Solver adapters — each subclass wraps ONE real framework to attack a problem.
+"""Solver adapters, each subclass wraps ONE real framework to attack a problem.
 
 A `Solver` is the plug-in seam of the whole engine: adding a framework = one new subclass + one
 `@register_solver` line, with zero edits to the core, the pipeline, the registry mechanism, or the web.
 Every adapter returns the same `SolverResult` shape (value + cost + optional replay trace + bilingual
 notes), so the comparison panel, the gate and the manifest treat Qiskit, PennyLane, Cirq, Stim and the
-classical baselines identically. There is exactly one execution path — "no parches que ejecutan todo por
+classical baselines identically. There is exactly one execution path, "no parches que ejecutan todo por
 separado."
 """
 
@@ -16,7 +16,7 @@ from dataclasses import dataclass, field
 from qlab.core.trace import Trace
 from qlab.problems.base import Instance, Problem
 
-# Paradigm of a solver — drives the badge the App shows and the honesty framing.
+# Paradigm of a solver: drives the badge the App shows and the honesty framing.
 QUANTUM_SIM = "quantum-sim"          # exact/noisy simulation of a quantum method on a classical computer
 QUANTUM_HARDWARE = "quantum-hardware"  # ran on a real QPU (committed result + provenance)
 CLASSICAL = "classical"              # the honest "still more practical" baseline

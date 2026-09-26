@@ -1,8 +1,8 @@
-"""The quantum trace schema — the artifact contract between the offline pipeline and the web app.
+"""The quantum trace schema, the artifact contract between the offline pipeline and the web app.
 
 A trace is a *replayable recording* of one circuit run: for every step (one gate / a barrier / a
 measurement) we store the full statevector, the per-qubit Bloch vector, and the basis-state
-probabilities, plus the final measurement histogram. The web app only animates this — "replay = truth".
+probabilities, plus the final measurement histogram. The web app only animates this, "replay = truth".
 The schema is intentionally JSON-first, compact, and free of any Qiskit type, so the browser never
 depends on a Python library. A TypeScript mirror lives at frontend/src/lib/contract.types.ts.
 """

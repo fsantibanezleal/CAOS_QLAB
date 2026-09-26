@@ -1,4 +1,4 @@
-"""Core engine tests — pure-Python, no quantum SDK (so they run even in the live-thin env)."""
+"""Core engine tests, pure-Python, no quantum SDK (so they run even in the live-thin env)."""
 
 from __future__ import annotations
 

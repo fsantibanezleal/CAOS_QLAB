@@ -9,7 +9,7 @@ runs in. Full field-by-field schemas are in [../../data/README.md](../../data/RE
 A trace is a **replayable recording** of one circuit run. For every step (a gate, a barrier, a prepared
 state) it stores the full **statevector** (2ⁿ complex amplitudes), the per-qubit reduced **Bloch vector**
 `[⟨X⟩,⟨Y⟩,⟨Z⟩]`, and the basis-state **probabilities**, plus the final measurement **histogram**. It is
-JSON-first, compact (amplitudes rounded to 6 decimals), and contains **no Qiskit type** — so the browser
+JSON-first, compact (amplitudes rounded to 6 decimals), and contains **no Qiskit type**, so the browser
 never depends on a Python library. A TypeScript mirror (`web/src/lib/contract.types.ts`) tracks the Python schema (ADR-0057).
 
 Determinism is the contract: a run is a pure function of `(params, seed)`. The only stochastic step is
@@ -23,19 +23,19 @@ seed/shots/params that reproduce the trace, the **viz bindings** (which renderer
 `bloch`, `amp_phase`, `histogram`, `qsphere`, `density`, `circuit`, `landscape`, `graph`), and the engine
 provenance + version. The web app reads the set of manifests as its catalog.
 
-## The measured gate — live vs precompute (not a matter of taste)
+## The measured gate: live vs precompute (not a matter of taste)
 
 `qlab/core/gate.py::classify_lane` decides the lane from **measurements**. A case runs **live** only if all
 hold:
 
-1. `qubits ≤ LIVE_MAX_QUBITS` (12) — 2ⁿ amplitudes must stay interactive in JS (~12 q ≈ 64 MB).
-2. **unitary-only** — no realistic noise (needs Aer), no mid-circuit measurement + feed-forward
+1. `qubits ≤ LIVE_MAX_QUBITS` (12): 2ⁿ amplitudes must stay interactive in JS (~12 q ≈ 64 MB).
+2. **unitary-only**: no realistic noise (needs Aer), no mid-circuit measurement + feed-forward
    (teleportation/QEC), no optimization loop (VQE/QAOA training).
-3. `run_ms ≤ LIVE_RUN_MS` (1500) — the offline build time, a proxy for browser responsiveness.
+3. `run_ms ≤ LIVE_RUN_MS` (1500): the offline build time, a proxy for browser responsiveness.
 4. `trace_bytes ≤ LIVE_TRACE_BYTES` (~1 MB).
 
 Otherwise the case is **precompute**. The verdict and the numbers behind it are written into the manifest,
-and CI fails the build if a `live`-tagged case breaches a gate — *mislabeling cannot ship*. Both lanes
+and CI fails the build if a `live`-tagged case breaches a gate, *mislabeling cannot ship*. Both lanes
 render through one code path.
 
 **Worked examples (from the shipped cases):** `state-prep` (≤4 qubits, pure unitary, ~1–2 ms, ~9 KB) → 
@@ -44,5 +44,5 @@ render through one code path.
 
 ## Read next
 
-- [04_lanes.md](./04_lanes.md) — what concretely runs in each lane.
-- [../../data/README.md](../../data/README.md) — the schemas field by field + the ingestion contract.
+- [04_lanes.md](./04_lanes.md): what concretely runs in each lane.
+- [../../data/README.md](../../data/README.md): the schemas field by field + the ingestion contract.

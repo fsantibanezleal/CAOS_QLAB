@@ -7,7 +7,7 @@
 
 Real devices are noisy: gates and readout corrupt the result, pulling expectation values toward zero. This
 case shows what a noisy device returns for a circuit with a *known* ideal value, and how **zero-noise
-extrapolation (ZNE)** claws much of it back — together with the honest limits of mitigation.
+extrapolation (ZNE)** claws much of it back, together with the honest limits of mitigation.
 
 ## Components & variables
 
@@ -23,7 +23,7 @@ extrapolation (ZNE)** claws much of it back — together with the honest limits 
 For a circuit `U`, folding to `U(U†U)ᵏ` leaves the ideal output unchanged but multiplies the effective
 noise by `λ = 2k+1`. Measuring `E(λ)` at `λ ∈ {1,3,5}` and fitting `E(λ) ≈ E₀ + cλ`, the intercept `E₀` is
 the zero-noise estimate. (Mitiq is the standard library for this; QLab implements the core technique
-directly because Mitiq is GPL-3.0 — see the honesty note.)
+directly because Mitiq is GPL-3.0, see the honesty note.)
 
 ## What each variant shows
 
@@ -42,7 +42,7 @@ Depolarizing `p ∈ {0.01, 0.02, 0.03, 0.05}` at depth 1 and 3. Selecting one sh
 | p=0.05, d3 | 1.0 | 0.698 | 0.801 | ~1.5× |
 
 Mitigation works brilliantly at low noise (11× error reduction) and **progressively less as noise grows**
-(only 1.5× at p=0.05, depth 3) — the linear extrapolation breaks down when the device is too noisy. This is
+(only 1.5× at p=0.05, depth 3), the linear extrapolation breaks down when the device is too noisy. This is
 the honest behavior of ZNE.
 
 ## How to read & use the viz
@@ -53,11 +53,11 @@ is the mitigated estimate. The histograms show how depolarizing noise spreads pr
 
 ## Honest verdict
 
-> ZNE recovers much of the lost signal — but it is **mitigation (bias reduction), not error correction**;
+> ZNE recovers much of the lost signal, but it is **mitigation (bias reduction), not error correction**;
 > its sampling cost grows **exponentially** with circuit size; and it degrades as noise rises. Crucially,
-> at any classically-simulable scale a statevector simulator returns the exact `1.0` for **free** — so
+> at any classically-simulable scale a statevector simulator returns the exact `1.0` for **free**, so
 > mitigation only matters on hardware beyond classical reach, and even there it is a NISQ *bridge*, not a
-> path to scalable computation. (Error *correction* — the real fix — is the next cases: repetition + surface codes.)
+> path to scalable computation. (Error *correction*, the real fix, is the next cases: repetition + surface codes.)
 
 ## References
 

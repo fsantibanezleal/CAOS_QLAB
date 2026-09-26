@@ -1,4 +1,4 @@
-# 03 · Bernstein–Vazirani — 1 quantum query vs n classical
+# 03 · Bernstein–Vazirani: 1 quantum query vs n classical
 
 **Category:** oracle-algorithms · **Lane:** live · **Solvers:** `bv-qiskit` (circuit), `bv-classical`
 (oracle queries) · **Variants:** 6 hidden strings.
@@ -7,7 +7,7 @@
 
 A hidden bit-string `s` is locked inside an oracle `f(x) = s·x (mod 2)`. Recover `s`. The
 Bernstein–Vazirani algorithm does it with a **single** oracle query; any classical algorithm needs `n`
-queries (one per bit). It is the cleanest demonstration of a genuine — if oracle-model — quantum query
+queries (one per bit). It is the cleanest demonstration of a genuine, if oracle-model, quantum query
 advantage, and a perfect honesty case: the advantage is real in *query count*, not in wall-clock time.
 
 ## Components & variables
@@ -60,7 +60,7 @@ histogram collapses from uniform to a single spike at `s`.
 ## Honest verdict
 
 > Quantum recovers `s` in **1** oracle query; classical needs **n**. This is a *real* query-complexity
-> separation — but it lives in the oracle model, and at these sizes the classical wall-time is just as
+> separation, but it lives in the oracle model, and at these sizes the classical wall-time is just as
 > instant. It teaches interference + phase kickback honestly, without overclaiming a practical speedup.
 
 ## References

@@ -1,7 +1,7 @@
-// Hand-authored, themed architecture diagrams (ADR-0058 — the in-app ⓘ modal).
+// Hand-authored, themed architecture diagrams (ADR-0058, the in-app ⓘ modal).
 // Every colour is a CSS-variable PALETTE TOKEN (var(--accent), var(--good), var(--warn),
 // var(--border), var(--panel), var(--panel-2), var(--fg), var(--fg-subtle), var(--accent-soft)).
-// Zero hardcoded hex — the only `#` allowed are HTML entities (&#8594; &#8804; &#215; &#8776; …).
+// Zero hardcoded hex, the only `#` allowed are HTML entities (&#8594; &#8804; &#215; &#8776; …).
 // The SVGs are inlined in the React DOM (not <img>), so they inherit the live theme variables;
 // each carries a <style> block with the semantic class vocabulary required by the FLOOR.
 //
@@ -13,7 +13,7 @@
 
 type Lang = "en" | "es";
 
-// One shared <style> block — identical rules in every SVG (harmless to repeat in the DOM),
+// One shared <style> block, identical rules in every SVG (harmless to repeat in the DOM),
 // so a single source of truth for the class vocabulary. All colours are palette tokens.
 const ARCH_CSS = `
   .arch-svg text { font-family: ui-sans-serif, system-ui, "Segoe UI", Roboto, sans-serif; }
@@ -59,7 +59,7 @@ function Defs({ id }: { id: string }) {
 }
 
 /* ============================================================================
-   TAB 1 — The app + the design/build lifecycle flow.
+   TAB 1, The app + the design/build lifecycle flow.
    research/fiche → implement engine → precompute/bake trace → build SPA → deploy.
    ========================================================================= */
 export function AppLifecycleDiagram({ lang }: { lang: Lang }) {
@@ -115,7 +115,7 @@ export function AppLifecycleDiagram({ lang }: { lang: Lang }) {
 
       {/* the six pages footer band */}
       <rect className="band" x="14" y="350" width="852" height="2" />
-      <text className="bandl" x="14" y="368">{en ? "What ships — the SPA surface" : "Lo que se publica — la SPA"}</text>
+      <text className="bandl" x="14" y="368">{en ? "What ships, the SPA surface" : "Lo que se publica, la SPA"}</text>
       {[
         { x: 14, t: "App", s: en ? "the workbench" : "el banco de trabajo" },
         { x: 160, t: "Introduction", s: en ? "what & why" : "qué y por qué" },
@@ -136,32 +136,32 @@ export function AppLifecycleDiagram({ lang }: { lang: Lang }) {
 }
 
 /* ============================================================================
-   TAB 2 — The three lanes: web (live) / offline (precompute) / compute (hardware).
+   TAB 2, The three lanes: web (live) / offline (precompute) / compute (hardware).
    ========================================================================= */
 export function ThreeLaneDiagram({ lang }: { lang: Lang }) {
   const en = lang === "en";
   const m = "qa-lane";
   return (
     <svg viewBox="0 0 880 460" width="880" className="arch-svg" role="img"
-         aria-label={en ? "QLab three lanes — web, offline, compute" : "Tres carriles de QLab — web, offline, cómputo"}>
+         aria-label={en ? "QLab three lanes, web, offline, compute" : "Tres carriles de QLab, web, offline, cómputo"}>
       <style>{ARCH_CSS}</style>
       <Defs id={m} />
 
       {/* WEB lane */}
       <rect className="band" x="14" y="14" width="430" height="150" rx="8" />
-      <text className="bandl" x="28" y="34">{en ? "WEB — live, in the visitor's browser" : "WEB — vivo, en el navegador del visitante"}</text>
+      <text className="bandl" x="28" y="34">{en ? "WEB, live, in the visitor's browser" : "WEB, vivo, en el navegador del visitante"}</text>
       <rect className="bx-web" x="28" y="44" width="402" height="106" rx="9" />
-      <text className="ttl-web" x="42" y="66">{en ? "Live lane — exact state-vector engine" : "Carril vivo — motor de statevector exacto"}</text>
+      <text className="ttl-web" x="42" y="66">{en ? "Live lane, exact state-vector engine" : "Carril vivo, motor de statevector exacto"}</text>
       <text className="cd" x="42" y="86">web/src/live/statevector.ts</text>
       <text className="it" x="42" y="104">{en ? "small clean unitary circuits, ≤ 12 qubits" : "circuitos unitarios limpios, ≤ 12 qubits"}</text>
       <text className="it" x="42" y="120">{en ? "re-simulates on every slider move · $0 server" : "re-simula con cada slider · $0 servidor"}</text>
-      <text className="mu" x="42" y="138">{en ? "hand-written TS — Qiskit has no Pyodide wheels" : "TS escrito a mano — Qiskit no tiene wheels Pyodide"}</text>
+      <text className="mu" x="42" y="138">{en ? "hand-written TS, Qiskit has no Pyodide wheels" : "TS escrito a mano, Qiskit no tiene wheels Pyodide"}</text>
 
       {/* OFFLINE lane */}
       <rect className="band" x="14" y="178" width="430" height="158" rx="8" />
-      <text className="bandl" x="28" y="198">{en ? "OFFLINE — local .venv precompute" : "OFFLINE — precómputo local .venv"}</text>
+      <text className="bandl" x="28" y="198">{en ? "OFFLINE, local .venv precompute" : "OFFLINE, precómputo local .venv"}</text>
       <rect className="bx-compute" x="28" y="208" width="402" height="116" rx="9" />
-      <text className="ttl" x="42" y="230">{en ? "Precompute lane — the real heavy engines" : "Carril precómputo — los motores reales pesados"}</text>
+      <text className="ttl" x="42" y="230">{en ? "Precompute lane, the real heavy engines" : "Carril precómputo, los motores reales pesados"}</text>
       <text className="cd" x="42" y="250">python -m qlab.pipeline &lt;case&gt;</text>
       <text className="it" x="42" y="268">Qiskit + Aer · PennyLane · Cirq · Stim</text>
       <text className="it" x="42" y="284">{en ? "noise · feed-forward · VQE/QAOA loop · &gt; 12 q" : "ruido · feed-forward · loop VQE/QAOA · &gt; 12 q"}</text>
@@ -170,9 +170,9 @@ export function ThreeLaneDiagram({ lang }: { lang: Lang }) {
 
       {/* COMPUTE / hardware lane (dormant) */}
       <rect className="band" x="14" y="350" width="430" height="98" rx="8" />
-      <text className="bandl" x="28" y="370">{en ? "COMPUTE — real QPU (opt-in, local-only)" : "CÓMPUTO — QPU real (opcional, solo local)"}</text>
+      <text className="bandl" x="28" y="370">{en ? "COMPUTE, real QPU (opt-in, local-only)" : "CÓMPUTO, QPU real (opcional, solo local)"}</text>
       <rect className="bx-dim" x="28" y="380" width="402" height="58" rx="9" />
-      <text className="ttl" x="42" y="402">{en ? "Real-hardware replay — dormant" : "Replay de hardware real — inactivo"}</text>
+      <text className="ttl" x="42" y="402">{en ? "Real-hardware replay, dormant" : "Replay de hardware real, inactivo"}</text>
       <text className="cd" x="42" y="420">qlab/solvers/hardware_solvers.py</text>
       <text className="mu" x="262" y="402">IBM Open · Braket · Azure</text>
       <text className="mu" x="262" y="420">{en ? "token from the vault, never on the web" : "token del vault, nunca en la web"}</text>
@@ -200,13 +200,13 @@ export function ThreeLaneDiagram({ lang }: { lang: Lang }) {
       <text className="it" x="742" y="276">{en ? "animates the" : "anima la"}</text>
       <text className="it" x="742" y="290">{en ? "trace, identically" : "traza, igual"}</text>
 
-      <text className="mu" x="14" y="430">{en ? '"Live" is slider-responsiveness, not a different model — the renderer never knows which lane produced a trace.' : '"Vivo" es responder al slider, no otro modelo — el renderer no sabe qué carril produjo la traza.'}</text>
+      <text className="mu" x="14" y="430">{en ? '"Live" is slider-responsiveness, not a different model, the renderer never knows which lane produced a trace.' : '"Vivo" es responder al slider, no otro modelo, el renderer no sabe qué carril produjo la traza.'}</text>
     </svg>
   );
 }
 
 /* ============================================================================
-   TAB 3 — The web-app flow: App re-runs the engine live on controls; pages;
+   TAB 3, The web-app flow: App re-runs the engine live on controls; pages;
    the contract-type mirror that gates the build; copy-data overlay; Pages deploy.
    ========================================================================= */
 export function WebAppFlowDiagram({ lang }: { lang: Lang }) {
@@ -220,7 +220,7 @@ export function WebAppFlowDiagram({ lang }: { lang: Lang }) {
 
       {/* user controls */}
       <rect className="bx-hi" x="14" y="18" width="190" height="150" rx="9" />
-      <text className="ttl-hi" x="26" y="40">{en ? "App — the workbench" : "App — banco de trabajo"}</text>
+      <text className="ttl-hi" x="26" y="40">{en ? "App, the workbench" : "App, banco de trabajo"}</text>
       <text className="cd" x="26" y="60">web/src/pages/App.tsx</text>
       <text className="it" x="26" y="80">{en ? "case selector (by category)" : "selector de casos (por categoría)"}</text>
       <text className="it" x="26" y="96">{en ? "variant bar + live sliders" : "barra de variantes + sliders"}</text>
@@ -255,7 +255,7 @@ export function WebAppFlowDiagram({ lang }: { lang: Lang }) {
 
       {/* copy-data overlay band */}
       <rect className="band" x="14" y="206" width="852" height="2" />
-      <text className="bandl" x="14" y="224">{en ? "Build pipeline — how the data + types get into the bundle" : "Pipeline de build — cómo entran datos + tipos al bundle"}</text>
+      <text className="bandl" x="14" y="224">{en ? "Build pipeline, how the data + types get into the bundle" : "Pipeline de build, cómo entran datos + tipos al bundle"}</text>
 
       <rect className="bx" x="14" y="236" width="196" height="92" rx="9" />
       <text className="ttl" x="26" y="258">{en ? "Committed data" : "Datos versionados"}</text>
@@ -288,13 +288,13 @@ export function WebAppFlowDiagram({ lang }: { lang: Lang }) {
       <text className="mu" x="726" y="314">{en ? "404.html = deep-link SPA fallback" : "404.html = fallback SPA"}</text>
 
       <text className="mu" x="14" y="362">{en ? "Copy-data overlays the seeded traces; the TypeScript mirror gates the build so the web schema can never silently drift from the Python one." : "Copy-data superpone las trazas con semilla; el espejo TypeScript controla el build para que el esquema web no se desincronice del de Python."}</text>
-      <text className="mu" x="14" y="382">{en ? "Result: a single static bundle — no server, no database, no secrets — that re-runs small circuits live and replays the rest." : "Resultado: un único bundle estático — sin servidor, BD ni secretos — que vuelve a ejecutar circuitos pequeños en vivo y reproduce el resto."}</text>
+      <text className="mu" x="14" y="382">{en ? "Result: a single static bundle, no server, no database, no secrets, that re-runs small circuits live and replays the rest." : "Resultado: un único bundle estático, sin servidor, BD ni secretos, que vuelve a ejecutar circuitos pequeños en vivo y reproduce el resto."}</text>
     </svg>
   );
 }
 
 /* ============================================================================
-   TAB 4 — The science / algorithm flow: real steps + equations.
+   TAB 4, The science / algorithm flow: real steps + equations.
    H·P(φ)·H interference · QAOA cost+mixer layers · Grover oracle+diffusion · VQE.
    ========================================================================= */
 export function ScienceDiagram({ lang }: { lang: Lang }) {
@@ -308,41 +308,41 @@ export function ScienceDiagram({ lang }: { lang: Lang }) {
 
       {/* Interference */}
       <rect className="bx-hi" x="14" y="16" width="420" height="120" rx="9" />
-      <text className="ttl-hi" x="26" y="38">{en ? "Interference — the one-qubit interferometer" : "Interferencia — interferómetro de 1 qubit"}</text>
+      <text className="ttl-hi" x="26" y="38">{en ? "Interference, the one-qubit interferometer" : "Interferencia, interferómetro de 1 qubit"}</text>
       <text className="cd" x="26" y="58">qlab/problems/interference.py · live</text>
-      <text className="it" x="26" y="78">{en ? "circuit  H · P(φ) · H  on |0⟩ — two paths recombine" : "circuito  H · P(φ) · H  sobre |0⟩ — dos caminos"}</text>
+      <text className="it" x="26" y="78">{en ? "circuit  H · P(φ) · H  on |0⟩, two paths recombine" : "circuito  H · P(φ) · H  sobre |0⟩, dos caminos"}</text>
       <rect className="eqbox" x="26" y="88" width="396" height="22" rx="5" />
       <text className="eq" x="34" y="103">P(0) = ¼ |1 + e^(iφ)|² = (1 + cos φ)/2 = cos²(φ/2)</text>
-      <text className="mu" x="26" y="128">{en ? "amplitudes (not probabilities) add — they can cancel: the whole game" : "las amplitudes (no las probabilidades) suman — pueden cancelarse"}</text>
+      <text className="mu" x="26" y="128">{en ? "amplitudes (not probabilities) add, they can cancel: the whole game" : "las amplitudes (no las probabilidades) suman, pueden cancelarse"}</text>
 
       {/* Grover */}
       <rect className="bx" x="446" y="16" width="420" height="120" rx="9" />
-      <text className="ttl" x="458" y="38">{en ? "Grover — amplitude amplification" : "Grover — amplificación de amplitud"}</text>
+      <text className="ttl" x="458" y="38">{en ? "Grover, amplitude amplification" : "Grover, amplificación de amplitud"}</text>
       <text className="cd" x="458" y="58">qlab/problems/grover.py · live</text>
       <text className="it" x="458" y="78">{en ? "G = D·O : oracle  |w⟩→−|w⟩  then diffuser (invert about mean)" : "G = D·O : oráculo |w⟩→−|w⟩ luego difusor (refleja en la media)"}</text>
       <rect className="eqbox" x="458" y="88" width="396" height="22" rx="5" />
       <text className="eq" x="466" y="103">k* = round((π/2 − θ)/(2θ)) &#8776; (π/4)√(N/M),  sin θ = √(M/N)</text>
-      <text className="mu" x="458" y="128">{en ? "diffuser  H^n X^n (MCZ) X^n H^n  — quadratic speedup ~√N vs ~N/2" : "difusor H^n X^n (MCZ) X^n H^n — speedup cuadrático ~√N vs ~N/2"}</text>
+      <text className="mu" x="458" y="128">{en ? "diffuser  H^n X^n (MCZ) X^n H^n , quadratic speedup ~√N vs ~N/2" : "difusor H^n X^n (MCZ) X^n H^n, speedup cuadrático ~√N vs ~N/2"}</text>
 
       {/* QAOA */}
       <rect className="bx-compute" x="14" y="152" width="420" height="138" rx="9" />
-      <text className="ttl" x="26" y="174">{en ? "QAOA — variational MaxCut (precompute)" : "QAOA — MaxCut variacional (precómputo)"}</text>
+      <text className="ttl" x="26" y="174">{en ? "QAOA, variational MaxCut (precompute)" : "QAOA, MaxCut variacional (precómputo)"}</text>
       <text className="cd" x="26" y="194">qlab/problems/maxcut.py · solvers: qaoa-qiskit/pennylane/cirq</text>
       <text className="it" x="26" y="214">{en ? "alternate cost layer C and mixer B, p layers deep:" : "alterna capa de costo C y mezclador B, profundidad p:"}</text>
       <rect className="eqbox" x="26" y="224" width="396" height="22" rx="5" />
       <text className="eq" x="34" y="239">|ψ(γ,β)⟩ = ∏ e^(−iβ B) e^(−iγ C) · H^⊗n |0⟩</text>
       <text className="it" x="26" y="262">C = Σ ½(1 − Z_u Z_v),  B = Σ X_i ;  classical loop tunes (γ,β)</text>
-      <text className="mu" x="26" y="282">{en ? "QLab: p=1, exact 24×24 (γ,β) grid-search — deterministic" : "QLab: p=1, grid exacto 24×24 (γ,β) — determinista"}</text>
+      <text className="mu" x="26" y="282">{en ? "QLab: p=1, exact 24×24 (γ,β) grid-search, deterministic" : "QLab: p=1, grid exacto 24×24 (γ,β), determinista"}</text>
 
       {/* VQE */}
       <rect className="bx-compute" x="446" y="152" width="420" height="138" rx="9" />
-      <text className="ttl" x="458" y="174">{en ? "VQE — H₂ ground state (precompute, learned)" : "VQE — estado base de H₂ (precómputo, aprendido)"}</text>
+      <text className="ttl" x="458" y="174">{en ? "VQE, H₂ ground state (precompute, learned)" : "VQE, estado base de H₂ (precómputo, aprendido)"}</text>
       <text className="cd" x="458" y="194">qlab/problems/vqe.py · solver: vqe-pennylane</text>
       <text className="it" x="458" y="214">{en ? "real H₂ Hamiltonian, STO-3G, Jordan-Wigner → 4 qubits" : "Hamiltoniano real de H₂, STO-3G, Jordan-Wigner → 4 qubits"}</text>
       <rect className="eqbox" x="458" y="224" width="396" height="22" rx="5" />
       <text className="eq" x="466" y="239">E_VQE = min_θ ⟨ψ(θ)| H |ψ(θ)⟩ ≥ E₀</text>
       <text className="it" x="458" y="262">{en ? "ansatz  DoubleExcitation(θ)·|HF⟩ ; scan θ∈[−π,π], 100 pts" : "ansatz DoubleExcitation(θ)·|HF⟩ ; barre θ∈[−π,π], 100 pts"}</text>
-      <text className="mu" x="458" y="282">{en ? "checked vs exact diagonalization (FCI) — chemical accuracy" : "verificado vs diagonalización exacta (FCI) — precisión química"}</text>
+      <text className="mu" x="458" y="282">{en ? "checked vs exact diagonalization (FCI), chemical accuracy" : "verificado vs diagonalización exacta (FCI), precisión química"}</text>
 
       {/* the shared tracer pipeline */}
       <rect className="band" x="14" y="306" width="852" height="2" />
@@ -366,7 +366,7 @@ export function ScienceDiagram({ lang }: { lang: Lang }) {
 
       {/* honesty footer */}
       <rect className="bx-store" x="14" y="442" width="852" height="100" rx="10" />
-      <text className="ttl-hi" x="28" y="464">{en ? "The honest verdict — baked into every case" : "El veredicto honesto — integrado en cada caso"}</text>
+      <text className="ttl-hi" x="28" y="464">{en ? "The honest verdict, baked into every case" : "El veredicto honesto, integrado en cada caso"}</text>
       <text className="it" x="28" y="486">{en ? "At lab scale the classical answer is usually trivial and optimal. MaxCut/QAOA matches but does NOT win;" : "A escala de laboratorio la respuesta clásica suele ser trivial y óptima. MaxCut/QAOA empata pero NO gana;"}</text>
       <text className="it" x="28" y="504">{en ? "Grover's √N is asymptotic; VQE on H₂ is a 16×16 matrix a laptop diagonalizes in microseconds (pedagogy)." : "el √N de Grover es asintótico; VQE en H₂ es una matriz 16×16 que un laptop diagonaliza en microsegundos."}</text>
       <text className="mu" x="28" y="528">{en ? "Interference alone computes nothing special; harnessed across many qubits it is the whole game." : "La interferencia sola no computa nada especial; usada en muchos qubits es todo el juego."}</text>
@@ -375,7 +375,7 @@ export function ScienceDiagram({ lang }: { lang: Lang }) {
 }
 
 /* ============================================================================
-   TAB 5 — The data contracts / design: qlab-trace + manifest, cases-by-category,
+   TAB 5, The data contracts / design: qlab-trace + manifest, cases-by-category,
    the measured lane gate.
    ========================================================================= */
 export function DataContractDiagram({ lang }: { lang: Lang }) {
@@ -405,7 +405,7 @@ export function DataContractDiagram({ lang }: { lang: Lang }) {
       <rect className="bx-store" x="446" y="38" width="420" height="170" rx="10" />
       <text className="ttl-hi" x="460" y="60">{en ? "Index contract" : "Contrato de índice"}</text>
       <text className="cd" x="460" y="78">schema  qlab-manifest/1  ·  core/manifest.py</text>
-      <text className="it" x="460" y="100">{en ? "one per (case, variant) — the web's catalog" : "uno por (caso, variante) — el catálogo de la web"}</text>
+      <text className="it" x="460" y="100">{en ? "one per (case, variant), the web's catalog" : "uno por (caso, variante), el catálogo de la web"}</text>
       <text className="it" x="460" y="120">{en ? "the lane verdict + the measured numbers behind it" : "el veredicto de carril + los números medidos"}</text>
       <text className="it" x="460" y="138">{en ? "seed / shots / params that reproduce the trace" : "seed / shots / params que reproducen la traza"}</text>
       <text className="it" x="460" y="156">{en ? "viz bindings: bloch · amp_phase · histogram · …" : "bindings de viz: bloch · amp_phase · histogram · …"}</text>
@@ -430,10 +430,10 @@ export function DataContractDiagram({ lang }: { lang: Lang }) {
 
       {/* the measured gate */}
       <rect className="band" x="14" y="318" width="852" height="2" />
-      <text className="bandl" x="14" y="336">{en ? "The measured lane gate — by measurement, not taste" : "La compuerta de carril medida — por medición, no por gusto"}</text>
+      <text className="bandl" x="14" y="336">{en ? "The measured lane gate, by measurement, not taste" : "La compuerta de carril medida, por medición, no por gusto"}</text>
 
       <rect className="bx-gate" x="280" y="346" width="320" height="96" rx="10" />
-      <text className="ttl-warn" x="294" y="368">classify_lane — {en ? "all four hold?" : "¿se cumplen las cuatro?"}</text>
+      <text className="ttl-warn" x="294" y="368">classify_lane, {en ? "all four hold?" : "¿se cumplen las cuatro?"}</text>
       <text className="cd" x="294" y="386">qlab/core/gate.py</text>
       <text className="it" x="294" y="406">qubits &#8804; 12 · {en ? "unitary-only" : "solo-unitario"}</text>
       <text className="it" x="294" y="424">run_ms &#8804; 1500 · trace &#8804; 1 MB</text>
@@ -444,11 +444,11 @@ export function DataContractDiagram({ lang }: { lang: Lang }) {
       <text className="lbl" x="600" y="462">{en ? "any fails" : "falla una"}</text>
 
       <rect className="bx-web" x="60" y="482" width="300" height="30" rx="8" />
-      <text className="ttl-web" x="74" y="502">LIVE — {en ? "in-browser re-sim" : "re-sim en navegador"}</text>
+      <text className="ttl-web" x="74" y="502">LIVE, {en ? "in-browser re-sim" : "re-sim en navegador"}</text>
       <rect className="bx-compute" x="520" y="482" width="300" height="30" rx="8" />
-      <text className="ttl" x="534" y="502">PRECOMPUTE — {en ? "committed trace, replayed" : "traza versionada, replay"}</text>
+      <text className="ttl" x="534" y="502">PRECOMPUTE, {en ? "committed trace, replayed" : "traza versionada, replay"}</text>
 
-      <text className="mu" x="14" y="540">{en ? "The verdict + its numbers are written into the manifest; CI fails the build if a live-tagged case breaches a gate — mislabeling cannot ship." : "El veredicto + sus números van al manifiesto; CI rompe el build si un caso etiquetado vivo viola una compuerta — el mal etiquetado no se publica."}</text>
+      <text className="mu" x="14" y="540">{en ? "The verdict + its numbers are written into the manifest; CI fails the build if a live-tagged case breaches a gate, mislabeling cannot ship." : "El veredicto + sus números van al manifiesto; CI rompe el build si un caso etiquetado vivo viola una compuerta, el mal etiquetado no se publica."}</text>
     </svg>
   );
 }

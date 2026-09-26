@@ -1,17 +1,17 @@
 # 02 · Registry, pipeline & extending
 
-## The registry (the plug-in seam) — `qlab/registry.py`
+## The registry (the plug-in seam): `qlab/registry.py`
 
 Problems and solvers **self-register** via decorators (`@register_problem`, `@register_solver`) into two
 dicts. The registry exposes `get_problem(id)`, `all_problems()`, and `solvers_for(problem, only=…)` (the
 instantiated solvers whose `applicable()` is true). It lazily imports `qlab.problems` and `qlab.solvers` on
 first use, so registration is automatic and order-independent.
 
-`qlab/solvers/__init__.py` imports each adapter module **guarded** — a missing optional framework (say
+`qlab/solvers/__init__.py` imports each adapter module **guarded**, a missing optional framework (say
 PennyLane not installed) disables only *that* adapter and warns, never breaking the others. So the lab
 degrades gracefully and a contributor can work on one framework without installing all of them.
 
-## The pipeline (the single execution path) — `qlab/pipeline.py`
+## The pipeline (the single execution path): `qlab/pipeline.py`
 
 `run_case(case_id, instance, seed, shots, only)`:
 1. `get_problem` → pick the instance (variant).
@@ -21,9 +21,9 @@ degrades gracefully and a contributor can work on one framework without installi
 5. write the trace bundle (`data/artifacts/<case>/<variant>.json`) + the manifest
    (`manifests/<case>__<variant>.json`), and print the head-to-head.
 
-One path, every framework — *"no parches que ejecutan todo por separado."*
+One path, every framework, *"no parches que ejecutan todo por separado."*
 
-## Recipe — add a framework / solver (purely additive)
+## Recipe: add a framework / solver (purely additive)
 
 1. Create `qlab/solvers/<framework>_solvers.py`; subclass `Solver`, set `name/label/framework/paradigm`,
    implement `applicable()` + `run()` (the only place that imports the framework, guarded at module top).
@@ -35,9 +35,9 @@ One path, every framework — *"no parches que ejecutan todo por separado."*
 
 **That's it.** No change to `core/`, `pipeline.py`, the registry mechanism, the manifest schema, or the web.
 The new solver appears in `--list`, runs in the head-to-head, and shows in the app the moment its trace is
-committed. (Cirq was added exactly this way — see [../frameworks/03_cirq/03_applying.md](../frameworks/03_cirq/03_applying.md).)
+committed. (Cirq was added exactly this way, see [../frameworks/03_cirq/03_applying.md](../frameworks/03_cirq/03_applying.md).)
 
-## Recipe — add a problem / case
+## Recipe: add a problem / case
 
 1. Create `qlab/problems/<name>.py`; subclass `Problem`, implement `instances()` (+ formulation helpers);
    `@register_problem`; add the import to `qlab/problems/__init__.py`.
@@ -46,7 +46,7 @@ committed. (Cirq was added exactly this way — see [../frameworks/03_cirq/03_ap
    results → how-to-read).
 4. Run `python -m qlab.pipeline <case> --all` → committed traces + manifests.
 
-Applicable solvers attach themselves automatically — a new MaxCut-like problem is immediately attacked by
+Applicable solvers attach themselves automatically, a new MaxCut-like problem is immediately attacked by
 the QAOA adapters and the classical baselines with no wiring.
 
 ## Read next

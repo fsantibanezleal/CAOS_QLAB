@@ -6,7 +6,7 @@
 ## The problem
 
 Understand the qubit itself: its state is a point on the **Bloch sphere**, and single-qubit gates are
-rotations of that sphere. This is the foundation every later case builds on — and a good place to be honest
+rotations of that sphere. This is the foundation every later case builds on, and a good place to be honest
 about what one qubit *does* and *doesn't* give you over a classical bit.
 
 ## Components & variables
@@ -48,10 +48,10 @@ around the vertical axis (phase); `RY`/`RX` tilt by a chosen angle.
 
 ## Honest verdict
 
-> This is the substrate, not an advantage. A qubit can sit *anywhere* on the Bloch sphere — a continuum of
-> states — but a **measurement collapses it to a single classical bit**, and by Holevo's bound one qubit
+> This is the substrate, not an advantage. A qubit can sit *anywhere* on the Bloch sphere, a continuum of
+> states, but a **measurement collapses it to a single classical bit**, and by Holevo's bound one qubit
 > stores no more retrievable classical information than one bit. The richness of the sphere (superposition
-> and phase) only becomes computational *power* through **interference across many qubits** — which is what
+> and phase) only becomes computational *power* through **interference across many qubits**, which is what
 > every later case exploits.
 
 ## References

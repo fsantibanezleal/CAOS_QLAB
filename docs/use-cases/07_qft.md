@@ -1,4 +1,4 @@
-# 07 · Quantum Fourier Transform — the flagship subroutine
+# 07 · Quantum Fourier Transform: the flagship subroutine
 
 **Category:** flagship-algorithms · **Lane:** live · **Solvers:** `qft-qiskit` (circuit, validated against
 the analytic DFT), `qft-classical` (FFT) · **Variants:** 6.
@@ -7,7 +7,7 @@ the analytic DFT), `qft-classical` (FFT) · **Variants:** 6.
 
 Apply the discrete Fourier transform on a quantum register. The QFT sends a basis state `|k⟩` to a
 phase-ramp superposition, and is the engine inside phase estimation and Shor. The honest lesson it teaches:
-the QFT is *exponentially cheaper to apply* than a classical FFT, but its output **cannot be read out** —
+the QFT is *exponentially cheaper to apply* than a classical FFT, but its output **cannot be read out**, 
 so it is a subroutine, not a standalone speedup.
 
 ## Formalization
@@ -17,7 +17,7 @@ The QFT on `n` qubits (`N = 2ⁿ`):
 QFT |k⟩ = (1/√N) Σ_{j=0}^{N-1} e^{2πi kj/N} |j⟩
 ```
 Circuit: for each qubit a Hadamard followed by a ladder of controlled-phase rotations
-`CP(π/2^{(t−c)})`, then bit-reversal swaps — **O(n²)** gates. The classical FFT computes the same transform
+`CP(π/2^{(t−c)})`, then bit-reversal swaps, **O(n²)** gates. The classical FFT computes the same transform
 of an amplitude vector in **O(N log N) = O(n·2ⁿ)** operations, but returns all `N` amplitudes *readably*.
 
 ## What each variant shows
@@ -45,15 +45,15 @@ returns the full readable spectrum.
 
 Step through the trace: each qubit's Bloch vector picks up a controlled phase; the amplitude bars stay
 uniform in height but their **phases fan out into a ramp**. The point the comparison panel drives home: you
-*built* the full spectrum in 7–14 gates, but a measurement collapses it to one sample — you can't read the
+*built* the full spectrum in 7–14 gates, but a measurement collapses it to one sample, you can't read the
 ramp out.
 
 ## Honest verdict
 
-> The QFT applies the Fourier transform in **O(n²)** gates vs the classical FFT's **O(n·2ⁿ)** — exponentially
+> The QFT applies the Fourier transform in **O(n²)** gates vs the classical FFT's **O(n·2ⁿ)**, exponentially
 > cheaper to *apply*. But measurement returns one sample, so the transformed amplitudes are unreadable. That
 > is precisely why the QFT lives *inside* phase estimation and Shor rather than as a faster spectrum
-> calculator — for a readable spectrum, the classical FFT wins. (Validated: fidelity 1.000 vs the analytic DFT.)
+> calculator, for a readable spectrum, the classical FFT wins. (Validated: fidelity 1.000 vs the analytic DFT.)
 
 ## References
 

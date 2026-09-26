@@ -1,7 +1,7 @@
 """Committed-manifest integrity (ADR-0054 anti-mislabeling guarantee).
 
 Every committed manifest records a measured lane verdict. This test re-runs `classify_lane()` on each
-manifest's stored measured numbers and fails if the recorded `lane` disagrees — so a mislabeled or stale
+manifest's stored measured numbers and fails if the recorded `lane` disagrees, so a mislabeled or stale
 `live`/`precompute` manifest CANNOT ship. Runs in the normal `pytest` CI step (no extra workflow needed).
 """
 

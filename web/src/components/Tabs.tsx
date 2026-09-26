@@ -31,7 +31,7 @@ export function Tabs({ tabs, initial }: { tabs: TabDef[]; initial?: string }) {
 }
 
 /**
- * A centered display equation, typeset with KaTeX (font-based HTML — deterministic
+ * A centered display equation, typeset with KaTeX (font-based HTML: deterministic
  * to screenshot). `caption` is bilingual (ADR-0017 §2: every <Equation> carries a
  * bilingual caption=) and renders under the math block.
  */

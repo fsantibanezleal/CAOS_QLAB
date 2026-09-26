@@ -1,12 +1,12 @@
-"""Noise & error mitigation — what a real (noisy) device returns, and what mitigation buys.
+"""Noise & error mitigation, what a real (noisy) device returns, and what mitigation buys.
 
 Real quantum hardware is noisy: gates and readout introduce errors that pull expectation values toward
 zero. This case runs a circuit with a known ideal value through a realistic Aer noise model (depolarizing
-+ the deeper the circuit, the worse), then applies **zero-noise extrapolation (ZNE)** — run at amplified
++ the deeper the circuit, the worse), then applies **zero-noise extrapolation (ZNE)**: run at amplified
 noise (gate folding), fit, extrapolate back to zero noise. We show ideal vs noisy vs mitigated. The honest
 framing: mitigation recovers *some* signal but has fundamentally **exponential** sampling overhead and is a
 NISQ *bridge*, not error correction; and at any classically-simulable scale a statevector simulator returns
-the exact answer for free. (Mitiq is the standard ZNE library, but it is GPL-3.0 — QLab implements the core
+the exact answer for free. (Mitiq is the standard ZNE library, but it is GPL-3.0, QLab implements the core
 technique directly to keep the repo permissive; Mitiq is documented as the production tool.)
 """
 
@@ -28,7 +28,7 @@ class Noise(Problem):
             "device with an Aer depolarizing noise model (worse for deeper circuits), measure the noisy "
             "⟨Z₀Z₁⟩, then apply zero-noise extrapolation: deliberately amplify the noise by folding the "
             "circuit (U→U U† U…), measure at noise scales λ=1,3,5, and extrapolate back to λ=0. Mitigation "
-            "claws back much of the lost signal — but note the honest limits: ZNE's sampling cost grows "
+            "claws back much of the lost signal, but note the honest limits: ZNE's sampling cost grows "
             "exponentially with circuit size, it is mitigation (bias reduction) not correction, and at this "
             "classically-simulable scale a statevector simulator just gives the exact 1.0 for free."
         ),
@@ -37,7 +37,7 @@ class Noise(Problem):
             "Modelamos el dispositivo con un modelo de ruido despolarizante de Aer (peor cuanto más profundo "
             "el circuito), medimos el ⟨Z₀Z₁⟩ ruidoso, y aplicamos extrapolación a ruido cero: AMPLIFICAMOS "
             "el ruido plegando el circuito (U→U U† U…), medimos a escalas λ=1,3,5 y extrapolamos a λ=0. La "
-            "mitigación recupera buena parte de la señal perdida — pero con límites honestos: el costo de "
+            "mitigación recupera buena parte de la señal perdida, pero con límites honestos: el costo de "
             "muestreo de ZNE crece exponencialmente con el tamaño, es mitigación (reducción de sesgo) no "
             "corrección, y a esta escala simulable clásicamente un simulador de vector de estado da el 1.0 "
             "exacto gratis."
@@ -64,9 +64,9 @@ class Noise(Problem):
         for iid, label, params in defs:
             out.append(Instance(
                 iid, {"en": label, "es": label}, params,
-                {"en": f"2-qubit depolarizing p={params['p']}, depth {params['depth']} — ideal ⟨Z₀Z₁⟩=1; "
+                {"en": f"2-qubit depolarizing p={params['p']}, depth {params['depth']}, ideal ⟨Z₀Z₁⟩=1; "
                        "see noisy vs ZNE-mitigated.",
-                 "es": f"despolarizante de 2 qubits p={params['p']}, profundidad {params['depth']} — ideal "
+                 "es": f"despolarizante de 2 qubits p={params['p']}, profundidad {params['depth']}, ideal "
                        "⟨Z₀Z₁⟩=1; ve ruidoso vs mitigado por ZNE."},
             ))
         return out

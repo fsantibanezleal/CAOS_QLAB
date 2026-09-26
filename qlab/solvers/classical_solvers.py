@@ -1,4 +1,4 @@
-"""Classical baselines — the honest "still more practical" foil (pure NumPy, no quantum SDK).
+"""Classical baselines, the honest "still more practical" foil (pure NumPy, no quantum SDK).
 
 These exist to make the dossier's verdict concrete and on-screen: for MaxCut at lab sizes, exact brute
 force returns the provably-optimal cut in microseconds; for state prep, a classical computer writes the
@@ -63,9 +63,9 @@ class ClassicalStatePrep(Solver):
             value={"nonzero_probabilities": nz},
             cost={"wall_ms": round(wall, 4), "qubits": p["n"]},
             notes={
-                "en": "A classical computer stores all 2^n amplitudes directly — instant at this scale. "
+                "en": "A classical computer stores all 2^n amplitudes directly, instant at this scale. "
                       "The entanglement is the concept; there is no advantage here.",
-                "es": "Un computador clásico guarda las 2^n amplitudes directamente — instantáneo a esta "
+                "es": "Un computador clásico guarda las 2^n amplitudes directamente, instantáneo a esta "
                       "escala. El entrelazamiento es el concepto; aquí no hay ventaja.",
             },
             optimal=True,
@@ -101,9 +101,9 @@ class BruteForceMaxCut(Solver):
             cost={"wall_ms": round(wall, 4), "evaluated": 2**n},
             notes={
                 "en": f"Enumerated all {2**n} partitions; the optimum ({best_cut}) is exact and found in "
-                      f"{wall:.3f} ms. This is the bar QAOA must beat — and does not, at this scale.",
+                      f"{wall:.3f} ms. This is the bar QAOA must beat, and does not, at this scale.",
                 "es": f"Enumeró las {2**n} particiones; el óptimo ({best_cut}) es exacto y se encontró en "
-                      f"{wall:.3f} ms. Este es el listón que QAOA debe superar — y no lo hace, a esta escala.",
+                      f"{wall:.3f} ms. Este es el listón que QAOA debe superar, y no lo hace, a esta escala.",
             },
             optimal=True,
         )
@@ -131,9 +131,9 @@ class ClassicalBV(Solver):
             solver=self.name, label=self.label, framework=self.framework, paradigm=self.paradigm,
             value={"recovered": recovered, "correct": recovered == secret, "classical_queries": n},
             cost={"wall_ms": round(wall, 4), "oracle_queries": n},
-            notes={"en": f"Recovered s={recovered} bit-by-bit in {n} oracle queries (one per bit) — instant "
+            notes={"en": f"Recovered s={recovered} bit-by-bit in {n} oracle queries (one per bit), instant "
                          "at this scale; the quantum win is in query count, not wall-time.",
-                   "es": f"Recuperó s={recovered} bit a bit en {n} consultas al oráculo (una por bit) — "
+                   "es": f"Recuperó s={recovered} bit a bit en {n} consultas al oráculo (una por bit), "
                          "instantáneo a esta escala; la ventaja cuántica es en número de consultas, no en tiempo."},
             optimal=True,
         )
@@ -244,11 +244,11 @@ class ClassicalFactor(Solver):
             value={"factors": factors, "method": "trial division", "ops": int(N**0.5)},
             cost={"wall_ms": round(wall, 4), "ops": int(N**0.5)},
             notes={"en": f"Trial division factors {N} = {factors[0]}×{factors[1]} in microseconds. "
-                         "Factoring is easy here; RSA-2048 needs ~10⁶ fault-tolerant qubits (Gidney 2025) — "
+                         "Factoring is easy here; RSA-2048 needs ~10⁶ fault-tolerant qubits (Gidney 2025), "
                          "Shor is no near-term crypto threat.",
                    "es": f"La división de prueba factoriza {N} = {factors[0]}×{factors[1]} en microsegundos. "
                          "Factorizar es fácil aquí; RSA-2048 necesita ~10⁶ qubits con tolerancia a fallos "
-                         "(Gidney 2025) — Shor no es una amenaza criptográfica de corto plazo."},
+                         "(Gidney 2025), Shor no es una amenaza criptográfica de corto plazo."},
             optimal=True,
         )
 
@@ -279,9 +279,9 @@ class ClassicalSVM(Solver):
             value={"train_acc": round(train_acc, 3), "test_acc": round(test_acc, 3)},
             cost={"wall_ms": round(wall, 3), "support_vectors": int(clf.n_support_.sum())},
             notes={"en": f"Classical RBF-SVM: train {train_acc:.2f}, test {test_acc:.2f}. A standard kernel "
-                         "machine on the same data — the bar the quantum kernel has to beat (and doesn't).",
+                         "machine on the same data, the bar the quantum kernel has to beat (and doesn't).",
                    "es": f"SVM-RBF clásico: train {train_acc:.2f}, test {test_acc:.2f}. Una máquina de kernel "
-                         "estándar sobre los mismos datos — el listón que el kernel cuántico debe superar (y no)."},
+                         "estándar sobre los mismos datos, el listón que el kernel cuántico debe superar (y no)."},
             optimal=True,
         )
 
@@ -309,10 +309,10 @@ class ClassicalPRNG(Solver):
                    "true_randomness": False},
             cost={"wall_ms": 0.0, "shots": shots},
             notes={"en": f"A classical PRNG produces the same flat statistics (entropy {entropy:.3f}/{n} bits) "
-                         "— but it is fully deterministic given its seed. Statistically indistinguishable here; "
+                         ", but it is fully deterministic given its seed. Statistically indistinguishable here; "
                          "the quantum edge is certifiable true randomness, not better numbers.",
                    "es": f"Un PRNG clásico produce las mismas estadísticas planas (entropía {entropy:.3f}/{n} "
-                         "bits) — pero es totalmente determinista dada su semilla. Estadísticamente "
+                         "bits), pero es totalmente determinista dada su semilla. Estadísticamente "
                          "indistinguible aquí; la ventaja cuántica es aleatoriedad verdadera certificable."},
             optimal=True,
         )
@@ -335,10 +335,10 @@ class ClassicalBit(Solver):
             solver=self.name, label=self.label, framework=self.framework, paradigm=self.paradigm,
             value={"states": 2, "retrievable_bits": 1, "poles": ["|0⟩ (z=+1)", "|1⟩ (z=−1)"]},
             cost={"wall_ms": 0.0},
-            notes={"en": "A classical bit is just two points — the poles |0⟩ and |1⟩. A qubit occupies the "
+            notes={"en": "A classical bit is just two points, the poles |0⟩ and |1⟩. A qubit occupies the "
                          "whole Bloch sphere, but measurement collapses it to one bit (Holevo): one qubit "
                          "stores no more classical information than one bit. The sphere matters via interference.",
-                   "es": "Un bit clásico son solo dos puntos — los polos |0⟩ y |1⟩. Un qubit ocupa toda la "
+                   "es": "Un bit clásico son solo dos puntos, los polos |0⟩ y |1⟩. Un qubit ocupa toda la "
                          "esfera de Bloch, pero la medición lo colapsa a un bit (Holevo): un qubit no guarda "
                          "más información clásica que un bit. La esfera importa por interferencia."},
             optimal=True,
@@ -357,7 +357,7 @@ class ClassicalInterference(Solver):
 
     def run(self, problem, instance: Instance, seed: int, shots: int) -> SolverResult:
         # A classical optical Mach–Zehnder: two paths with a relative phase φ recombine, and the output
-        # intensity is I(φ) = cos²(φ/2) — the same fringe as the qubit. Interference is not, by itself,
+        # intensity is I(φ) = cos²(φ/2): the same fringe as the qubit. Interference is not, by itself,
         # quantum; what is quantum is that it occurs for a single particle's probability amplitude.
         phi = float(instance.params["phi"])
         intensity = round(float(np.cos(phi / 2) ** 2), 4)
@@ -367,10 +367,10 @@ class ClassicalInterference(Solver):
             cost={"wall_ms": 0.0},
             notes={"en": f"A classical wave (optical Mach–Zehnder) gives the identical fringe I = cos²(φ/2) = "
                          f"{intensity}. Interference itself is classical; the quantum twist is that it happens "
-                         f"for one particle's amplitude — the resource the algorithms steer.",
+                         f"for one particle's amplitude, the resource the algorithms steer.",
                    "es": f"Una onda clásica (Mach–Zehnder óptico) da la franja idéntica I = cos²(φ/2) = "
                          f"{intensity}. La interferencia en sí es clásica; lo cuántico es que ocurre para la "
-                         f"amplitud de una partícula — el recurso que dirigen los algoritmos."},
+                         f"amplitud de una partícula, el recurso que dirigen los algoritmos."},
             optimal=True,
         )
 
@@ -387,15 +387,15 @@ class ClassicalHolevo(Solver):
 
     def run(self, problem, instance: Instance, seed: int, shots: int) -> SolverResult:
         # Without pre-shared entanglement, one qubit (or one classical symbol) carries at most ONE classical
-        # bit (Holevo's bound). To send 2 bits you must transmit 2. Superdense doubles this — using a Bell pair.
+        # bit (Holevo's bound). To send 2 bits you must transmit 2. Superdense doubles this: using a Bell pair.
         return SolverResult(
             solver=self.name, label=self.label, framework=self.framework, paradigm=self.paradigm,
             value={"bits_per_qubit": 1, "qubits_needed_for_2_bits": 2},
             cost={"wall_ms": 0.0},
-            notes={"en": "Without entanglement, one qubit conveys at most 1 classical bit (Holevo) — sending "
+            notes={"en": "Without entanglement, one qubit conveys at most 1 classical bit (Holevo), sending "
                          "2 bits needs 2 transmissions. Superdense gets 2 bits per qubit, but only via a "
                          "pre-shared Bell pair (an honest resource trade, not free bandwidth).",
-                   "es": "Sin entrelazamiento, un qubit transmite a lo más 1 bit clásico (Holevo) — enviar 2 "
+                   "es": "Sin entrelazamiento, un qubit transmite a lo más 1 bit clásico (Holevo), enviar 2 "
                          "bits necesita 2 transmisiones. La superdensa logra 2 bits por qubit, pero solo vía "
                          "un par de Bell compartido (un intercambio honesto de recursos, no ancho de banda gratis)."},
             optimal=True,
@@ -421,9 +421,9 @@ class ClassicalResend(Solver):
             value={"best_fidelity": round(f, 4), "strategy": "measure & re-prepare"},
             cost={"wall_ms": 0.0},
             notes={"en": "Without entanglement, the best classical 'measure-and-resend' of an unknown qubit "
-                         "reaches only average fidelity 2/3 — the bound teleportation's fidelity-1 transfer beats.",
+                         "reaches only average fidelity 2/3, the bound teleportation's fidelity-1 transfer beats.",
                    "es": "Sin entrelazamiento, el mejor 'medir y reenviar' clásico de un qubit desconocido "
-                         "alcanza solo fidelidad media 2/3 — la cota que la fidelidad-1 de la teletransportación supera."},
+                         "alcanza solo fidelidad media 2/3, la cota que la fidelidad-1 de la teletransportación supera."},
             optimal=True,
         )
 
@@ -445,9 +445,9 @@ class ClassicalLHV(Solver):
             solver=self.name, label=self.label, framework=self.framework, paradigm=self.paradigm,
             value={"max_S": 2.0, "model": "local hidden variables"},
             cost={"wall_ms": 0.0},
-            notes={"en": "Any classical (local-hidden-variable) strategy obeys |S| ≤ 2 — the CHSH bound. "
+            notes={"en": "Any classical (local-hidden-variable) strategy obeys |S| ≤ 2, the CHSH bound. "
                          "A quantum S above 2 cannot be explained by local realism (this is what Bell tests prove).",
-                   "es": "Cualquier estrategia clásica (de variables ocultas locales) cumple |S| ≤ 2 — la cota "
+                   "es": "Cualquier estrategia clásica (de variables ocultas locales) cumple |S| ≤ 2, la cota "
                          "CHSH. Un S cuántico mayor que 2 no se explica con realismo local (eso prueban los tests de Bell)."},
             optimal=True,
         )
@@ -509,10 +509,10 @@ class ClassicalNoiseless(Solver):
             cost={"wall_ms": round(wall, 4), "qubits": 2},
             notes={"en": f"A noiseless statevector simulator returns the exact ⟨Z₀Z₁⟩={ideal:.3f} for free. "
                          "At any classically-simulable scale this is the reference mitigation only "
-                         "approximates — mitigation matters on hardware beyond classical reach.",
+                         "approximates, mitigation matters on hardware beyond classical reach.",
                    "es": f"Un simulador de vector de estado sin ruido devuelve el ⟨Z₀Z₁⟩={ideal:.3f} exacto "
                          "gratis. A cualquier escala simulable clásicamente esta es la referencia que la "
-                         "mitigación solo aproxima — la mitigación importa en hardware fuera del alcance clásico."},
+                         "mitigación solo aproxima, la mitigación importa en hardware fuera del alcance clásico."},
             optimal=True,
         )
 
@@ -542,9 +542,9 @@ class ClassicalFCI(Solver):
             value={"energy": round(e_exact, 6), "method": "exact diagonalization (FCI)", "dim": 2**nq},
             cost={"wall_ms": round(wall, 3), "dim": 2**nq, "gate_complexity": "O(d^3)"},
             notes={"en": f"Exact ground energy {e_exact:.5f} Ha by diagonalizing the {2 ** nq}×{2 ** nq} "
-                         "Hamiltonian — instant. H₂ minimal-basis is trivial classically; VQE is pedagogy here.",
+                         "Hamiltonian, instant. H₂ minimal-basis is trivial classically; VQE is pedagogy here.",
                    "es": f"Energía exacta {e_exact:.5f} Ha diagonalizando el Hamiltoniano {2 ** nq}×{2 ** nq} "
-                         "— instantáneo. H₂ en base mínima es trivial clásicamente; VQE es pedagogía aquí."},
+                         ", instantáneo. H₂ en base mínima es trivial clásicamente; VQE es pedagogía aquí."},
             optimal=True,
         )
 
@@ -604,9 +604,9 @@ class ClassicalDFT(Solver):
                    "amp0_phase_deg": round(float(np.angle(u[0], deg=True)), 3)},
             cost={"wall_ms": round(wall, 4), "ops": ops, "gate_complexity": "O(N log N)"},
             notes={"en": f"Classical FFT computes all {N} Fourier amplitudes (readable) in ~{ops} ops. The "
-                         "QFT is cheaper to apply but its output cannot be read out — that's the trade.",
+                         "QFT is cheaper to apply but its output cannot be read out, that's the trade.",
                    "es": f"La FFT clásica calcula todas las {N} amplitudes (legibles) en ~{ops} ops. La QFT "
-                         "es más barata de aplicar pero su salida no se puede leer — ese es el trade-off."},
+                         "es más barata de aplicar pero su salida no se puede leer, ese es el trade-off."},
             optimal=True,
         )
 
@@ -684,9 +684,9 @@ class GreedyMaxCut(Solver):
             value={"cut": cut(bits), "bitstring": "".join(bits)},
             cost={"wall_ms": round(wall, 4)},
             notes={
-                "en": "Single-flip local search from a random start — a trivial classical heuristic that "
+                "en": "Single-flip local search from a random start, a trivial classical heuristic that "
                       "already reaches (or nearly reaches) the optimum on these graphs.",
-                "es": "Búsqueda local de un solo flip desde un inicio aleatorio — una heurística clásica "
+                "es": "Búsqueda local de un solo flip desde un inicio aleatorio, una heurística clásica "
                       "trivial que ya alcanza (o casi) el óptimo en estos grafos.",
             },
         )

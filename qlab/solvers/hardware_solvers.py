@@ -1,12 +1,12 @@
-"""Real-hardware adapters (Phase E) — submit a case to a REAL quantum computer and commit the result.
+"""Real-hardware adapters (Phase E), submit a case to a REAL quantum computer and commit the result.
 
 Currently: IBM Quantum (Open Plan, free). The adapter is **opt-in** (`requires_opt_in = True`) so it NEVER
-runs in a default `pipeline <case> --all` — only when explicitly selected:
+runs in a default `pipeline <case> --all`, only when explicitly selected:
 
     python -m qlab.pipeline bernstein-vazirani --instance bv-101 --solver ibm-hardware
 
 It reads `QISKIT_IBM_TOKEN` from the environment / QLab `.env` (the canonical copy lives in the CAOS_MANAGE
-vault). The published static site ships NO secrets and makes no hardware calls — only this local, manual
+vault). The published static site ships NO secrets and makes no hardware calls, only this local, manual
 lane does. The returned counts are committed as a trace with `ran_on` provenance, and the app shows the
 noisy real-hardware histogram next to the ideal simulator.
 
