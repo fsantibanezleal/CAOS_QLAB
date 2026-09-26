@@ -17,7 +17,7 @@ web/public/manifests/
 web/public/pyodide/
 *.tsbuildinfo
 
-# --- Secrets / env (this repo is PUBLIC — never commit these) ---
+# --- Secrets / env (this repo is PUBLIC: never commit these) ---
 # Real quantum-cloud tokens (IBM Quantum / AWS / Azure) live ONLY in the CAOS_MANAGE vault and are
 # used locally by the precompute pipeline. The public static site ships NO secrets.
 .env
@@ -26,7 +26,7 @@ web/public/pyodide/
 
 # --- Raw / heavy data (commit only compact rendered artifacts under data/artifacts/) ---
 data/raw/
-# raw statevector / large NumPy dumps — the committed artifacts are compact JSON traces only
+# raw statevector / large NumPy dumps: the committed artifacts are compact JSON traces only
 *.npy
 *.npz
 *.h5

@@ -1,4 +1,4 @@
-"""qlab.core — the pure-Python engine substrate (no quantum SDK imported here).
+"""qlab.core, the pure-Python engine substrate (no quantum SDK imported here).
 
 - rng:      seeded RNG so a run is a pure function of (params, seed).
 - trace:    the quantum trace schema (the artifact contract the web app replays).

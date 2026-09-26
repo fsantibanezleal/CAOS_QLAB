@@ -1,7 +1,7 @@
-"""Grover's search — amplitude amplification over an unstructured database.
+"""Grover's search, amplitude amplification over an unstructured database.
 
 Find a marked item in an unstructured set of N = 2ⁿ items. Grover needs ~(π/4)√(N/M) oracle queries
-(M = number of marked items) vs the classical ~N/2. The famous quadratic speedup — but honestly: it is
+(M = number of marked items) vs the classical ~N/2. The famous quadratic speedup, but honestly: it is
 *quadratic, asymptotic*, and at the tiny n a browser can simulate, the classical scan still wins on
 wall-time. What it teaches beautifully is amplitude amplification: each iteration tips probability toward
 the marked state, and over-rotating (too many iterations) tips it back.
@@ -18,13 +18,13 @@ class Grover(Problem):
     id = "grover"
     category = "flagship-algorithms"
     live_capable = True
-    title = {"en": "Grover — unstructured search", "es": "Grover — búsqueda no estructurada"}
+    title = {"en": "Grover, unstructured search", "es": "Grover, búsqueda no estructurada"}
     concept = {
         "en": (
             "Grover searches N = 2ⁿ unstructured items for the M marked ones. Start in uniform "
             "superposition; each Grover iteration applies the oracle (a phase flip on the marked states) "
             "then the diffuser (inversion about the mean), rotating amplitude toward the marked subspace. "
-            "After ~(π/4)√(N/M) iterations a measurement returns a marked item with high probability — a "
+            "After ~(π/4)√(N/M) iterations a measurement returns a marked item with high probability, a "
             "quadratic speedup over the classical ~N/2 scan. Run too many iterations and you *over-rotate* "
             "past the target."
         ),
@@ -33,7 +33,7 @@ class Grover(Problem):
             "uniforme; cada iteración de Grover aplica el oráculo (un cambio de fase en los estados "
             "marcados) y luego el difusor (inversión respecto a la media), rotando la amplitud hacia el "
             "subespacio marcado. Tras ~(π/4)√(N/M) iteraciones una medición devuelve un ítem marcado con "
-            "alta probabilidad — un speedup cuadrático sobre el barrido clásico ~N/2. Con demasiadas "
+            "alta probabilidad, un speedup cuadrático sobre el barrido clásico ~N/2. Con demasiadas "
             "iteraciones te *pasas* del objetivo (sobre-rotación)."
         ),
     }
@@ -59,7 +59,7 @@ class Grover(Problem):
             n, m = params["n"], len(params["marked"])
             out.append(Instance(
                 iid, {"en": label, "es": label}, params,
-                {"en": f"N={2 ** n}, M={m} marked — quantum ~(π/4)√(N/M) queries vs classical ~N/2.",
-                 "es": f"N={2 ** n}, M={m} marcados — cuántico ~(π/4)√(N/M) consultas vs clásico ~N/2."},
+                {"en": f"N={2 ** n}, M={m} marked, quantum ~(π/4)√(N/M) queries vs classical ~N/2.",
+                 "es": f"N={2 ** n}, M={m} marcados, cuántico ~(π/4)√(N/M) consultas vs clásico ~N/2."},
             ))
         return out

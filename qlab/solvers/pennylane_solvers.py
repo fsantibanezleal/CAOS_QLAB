@@ -1,4 +1,4 @@
-"""PennyLane adapter — real PennyLane, an independent second implementation of QAOA for MaxCut.
+"""PennyLane adapter, real PennyLane, an independent second implementation of QAOA for MaxCut.
 
 This is the SimLab "two engines on one problem" discipline (SimPy live + Ciw analytic cross-check), here
 as QAOA-Qiskit vs QAOA-PennyLane: two real frameworks must agree on ⟨C⟩ and the cut, which validates
@@ -26,7 +26,7 @@ except Exception:  # pragma: no cover
 
 
 def build_h2(r_bohr: float):
-    """Real H₂ molecular Hamiltonian (STO-3G, 4 qubits) via PennyLane's differentiable Hartree-Fock —
+    """Real H₂ molecular Hamiltonian (STO-3G, 4 qubits) via PennyLane's differentiable Hartree-Fock, 
     no external chemistry backend. Shared by the VQE quantum solver and the exact-diagonalization baseline."""
     from pennylane import numpy as pnp
 
@@ -47,7 +47,7 @@ class PennyLaneVQE(Solver):
 
     def run(self, problem, instance: Instance, seed: int, shots: int) -> SolverResult:
         H, nq = build_h2(instance.params["R_bohr"])
-        hf = qml.qchem.hf_state(2, nq)                 # [1,1,0,0] — the Hartree-Fock reference
+        hf = qml.qchem.hf_state(2, nq)                 # [1,1,0,0], the Hartree-Fock reference
         dev = qml.device("default.qubit", wires=nq)
 
         @qml.qnode(dev)
@@ -171,7 +171,7 @@ class PennyLaneQAOA(Solver):
         betas = np.linspace(0, np.pi, self.GRID)
         # PennyLane's qaoa.maxcut cost Hamiltonian H_C = 0.5 Σ_(i,j)∈E (Z_iZ_j − I) is MINIMIZED to
         # maximize the cut (a cut edge contributes −1). So we grid-search for the MINIMUM ⟨H_C⟩, then read
-        # the cut off the most-probable bitstring (exact) — which is why this cross-checks the Qiskit adapter.
+        # the cut off the most-probable bitstring (exact): which is why this cross-checks the Qiskit adapter.
         best = (gammas[0], betas[0], np.inf)
         for g in gammas:
             for b in betas:
@@ -189,7 +189,7 @@ class PennyLaneQAOA(Solver):
             value={"cut": cut, "bitstring": bits},
             cost={"wall_ms": round(wall, 1), "qubits": n, "evaluations": self.GRID ** 2},
             notes={"en": "Independent QAOA on PennyLane default.qubit (same (γ,β) grid as the Qiskit "
-                         f"adapter); most-probable bitstring cuts {cut} edges — cross-checks Qiskit.",
+                         f"adapter); most-probable bitstring cuts {cut} edges, cross-checks Qiskit.",
                    "es": "QAOA independiente en PennyLane default.qubit (misma malla (γ,β) que el adaptador "
-                         f"de Qiskit); la cadena más probable corta {cut} aristas — verifica a Qiskit."},
+                         f"de Qiskit); la cadena más probable corta {cut} aristas, verifica a Qiskit."},
         )

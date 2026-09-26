@@ -1,4 +1,4 @@
-# 06 · Grover's search — amplitude amplification
+# 06 · Grover's search: amplitude amplification
 
 **Category:** flagship-algorithms · **Lane:** live · **Solvers:** `grover-qiskit` (oracle + diffuser),
 `grover-classical` (linear scan) · **Variants:** 6.
@@ -7,13 +7,13 @@
 
 Find the marked item(s) in an unstructured set of `N = 2ⁿ` items, given only an oracle that recognizes a
 marked item. Grover finds one in `~(π/4)√(N/M)` oracle queries (`M` = number marked); classically you scan
-`~N/2` on average. The famous **quadratic** speedup — the most broadly applicable quantum algorithm, since
+`~N/2` on average. The famous **quadratic** speedup, the most broadly applicable quantum algorithm, since
 "unstructured search" hides inside countless problems.
 
 ## Components & variables
 
 - **Register:** `n` qubits (`N = 2ⁿ` items). **Oracle:** a phase flip `|w⟩ → −|w⟩` on each marked `w`.
-- **Diffuser:** inversion about the mean, `H^n X^n (MCZ) X^n H^n` — reflects amplitudes about their average.
+- **Diffuser:** inversion about the mean, `H^n X^n (MCZ) X^n H^n`: reflects amplitudes about their average.
 
 ## Formalization
 
@@ -23,7 +23,7 @@ diffuser) is a rotation by `2θ` in the 2-D plane spanned by the marked and unma
 ```
 k* = round( (π/2 − θ) / (2θ) ) ≈ (π/4)√(N/M)
 ```
-Run **too many** iterations and `sin((2k+1)θ)` turns back down — the over-rotation Grover is famous for.
+Run **too many** iterations and `sin((2k+1)θ)` turns back down, the over-rotation Grover is famous for.
 
 ## What each variant shows
 
@@ -48,13 +48,13 @@ The success probabilities are exactly the textbook Grover values (`N=4,M=1` is *
 ## How to read & use the viz
 
 Step through the trace: after each iteration the **marked-state amplitude bar grows** while the others
-shrink. The diffuser is the "inversion about the mean" — watch the bars reflect about their average. Push
+shrink. The diffuser is the "inversion about the mean", watch the bars reflect about their average. Push
 the iteration count past `k*` (in the live lane) to *see the amplitude fall back* (over-rotation).
 
 ## Honest verdict
 
-> Quantum: `~√N` queries; classical: `~N/2`. A **quadratic** speedup — the most broadly useful quantum
-> result — but it is *asymptotic*, and at the tiny `N` a browser can simulate, the classical scan is still
+> Quantum: `~√N` queries; classical: `~N/2`. A **quadratic** speedup, the most broadly useful quantum
+> result, but it is *asymptotic*, and at the tiny `N` a browser can simulate, the classical scan is still
 > instant and cheaper in wall-time. Grover teaches amplitude amplification; the advantage shows only at
 > scales far beyond what NISQ hardware can run noiselessly.
 

@@ -1,11 +1,11 @@
-# CAOS_QLAB — documentation
+# CAOS_QLAB: documentation
 
 This wiki is a **guide for experimenting with quantum computing honestly**: for each problem it shows the
-*real, dedicated frameworks* that attack it, how the engine runs them, and — always — the **classical
+*real, dedicated frameworks* that attack it, how the engine runs them, and, always, the **classical
 baseline that is, today, still more practical**. Two planes underlie everything: a lightweight **live**
 lane in the browser and a no-restriction **local precompute** lane that runs the heavy real engines and
 commits a seeded trace the static site replays. The contract underneath: a run is a pure function of
-`(params, seed)`, the committed **trace** is the source of truth, and the front end only animates it —
+`(params, seed)`, the committed **trace** is the source of truth, and the front end only animates it, 
 *replay = truth*.
 
 ## How to read this wiki
@@ -18,23 +18,23 @@ commits a seeded trace the static site replays. The contract underneath: a run i
 
 ## The sections
 
-- [**State of the art**](./state-of-the-art.md) — the honest, sourced, dated assessment (2025–2026): what
+- [**State of the art**](./state-of-the-art.md): the honest, sourced, dated assessment (2025–2026): what
   the hardware can and cannot do, what runs on simulators, the cloud services + real costs, and the
-  hype-vs-reality table. **Read this first** — it is the reason the lab is built the way it is.
-- [**Architecture**](./architecture.md) — the Problem × Solver engine, the trace contract, the measured
+  hype-vs-reality table. **Read this first**, it is the reason the lab is built the way it is.
+- [**Architecture**](./architecture.md): the Problem × Solver engine, the trace contract, the measured
   live/precompute gate, the three lanes (live JS · precompute · real-hardware), and the static deploy.
-- [**Abstractions**](./abstractions.md) — the engine as classes & contracts: the `Problem` formulation, the
-  `Solver` adapter, the uniform `SolverResult`, and the registry/pipeline plug-in seam — i.e. *how to extend
+- [**Abstractions**](./abstractions.md): the engine as classes & contracts: the `Problem` formulation, the
+  `Solver` adapter, the uniform `SolverResult`, and the registry/pipeline plug-in seam, i.e. *how to extend
   the lab without rewiring*. The two **data contracts** (ingestion + artifact) are detailed in
   [../data/README.md](../data/README.md).
-- [**Frameworks**](./frameworks.md) — the real quantum-computing software landscape: what each SDK /
+- [**Frameworks**](./frameworks.md): the real quantum-computing software landscape: what each SDK /
   simulator is, its license, maturity, when to use it (and which famous names are dead), with the
   install/usage/apply node for each tool QLab actually consumes.
-- [**Problem types**](./problem-types.md) — the decision map: which kind of formulation a question needs,
+- [**Problem types**](./problem-types.md): the decision map: which kind of formulation a question needs,
   and the classical-baseline doctrine (why every quantum method is shown next to a classical one).
-- [**Use cases**](./use-cases.md) — the worked cases, each solved end to end across multiple solvers, with
+- [**Use cases**](./use-cases.md): the worked cases, each solved end to end across multiple solvers, with
   the catalog of what ships today and the roadmap.
-- [**Guides**](./guides.md) — the runtime how-tos: the precompute pipeline, the live (JS) lane, and the
+- [**Guides**](./guides.md): the runtime how-tos: the precompute pipeline, the live (JS) lane, and the
   optional real-hardware lane (IBM Open / Braket / Azure).
 
 ## Case → solvers map (today)
@@ -51,7 +51,7 @@ The roadmap (oracle algorithms, Grover, QFT/QPE, Shor-toy, VQE, QML, noise + mit
 
 - **IS:** a didactic lab that runs the real frameworks on small problems, animates the quantum state, and
   honestly compares quantum methods to classical baselines. A teaching + workforce tool.
-- **IS NOT:** a claim that quantum computers beat classical ones today (they do not, at these scales — see
+- **IS NOT:** a claim that quantum computers beat classical ones today (they do not, at these scales: see
   [state-of-the-art](./state-of-the-art.md)); a production quantum-advantage engine; a service that runs
   arbitrary circuits on hardware for you.
 

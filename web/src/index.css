@@ -60,17 +60,17 @@ a { color: inherit; text-decoration: none; }
 .shell { min-height: calc(100vh - 120px); }
 
 /* ============================================================================
-   LAYOUT PRIMITIVES — ADR-0017 §1.1 (the shell contract). Every page root is
+   LAYOUT PRIMITIVES, ADR-0017 §1.1 (the shell contract). Every page root is
    .page-body: 1200px-capped and CENTERED (margin-inline:auto). Never redefine a
    per-page width; narrow a block with .measure, FILL the width with the grids.
    ========================================================================= */
 .page-body { width: 100%; max-width: var(--maxw); margin-inline: auto; padding: 2.25rem 1.5rem 3rem; }
 .page { width: 100%; max-width: var(--maxw); margin-inline: auto; padding: 2.25rem 1.5rem 3rem; } /* alias */
-.prose { font-size: 0.98rem; }                          /* doc typography — does NOT narrow the column */
+.prose { font-size: 0.98rem; }                          /* doc typography, does NOT narrow the column */
 .page-head { border-bottom: 1px solid var(--border); padding-bottom: 1rem; margin-bottom: 1.25rem; }
 .page-head h1 { margin: 0.3rem 0; font-size: 1.7rem; }
 .lede { color: var(--fg-subtle); font-size: 1.08rem; max-width: 70ch; }   /* the subtle opener */
-.measure { max-width: 70ch; }                            /* the SANCTIONED narrow column — per block */
+.measure { max-width: 70ch; }                            /* the SANCTIONED narrow column, per block */
 .prose h2 { font-size: 1.2rem; color: var(--accent); margin: 1.75rem 0 0.5rem; }
 .prose h3 { font-size: 1rem; margin: 1.1rem 0 0.4rem; }
 .prose p { line-height: 1.6; color: var(--fg); margin: 0.6rem 0; }
@@ -117,7 +117,7 @@ a { color: inherit; text-decoration: none; }
 .back { color: var(--accent); font-size: 0.9rem; }
 .err { color: #e06c75; }
 
-/* per-section references (ADR-0017 §4) — <Refs ids label/> */
+/* per-section references (ADR-0017 §4), <Refs ids label/> */
 .refs-block { margin: 0.9rem 0 0; }
 .refs-head { font-size: 0.82rem; text-transform: uppercase; letter-spacing: 0.04em;
   color: var(--fg-subtle); margin: 0 0 0.3rem; }
@@ -381,7 +381,7 @@ pre.code code { font: 0.82rem/1.5 ui-monospace, "Cascadia Code", monospace; colo
 .bench-vs .c { color: var(--fg-subtle); }
 .bench-card p { margin: 0.35rem 0 0; font-size: 0.85rem; line-height: 1.5; color: var(--fg-subtle); max-width: none; }
 
-/* Benchmark edge-class colouring — theme-aware tokens (ZERO inline hex). */
+/* Benchmark edge-class colouring, theme-aware tokens (ZERO inline hex). */
 .bench-seg.seg-genuine { background: var(--edge-genuine); }
 .bench-seg.seg-query { background: var(--edge-query); }
 .bench-seg.seg-qec { background: var(--edge-qec); }
@@ -468,10 +468,10 @@ pre.code code { font: 0.82rem/1.5 ui-monospace, "Cascadia Code", monospace; colo
 .metric-eq-head { font: 600 0.82rem ui-monospace, monospace; color: var(--accent); margin: 0.9rem 0 0.2rem; }
 
 /* ============================================================================
-   APP LANDING (/) — the TOOL, not a catalogue. ADR-0017 §3:
+   APP LANDING (/), the TOOL, not a catalogue. ADR-0017 §3:
    .qlab-layout = a ~300–320px control aside + a 1fr main, INSIDE .page-body
    (so the whole workbench stays var(--maxw)-wide and centered). Theme-aware
-   tokens only — ZERO hardcoded hex.
+   tokens only, ZERO hardcoded hex.
    ========================================================================= */
 .qlab-layout { display: grid; grid-template-columns: 312px 1fr; gap: 1.5rem; align-items: start; }
 @media (max-width: 900px) { .qlab-layout { grid-template-columns: 1fr; } }

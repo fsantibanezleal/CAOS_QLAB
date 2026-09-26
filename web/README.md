@@ -1,4 +1,4 @@
-# web/ — the replay SPA (Phase D, in progress)
+# web/: the replay SPA (Phase D, in progress)
 
 The static **React 19 + Vite** single-page app that reads the committed trace bundles + manifests and
 renders them. Build-verified; the visual depth is being filled in case-category by case-category.
@@ -6,11 +6,11 @@ renders them. Build-verified; the visual depth is being filled in case-category 
 ## Status
 
 **Foundation built + building (v0.21.000):**
-- `copy-data.mjs` — overlays `data/artifacts/` + `manifests/` into `public/` and generates
+- `copy-data.mjs`: overlays `data/artifacts/` + `manifests/` into `public/` and generates
   `public/data/catalog.json` (one index of all 19 cases · 113 variants, with per-variant verdicts).
-- `src/lib/contract.types.ts` — the **TypeScript mirror** of the Python data contract (ADR-0057).
-- `src/lib/data.ts` — loads the catalog + lazy-loads full bundles.
-- `src/App.tsx` — the app shell (header + theme/lang) + the **catalog landing** (cases grouped by category)
+- `src/lib/contract.types.ts`: the **TypeScript mirror** of the Python data contract (ADR-0057).
+- `src/lib/data.ts`: loads the catalog + lazy-loads full bundles.
+- `src/App.tsx`: the app shell (header + theme/lang) + the **catalog landing** (cases grouped by category)
   + a per-case page listing variants, solver chips and the real quantum-vs-classical verdicts.
 
 ```bash

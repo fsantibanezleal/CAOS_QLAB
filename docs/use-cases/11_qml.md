@@ -1,4 +1,4 @@
-# 11 · QML — quantum-kernel classifier (the second learned method, and a hype check)
+# 11 · QML: quantum-kernel classifier (the second learned method, and a hype check)
 
 **Category:** variational · **Lane:** precompute · **Solvers:** `qml-pennylane` (quantum fidelity-kernel +
 SVM), `qml-classical` (RBF-SVM) · **Variants:** 6 datasets.
@@ -7,7 +7,7 @@ SVM), `qml-classical` (RBF-SVM) · **Variants:** 6 datasets.
 
 Binary-classify 2-D points. A *quantum* feature map embeds each point `x` into a quantum state `|φ(x)⟩`;
 the **fidelity kernel** `K(x,x') = |⟨φ(x)|φ(x')⟩|²` is estimated on the device and fed to a classical SVM.
-We compare it, on identical data, to a classical RBF-SVM — to see honestly whether the quantum kernel buys
+We compare it, on identical data, to a classical RBF-SVM, to see honestly whether the quantum kernel buys
 anything (it does not, here).
 
 ## Components & variables
@@ -15,7 +15,7 @@ anything (it does not, here).
 - **Feature map (2 qubits):** angle embedding of `(x₀, x₁)` plus an `IsingZZ(x₀·x₁)` entangling term for a
   second-order feature.
 - **Kernel:** `K(a,b)` = probability of returning to `|00⟩` after `feature_map(a)` then `feature_map(b)†`
-  — i.e. the state fidelity. The Gram matrix feeds `sklearn.SVC(kernel="precomputed")`.
+ , i.e. the state fidelity. The Gram matrix feeds `sklearn.SVC(kernel="precomputed")`.
 - **Classical baseline:** `sklearn.SVC(kernel="rbf")` on the raw features.
 
 ## What each variant shows
@@ -46,7 +46,7 @@ make the "no advantage" conclusion concrete.
 
 ## Honest verdict
 
-> The quantum-kernel classifier *works* — it's a real learned method — but it shows **no advantage** over a
+> The quantum-kernel classifier *works*, it's a real learned method, but it shows **no advantage** over a
 > standard classical SVM on these datasets, and is sometimes worse. This matches the literature: provable
 > quantum-kernel separations are contrived (built around problems like discrete-log); on real data quantum
 > kernels are competitive at best, usually worse, and bottlenecked by data loading. **QML is one of the

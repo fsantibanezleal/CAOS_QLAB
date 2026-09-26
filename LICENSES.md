@@ -1,7 +1,7 @@
 # Licenses
 
 CAOS_QLAB code is **MIT** (see [LICENSE](LICENSE)). Its dependencies keep their own licenses; the table
-below lists the engines QLab calls and their licenses (verified 2026-06-21). **Watch Mitiq (GPL-3.0)** —
+below lists the engines QLab calls and their licenses (verified 2026-06-21). **Watch Mitiq (GPL-3.0)**, 
 it is copyleft and only enters the build when the error-mitigation case lands; until then QLab ships only
 permissive (Apache-2.0 / MIT / BSD) dependencies.
 

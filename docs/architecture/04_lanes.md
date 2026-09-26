@@ -1,4 +1,4 @@
-# 04 · The three lanes — what runs where
+# 04 · The three lanes: what runs where
 
 | | **Live** | **Precompute** | **Real-hardware** *(opt-in)* |
 |---|---|---|---|
@@ -13,8 +13,8 @@
 The "aha" of quantum is *interaction*: drag `RY` and watch the Bloch vector tip; slide a Grover iteration
 and watch the marked amplitude grow. Small, clean unitary circuits re-simulate in real time via a
 purpose-built **exact state-vector simulator written in TypeScript** (`web/src/live/statevector.ts`,
-≤ ~12 qubits responsive). **Qiskit is not used here** — no Pyodide wheels for
-`rustworkx`/`symengine`/`qiskit-aer` — and it is hand-written, not a third-party JS library. The live engine
+≤ ~12 qubits responsive). **Qiskit is not used here**, no Pyodide wheels for
+`rustworkx`/`symengine`/`qiskit-aer`, and it is hand-written, not a third-party JS library. The live engine
 and the committed traces share the same trace shape, so the renderer is identical. Cases that try to push
 the live sim too far fail gracefully and offer the precomputed trace.
 
@@ -30,7 +30,7 @@ solver, including the classical baselines, and writes the comparison verdict. Se
 ## Real-hardware (optional, opt-in, local-only)
 
 A case can be submitted to a real QPU; the returned counts are committed as a trace with a `ran_on` badge
-("IBM Heron r2 · ibm_kingston · 2026-…"). This runs **locally**, with a token from the private vault — the
+("IBM Heron r2 · ibm_kingston · 2026-…"). This runs **locally**, with a token from the private vault, the
 published static site ships no secrets and makes no live hardware calls. The cheapest honest path is **IBM
 Quantum Open** (free, 10 min QPU / 28-day window on a 156-qubit Heron r2). See
 [../guides/03_real-hardware-lane.md](../guides/03_real-hardware-lane.md) and
@@ -38,4 +38,4 @@ Quantum Open** (free, 10 min QPU / 28-day window on a 156-qubit Heron r2). See
 
 ## Read next
 
-- [05_deploy.md](./05_deploy.md) — how the static site is built and served.
+- [05_deploy.md](./05_deploy.md): how the static site is built and served.

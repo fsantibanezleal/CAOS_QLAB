@@ -46,7 +46,7 @@ const KETS: { v: Vec3; ket: string }[] = [
 
 /**
  * Interactive Bloch sphere: a draggable wireframe globe with the qubit's state vector, the gate
- * trajectory, and the |0⟩/|1⟩/|±⟩/|±i⟩ poles. Pure SVG (orthographic) — deterministic to screenshot.
+ * trajectory, and the |0⟩/|1⟩/|±⟩/|±i⟩ poles. Pure SVG (orthographic): deterministic to screenshot.
  */
 export function BlochSphere({ trajectory }: { trajectory: BlochPoint[] }) {
   const [view, setView] = useState({ az: -0.5, el: 0.34 });

@@ -1,4 +1,4 @@
-# 20 · Phase & interference — the single-qubit interferometer
+# 20 · Phase & interference: the single-qubit interferometer
 
 **Category:** fundamentals · **Lane:** live · **Solvers:** `interference-qiskit` (Mach–Zehnder circuit),
 `interference-classical` (wave intensity) · **Variants:** 6.
@@ -6,15 +6,15 @@
 ## The problem
 
 Why is a quantum computer more than a probabilistic one? Because **amplitudes**, not probabilities, are what
-combine — and amplitudes can be negative, so they can **cancel**. The cleanest demonstration is a one-qubit
+combine, and amplitudes can be negative, so they can **cancel**. The cleanest demonstration is a one-qubit
 Mach–Zehnder interferometer: `H · P(φ) · H`. The first `H` splits `|0⟩` into two "paths," the phase gate
 `P(φ)` delays one path by a relative phase `φ`, and the second `H` recombines them. The probability of
-reading 0 is `cos²(φ/2)` — it **oscillates** as you sweep `φ`. This is the interference fringe, and steering
+reading 0 is `cos²(φ/2)`, it **oscillates** as you sweep `φ`. This is the interference fringe, and steering
 it is the engine behind every quantum algorithm.
 
 ## Components & variables
 
-- **Circuit:** `H · P(φ) · H` on `|0⟩` — a balanced two-path interferometer.
+- **Circuit:** `H · P(φ) · H` on `|0⟩`: a balanced two-path interferometer.
 - **Control:** the relative phase `φ ∈ [0, 2π)` (the one knob; in the live lane it is a slider).
 - **Observable:** `P(0)`, the probability the two paths recombine constructively into `|0⟩`.
 
@@ -22,7 +22,7 @@ it is the engine behind every quantum algorithm.
 
 Step by step on `|0⟩`:
 
-1. `H|0⟩ = (|0⟩ + |1⟩)/√2` — two equal-amplitude paths.
+1. `H|0⟩ = (|0⟩ + |1⟩)/√2`: two equal-amplitude paths.
 2. `P(φ)` multiplies the `|1⟩` path by `e^{iφ}`: `(|0⟩ + e^{iφ}|1⟩)/√2`.
 3. `H` recombines: `½[(1 + e^{iφ})|0⟩ + (1 − e^{iφ})|1⟩]`.
 
@@ -53,7 +53,7 @@ quantum interference.
 
 ## Honest verdict
 
-> The qubit's `P(0)` follows `cos²(φ/2)` — and so does the intensity of a **classical** optical Mach–Zehnder.
+> The qubit's `P(0)` follows `cos²(φ/2)`, and so does the intensity of a **classical** optical Mach–Zehnder.
 > Interference is therefore **not, by itself, a quantum advantage**: classical waves interfere too. What is
 > uniquely quantum is that this fringe appears in the **probability amplitude of a single particle** (one
 > photon, one electron, interfering with itself), and that an algorithm can arrange the amplitudes of an

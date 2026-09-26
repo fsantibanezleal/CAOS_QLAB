@@ -1,7 +1,7 @@
 """Validate quantum-backend connectivity from the configured credentials.
 
-Reads QLab `.env` (if present) + the environment, then reports which providers are configured and — for
-IBM Quantum — actually reaches the service and lists devices. Other providers are reported as
+Reads QLab `.env` (if present) + the environment, then reports which providers are configured and, for
+IBM Quantum, actually reaches the service and lists devices. Other providers are reported as
 "configured" (a live call there can cost money / needs the SDK), so this script is safe + free to run.
 
     .venv/Scripts/python.exe tools/check_backends.py

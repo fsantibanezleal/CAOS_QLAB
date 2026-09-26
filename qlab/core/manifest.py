@@ -1,4 +1,4 @@
-"""The per-case manifest — the second data contract (pipeline → web index).
+"""The per-case manifest, the second data contract (pipeline → web index).
 
 One manifest per case records the lane VERDICT and the measured numbers behind it, the seed + params
 that reproduce the trace, the viz bindings the web app uses to pick renderers, and the engine

@@ -31,7 +31,7 @@ export function CircuitDiagram({ ops, qubits }: { ops: CircuitOp[]; qubits: numb
     return (
       <div className="viz">
         <div className="viz-title">Circuit</div>
-        <p className="note">{qubits} qubits — diagram omitted (too wide).</p>
+        <p className="note">{qubits} qubits, diagram omitted (too wide).</p>
       </div>
     );
   }

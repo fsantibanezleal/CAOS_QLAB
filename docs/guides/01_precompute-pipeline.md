@@ -6,13 +6,13 @@ replays.
 ## Setup
 
 ```powershell
-.\scripts\setup.ps1          # Windows — creates .venv (Python 3.12), installs core+dev+precompute
+.\scripts\setup.ps1          # Windows, creates .venv (Python 3.12), installs core+dev+precompute
 ```
 ```bash
 ./scripts/setup.sh           # macOS / Linux / Git-Bash
 ```
 This installs the pinned engines (Qiskit 2.4.2, qiskit-aer 0.17.2, PennyLane 0.45.0, Stim 1.16.0) into
-`.venv`. (The optional real-hardware SDKs are a separate `requirements-hardware.txt` — see
+`.venv`. (The optional real-hardware SDKs are a separate `requirements-hardware.txt`, see
 [03_real-hardware-lane.md](./03_real-hardware-lane.md).)
 
 ## Run a case
