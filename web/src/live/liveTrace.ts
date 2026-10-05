@@ -2,7 +2,7 @@
 // shapes so the same renderers (circuit, Bloch, amplitudes, histogram) animate it, replay-shape = live-shape.
 
 import type { Amp, Measurements, Step } from "../lib/contract.types";
-import { applyOp, blochOf, type Op, probabilities, sampleCounts, type State, zeroState } from "./statevector";
+import { applyOp, blochOf, type Op, probabilities, sampleCounts, type State, zeroState } from "./statevector.ts";
 
 const SUPPORTED = new Set([
   "h", "x", "y", "z", "s", "sdg", "t", "tdg", "rx", "ry", "rz", "p", "u1",
