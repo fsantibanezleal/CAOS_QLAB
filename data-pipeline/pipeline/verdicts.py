@@ -1,44 +1,13 @@
-"""The precompute pipeline (CLI). Framework-agnostic orchestrator: it asks the registry for the solvers
-applicable to a case, runs them uniformly, bundles their results into one committed JSON artifact per
-(case, instance), classifies the live/precompute lane from measurements, and writes a manifest.
+"""Per-case comparison blocks: the best classical result next to the best quantum one, and the verdict.
 
-Usage:
-    python -m qlab.pipeline --list
-    python -m qlab.pipeline maxcut                      # default (first) instance, all applicable solvers
-    python -m qlab.pipeline maxcut --instance pentagon --seed 7
-    python -m qlab.pipeline maxcut --all                # every instance (the full variant-bar)
-    python -m qlab.pipeline state-prep --solver state-qiskit
-"""
+One function per case family, keyed on the problem id; each returns the numbers the verdict quotes and the
+bilingual verdict itself. Product text: it is what QLab says about a result, so it lives here and not in
+the engine."""
 
 from __future__ import annotations
 
-import argparse
-import json
-import time
-from pathlib import Path
 
-from qlab.core.gate import classify_lane
-from qlab.core.manifest import Manifest
-from qlab.core.trace import SCHEMA_VERSION
-from qlab.registry import all_problems, get_problem, solvers_for
-
-ROOT = Path(__file__).resolve().parent.parent
-ARTIFACTS = ROOT / "data" / "artifacts"
-MANIFESTS = ROOT / "manifests"
-
-# Which renderers the web app should mount for a category (viz bindings: the manifest's `viz`).
-VIZ_BY_CATEGORY = {
-    "fundamentals": ["bloch", "amp_phase", "histogram", "circuit"],
-    "entanglement": ["amp_phase", "histogram", "qsphere", "circuit"],
-    "oracle-algorithms": ["amp_phase", "histogram", "circuit"],
-    "flagship-algorithms": ["amp_phase", "histogram", "circuit"],
-    "variational": ["graph", "landscape", "histogram", "circuit"],
-    "noise-and-qec": ["histogram", "density", "circuit"],
-    "compilation": ["circuit"],
-}
-
-
-def _comparison(problem, results: list) -> dict:
+def comparison(problem, results: list) -> dict:
     """Best classical vs best quantum + the honest verdict (bilingual)."""
     if problem.id == "maxcut":
         cls = [r for r in results if r.paradigm == "classical"]
@@ -239,13 +208,14 @@ def _comparison(problem, results: list) -> dict:
         cf = cls.value.get("factors") if cls else None
         return {"quantum_factors": qf, "order": r, "classical_factors": cf, "verdict": {
             "en": f"Quantum order-finding (base a={a}) found order r={r} ⇒ factors {qf}; trial division "
-                  f"found {cf} in microseconds. Both factor 15 trivially. The honest scale: RSA-2048 needs "
-                  f"~10⁶ noisy physical qubits + full fault tolerance (Gidney 2025), Shor is not a "
-                  f"near-term cryptographic threat.",
+                  f"found {cf} in microseconds. Both factor 15 trivially: the mechanism, not a capability. The "
+                  f"scale: for RSA-2048, Gidney (2025) estimates fewer than a million noisy physical qubits "
+                  f"running an error-corrected computation for under a week.",
             "es": f"El order-finding cuántico (base a={a}) halló orden r={r} ⇒ factores {qf}; la división de "
-                  f"prueba halló {cf} en microsegundos. Ambos factorizan 15 trivialmente. La escala honesta: "
-                  f"RSA-2048 necesita ~10⁶ qubits físicos ruidosos + tolerancia a fallos completa (Gidney "
-                  f"2025), Shor no es una amenaza criptográfica de corto plazo."}}
+                  f"prueba halló {cf} en microsegundos. Ambos factorizan 15 trivialmente: el mecanismo, no una "
+                  f"capacidad. La escala: para RSA-2048, Gidney (2025) estima menos de un millón de qubits "
+                  f"físicos ruidosos ejecutando un cómputo con corrección de errores durante menos de una "
+                  f"semana."}}
     if problem.id == "qpe":
         cls = next((r for r in results if r.paradigm == "classical"), None)
         q = next((r for r in results if r.paradigm != "classical"), None)
@@ -282,12 +252,14 @@ def _comparison(problem, results: list) -> dict:
         qq = q.value.get("quantum_queries") if q else None
         sp = q.value.get("success_prob") if q else None
         return {"quantum_queries": qq, "classical_queries": kq, "success_prob": sp, "verdict": {
-            "en": f"Quantum: {qq} Grover iteration(s) (~√N), P(marked)={sp}. Classical: {kq} queries to hit "
-                  f"a marked item (~N/2 average). A quadratic speedup, but asymptotic; at this tiny N the "
-                  f"classical scan is still instant and cheaper in wall-time.",
-            "es": f"Cuántico: {qq} iteración(es) de Grover (~√N), P(marcado)={sp}. Clásico: {kq} consultas "
-                  f"hasta un ítem marcado (~N/2 promedio). Speedup cuadrático, pero asintótico; a este N "
-                  f"minúsculo el barrido clásico es instantáneo y más barato en tiempo."}}
+            "en": f"Quantum: {qq} Grover iteration(s) (~(π/4)√(N/M)), P(marked)={sp}. Classical: {kq} queries "
+                  f"on average to hit a marked item, the expected cost (N+1)/(M+1) of a random scan. A "
+                  f"quadratic speedup, but asymptotic; at this tiny N the classical scan is still instant and "
+                  f"cheaper in wall-time.",
+            "es": f"Cuántico: {qq} iteración(es) de Grover (~(π/4)√(N/M)), P(marcado)={sp}. Clásico: {kq} "
+                  f"consultas en promedio hasta un ítem marcado, el costo esperado (N+1)/(M+1) de un barrido "
+                  f"aleatorio. Speedup cuadrático, pero asintótico; a este N minúsculo el barrido clásico es "
+                  f"instantáneo y más barato en tiempo."}}
     if problem.id == "simon":
         cls = next((r for r in results if r.paradigm == "classical"), None)
         q = next((r for r in results if r.paradigm != "classical"), None)
@@ -335,125 +307,3 @@ def _comparison(problem, results: list) -> dict:
                   "estado; con 2–4 qubits la descripción clásica es instantánea. El entrelazamiento es el "
                   "concepto, no una ventaja."}}
     return {}
-
-
-def run_case(problem_id: str, instance_id: str | None, seed: int, shots: int, only: str | None) -> dict:
-    problem = get_problem(problem_id)
-    inst = problem.instance(instance_id)
-    solvers = solvers_for(problem, only=only)
-    if not solvers:
-        raise SystemExit(f"no applicable solvers for {problem_id} (only={only!r})")
-
-    results = []
-    primary_trace = None
-    for solver in solvers:
-        t0 = time.perf_counter()
-        res = solver.run(problem, inst, seed=seed, shots=shots)
-        res.cost.setdefault("wall_ms", round((time.perf_counter() - t0) * 1e3, 3))
-        if primary_trace is None and res.trace is not None:
-            primary_trace = res.trace
-            primary_solver = res.solver
-        results.append(res)
-
-    # Lane verdict from the primary (circuit) trace.
-    if primary_trace is not None:
-        run_ms = max((r.cost.get("wall_ms", 0) for r in results), default=0.0)
-        verdict = classify_lane(qubits=problem.instance(instance_id).params.get("n", primary_trace.qubits),
-                                run_ms=run_ms, trace_bytes=primary_trace.nbytes(),
-                                unitary_only=problem.live_capable)
-    else:  # pragma: no cover
-        primary_solver = results[0].solver
-        verdict = classify_lane(qubits=inst.params.get("n", 1), run_ms=0, trace_bytes=0,
-                                unitary_only=problem.live_capable)
-
-    bundle = {
-        "schema_version": SCHEMA_VERSION,
-        "case_id": problem.id,
-        "category": problem.category,
-        "title": problem.title,
-        "concept": problem.concept,
-        "metric": problem.metric,
-        "instance": {"id": inst.id, "title": inst.title, "params": inst.params, "note": inst.note},
-        "qubits": inst.params.get("n", primary_trace.qubits if primary_trace else 1),
-        "lane": verdict.lane,
-        "lane_reasons": verdict.reasons,
-        "seed": seed,
-        "shots": shots,
-        "primary_solver": primary_solver,
-        "trace": primary_trace.to_dict() if primary_trace else None,
-        "solvers": [
-            {"solver": r.solver, "label": r.label, "framework": r.framework, "paradigm": r.paradigm,
-             "value": r.value, "cost": r.cost, "notes": r.notes, "optimal": r.optimal, "extra": r.extra}
-            for r in results
-        ],
-        "comparison": _comparison(problem, results),
-        "references": problem.references,
-    }
-
-    out = ARTIFACTS / problem.id / f"{inst.id}.json"
-    out.parent.mkdir(parents=True, exist_ok=True)
-    out.write_text(json.dumps(bundle, indent=1, ensure_ascii=False), encoding="utf-8")
-
-    manifest = Manifest(
-        case_id=problem.id, title=problem.title, category=problem.category,
-        lane=verdict.lane, lane_reasons=verdict.reasons, qubits=bundle["qubits"], seed=seed, shots=shots,
-        params=inst.params,
-        measured={"run_ms": round(verdict.run_ms, 3), "trace_bytes": verdict.trace_bytes,
-                  "unitary_only": verdict.unitary_only},
-        viz=VIZ_BY_CATEGORY.get(problem.category, ["circuit", "histogram"]),
-        engine=primary_trace.provenance["engine"] if primary_trace else results[0].framework,
-        engine_version=primary_trace.provenance["engine_version"] if primary_trace else "–",
-        trace_path=str(out.relative_to(ROOT / "data" / "artifacts")).replace("\\", "/"),
-        references=problem.references,
-    )
-    manifest.write_json(MANIFESTS / f"{problem.id}__{inst.id}.json")
-
-    _print_summary(problem, inst, results, verdict, out)
-    return bundle
-
-
-def _print_summary(problem, inst, results, verdict, out) -> None:
-    print(f"\n=== {problem.id} / {inst.id} === lane={verdict.lane}  ({out.relative_to(ROOT)})")
-    if verdict.reasons:
-        print("    not-live:", "; ".join(verdict.reasons))
-    for r in results:
-        print(f"  [{r.paradigm:16}] {r.solver:20} {r.framework:18} "
-              f"value={r.value}  cost={r.cost}")
-    comp = _comparison(problem, results).get("verdict", {}).get("en")
-    if comp:
-        print("  →", comp)
-
-
-def main(argv=None) -> None:
-    # Windows consoles default to cp1252; the bilingual summaries contain UTF-8 (→, é, ⟩).
-    for stream in (getattr(__import__("sys"), "stdout", None), getattr(__import__("sys"), "stderr", None)):
-        try:
-            stream.reconfigure(encoding="utf-8")
-        except Exception:  # noqa: BLE001
-            pass
-    ap = argparse.ArgumentParser(prog="qlab.pipeline", description="QLab precompute pipeline")
-    ap.add_argument("case", nargs="?", help="case id (omit with --list)")
-    ap.add_argument("--instance", help="instance/variant id (default: first)")
-    ap.add_argument("--all", action="store_true", help="run every instance of the case")
-    ap.add_argument("--solver", help="run only this solver name")
-    ap.add_argument("--seed", type=int, default=42)
-    ap.add_argument("--shots", type=int, default=2048)
-    ap.add_argument("--list", action="store_true", help="list cases and exit")
-    args = ap.parse_args(argv)
-
-    if args.list or not args.case:
-        print("QLab cases:")
-        for pid, cls in sorted(all_problems().items()):
-            p = cls()
-            print(f"  {pid:14} [{p.category:18}] {p.title['en']}  "
-                  f"({len(p.instances())} variants)")
-        return
-
-    problem = get_problem(args.case)
-    targets = [i.id for i in problem.instances()] if args.all else [args.instance]
-    for iid in targets:
-        run_case(args.case, iid, seed=args.seed, shots=args.shots, only=args.solver)
-
-
-if __name__ == "__main__":
-    main()

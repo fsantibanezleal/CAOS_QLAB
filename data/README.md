@@ -1,4 +1,4 @@
-# Data — policy & contracts
+# Data: policy & contracts
 
 QLab carries **no raw datasets**. Its "data" is the set of **computed artifacts** the offline pipeline
 produces: compact JSON **traces** (the replayable recording of a circuit run) and per-case **manifests**.
@@ -8,12 +8,12 @@ the repo and runs the pipeline.
 ```
 data/
   artifacts/<case>/<variant>.json   committed trace bundles (the source of truth the web replays)
-  raw/                              git-ignored — any scratch inputs you bring; never committed
+  raw/                              git-ignored: any scratch inputs you bring; never committed
 ```
 
-`*.npy`, `*.npz`, `*.h5`, `*.parquet` are git-ignored (CI rejects them) — commit only the compact JSON.
+`*.npy`, `*.npz`, `*.h5`, `*.parquet` are git-ignored (CI rejects them); commit only the compact JSON.
 
-## Contract 1 — ingestion ("bring your own circuit")
+## Contract 1: ingestion ("bring your own circuit")
 
 The lab is teachable on your own circuits. The accepted input is **OpenQASM 2** (the portable baseline) or
 a Qiskit/Cirq circuit object. The validation gate (not a silent coercion):
@@ -28,17 +28,19 @@ a Qiskit/Cirq circuit object. The validation gate (not a silent coercion):
 "Outliers" in a quantum trace are non-physical states: the tracer asserts `‖ψ‖ = 1` to float tolerance and
 probabilities sum to 1; a violation is a bug, not data to coerce.
 
-## Contract 2 — artifact (pipeline → web), schema `qlab-trace/1`
+## Contract 2: artifact (pipeline → web), trace schema `qversus-trace/1`
 
-Each `data/artifacts/<case>/<variant>.json` bundle contains:
+The trace schema belongs to the engine, `qversus` (PyPI). Each `data/artifacts/<case>/<variant>.json` bundle
+wraps the primary trace with every solver's result and QLab's verdict:
 
 ```jsonc
 {
-  "schema_version": "qlab-trace/1",
+  "schema_version": "qversus-trace/1",
   "case_id": "maxcut", "category": "variational",
   "title": {...}, "concept": {...}, "metric": {...},        // bilingual
   "instance": { "id": "pentagon", "title": {...}, "params": {...}, "note": {...} },
   "qubits": 5, "lane": "precompute", "lane_reasons": [...], "seed": 42, "shots": 2048,
+  "app_version": "0.35.000", "engine_package": { "package": "qversus", "version": "0.01.000" },
   "primary_solver": "qaoa-qiskit",
   "trace": {                                                 // the animation (primary circuit solver)
     "qubits": 5,
@@ -56,16 +58,19 @@ Each `data/artifacts/<case>/<variant>.json` bundle contains:
 ```
 
 **Conventions.** Amplitudes are little-endian (basis index `i` ⇒ qubit 0 is the least-significant bit) and
-rounded to 6 decimals. Bitstrings in `value` are in **qubit order** (position `u` = qubit `u`). A TypeScript
-mirror of this schema lives in the web app (`frontend/src/lib/contract.types.ts`) so any drift fails the
-build.
+rounded to 6 decimals. Count keys are the basis index in binary, highest qubit leftmost. Answers that are
+items (Grover's `found`, `extra.marked`) use that same order, so they are the key holding the item's shots;
+answers that are strings indexed by position (a Bernstein-Vazirani secret, a MaxCut partition) are in
+**qubit order** (position `u` = qubit `u`). A TypeScript mirror of this schema lives in the web app
+(`web/src/lib/contract.types.ts`).
 
-## Contract — manifest, schema `qlab-manifest/1`
+## Contract: manifest, schema `qlab-manifest/2`
 
 `manifests/<case>__<variant>.json` indexes each artifact: the lane verdict + the **measured numbers** behind
 it (`run_ms`, `trace_bytes`, `unitary_only`), the seed/shots/params that reproduce it, the **viz bindings**
-(which renderers the web mounts), and the engine provenance + version. CI validates that every `live`
-manifest actually clears the gate.
+(which renderers the web mounts), the framework that authored the trace (`engine`, `engine_version`), and the
+engine package and app version that produced it (`engine_package`, `app_version`). CI validates that every
+`live` manifest actually clears the gate.
 
 ## Reproduce
 

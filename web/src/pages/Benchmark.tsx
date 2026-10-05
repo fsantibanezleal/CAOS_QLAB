@@ -12,7 +12,7 @@ type Lang = "en" | "es";
    BENCHMARK, the honesty spine, quantified (ADR-0017 §2 Benchmark floor).
 
    Every number on this page is read at runtime from a committed artifact
-   (web/public/data/artifacts/<case>/<variant>.json, schema qlab-trace/1), the
+   (web/public/data/artifacts/<case>/<variant>.json, schema qversus-trace/1), the
    same manifests the precompute pipeline emits. Nothing is typed in. The page:
      • loads one canonical variant bundle per case and extracts its `comparison`
        block + the quantum & classical `solvers[].value` head-to-head;

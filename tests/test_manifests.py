@@ -1,40 +1,29 @@
-"""Committed-manifest integrity (ADR-0054 anti-mislabeling guarantee).
-
-Every committed manifest records a measured lane verdict. This test re-runs `classify_lane()` on each
-manifest's stored measured numbers and fails if the recorded `lane` disagrees, so a mislabeled or stale
-`live`/`precompute` manifest CANNOT ship. Runs in the normal `pytest` CI step (no extra workflow needed).
-"""
+"""Committed-manifest integrity (ADR-0054): the same check CI runs (scripts/check_manifests.py), plus a negative
+case so the check is known to fail when a manifest is mislabeled."""
 
 from __future__ import annotations
 
-import glob
-import io
+import importlib.util
 import json
+import shutil
+from pathlib import Path
 
-import pytest
-
-from qlab.core.gate import classify_lane
-
-MANIFESTS = sorted(glob.glob("manifests/*.json"))
-_IDS = [p.replace("\\", "/").split("/")[-1] for p in MANIFESTS]
-
-
-def test_manifests_present():
-    assert len(MANIFESTS) >= 100, f"expected the full committed manifest set, found {len(MANIFESTS)}"
+ROOT = Path(__file__).resolve().parents[1]
+_spec = importlib.util.spec_from_file_location("check_manifests", ROOT / "scripts" / "check_manifests.py")
+check_manifests = importlib.util.module_from_spec(_spec)
+_spec.loader.exec_module(check_manifests)
 
 
-@pytest.mark.parametrize("path", MANIFESTS, ids=_IDS)
-def test_manifest_lane_matches_classify_lane(path):
-    with io.open(path, encoding="utf-8") as f:
-        m = json.load(f)
-    measured = m["measured"]
-    verdict = classify_lane(
-        qubits=m["qubits"],
-        run_ms=measured["run_ms"],
-        trace_bytes=measured["trace_bytes"],
-        unitary_only=measured["unitary_only"],
-    )
-    assert verdict.lane == m["lane"], (
-        f"{path}: stored lane={m['lane']!r} but classify_lane() says {verdict.lane!r} "
-        f"on measured {measured} (qubits={m['qubits']}); reasons={verdict.reasons}"
-    )
+def test_every_committed_manifest_clears_the_gate_and_matches_its_artifact():
+    assert check_manifests.problems() == []
+
+
+def test_a_mislabeled_manifest_is_caught(tmp_path):
+    shutil.copytree(ROOT / "manifests", tmp_path / "manifests")
+    shutil.copytree(ROOT / "data" / "artifacts", tmp_path / "data" / "artifacts")
+    victim = tmp_path / "manifests" / "maxcut__square.json"
+    m = json.loads(victim.read_text(encoding="utf-8"))
+    m["lane"] = "live" if m["lane"] == "precompute" else "precompute"
+    victim.write_text(json.dumps(m), encoding="utf-8")
+    errs = check_manifests.problems(tmp_path)
+    assert any("maxcut__square.json" in e and "gate says" in e for e in errs), errs

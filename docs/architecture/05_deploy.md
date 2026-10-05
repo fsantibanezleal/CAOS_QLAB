@@ -9,7 +9,7 @@ CAOS_SIMLAB and CAOS_PINNLAB). No VPS, no backend.
 2. The web build (`web/`, React + Vite) overlays the committed traces/manifests into `dist/` (a `prebuild`
    `copy-data.mjs` step) and inlines the engine where needed.
 3. `.github/workflows/deploy-pages.yml` builds `web/` and publishes `dist/` to Pages on push to `main` (when
-   `web/**`, `data/artifacts/**`, `manifests/**` or `qlab/**` change), so **committing a new trace
+   `web/**`, `data/artifacts/**` or `manifests/**` change), so **committing a new trace
    re-publishes the site**.
 4. **SPA deep-link fallback:** the workflow copies `dist/index.html → dist/404.html` so client-side routes
    and refreshes don't 404 on Pages.
@@ -23,8 +23,8 @@ redeploy.
 
 ## Reproducibility & guards
 
-What ships is the exact engine source + seeded traces; `python -m qlab.pipeline` reproduces the committed
-bytes. CI guards reject a real `.env`, raw/heavy data (`*.npy/.npz/.h5/.parquet`), and leaked local machine
+What ships is a pinned engine (`qversus` from PyPI) + seeded traces; `python data-pipeline/run.py <case> --all`
+reproduces the committed bytes. CI guards reject a real `.env`, raw/heavy data (`*.npy/.npz/.h5/.parquet`), and leaked local machine
 paths in tracked files.
 
 ## Read next

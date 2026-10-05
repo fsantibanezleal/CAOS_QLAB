@@ -11,18 +11,18 @@ replays.
 ```bash
 ./scripts/setup.sh           # macOS / Linux / Git-Bash
 ```
-This installs the pinned engines (Qiskit 2.4.2, qiskit-aer 0.17.2, PennyLane 0.45.0, Stim 1.16.0) into
-`.venv`. (The optional real-hardware SDKs are a separate `requirements-hardware.txt`, see
+This installs the engine `qversus` (PyPI) and the pinned frameworks (Qiskit 2.4.2, qiskit-aer 0.17.2,
+PennyLane 0.45.0, Cirq 1.6.1, Stim 1.16.0) into `.venv`. (The optional real-hardware SDKs are a separate `requirements-hardware.txt`, see
 [03_real-hardware-lane.md](./03_real-hardware-lane.md).)
 
 ## Run a case
 
 ```bash
-python -m qlab.pipeline --list                       # list cases + variants
-python -m qlab.pipeline maxcut                        # default variant, all applicable solvers
-python -m qlab.pipeline maxcut --instance pentagon --seed 7
-python -m qlab.pipeline maxcut --all                  # every variant (the full variant-bar)
-python -m qlab.pipeline state-prep --solver state-qiskit   # one solver only
+python data-pipeline/run.py --list                   # list cases + variants
+python data-pipeline/run.py maxcut                    # default variant, all applicable solvers
+python data-pipeline/run.py maxcut --instance pentagon --seed 7
+python data-pipeline/run.py maxcut --all              # every variant (the full variant-bar)
+python data-pipeline/run.py state-prep --solver state-qiskit   # one solver only
 ```
 or via the wrappers: `./scripts/precompute.sh maxcut --all` / `.\scripts\precompute.ps1 maxcut --all`.
 

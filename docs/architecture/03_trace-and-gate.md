@@ -4,9 +4,10 @@ Two data contracts decouple the engine from the web app, and a **measured** gate
 runs in. Full field-by-field schemas are in [../../data/README.md](../../data/README.md); this page is the
 *why*.
 
-## The trace (artifact contract), schema `qlab-trace/1`
+## The trace (artifact contract), schema `qversus-trace/1`
 
-A trace is a **replayable recording** of one circuit run. For every step (a gate, a barrier, a prepared
+The trace schema belongs to the engine (`qversus.core.trace`); QLab wraps each trace in a bundle with every
+solver's result, the comparison verdict, the app version and the engine package and version. A trace is a **replayable recording** of one circuit run. For every step (a gate, a barrier, a prepared
 state) it stores the full **statevector** (2ⁿ complex amplitudes), the per-qubit reduced **Bloch vector**
 `[⟨X⟩,⟨Y⟩,⟨Z⟩]`, and the basis-state **probabilities**, plus the final measurement **histogram**. It is
 JSON-first, compact (amplitudes rounded to 6 decimals), and contains **no Qiskit type**, so the browser
@@ -16,16 +17,17 @@ Determinism is the contract: a run is a pure function of `(params, seed)`. The o
 measurement sampling, routed through one seeded NumPy generator, so the committed counts reproduce exactly.
 Everything else (statevector evolution) is exact. **Replay = truth.**
 
-## The manifest (index contract), schema `qlab-manifest/1`
+## The manifest (index contract), schema `qlab-manifest/2`
 
 One manifest per (case, variant) records the **lane verdict** and the measured numbers behind it, the
 seed/shots/params that reproduce the trace, the **viz bindings** (which renderers the web mounts:
-`bloch`, `amp_phase`, `histogram`, `qsphere`, `density`, `circuit`, `landscape`, `graph`), and the engine
-provenance + version. The web app reads the set of manifests as its catalog.
+`bloch`, `amp_phase`, `histogram`, `qsphere`, `density`, `circuit`, `landscape`, `graph`), the framework that
+authored the trace (`engine`, `engine_version`), and the engine package and app version that produced it
+(`engine_package`, `app_version`). The web app reads the set of manifests as its catalog.
 
 ## The measured gate: live vs precompute (not a matter of taste)
 
-`qlab/core/gate.py::classify_lane` decides the lane from **measurements**. A case runs **live** only if all
+`data-pipeline/pipeline/gate.py::classify_lane` decides the lane from **measurements**. A case runs **live** only if all
 hold:
 
 1. `qubits ≤ LIVE_MAX_QUBITS` (12): 2ⁿ amplitudes must stay interactive in JS (~12 q ≈ 64 MB).

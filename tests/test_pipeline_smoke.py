@@ -1,262 +1,78 @@
-"""Pipeline smoke test, exercises the real engines (Qiskit, and PennyLane if present).
+"""Product pipeline smoke: the orchestrator, the bundle and manifest it writes, and that re-running a committed
+record with its recorded seed and shots reproduces it. The engine's own physics (every problem against its
+closed form) is tested in the qversus repository.
 
-Skipped automatically if Qiskit is not installed (the live-thin env), so `pytest` stays green there;
-CI installs requirements-precompute.txt and runs it for real.
+The classical-only bake runs on the core install CI uses (qversus with NumPy only); the framework bakes skip
+there and run where requirements-precompute.txt is installed.
 """
 
 from __future__ import annotations
 
+import json
+
 import pytest
+import qversus
 
-qiskit = pytest.importorskip("qiskit")
+from pipeline.build import ROOT, app_version, run_case
+from pipeline.manifest import MANIFEST_VERSION
 
-
-def test_state_prep_bell_runs_and_traces():
-    from qlab.registry import get_problem, solvers_for
-
-    problem = get_problem("state-prep")
-    inst = problem.instance("bell-phi-plus")
-    solver = next(s for s in solvers_for(problem) if s.name == "state-qiskit")
-    res = solver.run(problem, inst, seed=42, shots=512)
-    # Bell Φ+ → only |00> and |11> populated, each ~0.5.
-    final = res.trace.steps[-1].probabilities
-    assert abs(final[0] - 0.5) < 1e-6 and abs(final[-1] - 0.5) < 1e-6
-    assert set(res.trace.measurements["counts"]) <= {"00", "11"}
+TIMING = {"wall_ms", "run_ms"}
 
 
-def test_bernstein_vazirani_recovers_secret_in_one_query():
-    from qlab.registry import get_problem, solvers_for
-
-    problem = get_problem("bernstein-vazirani")
-    inst = problem.instance("bv-11010")
-    res = {s.name: s.run(problem, inst, seed=42, shots=256) for s in solvers_for(problem)}
-    assert res["bv-qiskit"].value["recovered"] == "11010"
-    assert res["bv-qiskit"].value["quantum_queries"] == 1
-    assert res["bv-classical"].value["recovered"] == "11010"
-    assert res["bv-classical"].value["classical_queries"] == 5  # n bits → n classical queries
+def _strip(x):
+    if isinstance(x, dict):
+        return {k: _strip(v) for k, v in x.items() if k not in TIMING}
+    if isinstance(x, list):
+        return [_strip(v) for v in x]
+    return x
 
 
-def test_deutsch_jozsa_constant_and_balanced():
-    from qlab.registry import get_problem, solvers_for
-
-    problem = get_problem("deutsch-jozsa")
-    for iid, exp in [("dj-const0-3", "constant"), ("dj-bal-101", "balanced")]:
-        inst = problem.instance(iid)
-        res = {s.name: s.run(problem, inst, seed=42, shots=256) for s in solvers_for(problem)}
-        assert res["dj-qiskit"].value["verdict"] == exp
-        assert res["dj-qiskit"].value["quantum_queries"] == 1
-        assert res["dj-classical"].value["verdict"] == exp
+def _committed(case: str, inst: str) -> dict:
+    return json.loads((ROOT / "data" / "artifacts" / case / f"{inst}.json").read_text(encoding="utf-8"))
 
 
-def test_simon_recovers_period():
-    from qlab.registry import get_problem, solvers_for
-
-    problem = get_problem("simon")
-    inst = problem.instance("simon-3-101")
-    res = {s.name: s.run(problem, inst, seed=42, shots=512) for s in solvers_for(problem)}
-    assert res["simon-qiskit"].value["recovered"] == "101"
-    assert res["simon-qiskit"].value["correct"] is True
-    assert res["simon-classical"].value["recovered"] == "101"
+def _bake(tmp_path, case: str, inst: str, only: str | None = None):
+    old = _committed(case, inst)
+    bundle = run_case(case, inst, seed=old["seed"], shots=old["shots"], only=only,
+                      artifacts=tmp_path / "artifacts", manifests=tmp_path / "manifests", quiet=True)
+    return old, bundle
 
 
-def test_grover_finds_marked():
-    from qlab.registry import get_problem, solvers_for
+def test_classical_bake_writes_the_bundle_and_the_manifest(tmp_path):
+    old, bundle = _bake(tmp_path, "deutsch-jozsa", "dj-bal-101", only="dj-classical")
 
-    problem = get_problem("grover")
-    inst = problem.instance("grover-3-5")
-    res = {s.name: s.run(problem, inst, seed=42, shots=512) for s in solvers_for(problem)}
-    assert res["grover-qiskit"].value["found"] == "101"
-    assert res["grover-qiskit"].value["correct"] is True
-    assert res["grover-qiskit"].value["success_prob"] > 0.9
-    assert res["grover-classical"].value["correct"] is True
+    raw = (tmp_path / "artifacts" / "deutsch-jozsa" / "dj-bal-101.json").read_bytes()
+    assert b"\r" not in raw
+    assert json.loads(raw.decode("utf-8")) == bundle
+    assert bundle["engine_package"] == {"package": "qversus", "version": qversus.__version__}
+    assert bundle["app_version"] == app_version() == (ROOT / "VERSION").read_text(encoding="utf-8").strip()
 
+    manifest = json.loads((tmp_path / "manifests" / "deutsch-jozsa__dj-bal-101.json").read_text(encoding="utf-8"))
+    assert manifest["manifest_version"] == MANIFEST_VERSION
+    assert manifest["engine_package"] == bundle["engine_package"]
+    assert manifest["app_version"] == bundle["app_version"]
+    assert manifest["trace_path"] == "deutsch-jozsa/dj-bal-101.json"
+    assert manifest["lane"] == bundle["lane"]
 
-def test_qft_matches_analytic_dft():
-    from qlab.registry import get_problem, solvers_for
-
-    problem = get_problem("qft")
-    inst = problem.instance("qft-3-k5")
-    res = {s.name: s.run(problem, inst, seed=42, shots=256) for s in solvers_for(problem)}
-    assert res["qft-qiskit"].value["matches_dft"] is True
-    assert res["qft-qiskit"].value["fidelity_vs_dft"] > 0.999
-    assert res["qft-classical"].value["readable"] is True
-
-
-def test_qpe_estimates_phase():
-    from qlab.registry import get_problem, solvers_for
-
-    problem = get_problem("qpe")
-    inst = problem.instance("qpe-t3-1_4")  # φ = 1/4 is exactly representable in 3 bits
-    res = {s.name: s.run(problem, inst, seed=42, shots=256) for s in solvers_for(problem)}
-    assert abs(res["qpe-qiskit"].value["phi_estimate"] - 0.25) < 1e-9
-    assert res["qpe-qiskit"].value["error"] == 0.0
-    assert res["qpe-qiskit"].value["p_top"] > 0.99
-    assert abs(res["qpe-classical"].value["phi_exact"] - 0.25) < 1e-9
+    want = next(s for s in old["solvers"] if s["solver"] == "dj-classical")
+    (got,) = bundle["solvers"]
+    assert _strip(got["value"]) == _strip(want["value"])
+    assert bundle["comparison"]["verdict"]["en"] and bundle["comparison"]["verdict"]["es"]
 
 
-def test_shor_factors_15():
-    from qlab.registry import get_problem, solvers_for
-
-    problem = get_problem("shor")
-    inst = problem.instance("shor-15-a7")  # base 7 has order 4 mod 15
-    res = {s.name: s.run(problem, inst, seed=42, shots=512) for s in solvers_for(problem)}
-    assert res["shor-qiskit"].value["factors"] == [3, 5]
-    assert res["shor-qiskit"].value["order"] == 4
-    assert res["shor-qiskit"].value["correct"] is True
-    assert res["shor-classical"].value["factors"] == [3, 5]
-
-
-def test_vqe_h2_matches_fci():
-    from qlab.registry import get_problem, solvers_for
-
-    problem = get_problem("vqe")
-    inst = problem.instance("vqe-h2-0_74")  # ≈ equilibrium
-    res = {s.name: s.run(problem, inst, seed=42, shots=1) for s in solvers_for(problem)}
-    e_vqe = res["vqe-pennylane"].value["energy"]
-    e_fci = res["vqe-classical"].value["energy"]
-    assert abs(e_vqe - e_fci) < 1.6e-3       # within chemical accuracy
-    assert e_fci < -1.13                     # known H₂ equilibrium energy ≈ -1.137 Ha
-
-
-def test_qml_quantum_kernel_classifies():
-    from qlab.registry import get_problem, solvers_for
-
-    problem = get_problem("qml")
-    inst = problem.instance("qml-circles")  # nonlinear but cleanly separable
-    res = {s.name: s.run(problem, inst, seed=42, shots=1) for s in solvers_for(problem)}
-    assert res["qml-pennylane"].value["test_acc"] >= 0.8     # quantum kernel works…
-    assert res["qml-classical"].value["test_acc"] >= 0.8     # …and so does classical (no advantage)
-
-
-def test_noise_zne_reduces_error():
-    from qlab.registry import get_problem, solvers_for
-
-    problem = get_problem("noise")
-    inst = problem.instance("noise-p0.02-d1")
-    res = {s.name: s.run(problem, inst, seed=42, shots=1) for s in solvers_for(problem)}
-    q = res["noise-qiskit"].value
-    assert q["ideal"] == 1.0 and q["noisy"] < 1.0           # noise pulls the parity below 1
-    assert q["residual_mitigated"] < q["residual_noisy"]    # ZNE reduces the bias
-    assert res["noise-classical"].value["value"] == 1.0     # classical is exact + free
-
-
-def test_qec_repetition_below_threshold():
-    from qlab.registry import get_problem, solvers_for
-
-    problem = get_problem("qec-repetition")
-    r3 = {s.name: s.run(problem, problem.instance("rep-d3-p0.05"), seed=42, shots=1)
-          for s in solvers_for(problem)}
-    r5 = {s.name: s.run(problem, problem.instance("rep-d5-p0.05"), seed=42, shots=1)
-          for s in solvers_for(problem)}
-    l3 = r3["qec-stim"].value["logical_error_rate"]
-    l5 = r5["qec-stim"].value["logical_error_rate"]
-    assert l5 < l3                                                  # distance helps below threshold
-    assert l3 < r3["qec-baseline"].value["physical_error_rate"]    # encoding beats the unprotected qubit
-
-
-def test_qec_surface_below_threshold():
-    from qlab.registry import get_problem, solvers_for
-
-    problem = get_problem("qec-surface")
-    stim_solver = next(s for s in solvers_for(problem) if s.name == "qec-stim")
-    l3 = stim_solver.run(problem, problem.instance("surf-d3-p0.005"), seed=42, shots=1).value["logical_error_rate"]
-    l5 = stim_solver.run(problem, problem.instance("surf-d5-p0.005"), seed=42, shots=1).value["logical_error_rate"]
-    assert l5 < l3                                  # below threshold, distance-5 beats distance-3
-
-
-def test_chsh_violates_classical_bound():
-    from qlab.registry import get_problem, solvers_for
-
-    problem = get_problem("chsh")
-    solvers = solvers_for(problem)
-    q = next(s for s in solvers if s.name == "chsh-qiskit")
-    opt = q.run(problem, problem.instance("chsh-optimal"), seed=42, shots=1)
-    prod = q.run(problem, problem.instance("chsh-product"), seed=42, shots=1)
-    assert abs(opt.value["S"] - 2 * 2 ** 0.5) < 1e-3        # reaches the Tsirelson bound 2√2
-    assert opt.value["exceeds_classical"] is True           # violates the classical bound
-    assert prod.value["exceeds_classical"] is False         # a separable state cannot violate it
-    base = next(s for s in solvers if s.name == "chsh-classical")
-    assert base.run(problem, problem.instance("chsh-optimal"), seed=42, shots=1).value["max_S"] == 2.0
-
-
-def test_teleportation_perfect_fidelity():
-    from qlab.registry import get_problem, solvers_for
-
-    problem = get_problem("teleportation")
-    res = {s.name: s.run(problem, problem.instance("tele-generic"), seed=42, shots=1)
-           for s in solvers_for(problem)}
-    tq = res["teleport-qiskit"].value
-    assert tq["fidelity"] > 0.999                              # perfect transfer
-    assert tq["input_bloch"] == tq["output_bloch"]             # the Bloch vector hops Alice → Bob
-    assert res["teleport-classical"].value["best_fidelity"] < 0.7   # classical measure-resend bound 2/3
-
-
-def test_superdense_decodes_all_messages():
-    from qlab.registry import get_problem, solvers_for
-
-    problem = get_problem("superdense")
-    q = next(s for s in solvers_for(problem) if s.name == "superdense-qiskit")
-    for msg in ("00", "01", "10", "11"):
-        res = q.run(problem, problem.instance(f"sd-{msg}"), seed=42, shots=1)
-        assert res.value["decoded"] == msg and res.value["correct"] is True   # 2 bits from 1 qubit
-    base = next(s for s in solvers_for(problem) if s.name == "superdense-classical")
-    assert base.run(problem, problem.instance("sd-00"), seed=42, shots=1).value["bits_per_qubit"] == 1
-
-
-def test_single_qubit_bloch_vectors():
-    from qlab.registry import get_problem, solvers_for
-
-    problem = get_problem("single-qubit")
-    q = next(s for s in solvers_for(problem) if s.name == "gates-qiskit")
-    assert q.run(problem, problem.instance("sq-x"), seed=42, shots=1).value["bloch"] == [0.0, 0.0, -1.0]
-    assert q.run(problem, problem.instance("sq-h"), seed=42, shots=1).value["bloch"] == [1.0, 0.0, 0.0]
-    assert q.run(problem, problem.instance("sq-hs"), seed=42, shots=1).value["bloch"] == [0.0, 1.0, 0.0]
-    base = next(s for s in solvers_for(problem) if s.name == "bit-classical")
-    assert base.run(problem, problem.instance("sq-x"), seed=42, shots=1).value["states"] == 2
-
-
-def test_qrng_entropy():
-    from qlab.registry import get_problem, solvers_for
-
-    problem = get_problem("qrng")
-    q = next(s for s in solvers_for(problem) if s.name == "qrng-qiskit")
-    assert q.run(problem, problem.instance("qrng-3"), seed=42, shots=64).value["entropy_bits"] == 3.0
-    biased = q.run(problem, problem.instance("qrng-bias30"), seed=42, shots=64).value
-    assert biased["uniform"] is False and biased["entropy_bits"] < 1.0    # RY(π/3) → biased coin
-    cls = next(s for s in solvers_for(problem) if s.name == "qrng-classical")
-    assert cls.run(problem, problem.instance("qrng-3"), seed=42, shots=64).value["deterministic"] is True
-
-
-def test_interference_fringe_matches_cos2():
-    import math
-
-    from qlab.registry import get_problem, solvers_for
-
-    problem = get_problem("interference")
-    q = next(s for s in solvers_for(problem) if s.name == "interference-qiskit")
-    cls = next(s for s in solvers_for(problem) if s.name == "interference-classical")
-    # the H·P(φ)·H fringe is P(0) = cos²(φ/2); φ=0 → 1 (constructive), φ=π → 0 (destructive)
-    assert q.run(problem, problem.instance("itf-0"), seed=42, shots=1).value["p0"] == 1.0
-    assert q.run(problem, problem.instance("itf-pi"), seed=42, shots=1).value["p0"] == 0.0
-    half = q.run(problem, problem.instance("itf-pi2"), seed=42, shots=1).value
-    assert abs(half["p0"] - 0.5) < 1e-6 and half["fringe"] == "mixed"
-    # the classical wave reproduces the same fringe (committed values are rounded to 4 decimals)
-    for iid in ("itf-0", "itf-pi4", "itf-pi2", "itf-2pi3", "itf-pi"):
-        phi = problem.instance(iid).params["phi"]
-        assert abs(cls.run(problem, problem.instance(iid), seed=42, shots=1).value["intensity"]
-                   - math.cos(phi / 2) ** 2) < 1e-3
-
-
-def test_maxcut_classical_optimum_beats_or_matches_qaoa():
-    from qlab.problems.maxcut import MaxCut
-    from qlab.registry import get_problem, solvers_for
-
-    problem = get_problem("maxcut")
-    inst = problem.instance("square")  # C4 → optimum cut = 4
-    results = {s.name: s.run(problem, inst, seed=42, shots=512) for s in solvers_for(problem)}
-    assert results["maxcut-bruteforce"].value["cut"] == 4
-    assert results["maxcut-bruteforce"].optimal is True
-    # QAOA cut never exceeds the classical optimum.
-    assert results["qaoa-qiskit"].value["cut"] <= results["maxcut-bruteforce"].value["cut"]
-    # Triangle is frustrated: optimum is 2, not 3.
-    assert MaxCut().cut_value([[0, 1], [1, 2], [0, 2]], "010") == 2
+@pytest.mark.parametrize("case, inst", [
+    ("state-prep", "bell-phi-plus"),
+    ("bernstein-vazirani", "bv-101"),
+    ("interference", "itf-pi2"),
+    ("chsh", "chsh-optimal"),
+])
+def test_rebake_reproduces_the_committed_record(tmp_path, case, inst):
+    pytest.importorskip("qiskit")
+    old, new = _bake(tmp_path, case, inst)
+    assert [s["solver"] for s in new["solvers"]] == [s["solver"] for s in old["solvers"]]
+    for got, want in zip(new["solvers"], old["solvers"]):
+        for key in ("value", "extra", "optimal", "framework", "paradigm"):
+            assert _strip(got[key]) == _strip(want[key]), (got["solver"], key)
+    for key in ("steps", "measurements", "circuit_ops"):
+        assert new["trace"][key] == old["trace"][key], key
+    assert new["lane"] == old["lane"]
