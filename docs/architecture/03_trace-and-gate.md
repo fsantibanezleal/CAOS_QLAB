@@ -35,16 +35,25 @@ hold:
    (teleportation/QEC), no optimization loop (VQE/QAOA training).
 3. `run_ms ≤ LIVE_RUN_MS` (1500): the offline build time, a proxy for browser responsiveness.
 4. `trace_bytes ≤ LIVE_TRACE_BYTES` (~1 MB).
+5. **the circuit contract**: every op is a gate the live engine runs, with its qubit and parameter counts
+   (`web/src/live/gates.json`, read by `pipeline/circuit.py` here and by `liveTrace.ts` in the browser).
+
+Before any trace is written the pipeline also checks its structure (qubits in range and distinct, finite
+parameters) and that every recorded state is physical (probabilities sum to 1 and equal the squared
+amplitude moduli); a violation stops the bake. CI re-checks all of it on every committed record.
 
 Otherwise the case is **precompute**. The verdict and the numbers behind it are written into the manifest,
 and CI fails the build if a `live`-tagged case breaches a gate, *mislabeling cannot ship*. Both lanes
 render through one code path.
 
 **Worked examples (from the shipped cases):** `state-prep` (≤4 qubits, pure unitary, ~1–2 ms, ~9 KB) → 
-**live**. `maxcut` (≤6 qubits, but a p=1 QAOA carries an offline `(γ,β)` grid-search optimization loop) → 
-**precompute** (`unitary_only=False`); the committed trace still replays the optimal-parameter circuit.
+**live**, except `w-3`, whose W state is prepared by one `prepare_W` instruction the live engine does not
+run → **precompute** by the circuit contract. `maxcut` (≤6 qubits, but a p=1 QAOA carries an offline `(γ,β)`
+grid-search optimization loop) → **precompute** (`unitary_only=False`); the committed trace still replays
+the optimal-parameter circuit. Grover's multi-controlled X gates (`ccx`, `mcx`) are in the live set, so all
+six Grover cases run live, iteration count included.
 
 ## Read next
 
 - [04_lanes.md](./04_lanes.md): what concretely runs in each lane.
-- [../../data/README.md](../../data/README.md): the schemas field by field + the ingestion contract.
+- [../../data/README.md](../../data/README.md): the schemas field by field + the circuit contract.

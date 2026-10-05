@@ -55,11 +55,13 @@ function applyMat2(st: State, q: number, m: Mat2): void {
   }
 }
 
-function applyCX(st: State, ctrl: number, tgt: number): void {
+/** X on `tgt` when every control qubit is |1>: CX with one control, Toffoli (CCX) with two, MCX beyond. */
+function applyMCX(st: State, ctrls: number[], tgt: number): void {
   const { re, im, n } = st;
-  const size = 1 << n, cb = 1 << ctrl, tb = 1 << tgt;
+  const size = 1 << n, tb = 1 << tgt;
+  const cb = ctrls.reduce((m, c) => m | (1 << c), 0);
   for (let i = 0; i < size; i++) {
-    if ((i & cb) && !(i & tb)) {
+    if ((i & cb) === cb && !(i & tb)) {
       const j = i | tb;
       const tr = re[i], ti = im[i];
       re[i] = re[j]; im[i] = im[j];
@@ -119,7 +121,8 @@ export function applyOp(st: State, op: Op): boolean {
   const m = g1(g, p);
   if (m) { applyMat2(st, op.targets[0], m); return true; }
   switch (g) {
-    case "cx": case "cnot": applyCX(st, op.targets[0], op.targets[1]); return true;
+    case "cx": case "cnot": case "ccx": case "mcx":
+      applyMCX(st, op.targets.slice(0, -1), op.targets[op.targets.length - 1]); return true;
     case "cz": applyCZ(st, op.targets[0], op.targets[1]); return true;
     case "cp": case "cu1": applyCP(st, op.targets[0], op.targets[1], p); return true;
     case "rzz": applyRZZ(st, op.targets[0], op.targets[1], p); return true;

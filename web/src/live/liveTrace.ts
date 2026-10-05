@@ -2,17 +2,57 @@
 // shapes so the same renderers (circuit, Bloch, amplitudes, histogram) animate it, replay-shape = live-shape.
 
 import type { Amp, Measurements, Step } from "../lib/contract.types";
+import GATES from "./gates.json" with { type: "json" };
 import { applyOp, blochOf, type Op, probabilities, sampleCounts, type State, zeroState } from "./statevector.ts";
 
-const SUPPORTED = new Set([
-  "h", "x", "y", "z", "s", "sdg", "t", "tdg", "rx", "ry", "rz", "p", "u1",
-  "cx", "cnot", "cz", "cp", "cu1", "rzz", "swap", "barrier", "id", "i",
-]);
-const PARAMETRIC = new Set(["rx", "ry", "rz", "p", "u1", "cp", "cu1", "rzz"]);
+type GateSpec = { qubits: number[]; params: number };
+const SPECS: Record<string, GateSpec> = GATES.gates;
+const PARAMETRIC = new Set(Object.keys(SPECS).filter((g) => SPECS[g].params > 0));
 
-/** True if every op is supported by the live engine (else the case stays replay-only). */
-export function liveSupported(ops: Op[]): boolean {
-  return ops.every((o) => SUPPORTED.has(o.gate.toLowerCase()));
+/** The circuit contract for the live lane (gates.json): every reason the engine must not run this circuit. */
+export function liveViolations(ops: Op[], n: number): string[] {
+  const out: string[] = [];
+  if (n > GATES.max_qubits) out.push(`${n} qubits > ${GATES.max_qubits}`);
+  ops.forEach((o, i) => {
+    const spec = SPECS[o.gate.toLowerCase()];
+    const at = `op ${i} ${o.gate}`;
+    if (!spec) { out.push(`${at}: not a live gate`); return; }
+    const [lo, hi] = spec.qubits;
+    if (o.targets.length < lo || o.targets.length > hi) out.push(`${at}: ${o.targets.length} qubits, needs ${lo}..${hi}`);
+    if (o.targets.some((q) => !Number.isInteger(q) || q < 0 || q >= n)) out.push(`${at}: qubit out of range 0..${n - 1}`);
+    if (new Set(o.targets).size !== o.targets.length) out.push(`${at}: repeated qubit`);
+    const params = o.params ?? [];
+    if (params.length !== spec.params) out.push(`${at}: ${params.length} params, needs ${spec.params}`);
+    if (params.some((p) => !Number.isFinite(p))) out.push(`${at}: non-finite parameter`);
+  });
+  return out;
+}
+
+/** True if the live engine may run the circuit (else the case stays replay-only). */
+export function liveSupported(ops: Op[], n: number): boolean {
+  return liveViolations(ops, n).length === 0;
+}
+
+export interface Repetition { prep: Op[]; block: Op[]; count: number }
+
+const sameOp = (a: Op, b: Op) =>
+  a.gate === b.gate && a.targets.join() === b.targets.join() && (a.params ?? []).join() === (b.params ?? []).join();
+
+/** Split `ops` into a prep of `prepLen` ops followed by `count` identical blocks, if that is exactly what they
+ *  are (Grover: the Hadamard layer, then one oracle + diffuser block per iteration). */
+export function repeatedBlocks(ops: Op[], prepLen: number, count: number): Repetition | null {
+  const rest = ops.length - prepLen;
+  if (count < 1 || rest <= 0 || rest % count) return null;
+  const len = rest / count;
+  const block = ops.slice(prepLen, prepLen + len);
+  for (let j = 1; j < count; j++) for (let i = 0; i < len; i++) if (!sameOp(ops[prepLen + j * len + i], block[i])) return null;
+  return { prep: ops.slice(0, prepLen), block, count };
+}
+
+export function withRepetitions(r: Repetition, times: number): Op[] {
+  const out = [...r.prep];
+  for (let j = 0; j < times; j++) out.push(...r.block);
+  return out;
 }
 
 export interface Adjustable {

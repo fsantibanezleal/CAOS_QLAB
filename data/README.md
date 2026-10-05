@@ -13,20 +13,21 @@ data/
 
 `*.npy`, `*.npz`, `*.h5`, `*.parquet` are git-ignored (CI rejects them); commit only the compact JSON.
 
-## Contract 1: ingestion ("bring your own circuit")
+## Contract 1: the circuit
 
-The lab is teachable on your own circuits. The accepted input is **OpenQASM 2** (the portable baseline) or
-a Qiskit/Cirq circuit object. The validation gate (not a silent coercion):
+The input of a case is its circuit, `trace.circuit_ops` (gate, qubits with controls first and the target
+last, parameters). QLab takes no user-supplied circuit file; the circuits come from the engine's problems.
+The contract is checked in two places and at three levels:
 
-| Field / property | Rule | On violation |
-|---|---|---|
-| qubit count `n` | `n ≤ 12` for the **live** lane; larger → **precompute** only | routed to precompute, never silently truncated |
-| gate set | must be supported by the tracer / the live JS engine | **rejected** with the offending gate named |
-| classical feed-forward / mid-circuit measure | offline-only | **rejected** from the live lane, routed to precompute |
-| parameters | finite, within the declared instance ranges | **rejected** out of range |
+| Level | Rule | Where | On violation |
+|---|---|---|---|
+| structure (every trace) | qubits are integers in `0..n-1` and distinct; parameters finite | `pipeline/circuit.py` before a trace is written; CI (`scripts/check_manifests.py`) on every record | the pipeline refuses to write the trace |
+| physical state (every trace) | each step's probabilities sum to 1 and equal the squared amplitude moduli | same | the pipeline refuses to write the trace |
+| live | every op is a gate in `web/src/live/gates.json` with its qubit and parameter counts; `n ≤ 12` | the lane gate in the pipeline, and the web before the live engine runs | the case is **precompute** (the reason names the op); the web keeps it replay-only |
 
-"Outliers" in a quantum trace are non-physical states: the tracer asserts `‖ψ‖ = 1` to float tolerance and
-probabilities sum to 1; a violation is a bug, not data to coerce.
+Feed-forward, noise and optimisation loops are kept out of the live lane by the gate's `unitary_only`
+criterion (the problem's `live_capable`). `gates.json` is the live engine's own declaration of what it runs,
+so the pipeline and the browser cannot disagree about it.
 
 ## Contract 2: artifact (pipeline → web), trace schema `qversus-trace/1`
 

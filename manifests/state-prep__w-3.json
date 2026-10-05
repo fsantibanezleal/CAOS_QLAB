@@ -5,8 +5,10 @@
   "es": "Preparación de estados y entrelazamiento"
  },
  "category": "entanglement",
- "lane": "live",
- "lane_reasons": [],
+ "lane": "precompute",
+ "lane_reasons": [
+  "circuit outside the live engine's contract: op 0 prepare_W: not a live gate"
+ ],
  "qubits": 3,
  "seed": 42,
  "shots": 2048,
@@ -15,7 +17,7 @@
   "n": 3
  },
  "measured": {
-  "run_ms": 1.45,
+  "run_ms": 1.473,
   "trace_bytes": 2456,
   "unitary_only": true
  },
