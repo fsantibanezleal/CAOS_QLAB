@@ -41,7 +41,7 @@ jobs:
       - run: npm ci
       # postbuild (spa-routes.mjs) writes 404.html and a real <route>.html per route, so deep links answer 200.
       - run: npm run build
-      - run: test -f dist/404.html && test -f dist/benchmark.html && test -f dist/case/grover.html
+      - run: test -f dist/404.html && test -f dist/methodology.html && test -f dist/case/grover.html
       - uses: actions/upload-pages-artifact@v3
         with:
           path: web/dist
