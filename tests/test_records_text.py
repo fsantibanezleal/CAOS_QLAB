@@ -19,7 +19,7 @@ def test_the_committed_records_carry_no_em_dash_or_emoji():
 def test_an_em_dash_in_a_nested_text_field_is_caught(tmp_path):
     (tmp_path / "data" / "artifacts" / "x").mkdir(parents=True)
     (tmp_path / "manifests").mkdir()
-    record = {"title": {"en": "fine", "es": "bien"}, "solvers": [{"notes": {"en": "a — b"}}]}
+    record = {"title": {"en": "fine", "es": "bien"}, "solvers": [{"notes": {"en": "a \u2014 b"}}]}
     (tmp_path / "data" / "artifacts" / "x" / "v.json").write_text(json.dumps(record), encoding="utf-8")
     errs = check_records_text.problems(tmp_path)
     assert len(errs) == 1 and ".solvers[0].notes.en" in errs[0]
