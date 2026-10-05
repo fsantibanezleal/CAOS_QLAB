@@ -63,3 +63,5 @@ jobs:
         run: python3 scripts/check_ci_budget.py
       - name: No em-dash and no emoji in tracked content (ADR-0067)
         run: python3 scripts/check_content_standards.py
+      - name: No em-dash and no emoji in the generated records' text (ADR-0067)
+        run: python3 scripts/check_records_text.py

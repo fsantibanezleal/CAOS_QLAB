@@ -1,14 +1,14 @@
 {
- "schema_version": "qlab-trace/1",
+ "schema_version": "qversus-trace/1",
  "case_id": "maxcut",
  "category": "variational",
  "title": {
-  "en": "MaxCut — QAOA vs classical",
-  "es": "MaxCut — QAOA vs clásico"
+  "en": "MaxCut, QAOA vs classical",
+  "es": "MaxCut, QAOA vs clásico"
  },
  "concept": {
-  "en": "MaxCut splits a graph's vertices into two groups to cut as many edges as possible — NP-hard in general. QAOA encodes it as an Ising cost Hamiltonian and alternates cost/mixer layers, optimizing the angles (γ, β) classically. We run QAOA on Qiskit and PennyLane and put it next to exact brute force and a greedy heuristic on the same graph. The honest result: at these sizes the classical optimum is found in microseconds and QAOA does not win.",
-  "es": "MaxCut divide los vértices de un grafo en dos grupos para cortar la mayor cantidad de aristas posible — NP-difícil en general. QAOA lo codifica como un Hamiltoniano de costo tipo Ising y alterna capas de costo/mezcla, optimizando los ángulos (γ, β) de forma clásica. Ejecutamos QAOA en Qiskit y PennyLane y lo ponemos junto a la fuerza bruta exacta y una heurística voraz sobre el mismo grafo. El resultado honesto: a estos tamaños el óptimo clásico se encuentra en microsegundos y QAOA no gana."
+  "en": "MaxCut splits a graph's vertices into two groups to cut as many edges as possible, NP-hard in general. QAOA encodes it as an Ising cost Hamiltonian and alternates cost/mixer layers, optimizing the angles (γ, β) classically. We run QAOA on Qiskit and PennyLane and put it next to exact brute force and a greedy heuristic on the same graph. The honest result: at these sizes the classical optimum is found in microseconds and QAOA does not win.",
+  "es": "MaxCut divide los vértices de un grafo en dos grupos para cortar la mayor cantidad de aristas posible, NP-difícil en general. QAOA lo codifica como un Hamiltoniano de costo tipo Ising y alterna capas de costo/mezcla, optimizando los ángulos (γ, β) de forma clásica. Ejecutamos QAOA en Qiskit y PennyLane y lo ponemos junto a la fuerza bruta exacta y una heurística voraz sobre el mismo grafo. El resultado honesto: a estos tamaños el óptimo clásico se encuentra en microsegundos y QAOA no gana."
  },
  "metric": {
   "en": "cut value (edges crossing)",
@@ -42,8 +42,8 @@
    ]
   },
   "note": {
-   "en": "Even cycle — fully cuttable (max cut = 4).",
-   "es": "Ciclo par — totalmente cortable (corte máx = 4)."
+   "en": "Even cycle, fully cuttable (max cut = 4).",
+   "es": "Ciclo par, totalmente cortable (corte máx = 4)."
   }
  },
  "qubits": 4,
@@ -53,16 +53,21 @@
  ],
  "seed": 42,
  "shots": 2048,
+ "app_version": "0.34.002",
+ "engine_package": {
+  "package": "qversus",
+  "version": "0.01.000"
+ },
  "primary_solver": "qaoa-qiskit",
  "trace": {
   "case_id": "maxcut",
   "title": {
-   "en": "MaxCut — QAOA vs classical",
-   "es": "MaxCut — QAOA vs clásico"
+   "en": "MaxCut, QAOA vs classical",
+   "es": "MaxCut, QAOA vs clásico"
   },
   "concept": {
-   "en": "MaxCut splits a graph's vertices into two groups to cut as many edges as possible — NP-hard in general. QAOA encodes it as an Ising cost Hamiltonian and alternates cost/mixer layers, optimizing the angles (γ, β) classically. We run QAOA on Qiskit and PennyLane and put it next to exact brute force and a greedy heuristic on the same graph. The honest result: at these sizes the classical optimum is found in microseconds and QAOA does not win.",
-   "es": "MaxCut divide los vértices de un grafo en dos grupos para cortar la mayor cantidad de aristas posible — NP-difícil en general. QAOA lo codifica como un Hamiltoniano de costo tipo Ising y alterna capas de costo/mezcla, optimizando los ángulos (γ, β) de forma clásica. Ejecutamos QAOA en Qiskit y PennyLane y lo ponemos junto a la fuerza bruta exacta y una heurística voraz sobre el mismo grafo. El resultado honesto: a estos tamaños el óptimo clásico se encuentra en microsegundos y QAOA no gana."
+   "en": "MaxCut splits a graph's vertices into two groups to cut as many edges as possible, NP-hard in general. QAOA encodes it as an Ising cost Hamiltonian and alternates cost/mixer layers, optimizing the angles (γ, β) classically. We run QAOA on Qiskit and PennyLane and put it next to exact brute force and a greedy heuristic on the same graph. The honest result: at these sizes the classical optimum is found in microseconds and QAOA does not win.",
+   "es": "MaxCut divide los vértices de un grafo en dos grupos para cortar la mayor cantidad de aristas posible, NP-difícil en general. QAOA lo codifica como un Hamiltoniano de costo tipo Ising y alterna capas de costo/mezcla, optimizando los ángulos (γ, β) de forma clásica. Ejecutamos QAOA en Qiskit y PennyLane y lo ponemos junto a la fuerza bruta exacta y una heurística voraz sobre el mismo grafo. El resultado honesto: a estos tamaños el óptimo clásico se encuentra en microsegundos y QAOA no gana."
   },
   "qubits": 4,
   "steps": [
@@ -2451,7 +2456,7 @@
    "gamma": 0.4098,
    "beta": 2.7318
   },
-  "schema_version": "qlab-trace/1"
+  "schema_version": "qversus-trace/1"
  },
  "solvers": [
   {
@@ -2467,12 +2472,12 @@
     "bitstring": "0101"
    },
    "cost": {
-    "wall_ms": 0.0135,
+    "wall_ms": 0.0152,
     "evaluated": 16
    },
    "notes": {
-    "en": "Enumerated all 16 partitions; the optimum (4) is exact and found in 0.013 ms. This is the bar QAOA must beat — and does not, at this scale.",
-    "es": "Enumeró las 16 particiones; el óptimo (4) es exacto y se encontró en 0.013 ms. Este es el listón que QAOA debe superar — y no lo hace, a esta escala."
+    "en": "Enumerated all 16 partitions; the optimum (4) is exact and found in 0.015 ms. This is the bar QAOA must beat, and does not, at this scale.",
+    "es": "Enumeró las 16 particiones; el óptimo (4) es exacto y se encontró en 0.015 ms. Este es el listón que QAOA debe superar, y no lo hace, a esta escala."
    },
    "optimal": true,
    "extra": {}
@@ -2490,11 +2495,11 @@
     "bitstring": "0110"
    },
    "cost": {
-    "wall_ms": 0.0361
+    "wall_ms": 0.041
    },
    "notes": {
-    "en": "Single-flip local search from a random start — a trivial classical heuristic that already reaches (or nearly reaches) the optimum on these graphs.",
-    "es": "Búsqueda local de un solo flip desde un inicio aleatorio — una heurística clásica trivial que ya alcanza (o casi) el óptimo en estos grafos."
+    "en": "Single-flip local search from a random start, a trivial classical heuristic that already reaches (or nearly reaches) the optimum on these graphs.",
+    "es": "Búsqueda local de un solo flip desde un inicio aleatorio, una heurística clásica trivial que ya alcanza (o casi) el óptimo en estos grafos."
    },
    "optimal": false,
    "extra": {}
@@ -2513,7 +2518,7 @@
     "expectation": 2.9953
    },
    "cost": {
-    "wall_ms": 216.8,
+    "wall_ms": 268.9,
     "qubits": 4,
     "depth": 12,
     "evaluations": 576
@@ -3219,13 +3224,13 @@
     "bitstring": "1010"
    },
    "cost": {
-    "wall_ms": 871.1,
+    "wall_ms": 1065.9,
     "qubits": 4,
     "evaluations": 576
    },
    "notes": {
-    "en": "Independent QAOA on PennyLane default.qubit (same (γ,β) grid as the Qiskit adapter); most-probable bitstring cuts 4 edges — cross-checks Qiskit.",
-    "es": "QAOA independiente en PennyLane default.qubit (misma malla (γ,β) que el adaptador de Qiskit); la cadena más probable corta 4 aristas — verifica a Qiskit."
+    "en": "Independent QAOA on PennyLane default.qubit (same (γ,β) grid as the Qiskit adapter); most-probable bitstring cuts 4 edges, cross-checks Qiskit.",
+    "es": "QAOA independiente en PennyLane default.qubit (misma malla (γ,β) que el adaptador de Qiskit); la cadena más probable corta 4 aristas, verifica a Qiskit."
    },
    "optimal": false,
    "extra": {}
@@ -3244,13 +3249,13 @@
     "expectation": 2.9912
    },
    "cost": {
-    "wall_ms": 483.3,
+    "wall_ms": 584.2,
     "qubits": 4,
     "evaluations": 576
    },
    "notes": {
-    "en": "Independent QAOA on cirq.Simulator (same (γ,β) grid as Qiskit/PennyLane); most-probable bitstring cuts 4 edges — third cross-check.",
-    "es": "QAOA independiente en cirq.Simulator (misma malla (γ,β) que Qiskit/PennyLane); la cadena más probable corta 4 aristas — tercera verificación cruzada."
+    "en": "Independent QAOA on cirq.Simulator (same (γ,β) grid as Qiskit/PennyLane); most-probable bitstring cuts 4 edges, third cross-check.",
+    "es": "QAOA independiente en cirq.Simulator (misma malla (γ,β) que Qiskit/PennyLane); la cadena más probable corta 4 aristas, tercera verificación cruzada."
    },
    "optimal": false,
    "extra": {}
@@ -3260,8 +3265,8 @@
   "optimal_cut": 4,
   "qaoa_cut": 4,
   "verdict": {
-   "en": "Exact classical brute force found the optimum cut = 4 in 0.0135 ms. QAOA (p=1) reached cut = 4. At this scale the classical optimum is instant and QAOA does not win — the honest, expected result.",
-   "es": "La fuerza bruta clásica exacta halló el corte óptimo = 4 en 0.0135 ms. QAOA (p=1) alcanzó corte = 4. A esta escala el óptimo clásico es instantáneo y QAOA no gana — el resultado honesto y esperado."
+   "en": "Exact classical brute force found the optimum cut = 4 in 0.0152 ms. QAOA (p=1) reached cut = 4. At this scale the classical optimum is instant and QAOA does not win, the honest, expected result.",
+   "es": "La fuerza bruta clásica exacta halló el corte óptimo = 4 en 0.0152 ms. QAOA (p=1) alcanzó corte = 4. A esta escala el óptimo clásico es instantáneo y QAOA no gana, el resultado honesto y esperado."
   }
  },
  "references": [

@@ -1,5 +1,5 @@
 {
- "schema_version": "qlab-trace/1",
+ "schema_version": "qversus-trace/1",
  "case_id": "superdense",
  "category": "entanglement",
  "title": {
@@ -7,8 +7,8 @@
   "es": "Codificación superdensa"
  },
  "concept": {
-  "en": "Superdense coding sends two classical bits while physically transmitting only one qubit, using a pre-shared Bell pair. Alice encodes the 2-bit message into her half with a Pauli (00→I, 01→X, 10→Z, 11→ZX), turning the shared state into one of the four Bell states; she sends that one qubit to Bob, who undoes the entanglement (CX, H) and measures both bits exactly. One qubit, two bits — double the Holevo limit — but only because an entangled pair was distributed in advance. It is the dual of teleportation, and an honest resource trade rather than free bandwidth.",
-  "es": "La codificación superdensa envía dos bits clásicos transmitiendo físicamente un solo qubit, usando un par de Bell compartido. Alice codifica el mensaje de 2 bits en su mitad con un Pauli (00→I, 01→X, 10→Z, 11→ZX), convirtiendo el estado compartido en uno de los cuatro estados de Bell; envía ese qubit a Bob, quien deshace el entrelazamiento (CX, H) y mide ambos bits exacto. Un qubit, dos bits — el doble del límite de Holevo — pero solo porque se distribuyó un par entrelazado de antemano. Es el dual de la teletransportación, y un intercambio honesto de recursos, no ancho de banda gratis."
+  "en": "Superdense coding sends two classical bits while physically transmitting only one qubit, using a pre-shared Bell pair. Alice encodes the 2-bit message into her half with a Pauli (00→I, 01→X, 10→Z, 11→ZX), turning the shared state into one of the four Bell states; she sends that one qubit to Bob, who undoes the entanglement (CX, H) and measures both bits exactly. One qubit, two bits, double the Holevo limit, but only because an entangled pair was distributed in advance. It is the dual of teleportation, and an honest resource trade rather than free bandwidth.",
+  "es": "La codificación superdensa envía dos bits clásicos transmitiendo físicamente un solo qubit, usando un par de Bell compartido. Alice codifica el mensaje de 2 bits en su mitad con un Pauli (00→I, 01→X, 10→Z, 11→ZX), convirtiendo el estado compartido en uno de los cuatro estados de Bell; envía ese qubit a Bob, quien deshace el entrelazamiento (CX, H) y mide ambos bits exacto. Un qubit, dos bits, el doble del límite de Holevo, pero solo porque se distribuyó un par entrelazado de antemano. Es el dual de la teletransportación, y un intercambio honesto de recursos, no ancho de banda gratis."
  },
  "metric": {
   "en": "classical bits decoded per qubit sent",
@@ -34,6 +34,11 @@
  "lane_reasons": [],
  "seed": 42,
  "shots": 2048,
+ "app_version": "0.34.002",
+ "engine_package": {
+  "package": "qversus",
+  "version": "0.01.000"
+ },
  "primary_solver": "superdense-qiskit",
  "trace": {
   "case_id": "superdense",
@@ -42,8 +47,8 @@
    "es": "Codificación superdensa"
   },
   "concept": {
-   "en": "Superdense coding sends two classical bits while physically transmitting only one qubit, using a pre-shared Bell pair. Alice encodes the 2-bit message into her half with a Pauli (00→I, 01→X, 10→Z, 11→ZX), turning the shared state into one of the four Bell states; she sends that one qubit to Bob, who undoes the entanglement (CX, H) and measures both bits exactly. One qubit, two bits — double the Holevo limit — but only because an entangled pair was distributed in advance. It is the dual of teleportation, and an honest resource trade rather than free bandwidth.",
-   "es": "La codificación superdensa envía dos bits clásicos transmitiendo físicamente un solo qubit, usando un par de Bell compartido. Alice codifica el mensaje de 2 bits en su mitad con un Pauli (00→I, 01→X, 10→Z, 11→ZX), convirtiendo el estado compartido en uno de los cuatro estados de Bell; envía ese qubit a Bob, quien deshace el entrelazamiento (CX, H) y mide ambos bits exacto. Un qubit, dos bits — el doble del límite de Holevo — pero solo porque se distribuyó un par entrelazado de antemano. Es el dual de la teletransportación, y un intercambio honesto de recursos, no ancho de banda gratis."
+   "en": "Superdense coding sends two classical bits while physically transmitting only one qubit, using a pre-shared Bell pair. Alice encodes the 2-bit message into her half with a Pauli (00→I, 01→X, 10→Z, 11→ZX), turning the shared state into one of the four Bell states; she sends that one qubit to Bob, who undoes the entanglement (CX, H) and measures both bits exactly. One qubit, two bits, double the Holevo limit, but only because an entangled pair was distributed in advance. It is the dual of teleportation, and an honest resource trade rather than free bandwidth.",
+   "es": "La codificación superdensa envía dos bits clásicos transmitiendo físicamente un solo qubit, usando un par de Bell compartido. Alice codifica el mensaje de 2 bits en su mitad con un Pauli (00→I, 01→X, 10→Z, 11→ZX), convirtiendo el estado compartido en uno de los cuatro estados de Bell; envía ese qubit a Bob, quien deshace el entrelazamiento (CX, H) y mide ambos bits exacto. Un qubit, dos bits, el doble del límite de Holevo, pero solo porque se distribuyó un par entrelazado de antemano. Es el dual de la teletransportación, y un intercambio honesto de recursos, no ancho de banda gratis."
   },
   "qubits": 2,
   "steps": [
@@ -404,7 +409,7 @@
    "qubits_sent": 1,
    "bits_decoded": 2
   },
-  "schema_version": "qlab-trace/1"
+  "schema_version": "qversus-trace/1"
  },
  "solvers": [
   {
@@ -423,8 +428,8 @@
     "wall_ms": 0.0
    },
    "notes": {
-    "en": "Without entanglement, one qubit conveys at most 1 classical bit (Holevo) — sending 2 bits needs 2 transmissions. Superdense gets 2 bits per qubit, but only via a pre-shared Bell pair (an honest resource trade, not free bandwidth).",
-    "es": "Sin entrelazamiento, un qubit transmite a lo más 1 bit clásico (Holevo) — enviar 2 bits necesita 2 transmisiones. La superdensa logra 2 bits por qubit, pero solo vía un par de Bell compartido (un intercambio honesto de recursos, no ancho de banda gratis)."
+    "en": "Without entanglement, one qubit conveys at most 1 classical bit (Holevo), sending 2 bits needs 2 transmissions. Superdense gets 2 bits per qubit, but only via a pre-shared Bell pair (an honest resource trade, not free bandwidth).",
+    "es": "Sin entrelazamiento, un qubit transmite a lo más 1 bit clásico (Holevo), enviar 2 bits necesita 2 transmisiones. La superdensa logra 2 bits por qubit, pero solo vía un par de Bell compartido (un intercambio honesto de recursos, no ancho de banda gratis)."
    },
    "optimal": true,
    "extra": {}
@@ -445,13 +450,13 @@
     "qubits_sent": 1
    },
    "cost": {
-    "wall_ms": 0.182,
+    "wall_ms": 0.44,
     "qubits": 2,
     "qubits_transmitted": 1
    },
    "notes": {
-    "en": "Encoded message 10 into 1 qubit; Bob decoded 10 — 2 classical bits from 1 transmitted qubit (+ a pre-shared Bell pair).",
-    "es": "Codificó el mensaje 10 en 1 qubit; Bob decodificó 10 — 2 bits clásicos desde 1 qubit transmitido (+ un par de Bell compartido)."
+    "en": "Encoded message 10 into 1 qubit; Bob decoded 10, 2 classical bits from 1 transmitted qubit (+ a pre-shared Bell pair).",
+    "es": "Codificó el mensaje 10 en 1 qubit; Bob decodificó 10, 2 bits clásicos desde 1 qubit transmitido (+ un par de Bell compartido)."
    },
    "optimal": false,
    "extra": {}
@@ -462,8 +467,8 @@
   "decoded": "10",
   "correct": true,
   "verdict": {
-   "en": "Alice sent the 2 bits 10 through one transmitted qubit; Bob decoded 10 (correct). Classically one qubit carries at most 1 bit (Holevo), so this is a real 2-for-1 — but it spends a pre-shared Bell pair, so it is a resource trade (the dual of teleportation), not free extra bandwidth.",
-   "es": "Alice envió los 2 bits 10 por un qubit transmitido; Bob decodificó 10 (correcto). Clásicamente un qubit lleva a lo más 1 bit (Holevo), así que esto es un 2-por-1 real — pero gasta un par de Bell compartido, así que es un intercambio de recursos (el dual de la teletransportación), no ancho de banda gratis."
+   "en": "Alice sent the 2 bits 10 through one transmitted qubit; Bob decoded 10 (correct). Classically one qubit carries at most 1 bit (Holevo), so this is a real 2-for-1, but it spends a pre-shared Bell pair, so it is a resource trade (the dual of teleportation), not free extra bandwidth.",
+   "es": "Alice envió los 2 bits 10 por un qubit transmitido; Bob decodificó 10 (correcto). Clásicamente un qubit lleva a lo más 1 bit (Holevo), así que esto es un 2-por-1 real, pero gasta un par de Bell compartido, así que es un intercambio de recursos (el dual de la teletransportación), no ancho de banda gratis."
   }
  },
  "references": [
