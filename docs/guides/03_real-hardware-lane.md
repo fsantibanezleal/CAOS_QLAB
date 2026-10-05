@@ -3,7 +3,7 @@
 Run a case on a **real quantum computer** and commit the returned counts as a trace with a `ran_on`
 provenance badge. This is the *"this actually ran on a 156-qubit quantum computer"* moment.
 
-> **Off by default.** This lane runs **locally** with a token from the private vault; the published static
+> **Off by default.** This lane runs **locally** with your own token in `.env`; the published static
 > site ships no secrets and makes no live hardware calls. It is gated on an account/tier decision.
 
 > **Wired now (v0.05.000).** The opt-in `ibm-hardware` solver (`qversus.solvers.hardware_solvers`) is in the
