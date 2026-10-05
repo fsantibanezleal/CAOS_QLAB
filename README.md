@@ -20,7 +20,7 @@ scale, **classical still wins**, and QLab shows you exactly why, with the number
 
 **▶ Live app:** **https://qlab.fasl-work.com** ·  [Docs / wiki](docs/README.md) ·  [Changelog](CHANGELOG.md)
 
-> **Status:** v0.34.000, **engine + 20-case catalog + the full web SPA are live.** The Problem × Solver
+> **Status:** v0.34.002, **engine + 20-case catalog + the full web SPA are live.** The Problem × Solver
 > engine runs **20 cases** across **5 real frameworks** (Qiskit + Aer · PennyLane · Cirq · Stim ·
 > classical/NumPy + scikit-learn) with **119 committed, reproducible traces**; every quantum method is shown
 > next to its classical baseline. The React SPA ships the six standard pages (App · Introduction ·
