@@ -8,6 +8,7 @@
     "dev": "vite",
     "prebuild": "node copy-data.mjs",
     "build": "tsc && vite build",
+    "postbuild": "node spa-routes.mjs",
     "preview": "vite preview"
   },
   "dependencies": {
