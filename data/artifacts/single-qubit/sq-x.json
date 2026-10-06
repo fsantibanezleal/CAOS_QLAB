@@ -38,7 +38,7 @@
  "lane_reasons": [],
  "seed": 42,
  "shots": 2048,
- "app_version": "0.34.002",
+ "app_version": "0.35.000",
  "engine_package": {
   "package": "qversus",
   "version": "0.01.000"
@@ -212,7 +212,7 @@
     "norm": 1.0
    },
    "cost": {
-    "wall_ms": 0.538,
+    "wall_ms": 0.653,
     "qubits": 1
    },
    "notes": {

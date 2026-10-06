@@ -33,7 +33,7 @@
   "package": "qversus",
   "version": "0.01.000"
  },
- "app_version": "0.34.002",
+ "app_version": "0.35.000",
  "trace_path": "noise/noise-p0.03-d3.json",
  "references": [
   {

@@ -30,7 +30,7 @@
   ]
  },
  "measured": {
-  "run_ms": 899.6,
+  "run_ms": 1386.3,
   "trace_bytes": 12337,
   "unitary_only": false
  },
@@ -46,7 +46,7 @@
   "package": "qversus",
   "version": "0.01.000"
  },
- "app_version": "0.34.002",
+ "app_version": "0.35.000",
  "trace_path": "maxcut/triangle.json",
  "references": [
   {

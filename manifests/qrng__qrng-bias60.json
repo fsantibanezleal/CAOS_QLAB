@@ -15,7 +15,7 @@
   "theta": 2.0943951023931953
  },
  "measured": {
-  "run_ms": 0.116,
+  "run_ms": 0.302,
   "trace_bytes": 2648,
   "unitary_only": true
  },
@@ -31,7 +31,7 @@
   "package": "qversus",
   "version": "0.01.000"
  },
- "app_version": "0.34.002",
+ "app_version": "0.35.000",
  "trace_path": "qrng/qrng-bias60.json",
  "references": [
   {

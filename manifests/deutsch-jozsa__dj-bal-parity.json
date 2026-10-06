@@ -16,7 +16,7 @@
   "secret": "111"
  },
  "measured": {
-  "run_ms": 6.737,
+  "run_ms": 8.568,
   "trace_bytes": 10923,
   "unitary_only": true
  },
@@ -31,7 +31,7 @@
   "package": "qversus",
   "version": "0.01.000"
  },
- "app_version": "0.34.002",
+ "app_version": "0.35.000",
  "trace_path": "deutsch-jozsa/dj-bal-parity.json",
  "references": [
   {

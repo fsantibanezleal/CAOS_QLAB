@@ -16,7 +16,7 @@
   "phi": 0.0
  },
  "measured": {
-  "run_ms": 0.742,
+  "run_ms": 1.304,
   "trace_bytes": 6959,
   "unitary_only": true
  },
@@ -32,7 +32,7 @@
   "package": "qversus",
   "version": "0.01.000"
  },
- "app_version": "0.34.002",
+ "app_version": "0.35.000",
  "trace_path": "teleportation/tele-plus.json",
  "references": [
   {

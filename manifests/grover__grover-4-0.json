@@ -17,7 +17,7 @@
   ]
  },
  "measured": {
-  "run_ms": 60.944,
+  "run_ms": 152.116,
   "trace_bytes": 85270,
   "unitary_only": true
  },
@@ -32,7 +32,7 @@
   "package": "qversus",
   "version": "0.01.000"
  },
- "app_version": "0.34.002",
+ "app_version": "0.35.000",
  "trace_path": "grover/grover-4-0.json",
  "references": [
   {

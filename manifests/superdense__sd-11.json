@@ -15,7 +15,7 @@
   "message": "11"
  },
  "measured": {
-  "run_ms": 0.438,
+  "run_ms": 0.36,
   "trace_bytes": 4405,
   "unitary_only": true
  },
@@ -31,7 +31,7 @@
   "package": "qversus",
   "version": "0.01.000"
  },
- "app_version": "0.34.002",
+ "app_version": "0.35.000",
  "trace_path": "superdense/sd-11.json",
  "references": [
   {

@@ -36,7 +36,7 @@
  ],
  "seed": 42,
  "shots": 2048,
- "app_version": "0.34.002",
+ "app_version": "0.35.000",
  "engine_package": {
   "package": "qversus",
   "version": "0.01.000"
@@ -57,7 +57,7 @@
     "test_acc": 0.938
    },
    "cost": {
-    "wall_ms": 1.545,
+    "wall_ms": 1.996,
     "support_vectors": 12
    },
    "notes": {
@@ -81,7 +81,7 @@
     "qubits": 2
    },
    "cost": {
-    "wall_ms": 785.9,
+    "wall_ms": 1406.9,
     "qubits": 2,
     "kernel_evals": 960
    },

@@ -36,7 +36,7 @@
  "lane_reasons": [],
  "seed": 42,
  "shots": 2048,
- "app_version": "0.34.002",
+ "app_version": "0.35.000",
  "engine_package": {
   "package": "qversus",
   "version": "0.01.000"
@@ -10523,7 +10523,7 @@
     "worst_case_queries": 16
    },
    "cost": {
-    "wall_ms": 0.0028,
+    "wall_ms": 0.0055,
     "oracle_queries": 8.5
    },
    "notes": {
@@ -10548,7 +10548,7 @@
     "quantum_queries": 3
    },
    "cost": {
-    "wall_ms": 53.775,
+    "wall_ms": 116.646,
     "qubits": 4,
     "depth": 82,
     "oracle_queries": 3

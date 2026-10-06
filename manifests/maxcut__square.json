@@ -7,7 +7,8 @@
  "category": "variational",
  "lane": "precompute",
  "lane_reasons": [
-  "needs noise / mid-circuit feed-forward / optimization loop (offline engine only)"
+  "needs noise / mid-circuit feed-forward / optimization loop (offline engine only)",
+  "run 1699 ms > 1500 ms"
  ],
  "qubits": 4,
  "seed": 42,
@@ -34,7 +35,7 @@
   ]
  },
  "measured": {
-  "run_ms": 1065.9,
+  "run_ms": 1698.8,
   "trace_bytes": 18270,
   "unitary_only": false
  },
@@ -50,7 +51,7 @@
   "package": "qversus",
   "version": "0.01.000"
  },
- "app_version": "0.34.002",
+ "app_version": "0.35.000",
  "trace_path": "maxcut/square.json",
  "references": [
   {

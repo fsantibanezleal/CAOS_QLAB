@@ -70,11 +70,11 @@
  "lane": "precompute",
  "lane_reasons": [
   "needs noise / mid-circuit feed-forward / optimization loop (offline engine only)",
-  "run 1547 ms > 1500 ms"
+  "run 3277 ms > 1500 ms"
  ],
  "seed": 42,
  "shots": 2048,
- "app_version": "0.34.002",
+ "app_version": "0.35.000",
  "engine_package": {
   "package": "qversus",
   "version": "0.01.000"
@@ -9200,12 +9200,12 @@
     "bitstring": "001110"
    },
    "cost": {
-    "wall_ms": 0.0652,
+    "wall_ms": 0.0753,
     "evaluated": 64
    },
    "notes": {
-    "en": "Enumerated all 64 partitions; the optimum (7) is exact and found in 0.065 ms. This is the bar QAOA must beat, and does not, at this scale.",
-    "es": "Enumeró las 64 particiones; el óptimo (7) es exacto y se encontró en 0.065 ms. Este es el listón que QAOA debe superar, y no lo hace, a esta escala."
+    "en": "Enumerated all 64 partitions; the optimum (7) is exact and found in 0.075 ms. This is the bar QAOA must beat, and does not, at this scale.",
+    "es": "Enumeró las 64 particiones; el óptimo (7) es exacto y se encontró en 0.075 ms. Este es el listón que QAOA debe superar, y no lo hace, a esta escala."
    },
    "optimal": true,
    "extra": {}
@@ -9223,7 +9223,7 @@
     "bitstring": "010101"
    },
    "cost": {
-    "wall_ms": 0.0587
+    "wall_ms": 0.0753
    },
    "notes": {
     "en": "Single-flip local search from a random start, a trivial classical heuristic that already reaches (or nearly reaches) the optimum on these graphs.",
@@ -9246,7 +9246,7 @@
     "expectation": 5.9357
    },
    "cost": {
-    "wall_ms": 434.1,
+    "wall_ms": 852.1,
     "qubits": 6,
     "depth": 21,
     "evaluations": 576
@@ -9952,7 +9952,7 @@
     "bitstring": "011100"
    },
    "cost": {
-    "wall_ms": 1546.8,
+    "wall_ms": 3276.9,
     "qubits": 6,
     "evaluations": 576
    },
@@ -9977,7 +9977,7 @@
     "expectation": 5.9385
    },
    "cost": {
-    "wall_ms": 875.6,
+    "wall_ms": 1598.5,
     "qubits": 6,
     "evaluations": 576
    },
@@ -9993,8 +9993,8 @@
   "optimal_cut": 7,
   "qaoa_cut": 7,
   "verdict": {
-   "en": "Exact classical brute force found the optimum cut = 7 in 0.0652 ms. QAOA (p=1) reached cut = 7. At this scale the classical optimum is instant and QAOA does not win, the honest, expected result.",
-   "es": "La fuerza bruta clásica exacta halló el corte óptimo = 7 en 0.0652 ms. QAOA (p=1) alcanzó corte = 7. A esta escala el óptimo clásico es instantáneo y QAOA no gana, el resultado honesto y esperado."
+   "en": "Exact classical brute force found the optimum cut = 7 in 0.0753 ms. QAOA (p=1) reached cut = 7. At this scale the classical optimum is instant and QAOA does not win, the honest, expected result.",
+   "es": "La fuerza bruta clásica exacta halló el corte óptimo = 7 en 0.0753 ms. QAOA (p=1) alcanzó corte = 7. A esta escala el óptimo clásico es instantáneo y QAOA no gana, el resultado honesto y esperado."
   }
  },
  "references": [

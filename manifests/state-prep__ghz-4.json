@@ -15,7 +15,7 @@
   "n": 4
  },
  "measured": {
-  "run_ms": 4.949,
+  "run_ms": 4.268,
   "trace_bytes": 5075,
   "unitary_only": true
  },
@@ -31,7 +31,7 @@
   "package": "qversus",
   "version": "0.01.000"
  },
- "app_version": "0.34.002",
+ "app_version": "0.35.000",
  "trace_path": "state-prep/ghz-4.json",
  "references": [
   {

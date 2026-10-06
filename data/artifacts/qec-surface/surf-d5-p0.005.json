@@ -38,7 +38,7 @@
  ],
  "seed": 42,
  "shots": 2048,
- "app_version": "0.34.002",
+ "app_version": "0.35.000",
  "engine_package": {
   "package": "qversus",
   "version": "0.01.000"
@@ -59,7 +59,7 @@
     "physical_qubits": 1
    },
    "cost": {
-    "wall_ms": 0.0027
+    "wall_ms": 0.0028
    },
    "notes": {
     "en": "An unprotected qubit under the same noise over 5 rounds flips with probability 0.0164. The encoded code wins when its logical error is below this.",
@@ -84,7 +84,7 @@
     "physical_qubits": 64
    },
    "cost": {
-    "wall_ms": 66.6,
+    "wall_ms": 90.4,
     "shots": 30000,
     "physical_qubits": 64
    },

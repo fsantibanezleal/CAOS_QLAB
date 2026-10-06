@@ -36,7 +36,7 @@
  ],
  "seed": 42,
  "shots": 2048,
- "app_version": "0.34.002",
+ "app_version": "0.35.000",
  "engine_package": {
   "package": "qversus",
   "version": "0.01.000"
@@ -1228,7 +1228,7 @@
     "classical_queries": 3
    },
    "cost": {
-    "wall_ms": 0.0254,
+    "wall_ms": 0.0256,
     "oracle_queries": 3
    },
    "notes": {
@@ -1252,7 +1252,7 @@
     "quantum_queries": 2
    },
    "cost": {
-    "wall_ms": 9.547,
+    "wall_ms": 10.051,
     "qubits": 4,
     "depth": 8,
     "oracle_queries": 2
