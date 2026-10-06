@@ -1,5 +1,5 @@
 import { useEffect, useMemo, useState } from "react";
-import { Link } from "react-router-dom";
+import { Link } from "react-router";
 import { Eq } from "../components/Tabs";
 import { Refs } from "../lib/citations";
 import type { Bilingual, Bundle, Catalog } from "../lib/contract.types";
@@ -485,7 +485,7 @@ function LiveRecompute() {
 
       <div className="variant-bar">
         {LIVE_CASES.map((c) => (
-          <button key={c.id} className={`variant-chip ${c.id === sel.id ? "on" : ""}`} onClick={() => setSel(c)}>
+          <button key={c.id} className={`variant-chip ${c.id === sel.id ? "is-on" : ""}`} onClick={() => setSel(c)}>
             {c.name[lang]}
           </button>
         ))}

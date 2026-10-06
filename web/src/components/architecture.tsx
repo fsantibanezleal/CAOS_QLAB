@@ -1,5 +1,6 @@
-import { type ReactElement, useEffect, useState } from "react";
-import { useUI } from "../lib/ui";
+import type { ArchitectureConfig } from "@fasl-work/caos-app-shell";
+import type { ReactElement } from "react";
+import { renderToStaticMarkup } from "react-dom/server";
 import {
   AppLifecycleDiagram,
   DataContractDiagram,
@@ -64,39 +65,22 @@ const SLIDES: Slide[] = [
   },
 ];
 
-export function ArchModal({ onClose }: { onClose: () => void }) {
-  const { lang } = useUI();
-  const en = lang === "en";
-  const [active, setActive] = useState(0);
-
-  useEffect(() => {
-    const onKey = (e: KeyboardEvent) => { if (e.key === "Escape") onClose(); };
-    window.addEventListener("keydown", onKey);
-    return () => window.removeEventListener("keydown", onKey);
-  }, [onClose]);
-
-  const slide = SLIDES[active];
-  const Diagram = slide.diagram;
-
-  return (
-    <div className="modal-backdrop" onClick={onClose}>
-      <div className="modal" role="dialog" aria-modal="true" onClick={(e) => e.stopPropagation()}>
-        <div className="modal-head">
-          <strong>{en ? "How QLab works, architecture" : "Cómo funciona QLab, arquitectura"}</strong>
-          <button className="modal-close" onClick={onClose} aria-label="Close">✕</button>
-        </div>
-        <div className="modal-tabs">
-          {SLIDES.map((s, i) => (
-            <button key={s.id} className={`modal-tab ${i === active ? "on" : ""}`} onClick={() => setActive(i)}>
-              {s.label[lang]}
-            </button>
-          ))}
-        </div>
-        <div className="modal-body">
-          <div className="arch-wrap"><Diagram lang={lang} /></div>
-          <p>{slide.body[lang]}</p>
-        </div>
-      </div>
-    </div>
-  );
+/** One SVG string holding both languages: the English and Spanish renders of the same diagram, in `l-en` and
+ *  `l-es` groups the shell's modal shows by language, with the shared <style> and <defs> once at the root. */
+function bilingualSvg(Diagram: Slide["diagram"]): string {
+  const en = renderToStaticMarkup(<Diagram lang="en" />);
+  const es = renderToStaticMarkup(<Diagram lang="es" />);
+  const open = en.match(/^<svg[^>]*>/)![0];
+  const inner = (s: string) => s.replace(/^<svg[^>]*>/, "").replace(/<\/svg>$/, "");
+  const shared = /<style>[\s\S]*?<\/style>|<defs>[\s\S]*?<\/defs>/g;
+  const once = (inner(en).match(shared) ?? []).join("");
+  return `${open}${once}<g class="l-en">${inner(en).replace(shared, "")}</g><g class="l-es">${inner(es).replace(shared, "")}</g></svg>`;
 }
+
+export const ARCHITECTURE: ArchitectureConfig = {
+  title_en: "How QLab works",
+  title_es: "Cómo funciona QLab",
+  tabs: SLIDES.map((s) => ({
+    id: s.id, en: s.label.en, es: s.label.es, body_en: s.body.en, body_es: s.body.es, svg: bilingualSvg(s.diagram),
+  })),
+};

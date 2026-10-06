@@ -777,7 +777,12 @@ class QiskitQAOA(Solver):
             : "Cómo está construido el lab, no una lista de stack. La física cuántica pesada se ejecuta offline en frameworks reales tras una costura delgada de adaptadores Problem × Solver; un único pipeline emite un artefacto versionado determinista (traza + manifiesto); una compuerta medida enruta cada caso a un motor de statevector vivo escrito a mano en el navegador o a un replay precomputado, todo renderizado por un solo renderer; y todo se publica como sitio estático sin backend. Cada ejecución es función pura de (params, seed), replay = verdad."}
         </p>
       </div>
-      <Tabs tabs={tabs} />
+      <Tabs tabs={tabs} ariaLabel={en ? "How the lab is built" : "Cómo está construido el lab"} groups={[
+        { id: "system", label: en ? "System" : "Sistema", tabs: ["architecture", "engine", "deploy"] },
+        { id: "lanes", label: en ? "Lanes" : "Carriles", tabs: ["live", "hardware"] },
+        { id: "frameworks", label: "Frameworks", tabs: ["qiskit", "pennylane", "stim"] },
+        { id: "contracts", label: en ? "Contracts" : "Contratos", tabs: ["trace", "manifest", "gate"] },
+      ]} />
     </div>
   );
 }

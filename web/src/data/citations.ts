@@ -126,6 +126,7 @@ export const CITATIONS: Citation[] = [
     label: "Graham, Knuth, Patashnik 1994",
     citation:
       "R. L. Graham, D. E. Knuth and O. Patashnik, Concrete Mathematics: A Foundation for Computer Science, 2nd ed., Addison-Wesley (1994), ch. 5 (binomial coefficients, the upper-summation identity).",
+    url: "https://www-cs-faculty.stanford.edu/~knuth/gkp.html",
   },
   {
     id: "shor1997",

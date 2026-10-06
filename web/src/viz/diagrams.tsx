@@ -1,6 +1,6 @@
 // Hand-authored, themed architecture diagrams (ADR-0058, the in-app ⓘ modal).
-// Every colour is a CSS-variable PALETTE TOKEN (var(--accent), var(--good), var(--warn),
-// var(--border), var(--panel), var(--panel-2), var(--fg), var(--fg-subtle), var(--accent-soft)).
+// Every colour is a shared-shell token (var(--color-accent), var(--color-good), var(--color-surface), …), the only
+// ones the shell's architecture modal accepts (validateArchitectureConfig).
 // Zero hardcoded hex, the only `#` allowed are HTML entities (&#8594; &#8804; &#215; &#8776; …).
 // The SVGs are inlined in the React DOM (not <img>), so they inherit the live theme variables;
 // each carries a <style> block with the semantic class vocabulary required by the FLOOR.
@@ -17,32 +17,32 @@ type Lang = "en" | "es";
 // so a single source of truth for the class vocabulary. All colours are palette tokens.
 const ARCH_CSS = `
   .arch-svg text { font-family: ui-sans-serif, system-ui, "Segoe UI", Roboto, sans-serif; }
-  .arch-svg .band { fill: var(--accent-soft); stroke: var(--border); stroke-width: 1; opacity: 0.55; }
-  .arch-svg .bandl { fill: var(--fg-subtle); font: 700 10px ui-monospace, monospace;
+  .arch-svg .band { fill: var(--color-accent-soft); stroke: var(--color-border); stroke-width: 1; opacity: 0.55; }
+  .arch-svg .bandl { fill: var(--color-fg-subtle); font: 700 10px ui-monospace, monospace;
     text-transform: uppercase; letter-spacing: 0.08em; }
-  .arch-svg .bx { fill: var(--panel); stroke: var(--border); stroke-width: 1.2; }
-  .arch-svg .bx-hi { fill: var(--panel); stroke: var(--accent); stroke-width: 1.6; }
-  .arch-svg .bx-web { fill: var(--panel); stroke: var(--good); stroke-width: 1.5; }
-  .arch-svg .bx-compute { fill: var(--panel); stroke: var(--edge-qec); stroke-width: 1.4; }
-  .arch-svg .bx-gate { fill: var(--panel); stroke: var(--warn); stroke-width: 1.5; }
-  .arch-svg .bx-store { fill: var(--accent-soft); stroke: var(--accent); stroke-width: 1.4; }
-  .arch-svg .bx-dim { fill: var(--panel); stroke: var(--border); stroke-width: 1.1; stroke-dasharray: 4 3; opacity: 0.85; }
-  .arch-svg .ttl { fill: var(--fg); font: 600 12.5px ui-sans-serif, system-ui; }
-  .arch-svg .ttl-hi { fill: var(--accent); font: 700 12.5px ui-sans-serif, system-ui; }
-  .arch-svg .ttl-web { fill: var(--good); font: 700 12.5px ui-sans-serif, system-ui; }
-  .arch-svg .ttl-warn { fill: var(--warn); font: 700 12.5px ui-sans-serif, system-ui; }
-  .arch-svg .sub { fill: var(--fg-subtle); font: 10px ui-sans-serif, system-ui; }
-  .arch-svg .it { fill: var(--fg); font: 10.5px ui-sans-serif, system-ui; }
-  .arch-svg .cd { fill: var(--accent); font: 10px ui-monospace, "Cascadia Code", monospace; }
-  .arch-svg .mu { fill: var(--fg-subtle); font: italic 9.5px ui-sans-serif, system-ui; }
-  .arch-svg .eq { fill: var(--fg); font: 11px "Cambria Math", Cambria, ui-monospace, monospace; }
-  .arch-svg .eqbox { fill: var(--accent-soft); stroke: var(--border); stroke-width: 1; }
-  .arch-svg .flow { fill: none; stroke: var(--fg-subtle); stroke-width: 1.5; opacity: 0.85; }
-  .arch-svg .flow-hi { fill: none; stroke: var(--accent); stroke-width: 1.6; }
-  .arch-svg .lbl { fill: var(--fg-subtle); font: 9.5px ui-monospace, monospace; }
-  .arch-svg .lbl-em { fill: var(--accent); font: 600 9.5px ui-monospace, monospace; }
-  .arch-svg .ah { fill: var(--fg-subtle); }
-  .arch-svg .ah-hi { fill: var(--accent); }
+  .arch-svg .bx { fill: var(--color-surface); stroke: var(--color-border); stroke-width: 1.2; }
+  .arch-svg .bx-hi { fill: var(--color-surface); stroke: var(--color-accent); stroke-width: 1.6; }
+  .arch-svg .bx-web { fill: var(--color-surface); stroke: var(--color-good); stroke-width: 1.5; }
+  .arch-svg .bx-compute { fill: var(--color-surface); stroke: var(--color-magenta); stroke-width: 1.4; }
+  .arch-svg .bx-gate { fill: var(--color-surface); stroke: var(--color-warn); stroke-width: 1.5; }
+  .arch-svg .bx-store { fill: var(--color-accent-soft); stroke: var(--color-accent); stroke-width: 1.4; }
+  .arch-svg .bx-dim { fill: var(--color-surface); stroke: var(--color-border); stroke-width: 1.1; stroke-dasharray: 4 3; opacity: 0.85; }
+  .arch-svg .ttl { fill: var(--color-fg); font: 600 12.5px ui-sans-serif, system-ui; }
+  .arch-svg .ttl-hi { fill: var(--color-accent); font: 700 12.5px ui-sans-serif, system-ui; }
+  .arch-svg .ttl-web { fill: var(--color-good); font: 700 12.5px ui-sans-serif, system-ui; }
+  .arch-svg .ttl-warn { fill: var(--color-warn); font: 700 12.5px ui-sans-serif, system-ui; }
+  .arch-svg .sub { fill: var(--color-fg-subtle); font: 10px ui-sans-serif, system-ui; }
+  .arch-svg .it { fill: var(--color-fg); font: 10.5px ui-sans-serif, system-ui; }
+  .arch-svg .cd { fill: var(--color-accent); font: 10px ui-monospace, "Cascadia Code", monospace; }
+  .arch-svg .mu { fill: var(--color-fg-subtle); font: italic 9.5px ui-sans-serif, system-ui; }
+  .arch-svg .eq { fill: var(--color-fg); font: 11px "Cambria Math", Cambria, ui-monospace, monospace; }
+  .arch-svg .eqbox { fill: var(--color-accent-soft); stroke: var(--color-border); stroke-width: 1; }
+  .arch-svg .flow { fill: none; stroke: var(--color-fg-subtle); stroke-width: 1.5; opacity: 0.85; }
+  .arch-svg .flow-hi { fill: none; stroke: var(--color-accent); stroke-width: 1.6; }
+  .arch-svg .lbl { fill: var(--color-fg-subtle); font: 9.5px ui-monospace, monospace; }
+  .arch-svg .lbl-em { fill: var(--color-accent); font: 600 9.5px ui-monospace, monospace; }
+  .arch-svg .ah { fill: var(--color-fg-subtle); }
+  .arch-svg .ah-hi { fill: var(--color-accent); }
 `;
 
 function Defs({ id }: { id: string }) {

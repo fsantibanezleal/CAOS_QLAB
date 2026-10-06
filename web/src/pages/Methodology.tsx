@@ -1,5 +1,4 @@
-import { type ReactNode } from "react";
-import { Eq, type TabDef, Tabs } from "../components/Tabs";
+import { Callout, Eq, type TabDef, Tabs } from "../components/Tabs";
 import { Refs } from "../lib/citations";
 import { useUI } from "../lib/ui";
 
@@ -9,14 +8,6 @@ type Lang = "en" | "es";
    The honest scope callout, exactly one per method tab (ADR-0017 §2). Uses the
    shell .callout token (theme-aware), with a bold quantum-vs-classical verdict.
    ──────────────────────────────────────────────────────────────────────── */
-function Callout({ title, children, pt }: { title: string; children: ReactNode; pt?: ReactNode }) {
-  return (
-    <div className="callout">
-      <strong>{title}</strong> {children}
-      {pt && <span className="callout-pt">{pt}</span>}
-    </div>
-  );
-}
 
 /* Shared arrowhead marker (themed via .arch-arrowhead). */
 function Head({ id }: { id: string }) {
@@ -751,7 +742,12 @@ export function Methodology() {
             : <>Una pestaña por familia de método, la formulación, la matemática central término a término con las constantes exactas del build (semilla 42, la grilla QAOA de 24×24 = 576 evals, el barrido VQE de 100 puntos en θ, los plegados ZNE λ = 1,3,5), un diagrama hecho a mano, y el veredicto honesto cuántico-vs-clásico con DOIs citados. Esto es metodología, <strong>no</strong> una tabla de resultados: tres familias son aprendidas/variacionales (QAOA, VQE, ML cuántico), y ninguna muestra una aceleración práctica a escala de lab.</>}
         </p>
       </div>
-      <Tabs tabs={tabs} />
+      <Tabs tabs={tabs} ariaLabel={en ? "Method families" : "Familias de métodos"} groups={[
+        { id: "foundations", label: en ? "Foundations" : "Fundamentos", tabs: ["gates", "oracle"] },
+        { id: "algorithms", label: en ? "Algorithms" : "Algoritmos", tabs: ["qft", "grover"] },
+        { id: "variational", label: en ? "Variational and learned" : "Variacionales y aprendidos", tabs: ["qaoa", "vqe", "qml"] },
+        { id: "qec", label: en ? "Noise and QEC" : "Ruido y QEC", tabs: ["qec"] },
+      ]} />
     </div>
   );
 }
