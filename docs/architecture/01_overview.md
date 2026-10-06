@@ -38,7 +38,7 @@ the first two is **measured, not guessed** ([03_trace-and-gate.md](./03_trace-an
 3. **Real-hardware-replay (optional, opt-in).** A case can be submitted to **IBM Quantum Open**, **AWS
    Braket**, or **Azure Quantum**; the returned counts are committed as a trace with a `ran_on` provenance
    badge. The static site just replays them, the *"this ran on a real 156-qubit quantum computer"* moment.
-   See [../guides/03_real-hardware-lane.md](./guides/03_real-hardware-lane.md). *(Gated on an account/tier
+   See [../guides/03_real-hardware-lane.md](../guides/03_real-hardware-lane.md). *(Gated on an account/tier
    decision; off by default.)*
 
 The **host** plane is the trivial third leg: GitHub Pages serves the built SPA + the committed traces. No
