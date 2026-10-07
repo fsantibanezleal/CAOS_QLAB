@@ -38,9 +38,8 @@ anything needing noise, mid-circuit feed-forward, or an optimization loop, is **
 replays its committed trace. When a user pushes a live circuit past the limit, the app fails gracefully and
 offers the precomputed trace.
 
-## Sandbox
+## No free-form sandbox
 
-Alongside the guided cases, the app embeds/links **Quirk** (Apache-2.0) as a free drag-drop circuit
-sandbox for open-ended play (Bloch, amplitude and density-matrix displays, bookmarkable circuit URLs).
-
-*(Implementation lands with the web SPA, see [../../web/README.md](../../web/README.md).)*
+The live lane re-simulates the guided cases only; QLab does not embed a drag-and-drop circuit editor. For
+open-ended play, Quirk (Apache-2.0) is the standard browser sandbox; it is a separate tool, not part of this
+app.
