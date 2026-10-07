@@ -1,4 +1,5 @@
-// TypeScript mirror of the QLab data contracts (qlab/core/trace.py, manifest.py, pipeline.py bundle).
+// TypeScript mirror of the QLab data contracts: the trace (qversus.core.trace, schema qversus-trace/1), the
+// manifest (data-pipeline/pipeline/manifest.py) and the bundle (data-pipeline/pipeline/build.py).
 // ADR-0057: this must track the Python schema, if it drifts, the build/types break. Keep in lockstep.
 
 export interface Bilingual {
@@ -11,7 +12,7 @@ export interface Amp {
   im: number;
 }
 
-/** One animation frame: the state immediately after applying `gate` (schema qlab-trace/1). */
+/** One animation frame: the state immediately after applying `gate` (schema qversus-trace/1). */
 export interface Step {
   index: number;
   gate: string;
@@ -103,6 +104,8 @@ export interface Bundle {
   lane_reasons: string[];
   seed: number;
   shots: number;
+  app_version: string;
+  engine_package: { package: string; version: string };
   primary_solver: string;
   trace: Trace | null;
   solvers: SolverResult[];

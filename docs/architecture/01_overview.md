@@ -16,10 +16,10 @@ We deliberately do not:
   QPU, is a denial-of-service *and a financial* target. There is no such endpoint here.
 - **Concurrency.** Live runs execute on the visitor's own CPU (a JS simulator in a Web Worker), so "many
   people tuning sliders at once" costs nothing and never queues.
-- **Reproducibility.** What ships is the exact engine source + seeded traces. `python -m qlab.pipeline`
-  reproduces the committed bytes (see [03_trace-and-gate.md](./03_trace-and-gate.md)).
-- **No secrets on the web.** The optional real-hardware lane runs *locally* with a token from the private
-  vault; the published site contains no credentials.
+- **Reproducibility.** What ships is a pinned engine (`qversus` from PyPI) + seeded traces.
+  `python data-pipeline/run.py <case> --all` reproduces the committed bytes (see [03_trace-and-gate.md](./03_trace-and-gate.md)).
+- **No secrets on the web.** The optional real-hardware lane runs *locally* with a token the operator
+  supplies in `.env`; the published site contains no credentials.
 
 ## The three lanes (the QLab twist on SimLab's two)
 

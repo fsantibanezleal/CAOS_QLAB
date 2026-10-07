@@ -81,8 +81,8 @@ function ArchitectureDiagram({ lang }: { lang: Lang }) {
       <path className="arch-arrow" d="M354 128 L402 128" markerEnd={`url(#${m})`} />
       <rect className="arch-contract" x="402" y="78" width="172" height="104" rx="10" />
       <text className="arch-t" x="488" y="102" textAnchor="middle">{en ? "committed artifact" : "artefacto versionado"}</text>
-      <text className="arch-s" x="488" y="122" textAnchor="middle">qlab-trace/1</text>
-      <text className="arch-s" x="488" y="138" textAnchor="middle">qlab-manifest/1</text>
+      <text className="arch-s" x="488" y="122" textAnchor="middle">qversus-trace/1</text>
+      <text className="arch-s" x="488" y="138" textAnchor="middle">qlab-manifest/2</text>
       <text className="arch-s" x="488" y="154" textAnchor="middle">{en ? "JSON · no Qiskit type" : "JSON · sin tipo Qiskit"}</text>
       <text className="arch-s arch-em" x="488" y="172" textAnchor="middle">{en ? "replay = truth" : "replay = verdad"}</text>
 
@@ -149,7 +149,7 @@ function TraceDiagram({ lang }: { lang: Lang }) {
       <text className="arch-s arch-em" x="303" y="150" textAnchor="middle">{en ? "+ final histogram" : "+ histograma final"}</text>
       <path className="arch-arrow" d="M392 112 L444 112" markerEnd={`url(#${m})`} />
       <rect className="arch-contract" x="444" y="74" width="158" height="76" rx="8" />
-      <text className="arch-t" x="523" y="98" textAnchor="middle">qlab-trace/1</text>
+      <text className="arch-t" x="523" y="98" textAnchor="middle">qversus-trace/1</text>
       <text className="arch-s" x="523" y="116" textAnchor="middle">{en ? "JSON · 6-dp round" : "JSON · 6 dec."}</text>
       <text className="arch-s arch-em" x="523" y="134" textAnchor="middle">{en ? "TS mirror (ADR-0057)" : "espejo TS (ADR-0057)"}</text>
       <path className="arch-arrow" d="M602 112 L654 112" markerEnd={`url(#${m})`} />
@@ -542,8 +542,8 @@ class QiskitQAOA(Solver):
       content: (
         <div className="method-body">
           <p>{en
-            ? "The trace (schema qlab-trace/1) is the artifact every adapter produces and the only thing the browser depends on. It is a replayable recording of one circuit run: for every step (a gate, a barrier, a prepared state) it stores the full statevector (2ⁿ complex amplitudes), the per-qubit reduced Bloch vector [⟨X⟩,⟨Y⟩,⟨Z⟩], and the basis-state probabilities, plus the final measurement histogram. It is JSON-first and compact (amplitudes rounded to 6 decimals) and contains no Qiskit type, so the browser never depends on a Python library. A hand-maintained TypeScript mirror (the contract types) tracks the Python schema per ADR-0057; a divergence between the two is caught at build time, so the web and engine cannot drift apart silently."
-            : "La traza (esquema qlab-trace/1) es el artefacto que produce cada adaptador y lo único de lo que depende el navegador. Es una grabación reproducible de una ejecución: por cada paso (una compuerta, una barrera, un estado preparado) guarda el statevector completo (2ⁿ amplitudes complejas), el vector de Bloch reducido por qubit [⟨X⟩,⟨Y⟩,⟨Z⟩] y las probabilidades de los estados base, más el histograma final de medición. Es JSON-first y compacto (amplitudes redondeadas a 6 decimales) y no contiene ningún tipo de Qiskit, así que el navegador nunca depende de una biblioteca de Python. Un espejo TypeScript mantenido a mano (los tipos del contrato) rastrea el esquema Python según ADR-0057; una divergencia entre ambos se detecta en build, así que web y motor no pueden separarse en silencio."}</p>
+            ? "The trace (schema qversus-trace/1, from the qversus engine) is the artifact every adapter produces and the only thing the browser depends on. It is a replayable recording of one circuit run: for every step (a gate, a barrier, a prepared state) it stores the full statevector (2ⁿ complex amplitudes), the per-qubit reduced Bloch vector [⟨X⟩,⟨Y⟩,⟨Z⟩], and the basis-state probabilities, plus the final measurement histogram. It is JSON-first and compact (amplitudes rounded to 6 decimals) and contains no Qiskit type, so the browser never depends on a Python library. A hand-maintained TypeScript mirror (the contract types) tracks the Python schema per ADR-0057; a divergence between the two is caught at build time, so the web and engine cannot drift apart silently."
+            : "La traza (esquema qversus-trace/1, del motor qversus) es el artefacto que produce cada adaptador y lo único de lo que depende el navegador. Es una grabación reproducible de una ejecución: por cada paso (una compuerta, una barrera, un estado preparado) guarda el statevector completo (2ⁿ amplitudes complejas), el vector de Bloch reducido por qubit [⟨X⟩,⟨Y⟩,⟨Z⟩] y las probabilidades de los estados base, más el histograma final de medición. Es JSON-first y compacto (amplitudes redondeadas a 6 decimales) y no contiene ningún tipo de Qiskit, así que el navegador nunca depende de una biblioteca de Python. Un espejo TypeScript mantenido a mano (los tipos del contrato) rastrea el esquema Python según ADR-0057; una divergencia entre ambos se detecta en build, así que web y motor no pueden separarse en silencio."}</p>
           <div className="fig-svg wide"><TraceDiagram lang={lang} />
             <p className="fig-cap">{en
               ? "From a circuit run to the renderers: each step records statevector + Bloch + probabilities (and a final histogram), serialized to JSON with no Qiskit type, mirrored 1:1 in TypeScript, and animated by the same renderers for both lanes."
@@ -591,29 +591,31 @@ class QiskitQAOA(Solver):
       content: (
         <div className="method-body">
           <p>{en
-            ? "The manifest (schema qlab-manifest/1) is the index contract, one per (case, variant). It records the lane verdict and the measured numbers behind it (qubit count, run_ms, trace_bytes, unitary_only), the seed/shots/params that reproduce the trace, the viz bindings (which renderers the web mounts for this case), and the engine provenance plus version. The web app reads the set of manifests as its entire catalog, there is no database and no server. Adding a manifest adds a card; the viz bindings tell the SPA which views to assemble, so a case that wants a Bloch sphere, an amplitude/phase bar, and a histogram declares exactly those, and the renderer composition is data-driven rather than hard-coded per case."
-            : "El manifiesto (esquema qlab-manifest/1) es el contrato índice, uno por (caso, variante). Registra el veredicto de carril y los números medidos detrás (cantidad de qubits, run_ms, trace_bytes, unitary_only), el seed/shots/params que reproducen la traza, los bindings de viz (qué renderers monta la web para este caso) y la procedencia del motor más versión. La web lee el conjunto de manifiestos como su catálogo entero, no hay base de datos ni servidor. Agregar un manifiesto agrega una tarjeta; los bindings de viz le dicen a la SPA qué vistas armar, así que un caso que quiere una esfera de Bloch, una barra de amplitud/fase y un histograma declara justo esos, y la composición de renderers es guiada por datos en vez de hard-coded por caso."}</p>
-          <pre className="code"><code>{`{ "schema": "qlab-manifest/1",
-  "case": "maxcut", "variant": "ring-6",
-  "lane": "precompute",                 // the measured verdict
-  "gate": { "qubits": 6, "run_ms": 41.2,
-            "trace_bytes": 318204, "unitary_only": false },
-  "repro": { "seed": 42, "shots": 2048, "params": { ... } },
-  "viz": ["graph", "histogram", "landscape"],   // renderer bindings
-  "engine": { "framework": "qiskit", "version": "1.x" } }`}</code></pre>
+            ? "The manifest (schema qlab-manifest/2) is the index contract, one per (case, variant). It records the lane verdict and the measured numbers behind it (qubit count, run_ms, trace_bytes, unitary_only), the seed/shots/params that reproduce the trace, the viz bindings (which renderers the web mounts for this case), and the framework that authored the trace, and the engine package and app version that produced it. The web app reads the set of manifests as its entire catalog, there is no database and no server. Adding a manifest adds a card; the viz bindings tell the SPA which views to assemble, so a case that wants a Bloch sphere, an amplitude/phase bar, and a histogram declares exactly those, and the renderer composition is data-driven rather than hard-coded per case."
+            : "El manifiesto (esquema qlab-manifest/2) es el contrato índice, uno por (caso, variante). Registra el veredicto de carril y los números medidos detrás (cantidad de qubits, run_ms, trace_bytes, unitary_only), el seed/shots/params que reproducen la traza, los bindings de viz (qué renderers monta la web para este caso) y el framework que escribió la traza, y el paquete del motor y la versión de la app que la produjeron. La web lee el conjunto de manifiestos como su catálogo entero, no hay base de datos ni servidor. Agregar un manifiesto agrega una tarjeta; los bindings de viz le dicen a la SPA qué vistas armar, así que un caso que quiere una esfera de Bloch, una barra de amplitud/fase y un histograma declara justo esos, y la composición de renderers es guiada por datos en vez de hard-coded por caso."}</p>
+          <pre className="code"><code>{`{ "manifest_version": "qlab-manifest/2",
+  "case_id": "maxcut", "trace_path": "maxcut/square.json",
+  "lane": "precompute",                       // the measured verdict
+  "lane_reasons": ["needs noise / mid-circuit feed-forward / optimization loop ..."],
+  "qubits": 4, "seed": 42, "shots": 2048, "params": { "n": 4, "edges": [...] },
+  "measured": { "run_ms": ..., "trace_bytes": ..., "unitary_only": false },
+  "viz": ["graph", "landscape", "histogram", "circuit"],   // renderer bindings
+  "engine": "qiskit-aer", "engine_version": "...",          // framework that authored the trace
+  "engine_package": { "package": "qversus", "version": "0.01.000" },
+  "app_version": "0.35.000" }`}</code></pre>
           <Eq
-            tex={String.raw`\text{catalog}=\bigcup_{(\text{case},\text{variant})}\text{manifest}_{(\text{case},\text{variant})},\qquad \text{lane}\in\{\text{live},\,\text{precompute},\,\text{hardware}\}`}
+            tex={String.raw`\text{catalog}=\bigcup_{(\text{case},\text{variant})}\text{manifest}_{(\text{case},\text{variant})},\qquad \text{lane}\in\{\text{live},\,\text{precompute}\}`}
             caption={{
               en: "The catalog is just the union of all manifests, no server, no database; the web reads the manifest set, and each manifest carries the lane verdict plus the viz bindings that compose its view.",
               es: "El catálogo es solo la unión de todos los manifiestos, sin servidor, sin base de datos; la web lee el conjunto, y cada manifiesto lleva el veredicto de carril más los bindings de viz que componen su vista.",
             }}
           />
           <ul className="sym-list">
-            <li><b>lane</b>{en ? "the measured verdict: live / precompute / hardware" : "el veredicto medido: live / precompute / hardware"}</li>
-            <li><b>gate.*</b>{en ? "the four measured numbers behind the verdict" : "los cuatro números medidos tras el veredicto"}</li>
-            <li><b>repro</b>{en ? "seed, shots, params, replays the exact trace" : "seed, shots, params, reproduce la traza exacta"}</li>
+            <li><b>lane</b>{en ? "the measured verdict: live / precompute (a hardware run is a precompute trace with ran_on set)" : "el veredicto medido: live / precompute (una corrida en hardware es una traza precompute con ran_on)"}</li>
+            <li><b>measured.*</b>{en ? "the measured numbers behind the verdict, with qubits" : "los números medidos tras el veredicto, con qubits"}</li>
+            <li><b>seed · shots · params</b>{en ? "replay the exact trace" : "reproducen la traza exacta"}</li>
             <li><b>viz</b>{en ? "renderer bindings (bloch, amp_phase, histogram, qsphere, graph, …)" : "bindings de renderers (bloch, amp_phase, histogram, qsphere, graph, …)"}</li>
-            <li><b>engine</b>{en ? "framework + version provenance" : "procedencia de framework + versión"}</li>
+            <li><b>engine · engine_package · app_version</b>{en ? "the framework, the qversus release and the QLab release behind the trace" : "el framework, la versión de qversus y la de QLab detrás de la traza"}</li>
           </ul>
           <Boundary en={en}
             runs={en ? "written offline; the web's only catalog" : "escrito offline; el único catálogo de la web"}
@@ -681,8 +683,8 @@ class QiskitQAOA(Solver):
       content: (
         <div className="method-body">
           <p>{en
-            ? "A case can be submitted to a real QPU; the returned counts are committed as a trace with a ran_on badge (e.g. IBM Heron r2 · ibm_kingston · 2026-…). This lane attaches at the exact same seam as the simulators, the same Solver interface, the same trace shape, so a hardware result renders identically to a simulated one, only labelled with its provenance. Crucially, it runs LOCALLY, with an access token pulled from the private vault; the published static site ships no secrets and makes no live hardware calls. The trace it produces is just data, so once committed it is served like any other case. The cheapest honest path is IBM Quantum Open: free, ~10 minutes of QPU per 28-day window on a 156-qubit Heron r2, enough to commit a genuine ran-on-real-hardware moment without spending money."
-            : "Un caso puede enviarse a una QPU real; los conteos devueltos se versionan como una traza con un badge ran_on (p. ej. IBM Heron r2 · ibm_kingston · 2026-…). Este carril se engancha en la misma costura que los simuladores, la misma interfaz Solver, la misma forma de traza, así que un resultado de hardware se renderiza idéntico a uno simulado, solo etiquetado con su procedencia. Crucialmente, se ejecuta localmente, con un token de acceso del vault privado; el sitio estático publicado no lleva secretos ni hace llamadas en vivo a hardware. La traza que produce es solo datos, así que una vez versionada se sirve como cualquier otro caso. El camino honesto más barato es IBM Quantum Open: gratis, ~10 minutos de QPU por ventana de 28 días en un Heron r2 de 156 qubits, suficiente para versionar un momento genuino de ejecución-en-hardware-real sin gastar dinero."}</p>
+            ? "A case can be submitted to a real QPU; the returned counts are committed as a trace with a ran_on badge (e.g. IBM Heron r2 · ibm_kingston · 2026-…). This lane attaches at the exact same seam as the simulators, the same Solver interface, the same trace shape, so a hardware result renders identically to a simulated one, only labelled with its provenance. Crucially, it runs LOCALLY, with an access token the operator supplies in .env; the published static site ships no secrets and makes no live hardware calls. The trace it produces is just data, so once committed it is served like any other case. The cheapest honest path is IBM Quantum Open: free, ~10 minutes of QPU per 28-day window on a 156-qubit Heron r2, enough to commit a genuine ran-on-real-hardware moment without spending money."
+            : "Un caso puede enviarse a una QPU real; los conteos devueltos se versionan como una traza con un badge ran_on (p. ej. IBM Heron r2 · ibm_kingston · 2026-…). Este carril se engancha en la misma costura que los simuladores, la misma interfaz Solver, la misma forma de traza, así que un resultado de hardware se renderiza idéntico a uno simulado, solo etiquetado con su procedencia. Crucialmente, se ejecuta localmente, con un token de acceso que el operador entrega en .env; el sitio estático publicado no lleva secretos ni hace llamadas en vivo a hardware. La traza que produce es solo datos, así que una vez versionada se sirve como cualquier otro caso. El camino honesto más barato es IBM Quantum Open: gratis, ~10 minutos de QPU por ventana de 28 días en un Heron r2 de 156 qubits, suficiente para versionar un momento genuino de ejecución-en-hardware-real sin gastar dinero."}</p>
           <Eq
             tex={String.raw`\widehat{\langle O\rangle}=\frac{1}{S}\sum_{s=1}^{S} O(b_s),\qquad \text{SE}\approx\frac{\sigma_O}{\sqrt{S}}\quad(\text{shot noise on real counts})`}
             caption={{
@@ -698,7 +700,7 @@ class QiskitQAOA(Solver):
             <li><b>SE</b>{en ? "standard error of the estimate (1/√S)" : "error estándar de la estimación (1/√S)"}</li>
           </ul>
           <Boundary en={en}
-            runs={en ? "locally, with a vault token" : "localmente, con un token del vault"}
+            runs={en ? "locally, with your own token in .env" : "localmente, con tu propio token en .env"}
             live={en ? "dormant on the published site, committed counts only, zero live calls" : "inactivo en el sitio publicado, solo conteos versionados, cero llamadas en vivo"} />
           <WhereWorks
             okHead={en ? "Where it works" : "Dónde funciona"}

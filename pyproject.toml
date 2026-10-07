@@ -1,22 +1,6 @@
-[build-system]
-requires = ["setuptools>=68"]
-build-backend = "setuptools.build_meta"
-
-[project]
-name = "qlab"
-# PEP 440 form of the display version 0.34.000 (scheme X.XX.XXX: see CHANGELOG.md + qlab.__version__).
-version = "0.34.2"
-description = "CAOS_QLAB, a public, didactic Quantum Computing laboratory (simulators + real hardware)."
-readme = "README.md"
-requires-python = ">=3.11"
-license = { text = "MIT" }
-authors = [{ name = "Felipe Santibáñez-Leal" }]
-# Core stays thin so the engine can also load under Pyodide; the heavy simulators (qiskit-aer) and the
-# real-hardware SDKs live in requirements-precompute.txt / requirements-hardware.txt.
-dependencies = ["numpy>=1.26"]
-
-[tool.setuptools]
-packages = ["qlab", "qlab.core", "qlab.problems", "qlab.solvers"]
+# QLab declares NO package of its own (hard rule 0). The engine is `qversus` from PyPI, pinned in
+# requirements.txt; the precompute tooling under data-pipeline/ is invoked by path (data-pipeline/run.py).
+# Only tool configuration lives here.
 
 [tool.pytest.ini_options]
 testpaths = ["tests"]

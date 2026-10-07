@@ -29,7 +29,7 @@ precompute lane only.
 
 ## How QLab uses it (applying)
 
-`qlab/core/circuit_trace.py` replays a `QuantumCircuit` one instruction at a time on a `Statevector`,
+`qversus.core.circuit_trace` replays a `QuantumCircuit` one instruction at a time on a `Statevector`,
 recording, per step, the amplitudes, the per-qubit reduced Bloch vector (`partial_trace` →
 `expectation_value(Pauli)`), and the probabilities. The solvers:
 

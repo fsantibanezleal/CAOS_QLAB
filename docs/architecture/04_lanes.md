@@ -23,7 +23,7 @@ the live sim too far fail gracefully and offer the precomputed trace.
 The real, heavy engines run offline and commit a seeded trace + manifest. This is where the lab's physics
 actually lives. Required for: realistic **noise** models (Aer), **mid-circuit measurement + classical
 feed-forward** (teleportation, QEC), **optimization loops** (VQE/QAOA/QML training), **> 12 qubits**, and
-anything that takes more than ~1.5 s. The pipeline (`python -m qlab.pipeline <case>`) runs every applicable
+anything that takes more than ~1.5 s. The pipeline (`python data-pipeline/run.py <case>`) runs every applicable
 solver, including the classical baselines, and writes the comparison verdict. See
 [../guides/01_precompute-pipeline.md](../guides/01_precompute-pipeline.md).
 

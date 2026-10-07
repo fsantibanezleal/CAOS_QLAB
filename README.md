@@ -44,7 +44,10 @@ circuit or imply an "advantage" that does not exist yet. QLab does two honest th
 
 ## The engine: Problem × Solver (adapters)
 
-QLab is not a folder of one-off scripts. It is a small engine with a clean, extensible abstraction:
+QLab is not a folder of one-off scripts. It runs on **[`qversus`](https://pypi.org/project/qversus/)**
+(quantum versus classical), a small engine published on its own (repository
+[CAOS_QVersus](https://github.com/fsantibanezleal/CAOS_QVersus)) and pinned here, with a clean, extensible
+abstraction:
 
 - A **`Problem`** is a *formulation* (MaxCut, ground-state energy, search, …): its variants and the
   observable, independent of method.
@@ -52,8 +55,8 @@ QLab is not a folder of one-off scripts. It is a small engine with a clean, exte
   result (the answer + its cost + an optional replay trace). Solvers come in three paradigms:
   **quantum-sim** (Qiskit-Aer, PennyLane, …), **quantum-hardware** (a real QPU run, committed), and
   **classical** (the honest baseline).
-- Adding a framework is **one new adapter + one registry line**: zero changes to the core, the pipeline,
-  or the web. *"No volver a recablear ni replicar todo."*
+- Adding a framework is **one new adapter + one registry line** in the engine: zero changes to QLab's
+  pipeline or the web, only the pin and a re-bake. *"No volver a recablear ni replicar todo."*
 
 A *complex case is attacked by many solvers at once* and compared head-to-head (MaxCut: QAOA-Qiskit vs
 QAOA-PennyLane vs brute force vs greedy).
@@ -79,7 +82,7 @@ Python **3.12**. Parallel PowerShell + bash scripts:
 ```powershell
 # Windows / PowerShell
 .\scripts\setup.ps1                          # create .venv + install (qiskit, aer, pennylane, stim, …)
-.\.venv\Scripts\python.exe -m pytest         # core tests + pipeline smoke
+.\.venv\Scripts\python.exe -m pytest         # lane gate, every manifest, pipeline smoke
 .\scripts\precompute.ps1 maxcut --all        # run every MaxCut graph across all solvers → traces + manifests
 .\scripts\precompute.ps1 --list              # list the cases
 ```
@@ -113,12 +116,8 @@ comparison is on screen for each. Full catalog + per-case docs: [docs/use-cases.
 ## How it's organized
 
 ```
-qlab/
-  core/          rng · trace schema · live/precompute gate · manifest · circuit→trace tracer
-  problems/      formulations (state_prep, maxcut, …), solver-agnostic
-  solvers/       adapters over real frameworks (qiskit · pennylane · classical · …) + the base ABC
-  registry.py    the catalog + the plug-in seam (self-registering problems & solvers)
-  pipeline.py    CLI: run a case → trace bundle + comparison + manifest
+data-pipeline/   the precompute tooling, invoked by path: run.py <case> --all → trace bundle + comparison +
+                 manifest (pipeline/: build · verdicts · live/precompute gate · manifest contract)
 data/artifacts/  committed compact JSON traces (the source of truth the web replays)
 manifests/       per-case manifests (lane verdict + measured numbers + viz bindings + provenance)
 docs/            the SimLab-style wiki (architecture · frameworks · problem-types · use-cases · guides)
