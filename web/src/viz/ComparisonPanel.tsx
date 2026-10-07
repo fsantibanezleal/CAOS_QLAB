@@ -2,9 +2,9 @@ import type { Bundle } from "../lib/contract.types";
 import { useT, useUI } from "../lib/ui";
 
 const PARADIGM_DOT: Record<string, string> = {
-  "quantum-sim": "#5b8cff",
-  "quantum-hardware": "#c678dd",
-  classical: "#9aa7b4",
+  "quantum-sim": "var(--color-accent)",
+  "quantum-hardware": "var(--color-magenta)",
+  classical: "var(--color-fg-subtle)",
 };
 const PARADIGM_LABEL: Record<string, string> = {
   "quantum-sim": "quantum (sim)",
@@ -35,7 +35,7 @@ export function ComparisonPanel({ bundle }: { bundle: Bundle }) {
   return (
     <div className="cmp">
       <div className="viz-title">{lang === "en" ? "Solvers, quantum vs classical" : "Solvers, cuántico vs clásico"}</div>
-      <table className="cmp-table">
+      <div className="cmp-scroll"><table className="cmp-table">
         <thead>
           <tr>
             <th>{lang === "en" ? "Method" : "Método"}</th>
@@ -48,7 +48,7 @@ export function ComparisonPanel({ bundle }: { bundle: Bundle }) {
           {bundle.solvers.map((s) => (
             <tr key={s.solver}>
               <td>
-                <span className="dot" style={{ background: PARADIGM_DOT[s.paradigm] ?? "#888" }} /> {t(s.label)}
+                <span className="qlab-dot" style={{ background: PARADIGM_DOT[s.paradigm] ?? "var(--color-fg-faint)" }} /> {t(s.label)}
                 <span className="fw">{s.framework}</span>
               </td>
               <td className="kind">{PARADIGM_LABEL[s.paradigm] ?? s.paradigm}</td>
@@ -60,7 +60,7 @@ export function ComparisonPanel({ bundle }: { bundle: Bundle }) {
             </tr>
           ))}
         </tbody>
-      </table>
+      </table></div>
       {bundle.comparison?.verdict && (
         <p className="verdict">{t(bundle.comparison.verdict)}</p>
       )}

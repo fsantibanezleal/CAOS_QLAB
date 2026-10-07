@@ -134,14 +134,14 @@ export function LandscapeHeatmap({
         {giStar >= 0 && biStar >= 0 && (
           <g pointerEvents="none">
             <circle cx={PADL + (giStar + 0.5) * cw} cy={yOf(biStar) + ch / 2} r={7}
-                    fill="none" stroke="#fff" strokeWidth={2} />
-            <circle cx={PADL + (giStar + 0.5) * cw} cy={yOf(biStar) + ch / 2} r={2.5} fill="#fff" />
+                    fill="none" stroke="var(--color-fg)" strokeWidth={2} />
+            <circle cx={PADL + (giStar + 0.5) * cw} cy={yOf(biStar) + ch / 2} r={2.5} fill="var(--color-fg)" />
           </g>
         )}
         {/* hover marker */}
         {hover && (
           <rect x={PADL + hover.gi * cw} y={yOf(hover.bi)} width={cw} height={ch}
-                fill="none" stroke="#fff" strokeWidth={1.5} pointerEvents="none" />
+                fill="none" stroke="var(--color-fg)" strokeWidth={1.5} pointerEvents="none" />
         )}
         {/* axes frame */}
         <rect x={PADL} y={PADT} width={PLOT} height={PLOT} fill="none" stroke="var(--border)" />

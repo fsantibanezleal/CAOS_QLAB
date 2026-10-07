@@ -4,10 +4,11 @@
 // 2. The status: that fallback still answers HTTP 404, so every deep link (/benchmark, /case/grover) was an
 //    error to crawlers, link previews and monitoring while rendering fine in a browser.
 //
-// The fix for (2) is a real file per route. Pages resolves an extensionless path to `<path>.html` with a
-// direct 200 (measured: `/404` answers 200 from 404.html), whereas `<path>/index.html` answers a 301 to the
-// trailing-slash URL first. So each route gets `<route>.html`. Case routes come from the built catalog, so a
-// case added or removed cannot leave a stale or missing route. Unknown paths still get 404.html (status 404).
+// The fix for (2) is a real file per route, in both forms Pages resolves: `<route>.html` (Pages answers an
+// extensionless path from it with a direct 200; measured: `/404` answers 200 from 404.html) and
+// `<route>/index.html` (the trailing-slash form `/route/`; a directory without the slash answers a 301 to it, the
+// model the shell's gate serves). Case routes come from the built catalog, so a case added or removed cannot
+// leave a stale or missing route. Unknown paths still get 404.html (status 404).
 
 import { copyFileSync, existsSync, mkdirSync, readFileSync } from "node:fs";
 import { dirname, join } from "node:path";
@@ -28,8 +29,9 @@ const catalog = JSON.parse(readFileSync(join(dist, "data", "catalog.json"), "utf
 for (const c of catalog.cases) routes.push(`/case/${c.id}`);
 
 for (const route of routes) {
-  const file = join(dist, ...route.split("/").filter(Boolean)) + ".html";
-  mkdirSync(dirname(file), { recursive: true });
-  copyFileSync(indexHtml, file);
+  const base = join(dist, ...route.split("/").filter(Boolean));
+  mkdirSync(base, { recursive: true });
+  copyFileSync(indexHtml, `${base}.html`);
+  copyFileSync(indexHtml, join(base, "index.html"));
 }
-console.log(`[spa-routes] 404.html + ${routes.length} routes written as <route>.html for 200 responses`);
+console.log(`[spa-routes] 404.html + ${routes.length} routes as <route>.html and <route>/index.html`);

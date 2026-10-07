@@ -87,7 +87,7 @@ export function CaseWorkbench({
       {!hideVariantBar && (
         <div className="variant-bar">
           {caseEntry.variants.map((v) => (
-            <button key={v.id} className={`variant-chip ${v.id === vid ? "on" : ""}`} onClick={() => setVid(v.id)}>
+            <button key={v.id} className={`variant-chip ${v.id === vid ? "is-on" : ""}`} onClick={() => setVid(v.id)}>
               {t(v.title)}
             </button>
           ))}
@@ -102,16 +102,19 @@ export function CaseWorkbench({
       {bundle && (
         <>
           {canLive && (
-            <div className="mode-toggle">
-              <button className={mode === "replay" ? "on" : ""} onClick={() => setMode("replay")}>
+            <div className="mode-toggle" role="tablist" aria-label={lang === "en" ? "Lane" : "Carril"}>
+              <button role="tab" aria-selected={mode === "replay"} data-tab="replay"
+                      className={mode === "replay" ? "is-on" : ""} onClick={() => setMode("replay")}>
                 {lang === "en" ? "Replay (committed)" : "Replay (versionado)"}
               </button>
-              <button className={mode === "live" ? "on" : ""} onClick={() => setMode("live")}>
+              <button role="tab" aria-selected={mode === "live"} data-tab="live"
+                      className={mode === "live" ? "is-on" : ""} onClick={() => setMode("live")}>
                 {lang === "en" ? "Live (browser)" : "En vivo (navegador)"}
               </button>
             </div>
           )}
 
+          <div role={canLive ? "tabpanel" : undefined}>
           {mode === "live" && canLive ? (
             <LivePanel ops={ops} qubits={qubits} seed={bundle.seed} shots={bundle.shots} repetition={repetition} marked={marked} />
           ) : (
@@ -140,7 +143,10 @@ export function CaseWorkbench({
               )}
             </>
           )}
-          <ComparisonPanel bundle={bundle} />
+          </div>
+          <div data-readout="comparison" data-state-key={`${bundle.case_id}|${bundle.instance.id}`}>
+            <ComparisonPanel bundle={bundle} />
+          </div>
         </>
       )}
     </div>
