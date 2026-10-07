@@ -6,6 +6,8 @@ TypeScript engine, web/src/live/statevector.ts) can reproduce it responsively an
   1. qubits  <= LIVE_MAX_QUBITS  : 2**n amplitudes must stay interactive (~12 q ≈ 64 MB)
   2. unitary-only                : no realistic NOISE model (needs Aer), no mid-circuit measurement +
                                     classical feed-forward (teleportation/QEC), no optimization loop
+  2b. the circuit contract       : every op is a gate the live engine runs (web/src/live/gates.json,
+                                    checked by pipeline/circuit.py and by the web before it runs)
   3. run_ms  <= LIVE_RUN_MS      : measured offline as a proxy for browser responsiveness
   4. trace_bytes <= LIVE_TRACE_BYTES
 
@@ -19,7 +21,8 @@ from __future__ import annotations
 
 from dataclasses import dataclass
 
-LIVE_MAX_QUBITS = 12            # 2**12 = 4096 amplitudes, instant in JS; >12 q → precompute
+from pipeline.circuit import LIVE_MAX_QUBITS  # 2**12 = 4096 amplitudes, instant in JS; >12 q → precompute
+
 LIVE_RUN_MS = 1500             # offline build time proxy for browser responsiveness
 LIVE_TRACE_BYTES = 1_000_000   # ~1 MB committed trace ceiling for the live lane
 
@@ -40,13 +43,18 @@ def classify_lane(
     run_ms: float,
     trace_bytes: int,
     unitary_only: bool,
+    live_violations: list[str] | tuple = (),
 ) -> LaneVerdict:
-    """Decide the lane from MEASUREMENTS, not from taste."""
+    """Decide the lane from MEASUREMENTS, not from taste. `live_violations` is pipeline.circuit's verdict on
+    the primary circuit (empty when the live engine can run it)."""
     reasons: list[str] = []
     if qubits > LIVE_MAX_QUBITS:
         reasons.append(f"{qubits} qubits > {LIVE_MAX_QUBITS} (statevector too large for responsive JS)")
     if not unitary_only:
         reasons.append("needs noise / mid-circuit feed-forward / optimization loop (offline engine only)")
+    if live_violations:
+        extra = f" (+{len(live_violations) - 1} more)" if len(live_violations) > 1 else ""
+        reasons.append(f"circuit outside the live engine's contract: {live_violations[0]}{extra}")
     if run_ms > LIVE_RUN_MS:
         reasons.append(f"run {run_ms:.0f} ms > {LIVE_RUN_MS} ms")
     if trace_bytes > LIVE_TRACE_BYTES:

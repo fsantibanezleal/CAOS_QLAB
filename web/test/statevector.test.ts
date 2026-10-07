@@ -46,7 +46,7 @@ const bundles: Bundle[] = readdirSync(ARTIFACTS).flatMap((c) =>
 test("Grover on N=4: one iteration finds the item with probability sin^2(3 pi/6) = 1", () => {
   const b = bundles.find((x) => x.instance.id === "grover-2-3")!;
   const t = b.trace!;
-  assert.ok(liveSupported(t.circuit_ops));
+  assert.ok(liveSupported(t.circuit_ops, t.qubits));
   const final = runLive(t.circuit_ops, t.qubits, {}, 2048, b.seed).steps.at(-1)!;
   assert.ok(close(final.probabilities[3], 1, 1e-9));
 });
@@ -55,7 +55,7 @@ test("the live engine reproduces every committed Qiskit trace it supports, step 
   let checked = 0;
   for (const b of bundles) {
     const t = b.trace;
-    if (!t || !liveSupported(t.circuit_ops)) continue;
+    if (!t || !liveSupported(t.circuit_ops, t.qubits)) continue;
     const live = runLive(t.circuit_ops, t.qubits, {}, t.measurements.shots, b.seed);
     assert.equal(live.steps.length, t.steps.length, `${b.case_id}/${b.instance.id}`);
     live.steps.forEach((s, i) => {
@@ -68,5 +68,5 @@ test("the live engine reproduces every committed Qiskit trace it supports, step 
     });
     checked++;
   }
-  assert.ok(checked >= 70, `only ${checked} traces checked`);
+  assert.ok(checked >= 80, `only ${checked} traces checked`);
 });

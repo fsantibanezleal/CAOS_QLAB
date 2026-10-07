@@ -22,6 +22,7 @@ import qversus
 from qversus.core.trace import SCHEMA_VERSION
 from qversus.registry import all_problems, get_problem, solvers_for
 
+from pipeline.circuit import live_violations, state_violations, structure_violations
 from pipeline.gate import classify_lane
 from pipeline.manifest import Manifest
 from pipeline.verdicts import comparison
@@ -72,12 +73,17 @@ def run_case(problem_id: str, instance_id: str | None, seed: int, shots: int, on
             primary_solver = res.solver
         results.append(res)
 
-    # Lane verdict from the primary (circuit) trace.
+    # The circuit contract, then the lane verdict from the primary (circuit) trace.
     if primary_trace is not None:
+        broken = structure_violations(primary_trace.circuit_ops, primary_trace.qubits)
+        broken += state_violations(primary_trace.to_dict()["steps"])
+        if broken:
+            raise SystemExit(f"{problem.id}/{inst.id}: refusing to write a malformed trace: {broken}")
         run_ms = max((r.cost.get("wall_ms", 0) for r in results), default=0.0)
         verdict = classify_lane(qubits=inst.params.get("n", primary_trace.qubits),
                                 run_ms=run_ms, trace_bytes=primary_trace.nbytes(),
-                                unitary_only=problem.live_capable)
+                                unitary_only=problem.live_capable,
+                                live_violations=live_violations(primary_trace.circuit_ops, primary_trace.qubits))
     else:  # pragma: no cover
         primary_solver = results[0].solver
         verdict = classify_lane(qubits=inst.params.get("n", 1), run_ms=0, trace_bytes=0,

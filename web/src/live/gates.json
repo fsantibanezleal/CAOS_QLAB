@@ -1,0 +1,31 @@
+{
+  "about": "What the live (in-browser) engine runs: each gate's qubit count [min, max] (targets, controls first, target last) and parameter count. Read by the engine (liveTrace.ts) before a circuit runs and by the precompute pipeline (data-pipeline/pipeline/circuit.py), which only labels a case live if every op is here.",
+  "max_qubits": 12,
+  "gates": {
+    "h": { "qubits": [1, 1], "params": 0 },
+    "x": { "qubits": [1, 1], "params": 0 },
+    "y": { "qubits": [1, 1], "params": 0 },
+    "z": { "qubits": [1, 1], "params": 0 },
+    "s": { "qubits": [1, 1], "params": 0 },
+    "sdg": { "qubits": [1, 1], "params": 0 },
+    "t": { "qubits": [1, 1], "params": 0 },
+    "tdg": { "qubits": [1, 1], "params": 0 },
+    "rx": { "qubits": [1, 1], "params": 1 },
+    "ry": { "qubits": [1, 1], "params": 1 },
+    "rz": { "qubits": [1, 1], "params": 1 },
+    "p": { "qubits": [1, 1], "params": 1 },
+    "u1": { "qubits": [1, 1], "params": 1 },
+    "cx": { "qubits": [2, 2], "params": 0 },
+    "cnot": { "qubits": [2, 2], "params": 0 },
+    "cz": { "qubits": [2, 2], "params": 0 },
+    "swap": { "qubits": [2, 2], "params": 0 },
+    "cp": { "qubits": [2, 2], "params": 1 },
+    "cu1": { "qubits": [2, 2], "params": 1 },
+    "rzz": { "qubits": [2, 2], "params": 1 },
+    "ccx": { "qubits": [3, 3], "params": 0 },
+    "mcx": { "qubits": [2, 12], "params": 0 },
+    "barrier": { "qubits": [0, 12], "params": 0 },
+    "id": { "qubits": [1, 1], "params": 0 },
+    "i": { "qubits": [1, 1], "params": 0 }
+  }
+}

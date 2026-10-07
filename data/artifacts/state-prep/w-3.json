@@ -30,8 +30,10 @@
   }
  },
  "qubits": 3,
- "lane": "live",
- "lane_reasons": [],
+ "lane": "precompute",
+ "lane_reasons": [
+  "circuit outside the live engine's contract: op 0 prepare_W: not a live gate"
+ ],
  "seed": 42,
  "shots": 2048,
  "app_version": "0.34.002",
@@ -255,7 +257,7 @@
     }
    },
    "cost": {
-    "wall_ms": 0.0295,
+    "wall_ms": 0.0362,
     "qubits": 3
    },
    "notes": {
@@ -278,7 +280,7 @@
     "shots": 2048
    },
    "cost": {
-    "wall_ms": 1.45,
+    "wall_ms": 1.473,
     "qubits": 3,
     "depth": 1
    },
