@@ -57,6 +57,8 @@ jobs:
           fi
           if [ -d qlab ]; then echo "::error::the internal package directory qlab/ is back"; fail=1; fi
           exit $fail
+      - name: Version sources agree (VERSION, web/package.json, CHANGELOG, README)
+        run: python3 scripts/check_versions.py
       - name: CI budget, trunk-only triggers, no training (ADR-0074)
         run: python3 scripts/check_ci_budget.py
       - name: No em-dash and no emoji in tracked content (ADR-0067)
