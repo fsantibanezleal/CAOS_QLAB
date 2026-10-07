@@ -387,6 +387,16 @@ function CasePage() {
   );
 }
 
+function NotFound() {
+  const { lang } = useUI();
+  const en = lang === "en";
+  return (
+    <div className="page-body">
+      <p>{en ? "Page not found." : "Página no encontrada."} <Link to="/">{en ? "Back to the workbench" : "Volver al banco de trabajo"}</Link></p>
+    </div>
+  );
+}
+
 export default function App() {
   const [info, setInfo] = useState(false);
   return (
@@ -405,6 +415,7 @@ export default function App() {
             <Route path="/experiments" element={<Experiments />} />
             <Route path="/benchmark" element={<Benchmark />} />
             <Route path="/case/:id" element={<CasePage />} />
+            <Route path="*" element={<NotFound />} />
           </Routes>
         </main>
         <Footer />

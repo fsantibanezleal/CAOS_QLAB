@@ -11,8 +11,11 @@ CAOS_SIMLAB and CAOS_PINNLAB). No VPS, no backend.
 3. `.github/workflows/deploy-pages.yml` builds `web/` and publishes `dist/` to Pages on push to `main` (when
    `web/**`, `data/artifacts/**` or `manifests/**` change), so **committing a new trace
    re-publishes the site**.
-4. **SPA deep-link fallback:** the workflow copies `dist/index.html → dist/404.html` so client-side routes
-   and refreshes don't 404 on Pages.
+4. **Deep links answer 200:** a `postbuild` step (`web/spa-routes.mjs`) writes `dist/404.html` and a real
+   `<route>.html` for every page and every case (`/benchmark` → `benchmark.html`, `/case/grover` →
+   `case/grover.html`, the case list read from the built catalog). Pages resolves an extensionless path to
+   that file with a direct 200; `<route>/index.html` would answer a 301 to the trailing-slash URL first. Any
+   other path still gets `404.html`, which renders the app's "page not found" with status 404.
 
 ## Custom domain
 
