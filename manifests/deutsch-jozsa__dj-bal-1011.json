@@ -16,7 +16,7 @@
   "secret": "1011"
  },
  "measured": {
-  "run_ms": 8.487,
+  "run_ms": 12.498,
   "trace_bytes": 20214,
   "unitary_only": true
  },
@@ -31,7 +31,7 @@
   "package": "qversus",
   "version": "0.01.000"
  },
- "app_version": "0.34.002",
+ "app_version": "0.35.000",
  "trace_path": "deutsch-jozsa/dj-bal-1011.json",
  "references": [
   {

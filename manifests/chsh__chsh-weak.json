@@ -19,7 +19,7 @@
   "entangled": true
  },
  "measured": {
-  "run_ms": 1.331,
+  "run_ms": 1.38,
   "trace_bytes": 3101,
   "unitary_only": true
  },
@@ -35,7 +35,7 @@
   "package": "qversus",
   "version": "0.01.000"
  },
- "app_version": "0.34.002",
+ "app_version": "0.35.000",
  "trace_path": "chsh/chsh-weak.json",
  "references": [
   {

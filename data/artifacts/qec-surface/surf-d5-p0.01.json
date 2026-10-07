@@ -38,7 +38,7 @@
  ],
  "seed": 42,
  "shots": 2048,
- "app_version": "0.34.002",
+ "app_version": "0.35.000",
  "engine_package": {
   "package": "qversus",
   "version": "0.01.000"
@@ -84,7 +84,7 @@
     "physical_qubits": 64
    },
    "cost": {
-    "wall_ms": 129.1,
+    "wall_ms": 185.8,
     "shots": 30000,
     "physical_qubits": 64
    },

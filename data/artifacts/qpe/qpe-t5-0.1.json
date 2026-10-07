@@ -35,7 +35,7 @@
  "lane_reasons": [],
  "seed": 42,
  "shots": 2048,
- "app_version": "0.34.002",
+ "app_version": "0.35.000",
  "engine_package": {
   "package": "qversus",
   "version": "0.01.000"
@@ -11093,7 +11093,7 @@
     "exact": true
    },
    "cost": {
-    "wall_ms": 0.0808,
+    "wall_ms": 0.1404,
     "ops": 8,
     "gate_complexity": "O(d^3)"
    },
@@ -11120,7 +11120,7 @@
     "p_top": 0.8753
    },
    "cost": {
-    "wall_ms": 23.673,
+    "wall_ms": 55.562,
     "qubits": 6,
     "depth": 28
    },

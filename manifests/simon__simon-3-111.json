@@ -17,7 +17,7 @@
   "secret": "111"
  },
  "measured": {
-  "run_ms": 18.503,
+  "run_ms": 12.328,
   "trace_bytes": 30782,
   "unitary_only": false
  },
@@ -32,7 +32,7 @@
   "package": "qversus",
   "version": "0.01.000"
  },
- "app_version": "0.34.002",
+ "app_version": "0.35.000",
  "trace_path": "simon/simon-3-111.json",
  "references": [
   {

@@ -33,11 +33,12 @@
  "qubits": 8,
  "lane": "precompute",
  "lane_reasons": [
-  "needs noise / mid-circuit feed-forward / optimization loop (offline engine only)"
+  "needs noise / mid-circuit feed-forward / optimization loop (offline engine only)",
+  "circuit outside the live engine's contract: op 5 c-unitary: not a live gate (+3 more)"
  ],
  "seed": 42,
  "shots": 2048,
- "app_version": "0.34.002",
+ "app_version": "0.35.000",
  "engine_package": {
   "package": "qversus",
   "version": "0.01.000"
@@ -29765,7 +29766,7 @@
     "ops": 3
    },
    "cost": {
-    "wall_ms": 0.003,
+    "wall_ms": 0.0023,
     "ops": 3
    },
    "notes": {
@@ -29793,7 +29794,7 @@
     "correct": true
    },
    "cost": {
-    "wall_ms": 180.1,
+    "wall_ms": 172.2,
     "qubits": 8,
     "depth": 21,
     "counting_qubits": 4,

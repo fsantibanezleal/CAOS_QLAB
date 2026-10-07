@@ -7,7 +7,8 @@
  "category": "flagship-algorithms",
  "lane": "precompute",
  "lane_reasons": [
-  "needs noise / mid-circuit feed-forward / optimization loop (offline engine only)"
+  "needs noise / mid-circuit feed-forward / optimization loop (offline engine only)",
+  "circuit outside the live engine's contract: op 5 c-unitary: not a live gate (+3 more)"
  ],
  "qubits": 8,
  "seed": 42,
@@ -18,7 +19,7 @@
   "t": 4
  },
  "measured": {
-  "run_ms": 174.5,
+  "run_ms": 157.5,
   "trace_bytes": 178047,
   "unitary_only": false
  },
@@ -33,7 +34,7 @@
   "package": "qversus",
   "version": "0.01.000"
  },
- "app_version": "0.34.002",
+ "app_version": "0.35.000",
  "trace_path": "shor/shor-15-a13.json",
  "references": [
   {

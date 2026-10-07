@@ -16,7 +16,7 @@
   "exact": true
  },
  "measured": {
-  "run_ms": 13.724,
+  "run_ms": 29.843,
   "trace_bytes": 30655,
   "unitary_only": true
  },
@@ -31,7 +31,7 @@
   "package": "qversus",
   "version": "0.01.000"
  },
- "app_version": "0.34.002",
+ "app_version": "0.35.000",
  "trace_path": "qpe/qpe-t4-3_16.json",
  "references": [
   {

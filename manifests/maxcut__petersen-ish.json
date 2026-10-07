@@ -8,7 +8,7 @@
  "lane": "precompute",
  "lane_reasons": [
   "needs noise / mid-circuit feed-forward / optimization loop (offline engine only)",
-  "run 1547 ms > 1500 ms"
+  "run 3277 ms > 1500 ms"
  ],
  "qubits": 6,
  "seed": 42,
@@ -55,7 +55,7 @@
   ]
  },
  "measured": {
-  "run_ms": 1546.8,
+  "run_ms": 3276.9,
   "trace_bytes": 70744,
   "unitary_only": false
  },
@@ -71,7 +71,7 @@
   "package": "qversus",
   "version": "0.01.000"
  },
- "app_version": "0.34.002",
+ "app_version": "0.35.000",
  "trace_path": "maxcut/petersen-ish.json",
  "references": [
   {
