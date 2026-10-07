@@ -1,6 +1,8 @@
-# Core / live-thin runtime. Kept deliberately tiny: the qlab engine core (RNG, trace schema, the
-# live/precompute gate, the manifest contract) is pure-Python + NumPy so it stays small and auditable.
-# The heavy quantum SDKs that actually author the committed traces live in requirements-precompute.txt;
-# the real-hardware SDKs live in requirements-hardware.txt. The browser live lane is JavaScript
-# (quantum-circuit), NOT Pyodide: Qiskit has no Pyodide wheels (rustworkx/symengine/aer are native).
+# Core runtime: the engine and nothing heavy. `qversus` (PyPI) is the Problem x Solver engine QLab consumes:
+# the problem formulations, the solver adapters, the registry and the trace schema. Its core is NumPy only, so
+# this file is what CI installs to run the product tests (manifests, lane gate, pipeline smoke).
+# The quantum frameworks that author the committed traces live in requirements-precompute.txt; the
+# real-hardware SDKs in requirements-hardware.txt. The browser live lane is QLab's own exact TypeScript
+# state-vector simulator (web/src/live/statevector.ts); no Python runs in the browser.
+qversus==0.1.0
 numpy>=1.26

@@ -1,6 +1,6 @@
 # 03 · Cirq: 03 · Applying (the `qaoa-cirq` adapter)
 
-QLab's `qaoa-cirq` solver (`qlab/solvers/cirq_solvers.py`) attacks the MaxCut problem on `cirq.Simulator`.
+The `qaoa-cirq` solver (`qversus.solvers.cirq_solvers`, in the engine QLab pins) attacks the MaxCut problem on `cirq.Simulator`.
 It is a textbook example of the adapter contract: a subclass of `Solver` with `applicable()` and `run()`,
 self-registered with `@register_solver`, returning the same `SolverResult` as every other framework.
 
@@ -27,7 +27,8 @@ optimum, which is the honest point of the case.
 
 Copy this adapter's shape for the next engine (Qulacs, a hardware backend, …): set
 `name/label/framework/paradigm`, implement `applicable()` + `run()`, decorate with `@register_solver`, add
-the module to `qlab/solvers/__init__.py` (guarded import). Nothing else changes. See
+the module to the adapter list in `qversus/solvers/__init__.py` (guarded import), in the qversus
+repository; release it and bump the pin here. Nothing else changes. See
 [../../abstractions.md](../../abstractions.md).
 
 ## Related

@@ -9,7 +9,7 @@ concurrency:
   cancel-in-progress: true
 
 jobs:
-  test:
+  check:
     runs-on: ubuntu-latest
     timeout-minutes: 30
     steps:
@@ -18,14 +18,15 @@ jobs:
         with:
           python-version: "3.12"
           cache: pip
-      # core (Qiskit thin) + dev + the precompute engines (qiskit-aer, pennylane, ...): the tests + pipeline
-      # exercise every case's real dedicated tool. The real-hardware lane (qiskit-ibm-runtime / braket /
-      # azure-quantum) is NOT installed on CI and never runs here, its results are committed traces.
-      - run: pip install -r requirements.txt -r requirements-dev.txt
+      # Cheap checks only (ADR-0074): the product test suite runs locally, the engine's physics tests run in
+      # the qversus repository, and the real-hardware lane never runs on CI. Installing requirements.txt
+      # proves the qversus pin resolves from PyPI (NumPy-only core).
+      - name: Install the engine (qversus from PyPI) and the dev tools
+        run: pip install -r requirements.txt -r requirements-dev.txt
       - name: Lint
         run: ruff check .
-      - name: Tests
-        run: python -m pytest
+      - name: Manifests clear the measured gate and match their artifacts (ADR-0054)
+        run: python scripts/check_manifests.py
   guards:
     runs-on: ubuntu-latest
     timeout-minutes: 30
@@ -45,7 +46,24 @@ jobs:
             echo "::error::a local machine path leaked into a tracked file"; fail=1
           fi
           exit $fail
+      - name: No package of its own (hard rule 0; the engine is qversus from PyPI)
+        run: |
+          fail=0
+          if grep -qE '^\[project\]|^\[tool\.setuptools' pyproject.toml; then
+            echo "::error::pyproject.toml declares a package; it keeps tool configuration only"; fail=1
+          fi
+          if git grep -nE 'python -m qlab|pip install -e \.' -- ':!CHANGELOG.md' ':!.github/**'; then
+            echo "::error::an internal package invocation is back"; fail=1
+          fi
+          if [ -d qlab ]; then echo "::error::the internal package directory qlab/ is back"; fail=1; fi
+          exit $fail
+      - name: Version sources agree (VERSION, web/package.json, CHANGELOG, README)
+        run: python3 scripts/check_versions.py
       - name: CI budget, trunk-only triggers, no training (ADR-0074)
         run: python3 scripts/check_ci_budget.py
       - name: No em-dash and no emoji in tracked content (ADR-0067)
         run: python3 scripts/check_content_standards.py
+      - name: No em-dash and no emoji in the generated records' text (ADR-0067)
+        run: python3 scripts/check_records_text.py
+      - name: Every relative link in the docs resolves
+        run: python3 scripts/check_doc_links.py

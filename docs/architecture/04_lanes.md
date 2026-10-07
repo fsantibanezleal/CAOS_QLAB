@@ -23,14 +23,14 @@ the live sim too far fail gracefully and offer the precomputed trace.
 The real, heavy engines run offline and commit a seeded trace + manifest. This is where the lab's physics
 actually lives. Required for: realistic **noise** models (Aer), **mid-circuit measurement + classical
 feed-forward** (teleportation, QEC), **optimization loops** (VQE/QAOA/QML training), **> 12 qubits**, and
-anything that takes more than ~1.5 s. The pipeline (`python -m qlab.pipeline <case>`) runs every applicable
+anything that takes more than ~1.5 s. The pipeline (`python data-pipeline/run.py <case>`) runs every applicable
 solver, including the classical baselines, and writes the comparison verdict. See
 [../guides/01_precompute-pipeline.md](../guides/01_precompute-pipeline.md).
 
 ## Real-hardware (optional, opt-in, local-only)
 
 A case can be submitted to a real QPU; the returned counts are committed as a trace with a `ran_on` badge
-("IBM Heron r2 · ibm_kingston · 2026-…"). This runs **locally**, with a token from the private vault, the
+("IBM Heron r2 · ibm_kingston · 2026-…"). This runs **locally**, with a token the operator supplies in `.env`; the
 published static site ships no secrets and makes no live hardware calls. The cheapest honest path is **IBM
 Quantum Open** (free, 10 min QPU / 28-day window on a 156-qubit Heron r2). See
 [../guides/03_real-hardware-lane.md](../guides/03_real-hardware-lane.md) and

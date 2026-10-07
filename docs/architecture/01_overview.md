@@ -16,10 +16,10 @@ We deliberately do not:
   QPU, is a denial-of-service *and a financial* target. There is no such endpoint here.
 - **Concurrency.** Live runs execute on the visitor's own CPU (a JS simulator in a Web Worker), so "many
   people tuning sliders at once" costs nothing and never queues.
-- **Reproducibility.** What ships is the exact engine source + seeded traces. `python -m qlab.pipeline`
-  reproduces the committed bytes (see [03_trace-and-gate.md](./03_trace-and-gate.md)).
-- **No secrets on the web.** The optional real-hardware lane runs *locally* with a token from the private
-  vault; the published site contains no credentials.
+- **Reproducibility.** What ships is a pinned engine (`qversus` from PyPI) + seeded traces.
+  `python data-pipeline/run.py <case> --all` reproduces the committed bytes (see [03_trace-and-gate.md](./03_trace-and-gate.md)).
+- **No secrets on the web.** The optional real-hardware lane runs *locally* with a token the operator
+  supplies in `.env`; the published site contains no credentials.
 
 ## The three lanes (the QLab twist on SimLab's two)
 
@@ -38,7 +38,7 @@ the first two is **measured, not guessed** ([03_trace-and-gate.md](./03_trace-an
 3. **Real-hardware-replay (optional, opt-in).** A case can be submitted to **IBM Quantum Open**, **AWS
    Braket**, or **Azure Quantum**; the returned counts are committed as a trace with a `ran_on` provenance
    badge. The static site just replays them, the *"this ran on a real 156-qubit quantum computer"* moment.
-   See [../guides/03_real-hardware-lane.md](./guides/03_real-hardware-lane.md). *(Gated on an account/tier
+   See [../guides/03_real-hardware-lane.md](../guides/03_real-hardware-lane.md). *(Gated on an account/tier
    decision; off by default.)*
 
 The **host** plane is the trivial third leg: GitHub Pages serves the built SPA + the committed traces. No

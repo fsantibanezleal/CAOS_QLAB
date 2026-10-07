@@ -1,7 +1,7 @@
 import { useEffect, useState } from "react";
 import type { Bundle, CatalogCase } from "../lib/contract.types";
 import { loadBundle } from "../lib/data";
-import { liveSupported } from "../live/liveTrace";
+import { liveSupported, repeatedBlocks } from "../live/liveTrace";
 import { useT, useUI } from "../lib/ui";
 import { AmplitudeBars } from "../viz/AmplitudeBars";
 import { BlochSphere, trajectoryFromSteps } from "../viz/BlochSphere";
@@ -74,14 +74,20 @@ export function CaseWorkbench({
   const zneIdeal = typeof zneSolver?.value?.ideal === "number" ? zneSolver.value.ideal : undefined;
 
   const ops = bundle?.trace?.circuit_ops ?? [];
-  const canLive = variant.lane === "live" && ops.length > 0 && liveSupported(ops);
+  const qubits = bundle?.trace?.qubits ?? 0;
+  const canLive = variant.lane === "live" && ops.length > 0 && liveSupported(ops, qubits);
+  // Grover: the circuit is the Hadamard layer then one identical block per iteration, so the iteration count
+  // is a real engine input the live panel can change.
+  const iterations = typeof extra?.iterations === "number" ? extra.iterations : 0;
+  const repetition = bundle?.case_id === "grover" && iterations ? repeatedBlocks(ops, qubits, iterations) : null;
+  const marked = Array.isArray(extra?.marked) ? (extra.marked as string[]) : [];
 
   return (
     <div className="workbench">
       {!hideVariantBar && (
         <div className="variant-bar">
           {caseEntry.variants.map((v) => (
-            <button key={v.id} className={`variant-chip ${v.id === vid ? "on" : ""}`} onClick={() => setVid(v.id)}>
+            <button key={v.id} className={`variant-chip ${v.id === vid ? "is-on" : ""}`} onClick={() => setVid(v.id)}>
               {t(v.title)}
             </button>
           ))}
@@ -96,18 +102,21 @@ export function CaseWorkbench({
       {bundle && (
         <>
           {canLive && (
-            <div className="mode-toggle">
-              <button className={mode === "replay" ? "on" : ""} onClick={() => setMode("replay")}>
+            <div className="mode-toggle" role="tablist" aria-label={lang === "en" ? "Lane" : "Carril"}>
+              <button role="tab" aria-selected={mode === "replay"} data-tab="replay"
+                      className={mode === "replay" ? "is-on" : ""} onClick={() => setMode("replay")}>
                 {lang === "en" ? "Replay (committed)" : "Replay (versionado)"}
               </button>
-              <button className={mode === "live" ? "on" : ""} onClick={() => setMode("live")}>
+              <button role="tab" aria-selected={mode === "live"} data-tab="live"
+                      className={mode === "live" ? "is-on" : ""} onClick={() => setMode("live")}>
                 {lang === "en" ? "Live (browser)" : "En vivo (navegador)"}
               </button>
             </div>
           )}
 
+          <div role={canLive ? "tabpanel" : undefined}>
           {mode === "live" && canLive ? (
-            <LivePanel ops={ops} qubits={bundle.trace!.qubits} seed={bundle.seed} shots={bundle.shots} />
+            <LivePanel ops={ops} qubits={qubits} seed={bundle.seed} shots={bundle.shots} repetition={repetition} marked={marked} />
           ) : (
             <>
               {bundle.trace?.circuit_ops?.length ? (
@@ -134,7 +143,10 @@ export function CaseWorkbench({
               )}
             </>
           )}
-          <ComparisonPanel bundle={bundle} />
+          </div>
+          <div data-readout="comparison" data-state-key={`${bundle.case_id}|${bundle.instance.id}`}>
+            <ComparisonPanel bundle={bundle} />
+          </div>
         </>
       )}
     </div>

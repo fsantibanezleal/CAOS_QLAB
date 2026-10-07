@@ -1,6 +1,6 @@
 // Hand-authored, themed architecture diagrams (ADR-0058, the in-app ⓘ modal).
-// Every colour is a CSS-variable PALETTE TOKEN (var(--accent), var(--good), var(--warn),
-// var(--border), var(--panel), var(--panel-2), var(--fg), var(--fg-subtle), var(--accent-soft)).
+// Every colour is a shared-shell token (var(--color-accent), var(--color-good), var(--color-surface), …), the only
+// ones the shell's architecture modal accepts (validateArchitectureConfig).
 // Zero hardcoded hex, the only `#` allowed are HTML entities (&#8594; &#8804; &#215; &#8776; …).
 // The SVGs are inlined in the React DOM (not <img>), so they inherit the live theme variables;
 // each carries a <style> block with the semantic class vocabulary required by the FLOOR.
@@ -17,32 +17,32 @@ type Lang = "en" | "es";
 // so a single source of truth for the class vocabulary. All colours are palette tokens.
 const ARCH_CSS = `
   .arch-svg text { font-family: ui-sans-serif, system-ui, "Segoe UI", Roboto, sans-serif; }
-  .arch-svg .band { fill: var(--accent-soft); stroke: var(--border); stroke-width: 1; opacity: 0.55; }
-  .arch-svg .bandl { fill: var(--fg-subtle); font: 700 10px ui-monospace, monospace;
+  .arch-svg .band { fill: var(--color-accent-soft); stroke: var(--color-border); stroke-width: 1; opacity: 0.55; }
+  .arch-svg .bandl { fill: var(--color-fg-subtle); font: 700 10px ui-monospace, monospace;
     text-transform: uppercase; letter-spacing: 0.08em; }
-  .arch-svg .bx { fill: var(--panel); stroke: var(--border); stroke-width: 1.2; }
-  .arch-svg .bx-hi { fill: var(--panel); stroke: var(--accent); stroke-width: 1.6; }
-  .arch-svg .bx-web { fill: var(--panel); stroke: var(--good); stroke-width: 1.5; }
-  .arch-svg .bx-compute { fill: var(--panel); stroke: var(--edge-qec); stroke-width: 1.4; }
-  .arch-svg .bx-gate { fill: var(--panel); stroke: var(--warn); stroke-width: 1.5; }
-  .arch-svg .bx-store { fill: var(--accent-soft); stroke: var(--accent); stroke-width: 1.4; }
-  .arch-svg .bx-dim { fill: var(--panel); stroke: var(--border); stroke-width: 1.1; stroke-dasharray: 4 3; opacity: 0.85; }
-  .arch-svg .ttl { fill: var(--fg); font: 600 12.5px ui-sans-serif, system-ui; }
-  .arch-svg .ttl-hi { fill: var(--accent); font: 700 12.5px ui-sans-serif, system-ui; }
-  .arch-svg .ttl-web { fill: var(--good); font: 700 12.5px ui-sans-serif, system-ui; }
-  .arch-svg .ttl-warn { fill: var(--warn); font: 700 12.5px ui-sans-serif, system-ui; }
-  .arch-svg .sub { fill: var(--fg-subtle); font: 10px ui-sans-serif, system-ui; }
-  .arch-svg .it { fill: var(--fg); font: 10.5px ui-sans-serif, system-ui; }
-  .arch-svg .cd { fill: var(--accent); font: 10px ui-monospace, "Cascadia Code", monospace; }
-  .arch-svg .mu { fill: var(--fg-subtle); font: italic 9.5px ui-sans-serif, system-ui; }
-  .arch-svg .eq { fill: var(--fg); font: 11px "Cambria Math", Cambria, ui-monospace, monospace; }
-  .arch-svg .eqbox { fill: var(--accent-soft); stroke: var(--border); stroke-width: 1; }
-  .arch-svg .flow { fill: none; stroke: var(--fg-subtle); stroke-width: 1.5; opacity: 0.85; }
-  .arch-svg .flow-hi { fill: none; stroke: var(--accent); stroke-width: 1.6; }
-  .arch-svg .lbl { fill: var(--fg-subtle); font: 9.5px ui-monospace, monospace; }
-  .arch-svg .lbl-em { fill: var(--accent); font: 600 9.5px ui-monospace, monospace; }
-  .arch-svg .ah { fill: var(--fg-subtle); }
-  .arch-svg .ah-hi { fill: var(--accent); }
+  .arch-svg .bx { fill: var(--color-surface); stroke: var(--color-border); stroke-width: 1.2; }
+  .arch-svg .bx-hi { fill: var(--color-surface); stroke: var(--color-accent); stroke-width: 1.6; }
+  .arch-svg .bx-web { fill: var(--color-surface); stroke: var(--color-good); stroke-width: 1.5; }
+  .arch-svg .bx-compute { fill: var(--color-surface); stroke: var(--color-magenta); stroke-width: 1.4; }
+  .arch-svg .bx-gate { fill: var(--color-surface); stroke: var(--color-warn); stroke-width: 1.5; }
+  .arch-svg .bx-store { fill: var(--color-accent-soft); stroke: var(--color-accent); stroke-width: 1.4; }
+  .arch-svg .bx-dim { fill: var(--color-surface); stroke: var(--color-border); stroke-width: 1.1; stroke-dasharray: 4 3; opacity: 0.85; }
+  .arch-svg .ttl { fill: var(--color-fg); font: 600 12.5px ui-sans-serif, system-ui; }
+  .arch-svg .ttl-hi { fill: var(--color-accent); font: 700 12.5px ui-sans-serif, system-ui; }
+  .arch-svg .ttl-web { fill: var(--color-good); font: 700 12.5px ui-sans-serif, system-ui; }
+  .arch-svg .ttl-warn { fill: var(--color-warn); font: 700 12.5px ui-sans-serif, system-ui; }
+  .arch-svg .sub { fill: var(--color-fg-subtle); font: 10px ui-sans-serif, system-ui; }
+  .arch-svg .it { fill: var(--color-fg); font: 10.5px ui-sans-serif, system-ui; }
+  .arch-svg .cd { fill: var(--color-accent); font: 10px ui-monospace, "Cascadia Code", monospace; }
+  .arch-svg .mu { fill: var(--color-fg-subtle); font: italic 9.5px ui-sans-serif, system-ui; }
+  .arch-svg .eq { fill: var(--color-fg); font: 11px "Cambria Math", Cambria, ui-monospace, monospace; }
+  .arch-svg .eqbox { fill: var(--color-accent-soft); stroke: var(--color-border); stroke-width: 1; }
+  .arch-svg .flow { fill: none; stroke: var(--color-fg-subtle); stroke-width: 1.5; opacity: 0.85; }
+  .arch-svg .flow-hi { fill: none; stroke: var(--color-accent); stroke-width: 1.6; }
+  .arch-svg .lbl { fill: var(--color-fg-subtle); font: 9.5px ui-monospace, monospace; }
+  .arch-svg .lbl-em { fill: var(--color-accent); font: 600 9.5px ui-monospace, monospace; }
+  .arch-svg .ah { fill: var(--color-fg-subtle); }
+  .arch-svg .ah-hi { fill: var(--color-accent); }
 `;
 
 function Defs({ id }: { id: string }) {
@@ -76,7 +76,7 @@ export function AppLifecycleDiagram({ lang }: { lang: Lang }) {
       <text className="ttl-hi" x="28" y="36">{en ? "What QLab is" : "Qué es QLab"}</text>
       <text className="it" x="28" y="56">{en ? "A static quantum-computing lab: 20 use-cases, each a real" : "Un laboratorio cuántico estático: 20 casos, cada uno un"}</text>
       <text className="it" x="28" y="71">{en ? "circuit run, quantum method vs an honest classical baseline." : "circuito real, método cuántico vs línea base clásica honesta."}</text>
-      <text className="cd" x="28" y="89">qlab/  ·  web/  ·  data/artifacts/  ·  manifests/</text>
+      <text className="cd" x="28" y="89">data-pipeline/  ·  web/  ·  data/artifacts/  ·  manifests/</text>
       <text className="sub" x="560" y="56">{en ? "No server · no DB · no secrets on the web." : "Sin servidor · sin BD · sin secretos en la web."}</text>
       <text className="sub" x="560" y="71">{en ? "Every case: live re-sim OR replay a seeded trace." : "Cada caso: re-sim vivo O replay de traza con semilla."}</text>
       <text className="mu" x="560" y="89">{en ? "the deterministic core is truth; the web only renders it" : "el núcleo determinista es la verdad; la web solo lo renderiza"}</text>
@@ -90,9 +90,9 @@ export function AppLifecycleDiagram({ lang }: { lang: Lang }) {
         { x: 14, cls: "bx", t: en ? "1 · Research / fiche" : "1 · Investigar / ficha",
           cd: "docs/use-cases/*.md", a: en ? "algorithm, equations" : "algoritmo, ecuaciones", b: en ? "+ refs (DOIs)" : "+ refs (DOIs)", c: en ? "decide live vs precompute" : "decidir vivo vs precómputo" },
         { x: 188, cls: "bx", t: en ? "2 · Implement engine" : "2 · Implementar motor",
-          cd: "qlab/problems/<name>.py", a: en ? "Problem + Solver adapters" : "Problem + adaptadores Solver", b: "qlab/solvers/*_solvers.py", c: en ? "one adapter per framework" : "un adaptador por framework" },
+          cd: "qversus.problems.<name>", a: en ? "Problem + Solver adapters" : "Problem + adaptadores Solver", b: "qversus.solvers.*_solvers", c: en ? "one adapter per framework" : "un adaptador por framework" },
         { x: 362, cls: "bx-compute", t: en ? "3 · Precompute / bake" : "3 · Precomputar",
-          cd: "python -m qlab.pipeline", a: en ? "run all solvers, seed 42" : "ejecuta todos los solvers, semilla 42", b: "data/artifacts/ + manifests/", c: en ? "seeded JSON trace committed" : "traza JSON con semilla, versionada" },
+          cd: "data-pipeline/run.py", a: en ? "run all solvers, seed 42" : "ejecuta todos los solvers, semilla 42", b: "data/artifacts/ + manifests/", c: en ? "seeded JSON trace committed" : "traza JSON con semilla, versionada" },
         { x: 536, cls: "bx-web", t: en ? "4 · Build SPA" : "4 · Construir SPA",
           cd: "web/  (React + Vite)", a: "prebuild: copy-data.mjs", b: en ? "overlay traces + manifests" : "superpone trazas + manifiestos", c: en ? "live engine inlined (TS)" : "motor vivo inline (TS)" },
         { x: 710, cls: "bx-hi", t: en ? "5 · Deploy" : "5 · Desplegar",
@@ -162,7 +162,7 @@ export function ThreeLaneDiagram({ lang }: { lang: Lang }) {
       <text className="bandl" x="28" y="198">{en ? "OFFLINE, local .venv precompute" : "OFFLINE, precómputo local .venv"}</text>
       <rect className="bx-compute" x="28" y="208" width="402" height="116" rx="9" />
       <text className="ttl" x="42" y="230">{en ? "Precompute lane, the real heavy engines" : "Carril precómputo, los motores reales pesados"}</text>
-      <text className="cd" x="42" y="250">python -m qlab.pipeline &lt;case&gt;</text>
+      <text className="cd" x="42" y="250">python data-pipeline/run.py &lt;case&gt;</text>
       <text className="it" x="42" y="268">Qiskit + Aer · PennyLane · Cirq · Stim</text>
       <text className="it" x="42" y="284">{en ? "noise · feed-forward · VQE/QAOA loop · &gt; 12 q" : "ruido · feed-forward · loop VQE/QAOA · &gt; 12 q"}</text>
       <text className="mu" x="42" y="302">{en ? "commits a seeded trace + manifest to git" : "versiona traza con semilla + manifiesto a git"}</text>
@@ -173,9 +173,9 @@ export function ThreeLaneDiagram({ lang }: { lang: Lang }) {
       <text className="bandl" x="28" y="370">{en ? "COMPUTE, real QPU (opt-in, local-only)" : "CÓMPUTO, QPU real (opcional, solo local)"}</text>
       <rect className="bx-dim" x="28" y="380" width="402" height="58" rx="9" />
       <text className="ttl" x="42" y="402">{en ? "Real-hardware replay, dormant" : "Replay de hardware real, inactivo"}</text>
-      <text className="cd" x="42" y="420">qlab/solvers/hardware_solvers.py</text>
+      <text className="cd" x="42" y="420">qversus.solvers.hardware_solvers</text>
       <text className="mu" x="262" y="402">IBM Open · Braket · Azure</text>
-      <text className="mu" x="262" y="420">{en ? "token from the vault, never on the web" : "token del vault, nunca en la web"}</text>
+      <text className="mu" x="262" y="420">{en ? "your token in .env, never on the web" : "tu token en .env, nunca en la web"}</text>
 
       {/* converge to one artifact */}
       <path className="flow-hi" d="M444 97 C 500 97, 500 215, 540 215" markerEnd={`url(#${m}-hi)`} />
@@ -184,10 +184,10 @@ export function ThreeLaneDiagram({ lang }: { lang: Lang }) {
       <text className="lbl-em" x="452" y="160">{en ? "all three emit ONE artifact shape" : "los tres emiten UNA forma de artefacto"}</text>
 
       <rect className="bx-store" x="540" y="200" width="150" height="98" rx="10" />
-      <text className="ttl-hi" x="552" y="222">qlab-trace/1</text>
+      <text className="ttl-hi" x="552" y="222">qversus-trace/1</text>
       <text className="sub" x="552" y="240">{en ? "statevector · Bloch" : "statevector · Bloch"}</text>
       <text className="sub" x="552" y="256">{en ? "probs · counts · seeded" : "probs · conteos · semilla"}</text>
-      <text className="cd" x="552" y="276">core/trace.py</text>
+      <text className="cd" x="552" y="276">qversus.core.trace</text>
       <text className="mu" x="552" y="293">{en ? "replay = truth" : "replay = verdad"}</text>
 
       <path className="flow-hi" d="M690 249 L730 249" markerEnd={`url(#${m}-hi)`} />
@@ -250,7 +250,7 @@ export function WebAppFlowDiagram({ lang }: { lang: Lang }) {
       <path className="flow" d="M462 148 C 510 148, 510 125, 540 125" markerEnd={`url(#${m})`} />
       <rect className="bx-store" x="540" y="78" width="200" height="64" rx="9" />
       <text className="ttl-hi" x="552" y="100">{en ? "One render path" : "Un solo render"}</text>
-      <text className="cd" x="552" y="118">qlab-trace/1 → viz/*</text>
+      <text className="cd" x="552" y="118">qversus-trace/1 → viz/*</text>
       <text className="mu" x="552" y="135">{en ? "same code for both lanes" : "mismo código en ambos carriles"}</text>
 
       {/* copy-data overlay band */}
@@ -309,7 +309,7 @@ export function ScienceDiagram({ lang }: { lang: Lang }) {
       {/* Interference */}
       <rect className="bx-hi" x="14" y="16" width="420" height="120" rx="9" />
       <text className="ttl-hi" x="26" y="38">{en ? "Interference, the one-qubit interferometer" : "Interferencia, interferómetro de 1 qubit"}</text>
-      <text className="cd" x="26" y="58">qlab/problems/interference.py · live</text>
+      <text className="cd" x="26" y="58">qversus.problems.interference · live</text>
       <text className="it" x="26" y="78">{en ? "circuit  H · P(φ) · H  on |0⟩, two paths recombine" : "circuito  H · P(φ) · H  sobre |0⟩, dos caminos"}</text>
       <rect className="eqbox" x="26" y="88" width="396" height="22" rx="5" />
       <text className="eq" x="34" y="103">P(0) = ¼ |1 + e^(iφ)|² = (1 + cos φ)/2 = cos²(φ/2)</text>
@@ -318,16 +318,16 @@ export function ScienceDiagram({ lang }: { lang: Lang }) {
       {/* Grover */}
       <rect className="bx" x="446" y="16" width="420" height="120" rx="9" />
       <text className="ttl" x="458" y="38">{en ? "Grover, amplitude amplification" : "Grover, amplificación de amplitud"}</text>
-      <text className="cd" x="458" y="58">qlab/problems/grover.py · live</text>
+      <text className="cd" x="458" y="58">qversus.problems.grover · live</text>
       <text className="it" x="458" y="78">{en ? "G = D·O : oracle  |w⟩→−|w⟩  then diffuser (invert about mean)" : "G = D·O : oráculo |w⟩→−|w⟩ luego difusor (refleja en la media)"}</text>
       <rect className="eqbox" x="458" y="88" width="396" height="22" rx="5" />
       <text className="eq" x="466" y="103">k* = round((π/2 − θ)/(2θ)) &#8776; (π/4)√(N/M),  sin θ = √(M/N)</text>
-      <text className="mu" x="458" y="128">{en ? "diffuser  H^n X^n (MCZ) X^n H^n , quadratic speedup ~√N vs ~N/2" : "difusor H^n X^n (MCZ) X^n H^n, speedup cuadrático ~√N vs ~N/2"}</text>
+      <text className="mu" x="458" y="128">{en ? "diffuser  H^n X^n (MCZ) X^n H^n , quadratic speedup ~√N vs (N+1)/(M+1)" : "difusor H^n X^n (MCZ) X^n H^n, speedup cuadrático ~√N vs (N+1)/(M+1)"}</text>
 
       {/* QAOA */}
       <rect className="bx-compute" x="14" y="152" width="420" height="138" rx="9" />
       <text className="ttl" x="26" y="174">{en ? "QAOA, variational MaxCut (precompute)" : "QAOA, MaxCut variacional (precómputo)"}</text>
-      <text className="cd" x="26" y="194">qlab/problems/maxcut.py · solvers: qaoa-qiskit/pennylane/cirq</text>
+      <text className="cd" x="26" y="194">qversus.problems.maxcut · solvers: qaoa-qiskit/pennylane/cirq</text>
       <text className="it" x="26" y="214">{en ? "alternate cost layer C and mixer B, p layers deep:" : "alterna capa de costo C y mezclador B, profundidad p:"}</text>
       <rect className="eqbox" x="26" y="224" width="396" height="22" rx="5" />
       <text className="eq" x="34" y="239">|ψ(γ,β)⟩ = ∏ e^(−iβ B) e^(−iγ C) · H^⊗n |0⟩</text>
@@ -337,7 +337,7 @@ export function ScienceDiagram({ lang }: { lang: Lang }) {
       {/* VQE */}
       <rect className="bx-compute" x="446" y="152" width="420" height="138" rx="9" />
       <text className="ttl" x="458" y="174">{en ? "VQE, H₂ ground state (precompute, learned)" : "VQE, estado base de H₂ (precómputo, aprendido)"}</text>
-      <text className="cd" x="458" y="194">qlab/problems/vqe.py · solver: vqe-pennylane</text>
+      <text className="cd" x="458" y="194">qversus.problems.vqe · solver: vqe-pennylane</text>
       <text className="it" x="458" y="214">{en ? "real H₂ Hamiltonian, STO-3G, Jordan-Wigner → 4 qubits" : "Hamiltoniano real de H₂, STO-3G, Jordan-Wigner → 4 qubits"}</text>
       <rect className="eqbox" x="458" y="224" width="396" height="22" rx="5" />
       <text className="eq" x="466" y="239">E_VQE = min_θ ⟨ψ(θ)| H |ψ(θ)⟩ ≥ E₀</text>
@@ -375,7 +375,7 @@ export function ScienceDiagram({ lang }: { lang: Lang }) {
 }
 
 /* ============================================================================
-   TAB 5, The data contracts / design: qlab-trace + manifest, cases-by-category,
+   TAB 5, The data contracts / design: qversus-trace + manifest, cases-by-category,
    the measured lane gate.
    ========================================================================= */
 export function DataContractDiagram({ lang }: { lang: Lang }) {
@@ -393,7 +393,7 @@ export function DataContractDiagram({ lang }: { lang: Lang }) {
       {/* trace contract */}
       <rect className="bx-store" x="14" y="38" width="420" height="170" rx="10" />
       <text className="ttl-hi" x="28" y="60">{en ? "Artifact contract" : "Contrato de artefacto"}</text>
-      <text className="cd" x="28" y="78">schema  qlab-trace/1  ·  core/trace.py</text>
+      <text className="cd" x="28" y="78">schema  qversus-trace/1  ·  qversus.core.trace</text>
       <text className="it" x="28" y="100">{en ? "a replayable recording of one circuit run" : "grabación reproducible de una ejecución"}</text>
       <text className="it" x="28" y="120">{en ? "per step: statevector (2ⁿ complex amplitudes)" : "por paso: statevector (2ⁿ amplitudes complejas)"}</text>
       <text className="it" x="28" y="138">{en ? "per qubit: Bloch [⟨X⟩,⟨Y⟩,⟨Z⟩] + probabilities" : "por qubit: Bloch [⟨X⟩,⟨Y⟩,⟨Z⟩] + probabilidades"}</text>
@@ -404,7 +404,7 @@ export function DataContractDiagram({ lang }: { lang: Lang }) {
       {/* manifest contract */}
       <rect className="bx-store" x="446" y="38" width="420" height="170" rx="10" />
       <text className="ttl-hi" x="460" y="60">{en ? "Index contract" : "Contrato de índice"}</text>
-      <text className="cd" x="460" y="78">schema  qlab-manifest/1  ·  core/manifest.py</text>
+      <text className="cd" x="460" y="78">schema  qlab-manifest/2  ·  pipeline/manifest.py</text>
       <text className="it" x="460" y="100">{en ? "one per (case, variant), the web's catalog" : "uno por (caso, variante), el catálogo de la web"}</text>
       <text className="it" x="460" y="120">{en ? "the lane verdict + the measured numbers behind it" : "el veredicto de carril + los números medidos"}</text>
       <text className="it" x="460" y="138">{en ? "seed / shots / params that reproduce the trace" : "seed / shots / params que reproducen la traza"}</text>
@@ -434,7 +434,7 @@ export function DataContractDiagram({ lang }: { lang: Lang }) {
 
       <rect className="bx-gate" x="280" y="346" width="320" height="96" rx="10" />
       <text className="ttl-warn" x="294" y="368">classify_lane, {en ? "all four hold?" : "¿se cumplen las cuatro?"}</text>
-      <text className="cd" x="294" y="386">qlab/core/gate.py</text>
+      <text className="cd" x="294" y="386">pipeline/gate.py</text>
       <text className="it" x="294" y="406">qubits &#8804; 12 · {en ? "unitary-only" : "solo-unitario"}</text>
       <text className="it" x="294" y="424">run_ms &#8804; 1500 · trace &#8804; 1 MB</text>
 

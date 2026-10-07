@@ -1,7 +1,9 @@
-import katex from "katex";
-import { type ReactNode, useState } from "react";
-import { useUI } from "../lib/ui";
+// QLab's documentation primitives, rendered by the shared shell's components (Tabs, Equation, InlineMath,
+// Callout). The wrappers only adapt QLab's bilingual fields to the shell's props.
+import { Callout as ShellCallout, Equation, InlineMath, TabGroups, Tabs as ShellTabs } from "@fasl-work/caos-app-shell";
+import type { ReactNode } from "react";
 import type { Bilingual } from "../lib/contract.types";
+import { useUI } from "../lib/ui";
 
 export interface TabDef {
   id: string;
@@ -10,44 +12,48 @@ export interface TabDef {
   content: ReactNode;
 }
 
-/** A reusable sub-tab strip + panel (used by the Methodology / Implementation / Experiments pages). */
-export function Tabs({ tabs, initial }: { tabs: TabDef[]; initial?: string }) {
-  const [active, setActive] = useState(initial ?? tabs[0]?.id);
-  const cur = tabs.find((t) => t.id === active) ?? tabs[0];
+/** Groups of tab ids, each answering one question: past six peer tabs the shell requires grouping (ADR-0071 r5). */
+export interface TabGroup { id: string; label: string; tabs: string[] }
+
+export function Tabs({ tabs, initial, groups, ariaLabel }: {
+  tabs: TabDef[]; initial?: string; groups?: TabGroup[]; ariaLabel?: string;
+}) {
+  const defs = tabs.map((t) => ({
+    id: t.id,
+    content: t.content,
+    label: t.badge ? <>{t.label}<span className="qlab-tab-badge">{t.badge}</span></> : t.label,
+  }));
+  if (!groups) return <ShellTabs ariaLabel={ariaLabel} initial={initial} tabs={defs} />;
+  const byId = new Map(defs.map((d) => [d.id, d]));
+  const grouped = groups.flatMap((g) => g.tabs);
+  if (grouped.length !== defs.length || grouped.some((id) => !byId.has(id))) {
+    throw new Error(`tab groups must hold every tab exactly once: ${grouped.join(", ")}`);
+  }
   return (
-    <div className="tabs">
-      <div className="tabbar" role="tablist">
-        {tabs.map((t) => (
-          <button key={t.id} role="tab" aria-selected={t.id === active}
-                  className={`tab ${t.id === active ? "on" : ""}`} onClick={() => setActive(t.id)}>
-            {t.label}
-            {t.badge && <span className="tab-badge">{t.badge}</span>}
-          </button>
-        ))}
-      </div>
-      <div className="tabpanel" role="tabpanel">{cur?.content}</div>
-    </div>
+    <TabGroups
+      ariaLabel={ariaLabel}
+      groups={groups.map((g) => ({ id: g.id, label: g.label, tabs: g.tabs.map((id) => byId.get(id)!) }))}
+    />
   );
 }
 
-/**
- * A centered display equation, typeset with KaTeX (font-based HTML: deterministic
- * to screenshot). `caption` is bilingual (ADR-0017 §2: every <Equation> carries a
- * bilingual caption=) and renders under the math block.
- */
+/** A display equation; `caption` is bilingual (ADR-0017 s2: every equation carries one). */
 export function Eq({ tex, caption }: { tex: string; caption?: Bilingual }) {
   const { lang } = useUI();
-  const html = katex.renderToString(tex, { displayMode: true, throwOnError: false });
-  return (
-    <div className="equation">
-      <div className="eq-math" dangerouslySetInnerHTML={{ __html: html }} />
-      {caption && <div className="eq-cap">{caption[lang]}</div>}
-    </div>
-  );
+  return <Equation tex={tex} caption={caption?.[lang]} />;
 }
 
-/** Inline KaTeX (for math inside a sentence). */
+/** Inline math inside a sentence. */
 export function Tex({ tex }: { tex: string }) {
-  const html = katex.renderToString(tex, { displayMode: false, throwOnError: false });
-  return <span dangerouslySetInnerHTML={{ __html: html }} />;
+  return <InlineMath tex={tex} />;
+}
+
+/** The quantum-vs-classical note: the shell's honest callout, its verdict in bold. */
+export function Callout({ title, children, pt }: { title: string; children: ReactNode; pt?: ReactNode }) {
+  return (
+    <ShellCallout variant="honest" title={title}>
+      {children}
+      {pt && <strong className="qlab-callout-pt"> {pt}</strong>}
+    </ShellCallout>
+  );
 }

@@ -1,8 +1,8 @@
 {
  "case_id": "qml",
  "title": {
-  "en": "QML — quantum-kernel classifier",
-  "es": "QML — clasificador de kernel cuántico"
+  "en": "QML, quantum-kernel classifier",
+  "es": "QML, clasificador de kernel cuántico"
  },
  "category": "variational",
  "lane": "precompute",
@@ -28,7 +28,12 @@
   "circuit"
  ],
  "engine": "classical:sklearn",
- "engine_version": "—",
+ "engine_version": "-",
+ "engine_package": {
+  "package": "qversus",
+  "version": "0.01.000"
+ },
+ "app_version": "0.35.000",
  "trace_path": "qml/qml-linear.json",
  "references": [
   {
@@ -40,5 +45,5 @@
    "doi": "10.1038/s41467-021-22539-9"
   }
  ],
- "manifest_version": "qlab-manifest/1"
+ "manifest_version": "qlab-manifest/2"
 }

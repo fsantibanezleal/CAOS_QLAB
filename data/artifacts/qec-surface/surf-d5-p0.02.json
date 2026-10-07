@@ -1,14 +1,14 @@
 {
- "schema_version": "qlab-trace/1",
+ "schema_version": "qversus-trace/1",
  "case_id": "qec-surface",
  "category": "noise-and-qec",
  "title": {
-  "en": "QEC — surface code (threshold)",
-  "es": "QEC — código de superficie (umbral)"
+  "en": "QEC, surface code (threshold)",
+  "es": "QEC, código de superficie (umbral)"
  },
  "concept": {
-  "en": "The rotated surface code places data and measure qubits on a 2-D lattice and measures X- and Z-parity stabilizers every round, correcting both bit- and phase-flips. We run the real toolchain — Stim simulates the noisy circuit, PyMatching decodes — for distance 3 (≈26 qubits) and 5 (≈64 qubits) at noise rates around the ~1% threshold. Below threshold the distance-5 logical error is lower than distance-3 (adding qubits helps); above threshold it is higher (adding qubits hurts). Seeing that crossover is the whole game of fault tolerance — and the honest scale check: a single useful logical qubit is ~1000 physical qubits, and a useful machine needs thousands of them.",
-  "es": "El código de superficie rotado coloca qubits de datos y de medición en una red 2-D y mide estabilizadores de paridad X y Z cada ronda, corrigiendo bit- y phase-flips. Ejecutamos el stack real — Stim simula el circuito ruidoso, PyMatching decodifica — para distancia 3 (≈26 qubits) y 5 (≈64 qubits) a tasas de ruido alrededor del umbral del ~1%. Bajo umbral el error lógico de distancia-5 es menor que el de distancia-3 (agregar qubits ayuda); sobre umbral es mayor (agregar qubits empeora). Ver ese cruce es la esencia de la tolerancia a fallos — y la verificación honesta de escala: un qubit lógico útil son ~1000 físicos, y una máquina útil necesita miles."
+  "en": "The rotated surface code places data and measure qubits on a 2-D lattice and measures X- and Z-parity stabilizers every round, correcting both bit- and phase-flips. We run the real toolchain, Stim simulates the noisy circuit, PyMatching decodes, for distance 3 (≈26 qubits) and 5 (≈64 qubits) at noise rates around the ~1% threshold. Below threshold the distance-5 logical error is lower than distance-3 (adding qubits helps); above threshold it is HIGHER (adding qubits hurts). Seeing that crossover is the whole game of fault tolerance, and the honest scale check: a single useful logical qubit is ~1000 physical qubits, and a useful machine needs thousands of them.",
+  "es": "El código de superficie rotado coloca qubits de datos y de medición en una red 2-D y mide estabilizadores de paridad X y Z cada ronda, corrigiendo bit- y phase-flips. Ejecutamos el stack real, Stim simula el circuito ruidoso, PyMatching decodifica, para distancia 3 (≈26 qubits) y 5 (≈64 qubits) a tasas de ruido alrededor del umbral del ~1%. Bajo umbral el error lógico de distancia-5 es menor que el de distancia-3 (agregar qubits ayuda); sobre umbral es mayor (agregar qubits empeora). Ver ese cruce es la esencia de la tolerancia a fallos, y la verificación honesta de escala: un qubit lógico útil son ~1000 físicos, y una máquina útil necesita miles."
  },
  "metric": {
   "en": "logical error rate",
@@ -27,8 +27,8 @@
    "code_task": "surface_code:rotated_memory_z"
   },
   "note": {
-   "en": "d=5 rotated surface code, circuit noise p=0.02 — above threshold.",
-   "es": "código de superficie rotado d=5, ruido de circuito p=0.02 — sobre umbral."
+   "en": "d=5 rotated surface code, circuit noise p=0.02, above threshold.",
+   "es": "código de superficie rotado d=5, ruido de circuito p=0.02, sobre umbral."
   }
  },
  "qubits": 1,
@@ -38,6 +38,11 @@
  ],
  "seed": 42,
  "shots": 2048,
+ "app_version": "0.35.000",
+ "engine_package": {
+  "package": "qversus",
+  "version": "0.01.000"
+ },
  "primary_solver": "qec-baseline",
  "trace": null,
  "solvers": [
@@ -54,7 +59,7 @@
     "physical_qubits": 1
    },
    "cost": {
-    "wall_ms": 0.0018
+    "wall_ms": 0.0022
    },
    "notes": {
     "en": "An unprotected qubit under the same noise over 5 rounds flips with probability 0.0632. The encoded code wins when its logical error is below this.",
@@ -79,7 +84,7 @@
     "physical_qubits": 64
    },
    "cost": {
-    "wall_ms": 218.9,
+    "wall_ms": 377.6,
     "shots": 30000,
     "physical_qubits": 64
    },
@@ -100,8 +105,8 @@
   "physical_qubits": 64,
   "physical_p": 0.02,
   "verdict": {
-   "en": "Rotated surface code distance-5 (64 qubits) at p=0.02: logical error 0.17987. The honest lesson is in the variant-bar — below the ~1% threshold the distance-5 code beats distance-3 (adding qubits helps), above it the distance-5 code is worse (more qubits = more failure modes). This is the regime Willow entered in 2024; a useful logical qubit is still ~1000 physical, and a useful machine needs thousands.",
-   "es": "Código de superficie rotado distancia-5 (64 qubits) a p=0.02: error lógico 0.17987. La lección honesta está en la barra de variantes — bajo el umbral del ~1% el código distancia-5 supera al distancia-3 (agregar qubits ayuda), sobre el umbral el distancia-5 es peor (más qubits = más modos de fallo). Es el régimen al que entró Willow en 2024; un qubit lógico útil son ~1000 físicos, y una máquina útil necesita miles."
+   "en": "Rotated surface code distance-5 (64 qubits) at p=0.02: logical error 0.17987. The honest lesson is in the variant-bar, below the ~1% threshold the distance-5 code beats distance-3 (adding qubits helps), above it the distance-5 code is worse (more qubits = more failure modes). This is the regime Willow entered in 2024; a useful logical qubit is still ~1000 physical, and a useful machine needs thousands.",
+   "es": "Código de superficie rotado distancia-5 (64 qubits) a p=0.02: error lógico 0.17987. La lección honesta está en la barra de variantes, bajo el umbral del ~1% el código distancia-5 supera al distancia-3 (agregar qubits ayuda), sobre el umbral el distancia-5 es peor (más qubits = más modos de fallo). Es el régimen al que entró Willow en 2024; un qubit lógico útil son ~1000 físicos, y una máquina útil necesita miles."
   }
  },
  "references": [

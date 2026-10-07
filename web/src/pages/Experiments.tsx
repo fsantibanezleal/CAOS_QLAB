@@ -1,5 +1,5 @@
-import { type ReactNode, useEffect, useMemo, useState } from "react";
-import { Eq, type TabDef, Tabs } from "../components/Tabs";
+import { useEffect, useMemo, useState } from "react";
+import { Callout, Eq, type TabDef, Tabs } from "../components/Tabs";
 import { Refs } from "../lib/citations";
 import type { Catalog, CatalogCase } from "../lib/contract.types";
 import { CATEGORY_LABELS } from "../lib/contract.types";
@@ -12,14 +12,6 @@ type Lang = "en" | "es";
    The honest scope callout, the shell .callout token (theme-aware), with a
    bold quantum-vs-classical / leakage verdict (ADR-0017 §2).
    ──────────────────────────────────────────────────────────────────────── */
-function Callout({ title, children, pt }: { title: string; children: ReactNode; pt?: ReactNode }) {
-  return (
-    <div className="callout">
-      <strong>{title}</strong> {children}
-      {pt && <span className="callout-pt">{pt}</span>}
-    </div>
-  );
-}
 
 /* Shared arrowhead marker (themed via .arch-arrowhead). */
 function Head({ id }: { id: string }) {
@@ -653,7 +645,11 @@ export function Experiments() {
             : "Cómo QLab gana sus afirmaciones: el protocolo con semilla y reproducible detrás de cada traza versionada; la evaluación held-out sin fuga para los únicos casos aprendidos; la métrica exacta de cada pregunta experimental; la validación de tres motores que atrapa un número erróneo; la tarjeta honesta cuántico-vs-clásico; los barridos de degradación; y la cobertura en vivo de casos × frameworks. No es una página de 'lo probamos, funciona', es la auditoría."}
         </p>
       </div>
-      <Tabs tabs={tabs} initial="protocol" />
+      <Tabs tabs={tabs} ariaLabel={en ? "How the claims are earned" : "Cómo se ganan las afirmaciones"} groups={[
+        { id: "protocol", label: en ? "Protocol" : "Protocolo", tabs: ["protocol", "heldout", "metrics"] },
+        { id: "results", label: en ? "Results" : "Resultados", tabs: ["crosscheck", "verdict", "robustness"] },
+        { id: "coverage", label: en ? "Coverage" : "Cobertura", tabs: ["datasets"] },
+      ]} />
     </div>
   );
 }
@@ -668,7 +664,7 @@ function CategoryBlock({ category, crs, lang, en }: { category: string; crs: Cas
           <td>{r.title}</td>
           <td>{r.variants}</td>
           <td>
-            <span className="lane-pill live">{r.live}</span>{" "}
+            <span className="lane-pill is-live">{r.live}</span>{" "}
             {r.precompute > 0 ? <span className="lane-pill precompute">{r.precompute}</span> : <span className="fine">–</span>}
           </td>
           <td>{r.frameworks.map((f) => <span key={f} className="fw-chip">{f}</span>)}</td>

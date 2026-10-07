@@ -16,8 +16,8 @@
   "phi": 0.7853981633974483
  },
  "measured": {
-  "run_ms": 0.728,
-  "trace_bytes": 7326,
+  "run_ms": 1.086,
+  "trace_bytes": 7319,
   "unitary_only": true
  },
  "viz": [
@@ -28,6 +28,11 @@
  ],
  "engine": "qiskit",
  "engine_version": "2.4.2",
+ "engine_package": {
+  "package": "qversus",
+  "version": "0.01.000"
+ },
+ "app_version": "0.35.000",
  "trace_path": "teleportation/tele-generic.json",
  "references": [
   {
@@ -39,5 +44,5 @@
    "url": "https://doi.org/10.1017/CBO9780511976667"
   }
  ],
- "manifest_version": "qlab-manifest/1"
+ "manifest_version": "qlab-manifest/2"
 }

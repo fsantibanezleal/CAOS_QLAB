@@ -1,8 +1,8 @@
 {
  "case_id": "simon",
  "title": {
-  "en": "Simon — hidden period (exponential separation)",
-  "es": "Simon — período oculto (separación exponencial)"
+  "en": "Simon, hidden period (exponential separation)",
+  "es": "Simon, período oculto (separación exponencial)"
  },
  "category": "oracle-algorithms",
  "lane": "precompute",
@@ -17,8 +17,8 @@
   "secret": "101"
  },
  "measured": {
-  "run_ms": 8.03,
-  "trace_bytes": 28573,
+  "run_ms": 12.849,
+  "trace_bytes": 28561,
   "unitary_only": false
  },
  "viz": [
@@ -28,6 +28,11 @@
  ],
  "engine": "qiskit",
  "engine_version": "2.4.2",
+ "engine_package": {
+  "package": "qversus",
+  "version": "0.01.000"
+ },
+ "app_version": "0.35.000",
  "trace_path": "simon/simon-3-101.json",
  "references": [
   {
@@ -39,5 +44,5 @@
    "url": "https://doi.org/10.1017/CBO9780511976667"
   }
  ],
- "manifest_version": "qlab-manifest/1"
+ "manifest_version": "qlab-manifest/2"
 }

@@ -1,10 +1,10 @@
 {
- "schema_version": "qlab-trace/1",
+ "schema_version": "qversus-trace/1",
  "case_id": "deutsch-jozsa",
  "category": "oracle-algorithms",
  "title": {
-  "en": "Deutsch–Jozsa — constant vs balanced",
-  "es": "Deutsch–Jozsa — constante vs balanceada"
+  "en": "Deutsch–Jozsa, constant vs balanced",
+  "es": "Deutsch–Jozsa, constante vs balanceada"
  },
  "concept": {
   "en": "An oracle hides a function f that is promised constant or balanced. Deutsch–Jozsa puts the input register in uniform superposition with the answer qubit in |−⟩, queries the oracle once (phase kickback stamps (−1)^{f(x)}), and a final layer of Hadamards interferes the branches: the input register collapses to all-zeros iff f is constant, and to something non-zero iff f is balanced. One quantum query decides it; a deterministic classical algorithm may need 2^{n-1}+1.",
@@ -26,8 +26,8 @@
    "secret": "1011"
   },
   "note": {
-   "en": "f is balanced — 1 quantum query vs up to 9 classical (worst case).",
-   "es": "f es balanced — 1 consulta cuántica vs hasta 9 clásicas (peor caso)."
+   "en": "f is balanced, 1 quantum query vs up to 9 classical (worst case).",
+   "es": "f es balanced, 1 consulta cuántica vs hasta 9 clásicas (peor caso)."
   }
  },
  "qubits": 4,
@@ -35,12 +35,17 @@
  "lane_reasons": [],
  "seed": 42,
  "shots": 2048,
+ "app_version": "0.35.000",
+ "engine_package": {
+  "package": "qversus",
+  "version": "0.01.000"
+ },
  "primary_solver": "dj-qiskit",
  "trace": {
   "case_id": "deutsch-jozsa",
   "title": {
-   "en": "Deutsch–Jozsa — constant vs balanced",
-   "es": "Deutsch–Jozsa — constante vs balanceada"
+   "en": "Deutsch–Jozsa, constant vs balanced",
+   "es": "Deutsch–Jozsa, constante vs balanceada"
   },
   "concept": {
    "en": "An oracle hides a function f that is promised constant or balanced. Deutsch–Jozsa puts the input register in uniform superposition with the answer qubit in |−⟩, queries the oracle once (phase kickback stamps (−1)^{f(x)}), and a final layer of Hadamards interferes the branches: the input register collapses to all-zeros iff f is constant, and to something non-zero iff f is balanced. One quantum query decides it; a deterministic classical algorithm may need 2^{n-1}+1.",
@@ -3013,7 +3018,7 @@
    }
   ],
   "extra": {},
-  "schema_version": "qlab-trace/1"
+  "schema_version": "qversus-trace/1"
  },
  "solvers": [
   {
@@ -3030,7 +3035,7 @@
     "classical_queries": 2
    },
    "cost": {
-    "wall_ms": 0.0064,
+    "wall_ms": 0.014,
     "oracle_queries": 2
    },
    "notes": {
@@ -3054,7 +3059,7 @@
     "quantum_queries": 1
    },
    "cost": {
-    "wall_ms": 8.175,
+    "wall_ms": 12.498,
     "qubits": 5,
     "depth": 13,
     "oracle_queries": 1
@@ -3071,8 +3076,8 @@
   "quantum_queries": 1,
   "classical_queries": 2,
   "verdict": {
-   "en": "Both decide f is balanced. Quantum: 1 oracle query. Classical: 2 queries (worst case 9 = 2^(n-1)+1). An exponential query-complexity gap — though at this size the classical decision is still instant.",
-   "es": "Ambos deciden que f es balanced. Cuántico: 1 consulta. Clásico: 2 consultas (peor caso 9 = 2^(n-1)+1). Una brecha exponencial en complejidad de consultas — aunque a este tamaño la decisión clásica es instantánea."
+   "en": "Both decide f is balanced. Quantum: 1 oracle query. Classical: 2 queries (worst case 9 = 2^(n-1)+1). An exponential query-complexity gap, though at this size the classical decision is still instant.",
+   "es": "Ambos deciden que f es balanced. Cuántico: 1 consulta. Clásico: 2 consultas (peor caso 9 = 2^(n-1)+1). Una brecha exponencial en complejidad de consultas, aunque a este tamaño la decisión clásica es instantánea."
   }
  },
  "references": [

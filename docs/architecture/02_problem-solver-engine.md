@@ -57,26 +57,32 @@ two independent QAOA frameworks also **cross-check** each other (they must agree
 
 | To add… | You write… | You touch… |
 |---|---|---|
-| a new framework / method | one `Solver` subclass + `@register_solver` | nothing in core/pipeline/registry/web |
-| a new problem | one `Problem` subclass + `@register_problem` | nothing, applicable solvers attach themselves |
+| a new framework / method | one `Solver` subclass + `@register_solver` (in qversus) | the pin; nothing in the pipeline or the web |
+| a new problem | one `Problem` subclass + `@register_problem` (in qversus) | the pin, a verdict block; applicable solvers attach themselves |
 | a real-hardware backend | one `Solver` with `paradigm="quantum-hardware"` | nothing, same trace shape, `ran_on` badge |
 
 The adapter boundary is deliberately thin and uniform (`run(...) -> SolverResult`), and the **web never
 imports a framework**, it renders the generic JSON trace. So a new solver appears in the app the moment its
 trace is committed, with zero frontend change. Missing optional frameworks degrade gracefully: a solver
-module whose framework isn't installed disables only *that* adapter (see `qlab/solvers/__init__.py`).
+module whose framework isn't installed disables only *that* adapter (see `qversus.solvers`).
 
 ## Map
 
 ```
-qlab/
+qversus (the engine, PyPI; pinned in requirements*.txt)
   problems/base.py      Problem ABC + Instance
   problems/<name>.py     one formulation each (+ @register_problem)
   solvers/base.py        Solver ABC + SolverResult + paradigms
   solvers/<framework>_solvers.py   the adapters (+ @register_solver), guarded import
   registry.py            register_* decorators + solvers_for(problem)
-  pipeline.py            the single orchestrator (run applicable solvers → bundle + manifest)
   core/circuit_trace.py  shared circuit→trace tracer (every circuit solver funnels through it)
+
+data-pipeline/ (QLab's tooling, invoked by path)
+  run.py                 the entry point: python data-pipeline/run.py <case> --all
+  pipeline/build.py      the single orchestrator (run applicable solvers → bundle + manifest)
+  pipeline/verdicts.py   the per-case comparison blocks and bilingual verdicts
+  pipeline/gate.py       the measured live/precompute classifier
+  pipeline/manifest.py   the per-case manifest contract
 ```
 
 ## Read next

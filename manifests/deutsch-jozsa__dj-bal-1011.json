@@ -1,8 +1,8 @@
 {
  "case_id": "deutsch-jozsa",
  "title": {
-  "en": "Deutsch–Jozsa — constant vs balanced",
-  "es": "Deutsch–Jozsa — constante vs balanceada"
+  "en": "Deutsch–Jozsa, constant vs balanced",
+  "es": "Deutsch–Jozsa, constante vs balanceada"
  },
  "category": "oracle-algorithms",
  "lane": "live",
@@ -16,8 +16,8 @@
   "secret": "1011"
  },
  "measured": {
-  "run_ms": 8.175,
-  "trace_bytes": 20217,
+  "run_ms": 12.498,
+  "trace_bytes": 20214,
   "unitary_only": true
  },
  "viz": [
@@ -27,6 +27,11 @@
  ],
  "engine": "qiskit",
  "engine_version": "2.4.2",
+ "engine_package": {
+  "package": "qversus",
+  "version": "0.01.000"
+ },
+ "app_version": "0.35.000",
  "trace_path": "deutsch-jozsa/dj-bal-1011.json",
  "references": [
   {
@@ -38,5 +43,5 @@
    "url": "https://doi.org/10.1017/CBO9780511976667"
   }
  ],
- "manifest_version": "qlab-manifest/1"
+ "manifest_version": "qlab-manifest/2"
 }

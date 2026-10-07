@@ -7,7 +7,8 @@
  "category": "flagship-algorithms",
  "lane": "precompute",
  "lane_reasons": [
-  "needs noise / mid-circuit feed-forward / optimization loop (offline engine only)"
+  "needs noise / mid-circuit feed-forward / optimization loop (offline engine only)",
+  "circuit outside the live engine's contract: op 5 c-unitary: not a live gate (+3 more)"
  ],
  "qubits": 8,
  "seed": 42,
@@ -18,8 +19,8 @@
   "t": 4
  },
  "measured": {
-  "run_ms": 136.5,
-  "trace_bytes": 178245,
+  "run_ms": 94.1,
+  "trace_bytes": 178150,
   "unitary_only": false
  },
  "viz": [
@@ -29,6 +30,11 @@
  ],
  "engine": "qiskit",
  "engine_version": "2.4.2",
+ "engine_package": {
+  "package": "qversus",
+  "version": "0.01.000"
+ },
+ "app_version": "0.35.000",
  "trace_path": "shor/shor-15-a4.json",
  "references": [
   {
@@ -40,5 +46,5 @@
    "url": "https://arxiv.org/abs/2505.15917"
   }
  ],
- "manifest_version": "qlab-manifest/1"
+ "manifest_version": "qlab-manifest/2"
 }

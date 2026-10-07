@@ -15,7 +15,7 @@
   "n": 3
  },
  "measured": {
-  "run_ms": 1.554,
+  "run_ms": 4.543,
   "trace_bytes": 3327,
   "unitary_only": true
  },
@@ -27,6 +27,11 @@
  ],
  "engine": "qiskit",
  "engine_version": "2.4.2",
+ "engine_package": {
+  "package": "qversus",
+  "version": "0.01.000"
+ },
+ "app_version": "0.35.000",
  "trace_path": "state-prep/ghz-3.json",
  "references": [
   {
@@ -38,5 +43,5 @@
    "doi": "10.1103/PhysRevA.62.062314"
   }
  ],
- "manifest_version": "qlab-manifest/1"
+ "manifest_version": "qlab-manifest/2"
 }

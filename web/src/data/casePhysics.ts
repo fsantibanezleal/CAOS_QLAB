@@ -110,10 +110,10 @@ export const CASE_PHYSICS: Record<string, CasePhysics> = {
   },
   grover: {
     advantage: "quadratic",
-    relation: "\\sim\\!\\sqrt N\\;\\text{vs}\\;\\sim\\! N/2",
+    relation: "\\tfrac{\\pi}{4}\\sqrt{N/M}\\;\\text{vs}\\;\\tfrac{N+1}{M+1}",
     teaches: {
-      en: "Amplitude amplification: an oracle marks the target and a diffuser reflects about the mean, rotating amplitude onto the marked item so it is found in ~√N queries versus a classical ~N/2 scan.",
-      es: "Amplificación de amplitud: un oráculo marca el objetivo y un difusor refleja respecto a la media, rotando amplitud hacia el ítem marcado para hallarlo en ~√N consultas frente a un escaneo clásico ~N/2.",
+      en: "Amplitude amplification: an oracle marks the target and a diffuser reflects about the mean, rotating amplitude onto the marked item so it is found in ~(π/4)√(N/M) queries versus the (N+1)/(M+1) a random classical scan needs on average.",
+      es: "Amplificación de amplitud: un oráculo marca el objetivo y un difusor refleja respecto a la media, rotando amplitud hacia el ítem marcado para hallarlo en ~(π/4)√(N/M) consultas frente a las (N+1)/(M+1) que un escaneo clásico aleatorio necesita en promedio.",
     },
     honest: {
       en: "A quadratic speedup, the most broadly useful quantum result, but asymptotic: at browser-simulable N the classical scan is still instant and cheaper in wall-time.",

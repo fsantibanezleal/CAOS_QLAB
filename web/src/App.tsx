@@ -1,7 +1,8 @@
 import { useEffect, useMemo, useState } from "react";
-import { BrowserRouter, Link, NavLink, Route, Routes, useParams } from "react-router-dom";
-import { Atom, Briefcase, ChevronDown, ChevronRight, GitBranch, Globe, Info, Languages, LayoutGrid, Moon, Sun } from "lucide-react";
-import { ArchModal } from "./components/ArchModal";
+import { AppShell, STANDARD_ROUTES, type ShellConfig } from "@fasl-work/caos-app-shell";
+import { BrowserRouter, Link, Route, Routes, useParams, useSearchParams } from "react-router";
+import { Atom, ChevronDown, ChevronRight, LayoutGrid } from "lucide-react";
+import { ARCHITECTURE } from "./components/architecture";
 import { CitationsProvider } from "./lib/citations";
 import { CITATIONS } from "./data/citations";
 import { CaseWorkbench } from "./components/CaseWorkbench";
@@ -16,7 +17,7 @@ import { Experiments } from "./pages/Experiments";
 import { Implementation } from "./pages/Implementation";
 import { Introduction } from "./pages/Introduction";
 import { Methodology } from "./pages/Methodology";
-import { UIProvider, useT, useUI } from "./lib/ui";
+import { useT, useUI } from "./lib/ui";
 
 const EXTERNAL = {
   github: "https://github.com/fsantibanezleal/CAOS_QLAB",
@@ -37,70 +38,6 @@ const CATEGORY_ORDER = [
   "noise-and-qec",
   "compilation",
 ];
-
-// The standard product pages (ADR-0016/0017). Tabs appear only once their page is built.
-const PAGE_TABS: { to: string; en: string; es: string }[] = [
-  { to: "/", en: "App", es: "App" },
-  { to: "/introduction", en: "Introduction", es: "Introducción" },
-  { to: "/methodology", en: "Methodology", es: "Metodología" },
-  { to: "/implementation", en: "Implementation", es: "Implementación" },
-  { to: "/experiments", en: "Experiments", es: "Experimentos" },
-  { to: "/benchmark", en: "Benchmark", es: "Benchmark" },
-];
-
-function Header({ onInfo }: { onInfo: () => void }) {
-  const { lang, setLang, theme, setTheme } = useUI();
-  const en = lang === "en";
-  return (
-    <header className="qheader">
-      <div className="qheader-inner">
-        <Link to="/" className="brand">
-          <span className="brand-mark"><Atom size={18} strokeWidth={2.2} /></span> QLab
-        </Link>
-        <nav className="nav">
-          {PAGE_TABS.map((p) => (
-            <NavLink key={p.to} to={p.to} end={p.to === "/"}
-                     className={({ isActive }) => (isActive ? "active" : "")}>
-              {en ? p.en : p.es}
-            </NavLink>
-          ))}
-        </nav>
-        <div className="header-actions">
-          <a className="icon-btn" href={EXTERNAL.github} target="_blank" rel="noreferrer noopener"
-             title="GitHub" aria-label="GitHub"><GitBranch size={18} aria-hidden="true" /></a>
-          <a className="icon-btn" href={EXTERNAL.personal} target="_blank" rel="noreferrer noopener"
-             title={en ? "Personal site" : "Sitio personal"}
-             aria-label={en ? "Personal site" : "Sitio personal"}><Globe size={18} aria-hidden="true" /></a>
-          <a className="icon-btn" href={EXTERNAL.portfolio} target="_blank" rel="noreferrer noopener"
-             title="Portfolio" aria-label="Portfolio"><Briefcase size={18} aria-hidden="true" /></a>
-          <span className="header-sep" aria-hidden="true" />
-          <button type="button" className="icon-btn" onClick={onInfo} aria-haspopup="dialog"
-                  title={en ? "How QLab works" : "Cómo funciona QLab"}
-                  aria-label={en ? "How QLab works" : "Cómo funciona QLab"}>
-            <Info size={18} aria-hidden="true" />
-          </button>
-          <button type="button" className="icon-btn" onClick={() => setLang(en ? "es" : "en")}
-                  title={en ? "Switch language" : "Cambiar idioma"} aria-label="Toggle language">
-            <Languages size={18} aria-hidden="true" /> <span className="lang-code">{lang}</span>
-          </button>
-          <button type="button" className="icon-btn" onClick={() => setTheme(theme === "dark" ? "light" : "dark")}
-                  title={en ? "Toggle theme" : "Cambiar tema"} aria-label="Toggle theme">
-            {theme === "dark" ? <Sun size={18} aria-hidden="true" /> : <Moon size={18} aria-hidden="true" />}
-          </button>
-        </div>
-      </div>
-    </header>
-  );
-}
-
-function Footer() {
-  return (
-    <footer className="qfooter">
-      Developed by Felipe Santibáñez-Leal · A CAOS research project ·{" "}
-      <a href={EXTERNAL.github} target="_blank" rel="noreferrer">Source</a> · MIT · v{VERSION}
-    </footer>
-  );
-}
 
 function useCatalog() {
   const [cat, setCat] = useState<Catalog | null>(null);
@@ -136,19 +73,18 @@ function Workbench() {
   const { lang } = useUI();
   const en = lang === "en";
 
-  const [caseId, setCaseId] = useState(DEFAULT_CASE);
-  const [variantId, setVariantId] = useState<string | null>(null);
+  // The selection lives in the URL (?case=…&variant=…), so a view can be linked and reloaded as it is.
+  const [params, setParams] = useSearchParams();
+  const caseId = params.get("case") ?? DEFAULT_CASE;
+  const variantId = params.get("variant");
+  const setCaseId = (id: string) => setParams({ case: id }, { replace: true });
+  const setVariantId = (id: string) => setParams({ case: caseId, variant: id }, { replace: true });
   const [bundle, setBundle] = useState<Bundle | null>(null);
   // which category groups are expanded in the selector (default: the active case's)
   const [open, setOpen] = useState<Record<string, boolean>>({});
 
   const grouped = useMemo(() => (cat ? groupByCategory(cat.cases) : []), [cat]);
   const active = cat?.cases.find((c) => c.id === caseId) ?? cat?.cases[0] ?? null;
-
-  // when the active case changes, reset the variant to that case's first
-  useEffect(() => {
-    if (active) setVariantId(active.variants[0].id);
-  }, [active?.id]); // eslint-disable-line react-hooks/exhaustive-deps
 
   // expand the group that contains the active case on first load / case change
   useEffect(() => {
@@ -168,9 +104,14 @@ function Workbench() {
   const liveVerdict = bundle?.comparison?.verdict ?? variant.verdict ?? null;
   const qubits = bundle?.qubits;
   const shots = bundle?.shots;
+  // The selection key the shell's gate follows: every control changes it, and a view showing another
+  // selection's bundle is stale (none here: the bundle is cleared on every change and the views wait for it).
+  const stateKey = `${active.id}|${variant.id}`;
+  const bundleKey = bundle ? `${bundle.case_id}|${bundle.instance.id}` : "";
 
   return (
-    <div className="page-body qlab-layout">
+    <div className="page-body qlab-layout" data-case-workbench="" data-case={active.id} data-state-key={stateKey}
+         data-state={bundleKey === stateKey ? "ready" : "loading"}>
       {/* ---- control aside ---- */}
       <aside className="qlab-side">
         <div className="qlab-side-head">
@@ -188,7 +129,7 @@ function Workbench() {
             {en ? "Case" : "Caso"}
             <span className="qlab-ctl-hint">{en ? "the problem" : "el problema"}</span>
           </div>
-          <div className="qlab-case-tree" role="tree">
+          <div className="qlab-case-tree" role="tree" data-control="case">
             {grouped.map(([category, cases]) => {
               const isOpen = open[category] ?? false;
               return (
@@ -210,7 +151,8 @@ function Workbench() {
                         return (
                           <button
                             key={c.id}
-                            className={`qlab-case-btn ${c.id === active.id ? "on" : ""}`}
+                            className={`qlab-case-btn ${c.id === active.id ? "is-on" : ""}`}
+                            data-case={c.id}
                             onClick={() => setCaseId(c.id)}
                             title={t(c.concept)}
                           >
@@ -236,11 +178,11 @@ function Workbench() {
             {en ? "Variant" : "Variante"}
             <span className="qlab-ctl-hint">{en ? "the instance" : "la instancia"}</span>
           </div>
-          <div className="qlab-variants">
+          <div className="qlab-variants" data-control="variant">
             {active.variants.map((v) => (
               <button
                 key={v.id}
-                className={`variant-chip ${v.id === variant.id ? "on" : ""}`}
+                className={`variant-chip ${v.id === variant.id ? "is-on" : ""}`}
                 onClick={() => setVariantId(v.id)}
                 title={t(v.note)}
               >
@@ -251,10 +193,11 @@ function Workbench() {
         </div>
 
         {/* the live quantum-vs-classical read-out (updates with every selection) */}
-        <div className={`qlab-readout edge-${advEdge}`}>
+        <div className={`qlab-readout edge-${advEdge}`} data-readout="verdict" data-state-key={bundleKey}
+             data-stale={bundleKey && bundleKey !== stateKey ? "1" : "0"}>
           <div className="qlab-readout-head">
             <span className="qlab-readout-title">{en ? "Quantum vs classical" : "Cuántico vs clásico"}</span>
-            <span className={`lane-pill ${variant.lane}`}>{variant.lane}</span>
+            <span className={`lane-pill ${variant.lane === "live" ? "is-live" : variant.lane}`}>{variant.lane}</span>
           </div>
           {advLabel && <div className={`qlab-verdict-chip chip-${advEdge}`}>{t(advLabel)}</div>}
           {phys && (
@@ -288,7 +231,7 @@ function Workbench() {
       </aside>
 
       {/* ---- main: the workbench for the active case ---- */}
-      <main className="qlab-main">
+      <section className="qlab-main" data-instrument="">
         <div className="qlab-main-head">
           <h2>{t(active.title)}</h2>
           <p className="qlab-main-concept">{t(active.concept)}</p>
@@ -306,7 +249,7 @@ function Workbench() {
             ? "Circuit, Bloch sphere, amplitudes, histogram, any landscape/extrapolation, and the quantum-vs-classical table are the real committed results. On live-lane cases switch to the Live (browser) tab and drag a slider to re-simulate in real time."
             : "El circuito, la esfera de Bloch, las amplitudes, el histograma, cualquier paisaje/extrapolación y la tabla cuántico-vs-clásico son los resultados versionados reales. En casos del carril vivo, cambiar a la pestaña En vivo (navegador) y mover un slider para re-simular en tiempo real."}
         </p>
-      </main>
+      </section>
     </div>
   );
 }
@@ -340,7 +283,7 @@ function AllCases() {
               <Link key={c.id} to={`/case/${c.id}`} className="case-card">
                 <div className="card-top">
                   <strong>{t(c.title)}</strong>
-                  <span className="badge">{c.variants[0]?.lane}</span>
+                  <span className="qlab-badge">{c.variants[0]?.lane}</span>
                 </div>
                 <p className="concept">{t(c.concept).slice(0, 180)}…</p>
                 <div className="card-foot">
@@ -387,15 +330,42 @@ function CasePage() {
   );
 }
 
-export default function App() {
-  const [info, setInfo] = useState(false);
+function NotFound() {
+  const { lang } = useUI();
+  const en = lang === "en";
   return (
-    <UIProvider>
-      <CitationsProvider items={CITATIONS}>
-      <BrowserRouter>
-        <Header onInfo={() => setInfo(true)} />
-        {info && <ArchModal onClose={() => setInfo(false)} />}
-        <main className="shell">
+    <div className="page-body">
+      <p>{en ? "Page not found." : "Página no encontrada."} <Link to="/">{en ? "Back to the workbench" : "Volver al banco de trabajo"}</Link></p>
+    </div>
+  );
+}
+
+const SHELL: ShellConfig = {
+  product: { name: "QLab", mark: <Atom size={18} strokeWidth={2.2} /> },
+  routes: STANDARD_ROUTES,
+  links: EXTERNAL,
+  version: VERSION,
+  license: { en: "MIT licence", es: "Licencia MIT" },
+  visibility: "public",
+  architecture: ARCHITECTURE,
+  contain: true,
+  footer: {
+    provenance: {
+      en: "Every result is a committed trace from Qiskit, PennyLane, Cirq or Stim through the qversus engine",
+      es: "Cada resultado es una traza versionada de Qiskit, PennyLane, Cirq o Stim mediante el motor qversus",
+    },
+    disclaimer: {
+      en: "Simulators only: no run in this lab used real quantum hardware",
+      es: "Solo simuladores: ninguna corrida de este laboratorio usó hardware cuántico real",
+    },
+  },
+};
+
+export default function App() {
+  return (
+    <BrowserRouter>
+      <AppShell config={SHELL}>
+        <CitationsProvider items={CITATIONS}>
           <Routes>
             <Route path="/" element={<Workbench />} />
             <Route path="/cases" element={<AllCases />} />
@@ -405,11 +375,10 @@ export default function App() {
             <Route path="/experiments" element={<Experiments />} />
             <Route path="/benchmark" element={<Benchmark />} />
             <Route path="/case/:id" element={<CasePage />} />
+            <Route path="*" element={<NotFound />} />
           </Routes>
-        </main>
-        <Footer />
-      </BrowserRouter>
-      </CitationsProvider>
-    </UIProvider>
+        </CitationsProvider>
+      </AppShell>
+    </BrowserRouter>
   );
 }

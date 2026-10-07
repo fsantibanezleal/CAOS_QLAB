@@ -1,7 +1,10 @@
-# Precompute lane: the REAL, dedicated SOTA engines that generate the committed JSON traces.
-# Run locally in the .venv (never in the browser, never on CI hardware). Pinned for reproducible traces;
-# a run is a pure function of (params, seed), so pinning the engine pins the bytes. Versions verified
-# against PyPI/GitHub 2026-06-21: see docs/frameworks/ and wip/qlab/research/01-frameworks-and-simulators.md.
+# Precompute lane: the engine and the real, dedicated frameworks that generate the committed JSON traces.
+# Run locally in the .venv (never in the browser, never on CI). Pinned exactly for reproducible traces: a
+# run is a pure function of (params, seed), so pinning the engine and the frameworks pins the bytes.
+# Framework versions and sources: docs/frameworks/.
+
+# --- The engine (problems, solver adapters, registry, trace schema), with its framework extras ---
+qversus[qiskit,pennylane,cirq,stim,learn]==0.1.0
 
 # --- Circuit-model SDK + high-performance simulator (the default authoring engine) ---
 qiskit==2.4.2            # IBM SDK 2.x (Primitives V2, BackendV2). NOTE: 0.x tutorials do NOT run on 2.x.

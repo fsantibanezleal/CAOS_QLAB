@@ -1,5 +1,5 @@
 {
- "schema_version": "qlab-trace/1",
+ "schema_version": "qversus-trace/1",
  "case_id": "qft",
  "category": "flagship-algorithms",
  "title": {
@@ -7,8 +7,8 @@
   "es": "Transformada cuántica de Fourier"
  },
  "concept": {
-  "en": "The QFT is the quantum discrete Fourier transform: it sends |k⟩ to a uniform superposition with a phase ramp e^{2πi kj/N}. Built from Hadamards and a ladder of controlled-phase rotations (plus output swaps), it uses only O(n²) gates — exponentially fewer than the classical FFT's O(n·2ⁿ). The catch: a measurement returns one sample, so you cannot extract the full transformed amplitudes. The QFT is therefore the engine *inside* phase estimation and Shor, not a way to compute a readable spectrum faster — that is what the classical FFT is for.",
-  "es": "La QFT es la transformada de Fourier discreta cuántica: envía |k⟩ a una superposición uniforme con una rampa de fase e^{2πi kj/N}. Construida con Hadamards y una escalera de rotaciones de fase controladas (más swaps de salida), usa solo O(n²) compuertas — exponencialmente menos que el O(n·2ⁿ) de la FFT clásica. El truco: una medición devuelve una sola muestra, así que no puedes extraer todas las amplitudes transformadas. Por eso la QFT es el motor *dentro* de la estimación de fase y de Shor, no una forma de obtener un espectro legible más rápido — eso lo hace la FFT clásica."
+  "en": "The QFT is the quantum discrete Fourier transform: it sends |k⟩ to a uniform superposition with a phase ramp e^{2πi kj/N}. Built from Hadamards and a ladder of controlled-phase rotations (plus output swaps), it uses only O(n²) gates, exponentially fewer than the classical FFT's O(n·2ⁿ). The catch: a measurement returns one sample, so you cannot extract the full transformed amplitudes. The QFT is therefore the engine *inside* phase estimation and Shor, not a way to compute a readable spectrum faster, that is what the classical FFT is for.",
+  "es": "La QFT es la transformada de Fourier discreta cuántica: envía |k⟩ a una superposición uniforme con una rampa de fase e^{2πi kj/N}. Construida con Hadamards y una escalera de rotaciones de fase controladas (más swaps de salida), usa solo O(n²) compuertas, exponencialmente menos que el O(n·2ⁿ) de la FFT clásica. El truco: una medición devuelve una sola muestra, así que no puedes extraer todas las amplitudes transformadas. Por eso la QFT es el motor *dentro* de la estimación de fase y de Shor, no una forma de obtener un espectro legible más rápido, eso lo hace la FFT clásica."
  },
  "metric": {
   "en": "Fourier transform of the input state",
@@ -34,6 +34,11 @@
  "lane_reasons": [],
  "seed": 42,
  "shots": 2048,
+ "app_version": "0.35.000",
+ "engine_package": {
+  "package": "qversus",
+  "version": "0.01.000"
+ },
  "primary_solver": "qft-qiskit",
  "trace": {
   "case_id": "qft",
@@ -42,8 +47,8 @@
    "es": "Transformada cuántica de Fourier"
   },
   "concept": {
-   "en": "The QFT is the quantum discrete Fourier transform: it sends |k⟩ to a uniform superposition with a phase ramp e^{2πi kj/N}. Built from Hadamards and a ladder of controlled-phase rotations (plus output swaps), it uses only O(n²) gates — exponentially fewer than the classical FFT's O(n·2ⁿ). The catch: a measurement returns one sample, so you cannot extract the full transformed amplitudes. The QFT is therefore the engine *inside* phase estimation and Shor, not a way to compute a readable spectrum faster — that is what the classical FFT is for.",
-   "es": "La QFT es la transformada de Fourier discreta cuántica: envía |k⟩ a una superposición uniforme con una rampa de fase e^{2πi kj/N}. Construida con Hadamards y una escalera de rotaciones de fase controladas (más swaps de salida), usa solo O(n²) compuertas — exponencialmente menos que el O(n·2ⁿ) de la FFT clásica. El truco: una medición devuelve una sola muestra, así que no puedes extraer todas las amplitudes transformadas. Por eso la QFT es el motor *dentro* de la estimación de fase y de Shor, no una forma de obtener un espectro legible más rápido — eso lo hace la FFT clásica."
+   "en": "The QFT is the quantum discrete Fourier transform: it sends |k⟩ to a uniform superposition with a phase ramp e^{2πi kj/N}. Built from Hadamards and a ladder of controlled-phase rotations (plus output swaps), it uses only O(n²) gates, exponentially fewer than the classical FFT's O(n·2ⁿ). The catch: a measurement returns one sample, so you cannot extract the full transformed amplitudes. The QFT is therefore the engine *inside* phase estimation and Shor, not a way to compute a readable spectrum faster, that is what the classical FFT is for.",
+   "es": "La QFT es la transformada de Fourier discreta cuántica: envía |k⟩ a una superposición uniforme con una rampa de fase e^{2πi kj/N}. Construida con Hadamards y una escalera de rotaciones de fase controladas (más swaps de salida), usa solo O(n²) compuertas, exponencialmente menos que el O(n·2ⁿ) de la FFT clásica. El truco: una medición devuelve una sola muestra, así que no puedes extraer todas las amplitudes transformadas. Por eso la QFT es el motor *dentro* de la estimación de fase y de Shor, no una forma de obtener un espectro legible más rápido, eso lo hace la FFT clásica."
   },
   "qubits": 4,
   "steps": [
@@ -1998,7 +2003,7 @@
    "fidelity_vs_dft": 1.0,
    "gate_count": 14
   },
-  "schema_version": "qlab-trace/1"
+  "schema_version": "qversus-trace/1"
  },
  "solvers": [
   {
@@ -2016,13 +2021,13 @@
     "amp0_phase_deg": 0.0
    },
    "cost": {
-    "wall_ms": 0.0363,
+    "wall_ms": 0.0757,
     "ops": 64,
     "gate_complexity": "O(N log N)"
    },
    "notes": {
-    "en": "Classical FFT computes all 16 Fourier amplitudes (readable) in ~64 ops. The QFT is cheaper to apply but its output cannot be read out — that's the trade.",
-    "es": "La FFT clásica calcula todas las 16 amplitudes (legibles) en ~64 ops. La QFT es más barata de aplicar pero su salida no se puede leer — ese es el trade-off."
+    "en": "Classical FFT computes all 16 Fourier amplitudes (readable) in ~64 ops. The QFT is cheaper to apply but its output cannot be read out, that's the trade.",
+    "es": "La FFT clásica calcula todas las 16 amplitudes (legibles) en ~64 ops. La QFT es más barata de aplicar pero su salida no se puede leer, ese es el trade-off."
    },
    "optimal": true,
    "extra": {}
@@ -2042,14 +2047,14 @@
     "readable": false
    },
    "cost": {
-    "wall_ms": 7.337,
+    "wall_ms": 17.723,
     "qubits": 4,
     "gates": 14,
     "gate_complexity": "O(n^2)"
    },
    "notes": {
-    "en": "QFT|6⟩ via 14 gates (O(n²)); fidelity vs analytic DFT = 1.0000. But a measurement gives one sample — the spectrum is not readable.",
-    "es": "QFT|6⟩ con 14 compuertas (O(n²)); fidelidad vs DFT analítica = 1.0000. Pero una medición da una sola muestra — el espectro no es legible."
+    "en": "QFT|6⟩ via 14 gates (O(n²)); fidelity vs analytic DFT = 1.0000. But a measurement gives one sample, the spectrum is not readable.",
+    "es": "QFT|6⟩ con 14 compuertas (O(n²)); fidelidad vs DFT analítica = 1.0000. Pero una medición da una sola muestra, el espectro no es legible."
    },
    "optimal": false,
    "extra": {}
@@ -2060,8 +2065,8 @@
   "quantum_gates": 14,
   "classical_ops": 64,
   "verdict": {
-   "en": "The QFT matches the analytic DFT (fidelity 1.0). Quantum: 14 gates (O(n²)) to apply the transform; classical FFT: ~64 ops (O(n·2ⁿ)) but it returns the full readable spectrum. The QFT is exponentially cheaper to apply yet unreadable on measurement — a subroutine (QPE/Shor), not a standalone speedup.",
-   "es": "La QFT coincide con la DFT analítica (fidelidad 1.0). Cuántico: 14 compuertas (O(n²)) para aplicar la transformada; FFT clásica: ~64 ops (O(n·2ⁿ)) pero devuelve el espectro completo y legible. La QFT es exponencialmente más barata de aplicar pero ilegible al medir — una subrutina (QPE/Shor), no un speedup por sí sola."
+   "en": "The QFT matches the analytic DFT (fidelity 1.0). Quantum: 14 gates (O(n²)) to apply the transform; classical FFT: ~64 ops (O(n·2ⁿ)) but it returns the FULL readable spectrum. The QFT is exponentially cheaper to apply yet unreadable on measurement, a subroutine (QPE/Shor), not a standalone speedup.",
+   "es": "La QFT coincide con la DFT analítica (fidelidad 1.0). Cuántico: 14 compuertas (O(n²)) para aplicar la transformada; FFT clásica: ~64 ops (O(n·2ⁿ)) pero devuelve el espectro completo y legible. La QFT es exponencialmente más barata de aplicar pero ilegible al medir, una subrutina (QPE/Shor), no un speedup por sí sola."
   }
  },
  "references": [

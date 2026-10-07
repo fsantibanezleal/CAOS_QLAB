@@ -4,6 +4,60 @@ All notable changes to CAOS_QLAB. Format: newest → oldest. Versions follow `X.
 (major.minor.patch); patch (`.00X`) for fixes. Kept `0.x` while the web SPA and the framework/case matrix
 are still landing. Tags from day one.
 
+## [0.35.000], 2026-10-06
+
+### Changed
+
+- **The engine is `qversus` from PyPI; QLab declares no package of its own** (#39, hard rule 0). The Problem ×
+  Solver engine (problems, solver adapters, registry, trace schema and tracer) moved to its own repository,
+  CAOS_QVersus, and is pinned as `qversus==0.1.0`. The product tooling stays here, invoked by path:
+  `data-pipeline/run.py` and `data-pipeline/pipeline/` (orchestrator, verdicts, lane gate, manifest, circuit
+  contract). `pyproject.toml` keeps tool configuration only. Every bundle and manifest (now `qlab-manifest/2`)
+  records the engine package and version and the app version. CI follows ADR-0074 for a product: the engine
+  installed from PyPI, lint, and cheap checks; the test suites run locally.
+- **Every record re-baked** under qversus with the recorded seed and shots (#40, #42, #43): 107 of 119
+  identical to the previous bake; the six Grover instances differ only in the fixed fields; the six
+  repetition-code records are re-sampled at the Stim adapter's 30,000 shots; no lane changed by timing.
+- **The shared shell** `@fasl-work/caos-app-shell` 0.7.2 (#45): header, nav, footer, theme and language
+  (`caos.theme`, `caos.lang`, shared across CAOS apps), the architecture modal (five bilingual tabs on shell
+  tokens), and the documentation primitives. Methodology, Implementation and Experiments group their tabs by
+  question (at most six peers). No hex colour left in the app.
+- **The docs wiki is uniform** (#13): every framework, use case and guide is a landing page plus numbered
+  sub-pages (104), and a link check runs in CI.
+
+### Fixed
+
+- **Grover item labels** (#40): `found` and `extra.marked` are in counts-key order, so item 10 is `1010` (it was
+  `0101`) and items 3 and 5 are `011` and `101`.
+- **Grover classical cost** (#42): the expected (N+1)/(M+1) queries of a random scan, derived on the
+  Methodology page (upper-summation identity), with the seeded scan and the worst case beside it; it was one
+  random draw described as "~N/2".
+- **Benchmark P(marked)** (#41): the share on the declared marked set (it was the argmax share, blind to a
+  wrong answer and about 0.5 on a perfect two-marked run); the classical reference is a scan with Grover's own
+  query budget; the shot-budget curve is a seeded uniform subsample (it took the first k shots in key order,
+  #55).
+- **The live engine's RZZ sign** (#58): it applied exp(+iθ/2 Z⊗Z), the conjugate of Qiskit's; latent, since
+  MaxCut, the only RZZ user, is precompute-only. Found by the new test that runs every supported committed
+  trace through the engine step by step.
+- **Live labels and the Grover knob** (#50): six traces were labelled live that the engine could not run. One
+  circuit contract (`web/src/live/gates.json`) is now read by the browser and by the lane gate; the engine
+  gained CCX/MCX, so Grover runs live with an iteration knob that follows sin²((2k+1)θ); the W state
+  (`prepare_W`) is precompute. Every trace is checked before it is written: structure, and physical states.
+- **Deep links answer 200 on Pages** (#44), in both `/route` and `/route/` forms; unknown paths show "page not
+  found".
+- **One version source** (#46): the footer reads `VERSION` at build time; CI checks `web/package.json`, this
+  changelog and the README against it.
+- **Honesty and hygiene**: no file claims a `quantum-circuit`, Quirk or Pyodide live engine (#47); no public
+  file points at working notes or a private repository (#48); no em-dash in the records' text (#43, checked
+  in CI); the Shor texts state Gidney 2025 as the paper does; the repetition-code table pairs each code with
+  the unprotected qubit over its own rounds.
+
+### Added
+
+- **Web test suite** (`npm test`, #49): the live engine against closed forms and against every committed trace
+  it supports (82), the contract mirror derived from the TypeScript types, the circuit contract, the Benchmark
+  metrics; a Python drift test keeps qversus's trace schema and the TypeScript mirror in step.
+
 ## [0.34.002], 2026-09-26
 
 ### Changed

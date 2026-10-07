@@ -1,8 +1,8 @@
 {
  "case_id": "qec-surface",
  "title": {
-  "en": "QEC — surface code (threshold)",
-  "es": "QEC — código de superficie (umbral)"
+  "en": "QEC, surface code (threshold)",
+  "es": "QEC, código de superficie (umbral)"
  },
  "category": "noise-and-qec",
  "lane": "precompute",
@@ -29,7 +29,12 @@
   "circuit"
  ],
  "engine": "classical:numpy",
- "engine_version": "—",
+ "engine_version": "-",
+ "engine_package": {
+  "package": "qversus",
+  "version": "0.01.000"
+ },
+ "app_version": "0.35.000",
  "trace_path": "qec-surface/surf-d5-p0.005.json",
  "references": [
   {
@@ -41,5 +46,5 @@
    "url": "https://arxiv.org/abs/2408.13687"
   }
  ],
- "manifest_version": "qlab-manifest/1"
+ "manifest_version": "qlab-manifest/2"
 }

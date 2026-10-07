@@ -4,9 +4,10 @@ Two data contracts decouple the engine from the web app, and a **measured** gate
 runs in. Full field-by-field schemas are in [../../data/README.md](../../data/README.md); this page is the
 *why*.
 
-## The trace (artifact contract), schema `qlab-trace/1`
+## The trace (artifact contract), schema `qversus-trace/1`
 
-A trace is a **replayable recording** of one circuit run. For every step (a gate, a barrier, a prepared
+The trace schema belongs to the engine (`qversus.core.trace`); QLab wraps each trace in a bundle with every
+solver's result, the comparison verdict, the app version and the engine package and version. A trace is a **replayable recording** of one circuit run. For every step (a gate, a barrier, a prepared
 state) it stores the full **statevector** (2ⁿ complex amplitudes), the per-qubit reduced **Bloch vector**
 `[⟨X⟩,⟨Y⟩,⟨Z⟩]`, and the basis-state **probabilities**, plus the final measurement **histogram**. It is
 JSON-first, compact (amplitudes rounded to 6 decimals), and contains **no Qiskit type**, so the browser
@@ -16,16 +17,17 @@ Determinism is the contract: a run is a pure function of `(params, seed)`. The o
 measurement sampling, routed through one seeded NumPy generator, so the committed counts reproduce exactly.
 Everything else (statevector evolution) is exact. **Replay = truth.**
 
-## The manifest (index contract), schema `qlab-manifest/1`
+## The manifest (index contract), schema `qlab-manifest/2`
 
 One manifest per (case, variant) records the **lane verdict** and the measured numbers behind it, the
 seed/shots/params that reproduce the trace, the **viz bindings** (which renderers the web mounts:
-`bloch`, `amp_phase`, `histogram`, `qsphere`, `density`, `circuit`, `landscape`, `graph`), and the engine
-provenance + version. The web app reads the set of manifests as its catalog.
+`bloch`, `amp_phase`, `histogram`, `qsphere`, `density`, `circuit`, `landscape`, `graph`), the framework that
+authored the trace (`engine`, `engine_version`), and the engine package and app version that produced it
+(`engine_package`, `app_version`). The web app reads the set of manifests as its catalog.
 
 ## The measured gate: live vs precompute (not a matter of taste)
 
-`qlab/core/gate.py::classify_lane` decides the lane from **measurements**. A case runs **live** only if all
+`data-pipeline/pipeline/gate.py::classify_lane` decides the lane from **measurements**. A case runs **live** only if all
 hold:
 
 1. `qubits ≤ LIVE_MAX_QUBITS` (12): 2ⁿ amplitudes must stay interactive in JS (~12 q ≈ 64 MB).
@@ -33,16 +35,25 @@ hold:
    (teleportation/QEC), no optimization loop (VQE/QAOA training).
 3. `run_ms ≤ LIVE_RUN_MS` (1500): the offline build time, a proxy for browser responsiveness.
 4. `trace_bytes ≤ LIVE_TRACE_BYTES` (~1 MB).
+5. **the circuit contract**: every op is a gate the live engine runs, with its qubit and parameter counts
+   (`web/src/live/gates.json`, read by `pipeline/circuit.py` here and by `liveTrace.ts` in the browser).
+
+Before any trace is written the pipeline also checks its structure (qubits in range and distinct, finite
+parameters) and that every recorded state is physical (probabilities sum to 1 and equal the squared
+amplitude moduli); a violation stops the bake. CI re-checks all of it on every committed record.
 
 Otherwise the case is **precompute**. The verdict and the numbers behind it are written into the manifest,
 and CI fails the build if a `live`-tagged case breaches a gate, *mislabeling cannot ship*. Both lanes
 render through one code path.
 
 **Worked examples (from the shipped cases):** `state-prep` (≤4 qubits, pure unitary, ~1–2 ms, ~9 KB) → 
-**live**. `maxcut` (≤6 qubits, but a p=1 QAOA carries an offline `(γ,β)` grid-search optimization loop) → 
-**precompute** (`unitary_only=False`); the committed trace still replays the optimal-parameter circuit.
+**live**, except `w-3`, whose W state is prepared by one `prepare_W` instruction the live engine does not
+run → **precompute** by the circuit contract. `maxcut` (≤6 qubits, but a p=1 QAOA carries an offline `(γ,β)`
+grid-search optimization loop) → **precompute** (`unitary_only=False`); the committed trace still replays
+the optimal-parameter circuit. Grover's multi-controlled X gates (`ccx`, `mcx`) are in the live set, so all
+six Grover cases run live, iteration count included.
 
 ## Read next
 
 - [04_lanes.md](./04_lanes.md): what concretely runs in each lane.
-- [../../data/README.md](../../data/README.md): the schemas field by field + the ingestion contract.
+- [../../data/README.md](../../data/README.md): the schemas field by field + the circuit contract.

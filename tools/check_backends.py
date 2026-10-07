@@ -7,8 +7,8 @@ IBM Quantum, actually reaches the service and lists devices. Other providers are
     .venv/Scripts/python.exe tools/check_backends.py
     ./scripts/check-backends.sh   /   .\scripts\check-backends.ps1
 
-Exit code 0 always (it is a report, not a gate). Tokens live in the CAOS_MANAGE vault; copy the ones you
-want to exercise into QLab `.env` (git-ignored) or export them.
+Exit code 0 always (it is a report, not a gate). Put the tokens you want to exercise in QLab's `.env`
+(git-ignored, copied from .env.example) or export them.
 """
 
 from __future__ import annotations

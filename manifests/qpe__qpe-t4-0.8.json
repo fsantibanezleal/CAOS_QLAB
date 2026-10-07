@@ -16,8 +16,8 @@
   "exact": false
  },
  "measured": {
-  "run_ms": 12.152,
-  "trace_bytes": 33415,
+  "run_ms": 27.073,
+  "trace_bytes": 33406,
   "unitary_only": true
  },
  "viz": [
@@ -27,6 +27,11 @@
  ],
  "engine": "qiskit",
  "engine_version": "2.4.2",
+ "engine_package": {
+  "package": "qversus",
+  "version": "0.01.000"
+ },
+ "app_version": "0.35.000",
  "trace_path": "qpe/qpe-t4-0.8.json",
  "references": [
   {
@@ -38,5 +43,5 @@
    "url": "https://doi.org/10.1017/CBO9780511976667"
   }
  ],
- "manifest_version": "qlab-manifest/1"
+ "manifest_version": "qlab-manifest/2"
 }

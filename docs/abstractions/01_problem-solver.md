@@ -1,9 +1,10 @@
 # 01 · Problem × Solver
 
 The two core abstractions. They are deliberately small and orthogonal: a `Problem` knows *what* to compute;
-a `Solver` knows *how* (via one real framework). Neither knows about the other's internals.
+a `Solver` knows *how* (via one real framework). Neither knows about the other's internals. Both live in
+the engine package **`qversus`** (PyPI), which QLab pins; QLab declares no package of its own.
 
-## `Problem` (formulation): `qlab/problems/base.py`
+## `Problem` (formulation): `qversus.problems.base`
 
 A solver-agnostic formulation. Concrete problems set class attributes and implement `instances()`:
 
@@ -18,7 +19,7 @@ A solver-agnostic formulation. Concrete problems set class attributes and implem
 An `Instance` is `{id, title, params, note}`, a full parameter vector the App can select. A problem may
 add formulation helpers (e.g. `MaxCut.cut_value(edges, bitstring)`); it imports **no** quantum framework.
 
-## `Solver` (adapter): `qlab/solvers/base.py`
+## `Solver` (adapter): `qversus.solvers.base`
 
 A thin adapter over **one** real framework. Concrete solvers set `name/label/framework/paradigm` and
 implement two methods:

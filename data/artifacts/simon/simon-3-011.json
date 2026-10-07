@@ -1,14 +1,14 @@
 {
- "schema_version": "qlab-trace/1",
+ "schema_version": "qversus-trace/1",
  "case_id": "simon",
  "category": "oracle-algorithms",
  "title": {
-  "en": "Simon — hidden period (exponential separation)",
-  "es": "Simon — período oculto (separación exponencial)"
+  "en": "Simon, hidden period (exponential separation)",
+  "es": "Simon, período oculto (separación exponencial)"
  },
  "concept": {
-  "en": "An oracle hides a 2-to-1 function with period s: f(x)=f(x⊕s). Simon's circuit entangles an input register with f's output, and a final layer of Hadamards makes the input register yield, on each run, a random string y with y·s = 0 (mod 2). About n−1 independent y's pin down s by Gaussian elimination over GF(2) — O(n) quantum queries. Classically you must hunt for a collision f(x₁)=f(x₂), needing ~2^{n/2} queries (birthday bound). This is the first provably exponential quantum query advantage — the conceptual ancestor of Shor.",
-  "es": "Un oráculo oculta una función 2-a-1 con período s: f(x)=f(x⊕s). El circuito de Simon entrelaza un registro de entrada con la salida de f, y una capa final de Hadamards hace que el registro de entrada dé, en cada ejecución, una cadena aleatoria y con y·s = 0 (mod 2). Unas n−1 cadenas y independientes determinan s por eliminación gaussiana sobre GF(2) — O(n) consultas. Clásicamente hay que buscar una colisión f(x₁)=f(x₂), con ~2^{n/2} consultas (cota del cumpleaños). Es la primera ventaja cuántica exponencial demostrable — el ancestro de Shor."
+  "en": "An oracle hides a 2-to-1 function with period s: f(x)=f(x⊕s). Simon's circuit entangles an input register with f's output, and a final layer of Hadamards makes the input register yield, on each run, a random string y with y·s = 0 (mod 2). About n−1 independent y's pin down s by Gaussian elimination over GF(2), O(n) quantum queries. Classically you must hunt for a collision f(x₁)=f(x₂), needing ~2^{n/2} queries (birthday bound). This is the first provably exponential quantum query advantage, the conceptual ancestor of Shor.",
+  "es": "Un oráculo oculta una función 2-a-1 con período s: f(x)=f(x⊕s). El circuito de Simon entrelaza un registro de entrada con la salida de f, y una capa final de Hadamards hace que el registro de entrada dé, en cada ejecución, una cadena aleatoria y con y·s = 0 (mod 2). Unas n−1 cadenas y independientes determinan s por eliminación gaussiana sobre GF(2), O(n) consultas. Clásicamente hay que buscar una colisión f(x₁)=f(x₂), con ~2^{n/2} consultas (cota del cumpleaños). Es la primera ventaja cuántica exponencial demostrable, el ancestro de Shor."
  },
  "metric": {
   "en": "recovered period s",
@@ -25,8 +25,8 @@
    "secret": "011"
   },
   "note": {
-   "en": "period 011 (6 qubits) — O(n) quantum vs ~2^(n/2) classical.",
-   "es": "período 011 (6 qubits) — O(n) cuántico vs ~2^(n/2) clásico."
+   "en": "period 011 (6 qubits), O(n) quantum vs ~2^(n/2) classical.",
+   "es": "período 011 (6 qubits), O(n) cuántico vs ~2^(n/2) clásico."
   }
  },
  "qubits": 3,
@@ -36,16 +36,21 @@
  ],
  "seed": 42,
  "shots": 2048,
+ "app_version": "0.35.000",
+ "engine_package": {
+  "package": "qversus",
+  "version": "0.01.000"
+ },
  "primary_solver": "simon-qiskit",
  "trace": {
   "case_id": "simon",
   "title": {
-   "en": "Simon — hidden period (exponential separation)",
-   "es": "Simon — período oculto (separación exponencial)"
+   "en": "Simon, hidden period (exponential separation)",
+   "es": "Simon, período oculto (separación exponencial)"
   },
   "concept": {
-   "en": "An oracle hides a 2-to-1 function with period s: f(x)=f(x⊕s). Simon's circuit entangles an input register with f's output, and a final layer of Hadamards makes the input register yield, on each run, a random string y with y·s = 0 (mod 2). About n−1 independent y's pin down s by Gaussian elimination over GF(2) — O(n) quantum queries. Classically you must hunt for a collision f(x₁)=f(x₂), needing ~2^{n/2} queries (birthday bound). This is the first provably exponential quantum query advantage — the conceptual ancestor of Shor.",
-   "es": "Un oráculo oculta una función 2-a-1 con período s: f(x)=f(x⊕s). El circuito de Simon entrelaza un registro de entrada con la salida de f, y una capa final de Hadamards hace que el registro de entrada dé, en cada ejecución, una cadena aleatoria y con y·s = 0 (mod 2). Unas n−1 cadenas y independientes determinan s por eliminación gaussiana sobre GF(2) — O(n) consultas. Clásicamente hay que buscar una colisión f(x₁)=f(x₂), con ~2^{n/2} consultas (cota del cumpleaños). Es la primera ventaja cuántica exponencial demostrable — el ancestro de Shor."
+   "en": "An oracle hides a 2-to-1 function with period s: f(x)=f(x⊕s). Simon's circuit entangles an input register with f's output, and a final layer of Hadamards makes the input register yield, on each run, a random string y with y·s = 0 (mod 2). About n−1 independent y's pin down s by Gaussian elimination over GF(2), O(n) quantum queries. Classically you must hunt for a collision f(x₁)=f(x₂), needing ~2^{n/2} queries (birthday bound). This is the first provably exponential quantum query advantage, the conceptual ancestor of Shor.",
+   "es": "Un oráculo oculta una función 2-a-1 con período s: f(x)=f(x⊕s). El circuito de Simon entrelaza un registro de entrada con la salida de f, y una capa final de Hadamards hace que el registro de entrada dé, en cada ejecución, una cadena aleatoria y con y·s = 0 (mod 2). Unas n−1 cadenas y independientes determinan s por eliminación gaussiana sobre GF(2), O(n) consultas. Clásicamente hay que buscar una colisión f(x₁)=f(x₂), con ~2^{n/2} consultas (cota del cumpleaños). Es la primera ventaja cuántica exponencial demostrable, el ancestro de Shor."
   },
   "qubits": 6,
   "steps": [
@@ -4587,7 +4592,7 @@
     "111"
    ]
   },
-  "schema_version": "qlab-trace/1"
+  "schema_version": "qversus-trace/1"
  },
  "solvers": [
   {
@@ -4604,7 +4609,7 @@
     "classical_queries": 5
    },
    "cost": {
-    "wall_ms": 0.011,
+    "wall_ms": 0.0217,
     "oracle_queries": 5
    },
    "notes": {
@@ -4628,7 +4633,7 @@
     "quantum_queries": 3
    },
    "cost": {
-    "wall_ms": 7.903,
+    "wall_ms": 20.177,
     "qubits": 6,
     "depth": 11,
     "oracle_queries": 3
@@ -4652,8 +4657,8 @@
   "quantum_queries": 3,
   "classical_queries": 5,
   "verdict": {
-   "en": "Both recover the period s=011. Quantum: O(n) = 3 queries (sample y·s=0, GF(2) solve). Classical: 5 queries to hit a collision (~2^(n/2) expected). The first provably exponential query separation — though at this tiny n the classical search is instant.",
-   "es": "Ambos recuperan el período s=011. Cuántico: O(n) = 3 consultas (muestrear y·s=0, resolver GF(2)). Clásico: 5 consultas hasta una colisión (~2^(n/2) esperado). La primera separación exponencial demostrable — aunque a este n minúsculo es instantáneo."
+   "en": "Both recover the period s=011. Quantum: O(n) = 3 queries (sample y·s=0, GF(2) solve). Classical: 5 queries to hit a collision (~2^(n/2) expected). The first provably exponential query separation, though at this tiny n the classical search is instant.",
+   "es": "Ambos recuperan el período s=011. Cuántico: O(n) = 3 consultas (muestrear y·s=0, resolver GF(2)). Clásico: 5 consultas hasta una colisión (~2^(n/2) esperado). La primera separación exponencial demostrable, aunque a este n minúsculo es instantáneo."
   }
  },
  "references": [
