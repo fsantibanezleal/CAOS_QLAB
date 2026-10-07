@@ -4,6 +4,7 @@ import { Eq } from "../components/Tabs";
 import { Refs } from "../lib/citations";
 import type { Bilingual, Bundle, Catalog } from "../lib/contract.types";
 import { loadBundle, loadCatalog } from "../lib/data";
+import { classicalRef, type LiveMetric, recompute, subsampleCounts } from "../lib/metrics";
 import { useUI } from "../lib/ui";
 
 type Lang = "en" | "es";
@@ -182,8 +183,8 @@ const SPECS: Record<string, MetricSpec> = {
     q: (b) => `${num(cmpv(b, "quantum_queries"))} queries`,
     c: (b) => `${num(cmpv(b, "classical_queries"))} queries`,
     edge: (b) => ({
-      en: `Finds the marked item in ${num(cmpv(b, "quantum_queries"))} quantum queries (~√N) vs ${num(cmpv(b, "classical_queries"))} classical (~N/2), success prob ${num(cmpv(b, "success_prob"))}, a quadratic speedup, but asymptotic and erased by overheads at tiny N.`,
-      es: `Halla el ítem marcado en ${num(cmpv(b, "quantum_queries"))} consultas cuánticas (~√N) vs ${num(cmpv(b, "classical_queries"))} clásicas (~N/2), prob de éxito ${num(cmpv(b, "success_prob"))}, speedup cuadrático, pero asintótico y borrado por overheads a N pequeño.`,
+      en: `Finds the marked item in ${num(cmpv(b, "quantum_queries"))} quantum queries (~√N) vs ${num(cmpv(b, "classical_queries"))} classical on average ((N+1)/(M+1)), success prob ${num(cmpv(b, "success_prob"))}, a quadratic speedup, but asymptotic and erased by overheads at tiny N.`,
+      es: `Halla el ítem marcado en ${num(cmpv(b, "quantum_queries"))} consultas cuánticas (~√N) vs ${num(cmpv(b, "classical_queries"))} clásicas en promedio ((N+1)/(M+1)), prob de éxito ${num(cmpv(b, "success_prob"))}, speedup cuadrático, pero asintótico y borrado por overheads a N pequeño.`,
     }),
   },
   "qec-repetition": {
@@ -310,7 +311,6 @@ const SPECS: Record<string, MetricSpec> = {
 
 /* ── The live recompute: cases whose quantum metric we re-derive in-browser from
       the raw measured `trace.measurements.counts` at an adjustable shot budget. */
-type LiveMetric = "grover-success" | "chsh-S" | "qrng-entropy";
 interface LiveCase {
   id: string;
   variant: string;
@@ -322,59 +322,6 @@ const LIVE_CASES: LiveCase[] = [
   { id: "chsh", variant: "chsh-optimal", metric: "chsh-S", name: { en: "CHSH · value S", es: "CHSH · valor S" } },
   { id: "qrng", variant: "qrng-3", metric: "qrng-entropy", name: { en: "QRNG · entropy H", es: "QRNG · entropía H" } },
 ];
-
-/* Subsample the first `budget` shots from committed counts, deterministically
-   (counts are integer multiplicities → expand in key order, truncate). Pure. */
-function subsampleCounts(counts: Record<string, number>, budget: number): Record<string, number> {
-  const keys = Object.keys(counts).sort();
-  const out: Record<string, number> = {};
-  let left = budget;
-  for (const k of keys) {
-    if (left <= 0) break;
-    const take = Math.min(counts[k], left);
-    if (take > 0) out[k] = take;
-    left -= take;
-  }
-  return out;
-}
-
-function shannonBits(counts: Record<string, number>): number {
-  const total = Object.values(counts).reduce((a, b) => a + b, 0);
-  if (total === 0) return 0;
-  let h = 0;
-  for (const v of Object.values(counts)) {
-    if (v === 0) continue;
-    const p = v / total;
-    h -= p * Math.log2(p);
-  }
-  return h;
-}
-
-/** Recompute the head-to-head quantum metric from raw counts (no engine call, 
- *  this is exactly what the precompute pipeline did, re-run on committed data). */
-function recompute(metric: LiveMetric, counts: Record<string, number>, b: Bundle): { value: number; total: number } {
-  const total = Object.values(counts).reduce((a, x) => a + x, 0);
-  if (metric === "qrng-entropy") return { value: shannonBits(counts), total };
-  if (metric === "grover-success") {
-    // marked bitstring = the argmax of the full committed counts (the engine's answer)
-    const full = b.trace?.measurements.counts ?? {};
-    const marked = Object.entries(full).sort((a, x) => x[1] - a[1])[0]?.[0];
-    const hit = marked ? counts[marked] ?? 0 : 0;
-    return { value: total ? hit / total : 0, total };
-  }
-  // chsh-S: the committed trace records the optimal-protocol measurement (00/11
-  // correlator). Reconstruct ⟨A·B⟩ = P(equal) − P(differ); under the optimal angle
-  // settings each of the 4 correlators has |⟨AᵢBⱼ⟩| = |corr|/√2, so S = 4·|corr|/√2.
-  const equal = (counts["00"] ?? 0) + (counts["11"] ?? 0);
-  const corr = total ? (2 * equal) / total - 1 : 0;
-  return { value: (4 * Math.abs(corr)) / Math.SQRT2, total };
-}
-
-function classicalRef(metric: LiveMetric): { value: number; label: Bilingual } {
-  if (metric === "grover-success") return { value: 0.5, label: { en: "classical ~N/2 random guess on N=8 ≈ 0.5", es: "azar clásico ~N/2 sobre N=8 ≈ 0.5" } };
-  if (metric === "chsh-S") return { value: 2.0, label: { en: "local-hidden-variable bound S = 2", es: "cota de variables ocultas locales S = 2" } };
-  return { value: 3.0, label: { en: "ideal PRNG entropy = 3 bits (3 qubits)", es: "entropía de PRNG ideal = 3 bits (3 qubits)" } };
-}
 
 /* ── A hand-authored, theme-aware SVG: the taxonomy of "advantage", four very
       different axes, only one of which is "my program finished sooner". ─────── */
@@ -502,7 +449,7 @@ function LiveRecompute() {
     return { ...r, sub };
   }, [bundle, budget, sel, counts]);
 
-  const cref = classicalRef(sel.metric);
+  const cref = bundle ? classicalRef(sel.metric, bundle) : { value: 0, label: { en: "", es: "" } };
   const unit = sel.metric === "qrng-entropy" ? " bit" : "";
   const fullVal = useMemo(() => {
     if (!bundle || !bundle.trace) return null;
@@ -560,11 +507,11 @@ function LiveRecompute() {
 
           <div className="stat-row">
             <div className="stat">
-              <b>{live ? (live.value).toFixed(sel.metric === "grover-success" ? 4 : 4) : "–"}{unit}</b>
+              <b>{live ? live.value.toFixed(4) : "–"}{unit}</b>
               <span>{en ? `quantum metric @ k=${budget}` : `métrica cuántica @ k=${budget}`}</span>
             </div>
             <div className="stat">
-              <b>{cref.value.toFixed(sel.metric === "grover-success" ? 1 : 1)}{unit}</b>
+              <b>{cref.value.toFixed(sel.metric === "grover-success" ? 3 : 1)}{unit}</b>
               <span>{cref.label[lang]}</span>
             </div>
             <div className="stat">
@@ -598,8 +545,8 @@ function LiveRecompute() {
 
           <p className="note">
             {en
-              ? `Quantum solver: ${qsolver(bundle)?.label.en ?? ""} (${qsolver(bundle)?.framework ?? ""}); classical baseline: ${csolver(bundle)?.label.en ?? ""}. The curve is the same measured counts truncated to k shots, fewer shots show the sampling noise the head-to-head metric rides on; at the full ${fullShots} it reproduces the committed comparison number.`
-              : `Solver cuántico: ${qsolver(bundle)?.label.es ?? ""} (${qsolver(bundle)?.framework ?? ""}); baseline clásico: ${csolver(bundle)?.label.es ?? ""}. La curva son los mismos conteos medidos truncados a k shots, menos shots muestran el ruido de muestreo sobre el que cabalga la métrica; a los ${fullShots} completos reproduce el número de comparación versionado.`}
+              ? `Quantum solver: ${qsolver(bundle)?.label.en ?? ""} (${qsolver(bundle)?.framework ?? ""}); classical baseline: ${csolver(bundle)?.label.en ?? ""}. The curve is a seeded random subsample of k of the same measured shots (nested across k), fewer shots show the sampling noise the head-to-head metric rides on; at the full ${fullShots} it reproduces the committed comparison number.`
+              : `Solver cuántico: ${qsolver(bundle)?.label.es ?? ""} (${qsolver(bundle)?.framework ?? ""}); baseline clásico: ${csolver(bundle)?.label.es ?? ""}. La curva es una submuestra aleatoria con semilla de k de los mismos shots medidos (anidada en k), menos shots muestran el ruido de muestreo sobre el que cabalga la métrica; a los ${fullShots} completos reproduce el número de comparación versionado.`}
           </p>
         </>
       )}
@@ -768,10 +715,10 @@ export function Benchmark() {
           ? "A benchmark you cannot reproduce is a claim, not a measurement. Pick a case and drag the shot budget: the panel resamples the same measured counts committed in the trace, re-derives the quantum metric with the exact formula the pipeline uses, and draws it converging toward the value the benchmark reports, next to the classical baseline. This is ≥1 quantum method and ≥1 classical baseline on identical, committed data."
           : "Un benchmark que no se puede reproducir es una afirmación, no una medición. Elegir un caso y mover el presupuesto de shots: el panel remuestrea los mismos conteos medidos versionados en la traza, re-deriva la métrica cuántica con la fórmula exacta del pipeline, y la dibuja convergiendo al valor que reporta el benchmark, junto al baseline clásico. Esto es ≥1 método cuántico y ≥1 baseline clásico sobre datos idénticos y versionados."}</p>
 
-        <Eq tex="P(\text{marked}) = \frac{c_{\text{marked}}}{\sum_x c_x}, \quad S = 4\,\frac{|\langle A B\rangle|}{\sqrt2}, \quad H = -\!\sum_x p_x \log_2 p_x"
+        <Eq tex="P(\text{marked}) = \frac{\sum_{m \in \text{marked}} c_m}{\sum_x c_x}, \quad S = 4\,\frac{|\langle A B\rangle|}{\sqrt2}, \quad H = -\!\sum_x p_x \log_2 p_x"
             caption={{
-              en: "The three live metrics, each a pure function of the committed counts cₓ: Grover's success probability (fraction landing on the marked string), the CHSH value S reconstructed from the equal/differ correlator, and the Shannon entropy H of the output distribution.",
-              es: "Las tres métricas en vivo, cada una función pura de los conteos versionados cₓ: la probabilidad de éxito de Grover (fracción que cae en la cadena marcada), el valor CHSH S reconstruido del correlador igual/distinto, y la entropía de Shannon H de la distribución de salida.",
+              en: "The three live metrics, each a pure function of the committed counts cₓ: Grover's success probability (the share of shots on the declared marked set, summed over every marked item), the CHSH value S reconstructed from the equal/differ correlator, and the Shannon entropy H of the output distribution.",
+              es: "Las tres métricas en vivo, cada una función pura de los conteos versionados cₓ: la probabilidad de éxito de Grover (la fracción de shots en el conjunto marcado declarado, sumada sobre cada ítem marcado), el valor CHSH S reconstruido del correlador igual/distinto, y la entropía de Shannon H de la distribución de salida.",
             }} />
 
         <div className="fig-svg wide"><RecomputeDiagram lang={lang} /></div>
