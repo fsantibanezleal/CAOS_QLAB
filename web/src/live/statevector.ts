@@ -90,7 +90,7 @@ function applyRZZ(st: State, a: number, b: number, p: number): void {
   const c = Math.cos(p / 2), s = Math.sin(p / 2);
   for (let i = 0; i < size; i++) {
     const parity = ((i & ab) ? 1 : 0) ^ ((i & bb) ? 1 : 0); // exp(-i p/2 Z⊗Z): +/- on parity
-    const sign = parity ? +1 : -1; // even parity → e^{-i p/2}; odd → e^{+i p/2}
+    const sign = parity ? -1 : +1; // even parity → e^{-i p/2}; odd → e^{+i p/2}
     const r = re[i], im0 = im[i];
     re[i] = c * r - sign * s * (-im0); // multiply by (c - i*sign*s)
     im[i] = c * im0 - sign * s * (r);

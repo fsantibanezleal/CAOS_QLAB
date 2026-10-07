@@ -14,9 +14,12 @@ produces, so the renderers are identical, *"live" is slider-responsiveness, not 
 The engine is **exact**, not an approximation: amplitudes evolve under the true gate matrices (the standard
 1-qubit set H/X/Y/Z/S/T/RX/RY/RZ/P plus the 2-qubit CX/CZ/SWAP/CP/RZZ), the per-qubit Bloch vector is the
 exact reduced density matrix, and the only stochastic step is shot sampling through a seeded PRNG. It is
-verified by construction: with the sliders at the committed angles, the live result reproduces the
-committed (Qiskit) trace **bit-for-bit**, same amplitudes, same relative phases, same Bloch vectors. A
-case is only offered live if every one of its ops is in the supported set; otherwise it stays replay-only.
+verified by test, not by construction: `npm test` (in `web/`) runs every committed Qiskit trace whose ops the
+engine supports through it and requires the same amplitudes (complex, so the relative phases too) and the
+same Bloch vectors at every step, to the 6-decimal rounding of the records. That test found the RZZ gate
+applied with the opposite sign (exp(+iθ/2 Z⊗Z) instead of Qiskit's exp(−iθ/2 Z⊗Z)), fixed in 0.35.000; it had
+no visible effect because the only RZZ circuits, MaxCut's, are precompute-only. A case is only offered live
+if every one of its ops is in the supported set; otherwise it stays replay-only.
 
 > **Design note.** An earlier plan named the `quantum-circuit` (MIT) JS library. We use a small purpose-built
 > engine instead, same reasoning as the hand-rolled SVG Bloch sphere (vs three.js): full control of the
