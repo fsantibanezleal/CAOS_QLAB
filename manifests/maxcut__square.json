@@ -1,8 +1,8 @@
 {
  "case_id": "maxcut",
  "title": {
-  "en": "MaxCut — QAOA vs classical",
-  "es": "MaxCut — QAOA vs clásico"
+  "en": "MaxCut, QAOA vs classical",
+  "es": "MaxCut, QAOA vs clásico"
  },
  "category": "variational",
  "lane": "precompute",
@@ -34,8 +34,8 @@
   ]
  },
  "measured": {
-  "run_ms": 871.1,
-  "trace_bytes": 18278,
+  "run_ms": 1065.9,
+  "trace_bytes": 18270,
   "unitary_only": false
  },
  "viz": [
@@ -46,6 +46,11 @@
  ],
  "engine": "qiskit",
  "engine_version": "2.4.2",
+ "engine_package": {
+  "package": "qversus",
+  "version": "0.01.000"
+ },
+ "app_version": "0.34.002",
  "trace_path": "maxcut/square.json",
  "references": [
   {
@@ -53,7 +58,7 @@
    "url": "https://arxiv.org/abs/1411.4028"
   },
   {
-   "label": "Goemans & Williamson, .878-approximation for MAX CUT via SDP (1995)",
+   "label": "Goemans & Williamson, .878-approximation for MaxCut via SDP (1995)",
    "doi": "10.1145/227683.227684"
   },
   {
@@ -61,5 +66,5 @@
    "url": "https://arxiv.org/abs/2106.05900"
   }
  ],
- "manifest_version": "qlab-manifest/1"
+ "manifest_version": "qlab-manifest/2"
 }

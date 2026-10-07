@@ -30,13 +30,16 @@ The unprotected baseline: a lone qubit under the same noise flips with probabili
 Distance 3 and 5 at `p ∈ {0.05, 0.1, 0.2}`. The variant-bar pairs `d=3` vs `d=5` at each noise rate so you
 can see distance help, or stop helping.
 
-## Solvers & results (from the committed traces, seed 42, 50 000 shots)
+## Solvers & results (from the committed traces, seed 42, 30,000 shots)
 
-| p | d=3 logical | d=5 logical | unprotected (1 qubit) | distance helps? |
-|---|---|---|---|---|
-| 0.05 | 0.0266 | **0.0088** | 0.093 | ✓ (d5 ≪ d3) |
-| 0.10 | 0.0908 | **0.0562** | 0.175 | ✓ |
-| 0.20 | 0.2526 | 0.2532 | 0.303 | ✗ (≈ equal, near/above threshold) |
+The unprotected baseline is one qubit under the same noise for the same number of rounds, so it differs
+between d=3 (3 rounds) and d=5 (5 rounds).
+
+| p | d=3 logical | unprotected, 3 rounds | d=5 logical | unprotected, 5 rounds | distance helps? |
+|---|---|---|---|---|---|
+| 0.05 | 0.0257 | 0.093 | **0.0081** | 0.146 | ✓ (d5 ≪ d3) |
+| 0.10 | 0.0909 | 0.175 | **0.0539** | 0.256 | ✓ |
+| 0.20 | 0.2562 | 0.303 | 0.2519 | 0.394 | ✗ (≈ equal, near/above threshold) |
 
 At `p = 0.05` and `0.1` the distance-5 code clearly beats distance-3 and both beat the unprotected qubit, 
 **below threshold, more qubits = better logical qubit**. At `p = 0.2` the distance-5 improvement vanishes:

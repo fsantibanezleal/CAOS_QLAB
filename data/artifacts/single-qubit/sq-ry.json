@@ -1,5 +1,5 @@
 {
- "schema_version": "qlab-trace/1",
+ "schema_version": "qversus-trace/1",
  "case_id": "single-qubit",
  "category": "fundamentals",
  "title": {
@@ -7,8 +7,8 @@
   "es": "Compuertas de un qubit y la esfera de Bloch"
  },
  "concept": {
-  "en": "Every pure qubit state is a point on the Bloch sphere; the gates are rotations of it. X flips |0⟩↔|1⟩ (a π-rotation about X); H takes a pole to the equator (superposition); Z, S and T are Z-rotations that add phase (visible only once you're off the poles); RX/RY/RZ rotate by any angle. Step |0⟩ through a gate and watch the Bloch vector move. It is the foundation of everything later — but not, by itself, an advantage: a measurement collapses the qubit to one classical bit, and a single qubit stores no more classical information than a bit (Holevo). The richness of the sphere only becomes powerful through interference across many qubits.",
-  "es": "Todo estado puro de un qubit es un punto en la esfera de Bloch; las compuertas son rotaciones de ella. X voltea |0⟩↔|1⟩ (rotación π sobre X); H lleva un polo al ecuador (superposición); Z, S y T son rotaciones sobre Z que agregan fase (visible solo fuera de los polos); RX/RY/RZ rotan cualquier ángulo. Lleva |0⟩ por una compuerta y observa moverse el vector de Bloch. Es la base de todo lo que sigue — pero no, por sí mismo, una ventaja: una medición colapsa el qubit a un bit clásico, y un qubit no guarda más información clásica que un bit (Holevo). La riqueza de la esfera solo se vuelve poderosa por interferencia entre muchos qubits."
+  "en": "Every pure qubit state is a point on the Bloch sphere; the gates are rotations of it. X flips |0⟩↔|1⟩ (a π-rotation about X); H takes a pole to the equator (superposition); Z, S and T are Z-rotations that add phase (visible only once you're off the poles); RX/RY/RZ rotate by any angle. Step |0⟩ through a gate and watch the Bloch vector move. It is the foundation of everything later, but not, by itself, an advantage: a measurement collapses the qubit to one classical bit, and a single qubit stores no more classical information than a bit (Holevo). The richness of the sphere only becomes powerful through interference across many qubits.",
+  "es": "Todo estado puro de un qubit es un punto en la esfera de Bloch; las compuertas son rotaciones de ella. X voltea |0⟩↔|1⟩ (rotación π sobre X); H lleva un polo al ecuador (superposición); Z, S y T son rotaciones sobre Z que agregan fase (visible solo fuera de los polos); RX/RY/RZ rotan cualquier ángulo. Lleva |0⟩ por una compuerta y observa moverse el vector de Bloch. Es la base de todo lo que sigue, pero no, por sí mismo, una ventaja: una medición colapsa el qubit a un bit clásico, y un qubit no guarda más información clásica que un bit (Holevo). La riqueza de la esfera solo se vuelve poderosa por interferencia entre muchos qubits."
  },
  "metric": {
   "en": "Bloch vector of the prepared state",
@@ -30,8 +30,8 @@
    ]
   },
   "note": {
-   "en": "Apply RY(π/3) to |0⟩ — watch the Bloch vector.",
-   "es": "Aplica RY(π/3) a |0⟩ — observar el vector de Bloch."
+   "en": "Apply RY(π/3) to |0⟩, watch the Bloch vector.",
+   "es": "Aplica RY(π/3) a |0⟩, observar el vector de Bloch."
   }
  },
  "qubits": 1,
@@ -39,6 +39,11 @@
  "lane_reasons": [],
  "seed": 42,
  "shots": 2048,
+ "app_version": "0.34.002",
+ "engine_package": {
+  "package": "qversus",
+  "version": "0.01.000"
+ },
  "primary_solver": "gates-qiskit",
  "trace": {
   "case_id": "single-qubit",
@@ -47,8 +52,8 @@
    "es": "Compuertas de un qubit y la esfera de Bloch"
   },
   "concept": {
-   "en": "Every pure qubit state is a point on the Bloch sphere; the gates are rotations of it. X flips |0⟩↔|1⟩ (a π-rotation about X); H takes a pole to the equator (superposition); Z, S and T are Z-rotations that add phase (visible only once you're off the poles); RX/RY/RZ rotate by any angle. Step |0⟩ through a gate and watch the Bloch vector move. It is the foundation of everything later — but not, by itself, an advantage: a measurement collapses the qubit to one classical bit, and a single qubit stores no more classical information than a bit (Holevo). The richness of the sphere only becomes powerful through interference across many qubits.",
-   "es": "Todo estado puro de un qubit es un punto en la esfera de Bloch; las compuertas son rotaciones de ella. X voltea |0⟩↔|1⟩ (rotación π sobre X); H lleva un polo al ecuador (superposición); Z, S y T son rotaciones sobre Z que agregan fase (visible solo fuera de los polos); RX/RY/RZ rotan cualquier ángulo. Lleva |0⟩ por una compuerta y observa moverse el vector de Bloch. Es la base de todo lo que sigue — pero no, por sí mismo, una ventaja: una medición colapsa el qubit a un bit clásico, y un qubit no guarda más información clásica que un bit (Holevo). La riqueza de la esfera solo se vuelve poderosa por interferencia entre muchos qubits."
+   "en": "Every pure qubit state is a point on the Bloch sphere; the gates are rotations of it. X flips |0⟩↔|1⟩ (a π-rotation about X); H takes a pole to the equator (superposition); Z, S and T are Z-rotations that add phase (visible only once you're off the poles); RX/RY/RZ rotate by any angle. Step |0⟩ through a gate and watch the Bloch vector move. It is the foundation of everything later, but not, by itself, an advantage: a measurement collapses the qubit to one classical bit, and a single qubit stores no more classical information than a bit (Holevo). The richness of the sphere only becomes powerful through interference across many qubits.",
+   "es": "Todo estado puro de un qubit es un punto en la esfera de Bloch; las compuertas son rotaciones de ella. X voltea |0⟩↔|1⟩ (rotación π sobre X); H lleva un polo al ecuador (superposición); Z, S y T son rotaciones sobre Z que agregan fase (visible solo fuera de los polos); RX/RY/RZ rotan cualquier ángulo. Lleva |0⟩ por una compuerta y observa moverse el vector de Bloch. Es la base de todo lo que sigue, pero no, por sí mismo, una ventaja: una medición colapsa el qubit a un bit clásico, y un qubit no guarda más información clásica que un bit (Holevo). La riqueza de la esfera solo se vuelve poderosa por interferencia entre muchos qubits."
   },
   "qubits": 1,
   "steps": [
@@ -164,7 +169,7 @@
     "RY"
    ]
   },
-  "schema_version": "qlab-trace/1"
+  "schema_version": "qversus-trace/1"
  },
  "solvers": [
   {
@@ -187,8 +192,8 @@
     "wall_ms": 0.0
    },
    "notes": {
-    "en": "A classical bit is just two points — the poles |0⟩ and |1⟩. A qubit occupies the whole Bloch sphere, but measurement collapses it to one bit (Holevo): one qubit stores no more classical information than one bit. The sphere matters via interference.",
-    "es": "Un bit clásico son solo dos puntos — los polos |0⟩ y |1⟩. Un qubit ocupa toda la esfera de Bloch, pero la medición lo colapsa a un bit (Holevo): un qubit no guarda más información clásica que un bit. La esfera importa por interferencia."
+    "en": "A classical bit is just two points, the poles |0⟩ and |1⟩. A qubit occupies the whole Bloch sphere, but measurement collapses it to one bit (Holevo): one qubit stores no more classical information than one bit. The sphere matters via interference.",
+    "es": "Un bit clásico son solo dos puntos, los polos |0⟩ y |1⟩. Un qubit ocupa toda la esfera de Bloch, pero la medición lo colapsa a un bit (Holevo): un qubit no guarda más información clásica que un bit. La esfera importa por interferencia."
    },
    "optimal": true,
    "extra": {}
@@ -213,7 +218,7 @@
     "norm": 1.0
    },
    "cost": {
-    "wall_ms": 0.199,
+    "wall_ms": 0.314,
     "qubits": 1
    },
    "notes": {
@@ -232,8 +237,8 @@
   ],
   "gates": "RY",
   "verdict": {
-   "en": "After RY, the qubit's Bloch vector is [0.866, 0.0, 0.5] (on the unit sphere). A classical bit has only two states (the poles); the qubit roams the whole sphere — but a measurement returns one bit and a single qubit stores no more classical info than a bit (Holevo). This is the foundation; the power comes later, from interference across many qubits.",
-   "es": "Tras RY, el vector de Bloch del qubit es [0.866, 0.0, 0.5] (en la esfera unitaria). Un bit clásico tiene solo dos estados (los polos); el qubit recorre toda la esfera — pero una medición devuelve un bit y un solo qubit no guarda más info clásica que un bit (Holevo). Esta es la base; el poder viene después, de la interferencia entre muchos qubits."
+   "en": "After RY, the qubit's Bloch vector is [0.866, 0.0, 0.5] (on the unit sphere). A classical bit has only two states (the poles); the qubit roams the whole sphere, but a measurement returns one bit and a single qubit stores no more classical info than a bit (Holevo). This is the foundation; the power comes later, from interference across many qubits.",
+   "es": "Tras RY, el vector de Bloch del qubit es [0.866, 0.0, 0.5] (en la esfera unitaria). Un bit clásico tiene solo dos estados (los polos); el qubit recorre toda la esfera, pero una medición devuelve un bit y un solo qubit no guarda más info clásica que un bit (Holevo). Esta es la base; el poder viene después, de la interferencia entre muchos qubits."
   }
  },
  "references": [

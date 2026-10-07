@@ -1,14 +1,14 @@
 {
- "schema_version": "qlab-trace/1",
+ "schema_version": "qversus-trace/1",
  "case_id": "grover",
  "category": "flagship-algorithms",
  "title": {
-  "en": "Grover — unstructured search",
-  "es": "Grover — búsqueda no estructurada"
+  "en": "Grover, unstructured search",
+  "es": "Grover, búsqueda no estructurada"
  },
  "concept": {
-  "en": "Grover searches N = 2ⁿ unstructured items for the M marked ones. Start in uniform superposition; each Grover iteration applies the oracle (a phase flip on the marked states) then the diffuser (inversion about the mean), rotating amplitude toward the marked subspace. After ~(π/4)√(N/M) iterations a measurement returns a marked item with high probability — a quadratic speedup over the classical ~N/2 scan. Run too many iterations and you *over-rotate* past the target.",
-  "es": "Grover busca entre N = 2ⁿ ítems no estructurados los M marcados. Parte en superposición uniforme; cada iteración de Grover aplica el oráculo (un cambio de fase en los estados marcados) y luego el difusor (inversión respecto a la media), rotando la amplitud hacia el subespacio marcado. Tras ~(π/4)√(N/M) iteraciones una medición devuelve un ítem marcado con alta probabilidad — un speedup cuadrático sobre el barrido clásico ~N/2. Con demasiadas iteraciones te *pasas* del objetivo (sobre-rotación)."
+  "en": "Grover searches N = 2ⁿ unstructured items for the M marked ones. Start in uniform superposition; each Grover iteration applies the oracle (a phase flip on the marked states) then the diffuser (inversion about the mean), rotating amplitude toward the marked subspace. After ~(π/4)√(N/M) iterations a measurement returns a marked item with high probability, a quadratic speedup over the classical ~N/2 scan. Run too many iterations and you *over-rotate* past the target.",
+  "es": "Grover busca entre N = 2ⁿ ítems no estructurados los M marcados. Parte en superposición uniforme; cada iteración de Grover aplica el oráculo (un cambio de fase en los estados marcados) y luego el difusor (inversión respecto a la media), rotando la amplitud hacia el subespacio marcado. Tras ~(π/4)√(N/M) iteraciones una medición devuelve un ítem marcado con alta probabilidad, un speedup cuadrático sobre el barrido clásico ~N/2. Con demasiadas iteraciones te *pasas* del objetivo (sobre-rotación)."
  },
  "metric": {
   "en": "marked item found",
@@ -27,8 +27,8 @@
    ]
   },
   "note": {
-   "en": "N=16, M=1 marked — quantum ~(π/4)√(N/M) queries vs classical ~N/2.",
-   "es": "N=16, M=1 marcados — cuántico ~(π/4)√(N/M) consultas vs clásico ~N/2."
+   "en": "N=16, M=1 marked, quantum ~(π/4)√(N/M) queries vs classical ~N/2.",
+   "es": "N=16, M=1 marcados, cuántico ~(π/4)√(N/M) consultas vs clásico ~N/2."
   }
  },
  "qubits": 4,
@@ -36,16 +36,21 @@
  "lane_reasons": [],
  "seed": 42,
  "shots": 2048,
+ "app_version": "0.34.002",
+ "engine_package": {
+  "package": "qversus",
+  "version": "0.01.000"
+ },
  "primary_solver": "grover-qiskit",
  "trace": {
   "case_id": "grover",
   "title": {
-   "en": "Grover — unstructured search",
-   "es": "Grover — búsqueda no estructurada"
+   "en": "Grover, unstructured search",
+   "es": "Grover, búsqueda no estructurada"
   },
   "concept": {
-   "en": "Grover searches N = 2ⁿ unstructured items for the M marked ones. Start in uniform superposition; each Grover iteration applies the oracle (a phase flip on the marked states) then the diffuser (inversion about the mean), rotating amplitude toward the marked subspace. After ~(π/4)√(N/M) iterations a measurement returns a marked item with high probability — a quadratic speedup over the classical ~N/2 scan. Run too many iterations and you *over-rotate* past the target.",
-   "es": "Grover busca entre N = 2ⁿ ítems no estructurados los M marcados. Parte en superposición uniforme; cada iteración de Grover aplica el oráculo (un cambio de fase en los estados marcados) y luego el difusor (inversión respecto a la media), rotando la amplitud hacia el subespacio marcado. Tras ~(π/4)√(N/M) iteraciones una medición devuelve un ítem marcado con alta probabilidad — un speedup cuadrático sobre el barrido clásico ~N/2. Con demasiadas iteraciones te *pasas* del objetivo (sobre-rotación)."
+   "en": "Grover searches N = 2ⁿ unstructured items for the M marked ones. Start in uniform superposition; each Grover iteration applies the oracle (a phase flip on the marked states) then the diffuser (inversion about the mean), rotating amplitude toward the marked subspace. After ~(π/4)√(N/M) iterations a measurement returns a marked item with high probability, a quadratic speedup over the classical ~N/2 scan. Run too many iterations and you *over-rotate* past the target.",
+   "es": "Grover busca entre N = 2ⁿ ítems no estructurados los M marcados. Parte en superposición uniforme; cada iteración de Grover aplica el oráculo (un cambio de fase en los estados marcados) y luego el difusor (inversión respecto a la media), rotando la amplitud hacia el subespacio marcado. Tras ~(π/4)√(N/M) iteraciones una medición devuelve un ítem marcado con alta probabilidad, un speedup cuadrático sobre el barrido clásico ~N/2. Con demasiadas iteraciones te *pasas* del objetivo (sobre-rotación)."
   },
   "qubits": 4,
   "steps": [
@@ -10496,10 +10501,10 @@
    "iterations": 3,
    "success_prob": 0.9613,
    "marked": [
-    "0101"
+    "1010"
    ]
   },
-  "schema_version": "qlab-trace/1"
+  "schema_version": "qversus-trace/1"
  },
  "solvers": [
   {
@@ -10511,17 +10516,19 @@
    "framework": "classical:numpy",
    "paradigm": "classical",
    "value": {
-    "found": "0101",
+    "found": "1010",
     "correct": true,
-    "classical_queries": 4
+    "classical_queries": 8.5,
+    "sampled_queries": 4,
+    "worst_case_queries": 16
    },
    "cost": {
-    "wall_ms": 0.0026,
-    "oracle_queries": 4
+    "wall_ms": 0.0028,
+    "oracle_queries": 8.5
    },
    "notes": {
-    "en": "Found a marked item after 4 queries (worst case 16, average ≈ 8.5); the quantum advantage is the quadratic ~√N.",
-    "es": "Halló un ítem marcado tras 4 consultas (peor caso 16, promedio ≈ 8.5); la ventaja cuántica es el ~√N cuadrático."
+    "en": "A random scan needs (N+1)/(M+1) = 8.5 queries on average to hit one of the 1 marked item(s) among 16 (worst case 16); this seeded run took 4. Grover's ~(π/4)√(N/M) is the quadratic separation.",
+    "es": "Un barrido aleatorio necesita (N+1)/(M+1) = 8.5 consultas en promedio para dar con uno de los 1 ítem(s) marcados entre 16 (peor caso 16); esta corrida con semilla tomó 4. El ~(π/4)√(N/M) de Grover es la separación cuadrática."
    },
    "optimal": true,
    "extra": {}
@@ -10535,20 +10542,20 @@
    "framework": "qiskit",
    "paradigm": "quantum-sim",
    "value": {
-    "found": "0101",
+    "found": "1010",
     "correct": true,
     "success_prob": 0.9613,
     "quantum_queries": 3
    },
    "cost": {
-    "wall_ms": 41.361,
+    "wall_ms": 53.775,
     "qubits": 4,
     "depth": 82,
     "oracle_queries": 3
    },
    "notes": {
-    "en": "3 Grover iteration(s) on N=16, M=1: P(marked)=0.961, found |0101⟩. Quantum ~√N queries.",
-    "es": "3 iteración(es) de Grover en N=16, M=1: P(marcado)=0.961, encontró |0101⟩. Cuántico ~√N consultas."
+    "en": "3 Grover iteration(s) on N=16, M=1: P(marked)=0.961, found |1010⟩. Quantum ~√N queries.",
+    "es": "3 iteración(es) de Grover en N=16, M=1: P(marcado)=0.961, encontró |1010⟩. Cuántico ~√N consultas."
    },
    "optimal": false,
    "extra": {
@@ -10559,11 +10566,11 @@
  ],
  "comparison": {
   "quantum_queries": 3,
-  "classical_queries": 4,
+  "classical_queries": 8.5,
   "success_prob": 0.9613,
   "verdict": {
-   "en": "Quantum: 3 Grover iteration(s) (~√N), P(marked)=0.9613. Classical: 4 queries to hit a marked item (~N/2 average). A quadratic speedup — but asymptotic; at this tiny N the classical scan is still instant and cheaper in wall-time.",
-   "es": "Cuántico: 3 iteración(es) de Grover (~√N), P(marcado)=0.9613. Clásico: 4 consultas hasta un ítem marcado (~N/2 promedio). Speedup cuadrático — pero asintótico; a este N minúsculo el barrido clásico es instantáneo y más barato en tiempo."
+   "en": "Quantum: 3 Grover iteration(s) (~(π/4)√(N/M)), P(marked)=0.9613. Classical: 8.5 queries on average to hit a marked item, the expected cost (N+1)/(M+1) of a random scan. A quadratic speedup, but asymptotic; at this tiny N the classical scan is still instant and cheaper in wall-time.",
+   "es": "Cuántico: 3 iteración(es) de Grover (~(π/4)√(N/M)), P(marcado)=0.9613. Clásico: 8.5 consultas en promedio hasta un ítem marcado, el costo esperado (N+1)/(M+1) de un barrido aleatorio. Speedup cuadrático, pero asintótico; a este N minúsculo el barrido clásico es instantáneo y más barato en tiempo."
   }
  },
  "references": [

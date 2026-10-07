@@ -1,5 +1,5 @@
 {
- "schema_version": "qlab-trace/1",
+ "schema_version": "qversus-trace/1",
  "case_id": "noise",
  "category": "noise-and-qec",
  "title": {
@@ -7,8 +7,8 @@
   "es": "Ruido y mitigación de errores (ZNE)"
  },
  "concept": {
-  "en": "A Bell circuit has ideal parity ⟨Z₀Z₁⟩ = 1, but a noisy device returns less. We model the device with an Aer depolarizing noise model (worse for deeper circuits), measure the noisy ⟨Z₀Z₁⟩, then apply zero-noise extrapolation: deliberately amplify the noise by folding the circuit (U→U U† U…), measure at noise scales λ=1,3,5, and extrapolate back to λ=0. Mitigation claws back much of the lost signal — but note the honest limits: ZNE's sampling cost grows exponentially with circuit size, it is mitigation (bias reduction) not correction, and at this classically-simulable scale a statevector simulator just gives the exact 1.0 for free.",
-  "es": "Un circuito de Bell tiene paridad ideal ⟨Z₀Z₁⟩ = 1, pero un dispositivo ruidoso devuelve menos. Modelamos el dispositivo con un modelo de ruido despolarizante de Aer (peor cuanto más profundo el circuito), medimos el ⟨Z₀Z₁⟩ ruidoso, y aplicamos extrapolación a ruido cero: amplificamos el ruido plegando el circuito (U→U U† U…), medimos a escalas λ=1,3,5 y extrapolamos a λ=0. La mitigación recupera buena parte de la señal perdida — pero con límites honestos: el costo de muestreo de ZNE crece exponencialmente con el tamaño, es mitigación (reducción de sesgo) no corrección, y a esta escala simulable clásicamente un simulador de vector de estado da el 1.0 exacto gratis."
+  "en": "A Bell circuit has ideal parity ⟨Z₀Z₁⟩ = 1, but a noisy device returns less. We model the device with an Aer depolarizing noise model (worse for deeper circuits), measure the noisy ⟨Z₀Z₁⟩, then apply zero-noise extrapolation: deliberately amplify the noise by folding the circuit (U→U U† U…), measure at noise scales λ=1,3,5, and extrapolate back to λ=0. Mitigation claws back much of the lost signal, but note the honest limits: ZNE's sampling cost grows exponentially with circuit size, it is mitigation (bias reduction) not correction, and at this classically-simulable scale a statevector simulator just gives the exact 1.0 for free.",
+  "es": "Un circuito de Bell tiene paridad ideal ⟨Z₀Z₁⟩ = 1, pero un dispositivo ruidoso devuelve menos. Modelamos el dispositivo con un modelo de ruido despolarizante de Aer (peor cuanto más profundo el circuito), medimos el ⟨Z₀Z₁⟩ ruidoso, y aplicamos extrapolación a ruido cero: AMPLIFICAMOS el ruido plegando el circuito (U→U U† U…), medimos a escalas λ=1,3,5 y extrapolamos a λ=0. La mitigación recupera buena parte de la señal perdida, pero con límites honestos: el costo de muestreo de ZNE crece exponencialmente con el tamaño, es mitigación (reducción de sesgo) no corrección, y a esta escala simulable clásicamente un simulador de vector de estado da el 1.0 exacto gratis."
  },
  "metric": {
   "en": "⟨Z₀Z₁⟩ (ideal = 1)",
@@ -26,8 +26,8 @@
    "n": 2
   },
   "note": {
-   "en": "2-qubit depolarizing p=0.03, depth 3 — ideal ⟨Z₀Z₁⟩=1; see noisy vs ZNE-mitigated.",
-   "es": "despolarizante de 2 qubits p=0.03, profundidad 3 — ideal ⟨Z₀Z₁⟩=1; ve ruidoso vs mitigado por ZNE."
+   "en": "2-qubit depolarizing p=0.03, depth 3, ideal ⟨Z₀Z₁⟩=1; see noisy vs ZNE-mitigated.",
+   "es": "despolarizante de 2 qubits p=0.03, profundidad 3, ideal ⟨Z₀Z₁⟩=1; ve ruidoso vs mitigado por ZNE."
   }
  },
  "qubits": 2,
@@ -37,6 +37,11 @@
  ],
  "seed": 42,
  "shots": 2048,
+ "app_version": "0.34.002",
+ "engine_package": {
+  "package": "qversus",
+  "version": "0.01.000"
+ },
  "primary_solver": "noise-classical",
  "trace": null,
  "solvers": [
@@ -53,12 +58,12 @@
     "exact": true
    },
    "cost": {
-    "wall_ms": 0.3438,
+    "wall_ms": 0.2675,
     "qubits": 2
    },
    "notes": {
-    "en": "A noiseless statevector simulator returns the exact ⟨Z₀Z₁⟩=1.000 for free. At any classically-simulable scale this is the reference mitigation only approximates — mitigation matters on hardware beyond classical reach.",
-    "es": "Un simulador de vector de estado sin ruido devuelve el ⟨Z₀Z₁⟩=1.000 exacto gratis. A cualquier escala simulable clásicamente esta es la referencia que la mitigación solo aproxima — la mitigación importa en hardware fuera del alcance clásico."
+    "en": "A noiseless statevector simulator returns the exact ⟨Z₀Z₁⟩=1.000 for free. At any classically-simulable scale this is the reference mitigation only approximates, mitigation matters on hardware beyond classical reach.",
+    "es": "Un simulador de vector de estado sin ruido devuelve el ⟨Z₀Z₁⟩=1.000 exacto gratis. A cualquier escala simulable clásicamente esta es la referencia que la mitigación solo aproxima, la mitigación importa en hardware fuera del alcance clásico."
    },
    "optimal": true,
    "extra": {}
@@ -79,7 +84,7 @@
     "residual_mitigated": 0.0923
    },
    "cost": {
-    "wall_ms": 6.6,
+    "wall_ms": 7.5,
     "qubits": 2,
     "noise_scales": [
      1,

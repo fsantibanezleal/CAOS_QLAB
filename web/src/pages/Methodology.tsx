@@ -473,8 +473,8 @@ export function Methodology() {
         <div className="method-body">
           <p>
             {en
-              ? "Grover's search is the most broadly applicable quantum algorithm, because 'find the marked item in an unstructured set' hides inside countless problems. Given only an oracle that recognizes a marked item w among N = 2ⁿ items, it finds one in ~(π/4)√(N/M) oracle queries (M = number marked), against the classical ~N/2 average scan, the famous quadratic speedup. The build implements the real oracle (a phase flip |w⟩ → −|w⟩) and the real diffuser (inversion about the mean, H^n X^n MCZ X^n H^n), and runs it live so the iteration count itself is an exposed control."
-              : "La búsqueda de Grover es el algoritmo cuántico más ampliamente aplicable, porque 'encontrar el ítem marcado en un conjunto sin estructura' se esconde en innumerables problemas. Dado solo un oráculo que reconoce un ítem marcado w entre N = 2ⁿ ítems, encuentra uno en ~(π/4)√(N/M) consultas (M = número de marcados), frente al barrido clásico promedio ~N/2, la famosa aceleración cuadrática. El build implementa el oráculo real (un flip de fase |w⟩ → −|w⟩) y el difusor real (inversión sobre la media, H^n X^n MCZ X^n H^n), y lo ejecuta en vivo para que el conteo de iteraciones sea un control expuesto."}
+              ? "Grover's search is the most broadly applicable quantum algorithm, because 'find the marked item in an unstructured set' hides inside countless problems. Given only an oracle that recognizes a marked item w among N = 2ⁿ items, it finds one in ~(π/4)√(N/M) oracle queries (M = number marked), against the (N+1)/(M+1) queries a random classical scan needs on average, the famous quadratic speedup. The build implements the real oracle (a phase flip |w⟩ → −|w⟩) and the real diffuser (inversion about the mean, H^n X^n MCZ X^n H^n), and runs it live so the iteration count itself is an exposed control."
+              : "La búsqueda de Grover es el algoritmo cuántico más ampliamente aplicable, porque 'encontrar el ítem marcado en un conjunto sin estructura' se esconde en innumerables problemas. Dado solo un oráculo que reconoce un ítem marcado w entre N = 2ⁿ ítems, encuentra uno en ~(π/4)√(N/M) consultas (M = número de marcados), frente a las (N+1)/(M+1) consultas que un barrido clásico aleatorio necesita en promedio, la famosa aceleración cuadrática. El build implementa el oráculo real (un flip de fase |w⟩ → −|w⟩) y el difusor real (inversión sobre la media, H^n X^n MCZ X^n H^n), y lo ejecuta en vivo para que el conteo de iteraciones sea un control expuesto."}
           </p>
           <Eq
             tex={String.raw`G=D\cdot O,\qquad \sin\theta=\sqrt{M/N},\qquad P_{\text{marked}}(k)=\sin^2\!\bigl((2k+1)\theta\bigr)`}
@@ -497,19 +497,26 @@ export function Methodology() {
           />
           <p>
             {en
-              ? "On the App the trace is stepped per iteration: the marked-state amplitude bar grows while the others shrink, and the diffuser visibly reflects every amplitude about its average ('inversion about the mean'). Pushing the iteration count past k* in the live lane lets you watch the amplitude over-rotate and fall, the failure mode Grover is famous for, and a knob that is a real engine input, not a label. The classical baseline scans items in random order until it hits a marked one, recording its query count beside Grover's."
-              : "En la App la traza se recorre por iteración: la barra de amplitud del estado marcado crece mientras las demás se encogen, y el difusor refleja visiblemente cada amplitud sobre su promedio ('inversión sobre la media'). Empujar el conteo de iteraciones más allá de k* en el carril vivo permite ver la amplitud sobre-rotar y caer, el modo de falla por el que Grover es famoso, y una perilla que es entrada real del motor, no una etiqueta. El baseline clásico recorre ítems en orden aleatorio hasta dar con uno marcado, registrando su conteo de consultas junto al de Grover."}
+              ? "On the App the trace is stepped per iteration: the marked-state amplitude bar grows while the others shrink, and the diffuser visibly reflects every amplitude about its average ('inversion about the mean'). Pushing the iteration count past k* in the live lane lets you watch the amplitude over-rotate and fall, the failure mode Grover is famous for, and a knob that is a real engine input, not a label. The classical baseline scans the items in a uniformly random order until it hits a marked one. Its cost is reported as the expected number of queries, (N+1)/(M+1), derived below, not as one random draw (the seeded run is kept beside it as an illustration): the fair comparator for Grover's iteration count."
+              : "En la App la traza se recorre por iteración: la barra de amplitud del estado marcado crece mientras las demás se encogen, y el difusor refleja visiblemente cada amplitud sobre su promedio ('inversión sobre la media'). Empujar el conteo de iteraciones más allá de k* en el carril vivo permite ver la amplitud sobre-rotar y caer, el modo de falla por el que Grover es famoso, y una perilla que es entrada real del motor, no una etiqueta. El baseline clásico recorre los ítems en un orden uniformemente aleatorio hasta dar con uno marcado. Su costo se reporta como el número esperado de consultas, (N+1)/(M+1), derivado abajo, no como una sola tirada aleatoria (la corrida con semilla queda al lado como ilustración): el comparador justo para el conteo de iteraciones de Grover."}
           </p>
+          <Eq
+            tex={String.raw`P(T\ge t)=\frac{\binom{N-t+1}{M}}{\binom{N}{M}},\qquad \mathbb{E}[T]=\sum_{t=1}^{N}\frac{\binom{N-t+1}{M}}{\binom{N}{M}}=\frac{\binom{N+1}{M+1}}{\binom{N}{M}}=\frac{N+1}{M+1}`}
+            caption={{
+              en: "The classical cost. Scanning in a uniformly random order, the M marked positions are a uniform M-subset of {1, …, N}; the first hit T is at least t exactly when all M lie in the last N−t+1 positions. Summing the tail with the upper-summation identity gives (N+1)/(M+1): 4.5 queries for N = 8, M = 1, against Grover's 2 iterations.",
+              es: "El costo clásico. Recorriendo en un orden uniformemente aleatorio, las M posiciones marcadas son un subconjunto uniforme de tamaño M de {1, …, N}; el primer acierto T es al menos t exactamente cuando las M caen en las últimas N−t+1 posiciones. Sumando la cola con la identidad de suma superior se obtiene (N+1)/(M+1): 4.5 consultas para N = 8, M = 1, frente a las 2 iteraciones de Grover.",
+            }}
+          />
           <Callout
             title={en ? "Quantum vs classical, " : "Cuántico vs clásico, "}
             pt={en
               ? "Grover teaches amplitude amplification; the advantage shows only at scales far beyond what NISQ hardware can run noiselessly."
               : "Grover enseña amplificación de amplitud; la ventaja aparece solo a escalas mucho más allá de lo que el hardware NISQ puede ejecutar sin ruido."}>
             {en
-              ? "the quadratic ~√N vs classical ~N/2 is a real and broadly useful asymptotic, but at the tiny N a browser can simulate, the classical scan is still instant and cheaper in wall-time."
-              : "el cuadrático ~√N vs ~N/2 clásico es una asintótica real y ampliamente útil, pero a la N pequeña que un navegador puede simular, el barrido clásico sigue siendo instantáneo y más barato en tiempo."}
+              ? "the quadratic ~(π/4)√(N/M) vs the classical (N+1)/(M+1) is a real and broadly useful asymptotic, but at the tiny N a browser can simulate, the classical scan is still instant and cheaper in wall-time."
+              : "el cuadrático ~(π/4)√(N/M) vs las (N+1)/(M+1) clásicas es una asintótica real y ampliamente útil, pero a la N pequeña que un navegador puede simular, el barrido clásico sigue siendo instantáneo y más barato en tiempo."}
           </Callout>
-          <Refs ids={["grover1996", "nielsen2010"]} label={refLabel} />
+          <Refs ids={["grover1996", "nielsen2010", "graham1994"]} label={refLabel} />
         </div>
       ),
     },

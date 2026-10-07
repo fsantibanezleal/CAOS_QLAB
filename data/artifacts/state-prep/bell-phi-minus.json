@@ -1,5 +1,5 @@
 {
- "schema_version": "qlab-trace/1",
+ "schema_version": "qversus-trace/1",
  "case_id": "state-prep",
  "category": "entanglement",
  "title": {
@@ -7,7 +7,7 @@
   "es": "Preparación de estados y entrelazamiento"
  },
  "concept": {
-  "en": "Build canonical multi-qubit states from gates and watch entanglement appear. A Bell pair (H then CNOT) cannot be written as two independent qubits; GHZ and W are the two inequivalent species of three-qubit entanglement. Every solver prepares the same target — the point is the state, not the framework.",
+  "en": "Build canonical multi-qubit states from gates and watch entanglement appear. A Bell pair (H then CNOT) cannot be written as two independent qubits; GHZ and W are the two inequivalent species of three-qubit entanglement. Every solver prepares the same target, the point is the state, not the framework.",
   "es": "Construye estados multi-qubit canónicos a partir de compuertas y observa aparecer el entrelazamiento. Un par de Bell (H y luego CNOT) no se puede escribir como dos qubits independientes; GHZ y W son las dos especies no equivalentes de entrelazamiento de tres qubits. Cada solver prepara el mismo objetivo: lo importante es el estado, no el framework."
  },
  "metric": {
@@ -26,8 +26,8 @@
    "n": 2
   },
   "note": {
-   "en": "(|00⟩−|11⟩)/√2 — a relative phase flips the correlation.",
-   "es": "(|00⟩−|11⟩)/√2 — una fase relativa invierte la correlación."
+   "en": "(|00⟩−|11⟩)/√2, a relative phase flips the correlation.",
+   "es": "(|00⟩−|11⟩)/√2, una fase relativa invierte la correlación."
   }
  },
  "qubits": 2,
@@ -35,6 +35,11 @@
  "lane_reasons": [],
  "seed": 42,
  "shots": 2048,
+ "app_version": "0.34.002",
+ "engine_package": {
+  "package": "qversus",
+  "version": "0.01.000"
+ },
  "primary_solver": "state-qiskit",
  "trace": {
   "case_id": "state-prep",
@@ -43,7 +48,7 @@
    "es": "Preparación de estados y entrelazamiento"
   },
   "concept": {
-   "en": "Build canonical multi-qubit states from gates and watch entanglement appear. A Bell pair (H then CNOT) cannot be written as two independent qubits; GHZ and W are the two inequivalent species of three-qubit entanglement. Every solver prepares the same target — the point is the state, not the framework.",
+   "en": "Build canonical multi-qubit states from gates and watch entanglement appear. A Bell pair (H then CNOT) cannot be written as two independent qubits; GHZ and W are the two inequivalent species of three-qubit entanglement. Every solver prepares the same target, the point is the state, not the framework.",
    "es": "Construye estados multi-qubit canónicos a partir de compuertas y observa aparecer el entrelazamiento. Un par de Bell (H y luego CNOT) no se puede escribir como dos qubits independientes; GHZ y W son las dos especies no equivalentes de entrelazamiento de tres qubits. Cada solver prepara el mismo objetivo: lo importante es el estado, no el framework."
   },
   "qubits": 2,
@@ -289,7 +294,7 @@
    }
   ],
   "extra": {},
-  "schema_version": "qlab-trace/1"
+  "schema_version": "qversus-trace/1"
  },
  "solvers": [
   {
@@ -307,12 +312,12 @@
     }
    },
    "cost": {
-    "wall_ms": 0.0123,
+    "wall_ms": 0.0366,
     "qubits": 2
    },
    "notes": {
-    "en": "A classical computer stores all 2^n amplitudes directly — instant at this scale. The entanglement is the concept; there is no advantage here.",
-    "es": "Un computador clásico guarda las 2^n amplitudes directamente — instantáneo a esta escala. El entrelazamiento es el concepto; aquí no hay ventaja."
+    "en": "A classical computer stores all 2^n amplitudes directly, instant at this scale. The entanglement is the concept; there is no advantage here.",
+    "es": "Un computador clásico guarda las 2^n amplitudes directamente, instantáneo a esta escala. El entrelazamiento es el concepto; aquí no hay ventaja."
    },
    "optimal": true,
    "extra": {}
@@ -330,7 +335,7 @@
     "shots": 2048
    },
    "cost": {
-    "wall_ms": 1.288,
+    "wall_ms": 2.923,
     "qubits": 2,
     "depth": 3
    },

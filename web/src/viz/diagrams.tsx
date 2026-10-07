@@ -322,7 +322,7 @@ export function ScienceDiagram({ lang }: { lang: Lang }) {
       <text className="it" x="458" y="78">{en ? "G = D·O : oracle  |w⟩→−|w⟩  then diffuser (invert about mean)" : "G = D·O : oráculo |w⟩→−|w⟩ luego difusor (refleja en la media)"}</text>
       <rect className="eqbox" x="458" y="88" width="396" height="22" rx="5" />
       <text className="eq" x="466" y="103">k* = round((π/2 − θ)/(2θ)) &#8776; (π/4)√(N/M),  sin θ = √(M/N)</text>
-      <text className="mu" x="458" y="128">{en ? "diffuser  H^n X^n (MCZ) X^n H^n , quadratic speedup ~√N vs ~N/2" : "difusor H^n X^n (MCZ) X^n H^n, speedup cuadrático ~√N vs ~N/2"}</text>
+      <text className="mu" x="458" y="128">{en ? "diffuser  H^n X^n (MCZ) X^n H^n , quadratic speedup ~√N vs (N+1)/(M+1)" : "difusor H^n X^n (MCZ) X^n H^n, speedup cuadrático ~√N vs (N+1)/(M+1)"}</text>
 
       {/* QAOA */}
       <rect className="bx-compute" x="14" y="152" width="420" height="138" rx="9" />

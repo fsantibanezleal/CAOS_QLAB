@@ -1,8 +1,8 @@
 {
  "case_id": "vqe",
  "title": {
-  "en": "VQE — H₂ ground state",
-  "es": "VQE — estado fundamental de H₂"
+  "en": "VQE, H₂ ground state",
+  "es": "VQE, estado fundamental de H₂"
  },
  "category": "variational",
  "lane": "precompute",
@@ -29,7 +29,12 @@
   "circuit"
  ],
  "engine": "classical:numpy",
- "engine_version": "—",
+ "engine_version": "-",
+ "engine_package": {
+  "package": "qversus",
+  "version": "0.01.000"
+ },
+ "app_version": "0.34.002",
  "trace_path": "vqe/vqe-h2-2_5.json",
  "references": [
   {
@@ -41,5 +46,5 @@
    "doi": "10.1103/RevModPhys.92.015003"
   }
  ],
- "manifest_version": "qlab-manifest/1"
+ "manifest_version": "qlab-manifest/2"
 }

@@ -1,5 +1,5 @@
 {
- "schema_version": "qlab-trace/1",
+ "schema_version": "qversus-trace/1",
  "case_id": "qrng",
  "category": "fundamentals",
  "title": {
@@ -7,8 +7,8 @@
   "es": "Superposición y RNG cuántico"
  },
  "concept": {
-  "en": "H|0⟩ = (|0⟩+|1⟩)/√2 — a coin that is genuinely 50/50, and measuring it yields a random bit. Hadamard on n qubits gives a uniform superposition over all 2ⁿ strings; sampling fills a flat histogram with Shannon entropy n bits. A rotation RY(θ) makes a biased coin. We compare quantum sampling to a classical pseudo-random generator: statistically they match, but quantum randomness comes from measurement collapse — it is fundamental and certifiable, whereas a PRNG is fully deterministic from its seed. That certifiability (not better statistics) is the real quantum value, and it underlies quantum-secure random beacons.",
-  "es": "H|0⟩ = (|0⟩+|1⟩)/√2 — una moneda genuinamente 50/50, y medirla da un bit aleatorio. Hadamard en n qubits da una superposición uniforme sobre las 2ⁿ cadenas; muestrear llena un histograma plano con entropía de Shannon n bits. Una rotación RY(θ) hace una moneda sesgada. Comparamos el muestreo cuántico con un generador pseudoaleatorio clásico: estadísticamente coinciden, pero la aleatoriedad cuántica viene del colapso de la medición — es fundamental y certificable, mientras un PRNG es totalmente determinista desde su semilla. Esa certificabilidad (no mejores estadísticas) es el valor cuántico real, y sustenta los faros de aleatoriedad cuántico-seguros."
+  "en": "H|0⟩ = (|0⟩+|1⟩)/√2, a coin that is genuinely 50/50, and measuring it yields a random bit. Hadamard on n qubits gives a uniform superposition over all 2ⁿ strings; sampling fills a flat histogram with Shannon entropy n bits. A rotation RY(θ) makes a biased coin. We compare quantum sampling to a classical pseudo-random generator: statistically they match, but quantum randomness comes from measurement collapse, it is fundamental and certifiable, whereas a PRNG is fully deterministic from its seed. That certifiability (not better statistics) is the real quantum value, and it underlies quantum-secure random beacons.",
+  "es": "H|0⟩ = (|0⟩+|1⟩)/√2, una moneda genuinamente 50/50, y medirla da un bit aleatorio. Hadamard en n qubits da una superposición uniforme sobre las 2ⁿ cadenas; muestrear llena un histograma plano con entropía de Shannon n bits. Una rotación RY(θ) hace una moneda sesgada. Comparamos el muestreo cuántico con un generador pseudoaleatorio clásico: estadísticamente coinciden, pero la aleatoriedad cuántica viene del colapso de la medición, es fundamental y certificable, mientras un PRNG es totalmente determinista desde su semilla. Esa certificabilidad (no mejores estadísticas) es el valor cuántico real, y sustenta los faros de aleatoriedad cuántico-seguros."
  },
  "metric": {
   "en": "Shannon entropy (bits)",
@@ -24,8 +24,8 @@
    "n": 3
   },
   "note": {
-   "en": "Sample 3 qubits — uniform entropy n bits (or less if biased).",
-   "es": "Muestrea 3 qubits — entropía uniforme n bits (o menos si está sesgado)."
+   "en": "Sample 3 qubits, uniform entropy n bits (or less if biased).",
+   "es": "Muestrea 3 qubits, entropía uniforme n bits (o menos si está sesgado)."
   }
  },
  "qubits": 3,
@@ -33,6 +33,11 @@
  "lane_reasons": [],
  "seed": 42,
  "shots": 2048,
+ "app_version": "0.34.002",
+ "engine_package": {
+  "package": "qversus",
+  "version": "0.01.000"
+ },
  "primary_solver": "qrng-qiskit",
  "trace": {
   "case_id": "qrng",
@@ -41,8 +46,8 @@
    "es": "Superposición y RNG cuántico"
   },
   "concept": {
-   "en": "H|0⟩ = (|0⟩+|1⟩)/√2 — a coin that is genuinely 50/50, and measuring it yields a random bit. Hadamard on n qubits gives a uniform superposition over all 2ⁿ strings; sampling fills a flat histogram with Shannon entropy n bits. A rotation RY(θ) makes a biased coin. We compare quantum sampling to a classical pseudo-random generator: statistically they match, but quantum randomness comes from measurement collapse — it is fundamental and certifiable, whereas a PRNG is fully deterministic from its seed. That certifiability (not better statistics) is the real quantum value, and it underlies quantum-secure random beacons.",
-   "es": "H|0⟩ = (|0⟩+|1⟩)/√2 — una moneda genuinamente 50/50, y medirla da un bit aleatorio. Hadamard en n qubits da una superposición uniforme sobre las 2ⁿ cadenas; muestrear llena un histograma plano con entropía de Shannon n bits. Una rotación RY(θ) hace una moneda sesgada. Comparamos el muestreo cuántico con un generador pseudoaleatorio clásico: estadísticamente coinciden, pero la aleatoriedad cuántica viene del colapso de la medición — es fundamental y certificable, mientras un PRNG es totalmente determinista desde su semilla. Esa certificabilidad (no mejores estadísticas) es el valor cuántico real, y sustenta los faros de aleatoriedad cuántico-seguros."
+   "en": "H|0⟩ = (|0⟩+|1⟩)/√2, a coin that is genuinely 50/50, and measuring it yields a random bit. Hadamard on n qubits gives a uniform superposition over all 2ⁿ strings; sampling fills a flat histogram with Shannon entropy n bits. A rotation RY(θ) makes a biased coin. We compare quantum sampling to a classical pseudo-random generator: statistically they match, but quantum randomness comes from measurement collapse, it is fundamental and certifiable, whereas a PRNG is fully deterministic from its seed. That certifiability (not better statistics) is the real quantum value, and it underlies quantum-secure random beacons.",
+   "es": "H|0⟩ = (|0⟩+|1⟩)/√2, una moneda genuinamente 50/50, y medirla da un bit aleatorio. Hadamard en n qubits da una superposición uniforme sobre las 2ⁿ cadenas; muestrear llena un histograma plano con entropía de Shannon n bits. Una rotación RY(θ) hace una moneda sesgada. Comparamos el muestreo cuántico con un generador pseudoaleatorio clásico: estadísticamente coinciden, pero la aleatoriedad cuántica viene del colapso de la medición, es fundamental y certificable, mientras un PRNG es totalmente determinista desde su semilla. Esa certificabilidad (no mejores estadísticas) es el valor cuántico real, y sustenta los faros de aleatoriedad cuántico-seguros."
   },
   "qubits": 3,
   "steps": [
@@ -404,7 +409,7 @@
     0.125
    ]
   },
-  "schema_version": "qlab-trace/1"
+  "schema_version": "qversus-trace/1"
  },
  "solvers": [
   {
@@ -426,8 +431,8 @@
     "shots": 2048
    },
    "notes": {
-    "en": "A classical PRNG produces the same flat statistics (entropy 3.000/3 bits) — but it is fully deterministic given its seed. Statistically indistinguishable here; the quantum edge is certifiable true randomness, not better numbers.",
-    "es": "Un PRNG clásico produce las mismas estadísticas planas (entropía 3.000/3 bits) — pero es totalmente determinista dada su semilla. Estadísticamente indistinguible aquí; la ventaja cuántica es aleatoriedad verdadera certificable."
+    "en": "A classical PRNG produces the same flat statistics (entropy 3.000/3 bits) , but it is fully deterministic given its seed. Statistically indistinguishable here; the quantum edge is certifiable true randomness, not better numbers.",
+    "es": "Un PRNG clásico produce las mismas estadísticas planas (entropía 3.000/3 bits), pero es totalmente determinista dada su semilla. Estadísticamente indistinguible aquí; la ventaja cuántica es aleatoriedad verdadera certificable."
    },
    "optimal": true,
    "extra": {}
@@ -448,7 +453,7 @@
     "true_randomness": true
    },
    "cost": {
-    "wall_ms": 0.152,
+    "wall_ms": 0.179,
     "qubits": 3,
     "shots": 2048
    },
@@ -465,8 +470,8 @@
   "classical_entropy": 2.9996,
   "max_entropy": 3,
   "verdict": {
-   "en": "Quantum sampling entropy 3.0/3 bits vs a classical PRNG 2.9996/3 bits — statistically indistinguishable. The difference is in kind, not quality: quantum randomness is fundamental (measurement collapse) and can be certified, while the PRNG is deterministic from its seed. Certifiable true randomness is the genuine quantum value here.",
-   "es": "Entropía del muestreo cuántico 3.0/3 bits vs un PRNG clásico 2.9996/3 bits — estadísticamente indistinguibles. La diferencia es de tipo, no de calidad: la aleatoriedad cuántica es fundamental (colapso de medición) y certificable, mientras el PRNG es determinista desde su semilla. La aleatoriedad verdadera certificable es el valor real."
+   "en": "Quantum sampling entropy 3.0/3 bits vs a classical PRNG 2.9996/3 bits, statistically indistinguishable. The difference is in kind, not quality: quantum randomness is fundamental (measurement collapse) and can be certified, while the PRNG is deterministic from its seed. Certifiable true randomness is the genuine quantum value here.",
+   "es": "Entropía del muestreo cuántico 3.0/3 bits vs un PRNG clásico 2.9996/3 bits, estadísticamente indistinguibles. La diferencia es de tipo, no de calidad: la aleatoriedad cuántica es fundamental (colapso de medición) y certificable, mientras el PRNG es determinista desde su semilla. La aleatoriedad verdadera certificable es el valor real."
   }
  },
  "references": [
