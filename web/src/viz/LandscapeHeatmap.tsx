@@ -70,11 +70,13 @@ export function LandscapeHeatmap({
   gammaStar,
   betaStar,
   metricLabel = "⟨cut⟩",
+  size,
 }: {
   landscape: Landscape;
   gammaStar?: number;
   betaStar?: number;
   metricLabel?: string;
+  size?: { width: number; height: number };
 }) {
   const { gammas, betas, expectation } = landscape;
   const [hover, setHover] = useState<{ gi: number; bi: number } | null>(null);
@@ -108,13 +110,16 @@ export function LandscapeHeatmap({
       ? `optimum: γ*=${gammas[giStar].toFixed(3)}  β*=${betas[biStar].toFixed(3)}  ${metricLabel}=${expectation[giStar][biStar].toFixed(3)}`
       : null;
 
+  const legend = <span className="viz-sub">{metricLabel} over (γ, β) · brighter = larger cut</span>;
   return (
-    <div className="viz">
-      <div className="viz-title">
-        QAOA landscape <span className="viz-sub">{metricLabel} over (γ, β) · brighter = larger cut</span>
-        {readout && <span className="viz-readout">{readout}</span>}
-      </div>
-      <svg viewBox={`0 0 ${W} ${H}`} className="viz-svg" role="img" aria-label="QAOA cost landscape">
+    <div className={size ? "qlab-fit" : "viz"}>
+      {size ? (
+        <div className="qlab-fit-readout">{readout ? <span className="viz-readout">{readout}</span> : legend}</div>
+      ) : (
+        <div className="viz-title">QAOA landscape {legend}{readout && <span className="viz-readout">{readout}</span>}</div>
+      )}
+      <svg viewBox={`0 0 ${W} ${H}`} width={size?.width} height={size ? size.height - 24 : undefined}
+           className="viz-svg" role="img" aria-label="QAOA cost landscape">
         {/* cells */}
         {expectation.map((row, gi) =>
           row.map((v, bi) => (

@@ -24,7 +24,7 @@ export function isZne(x: unknown): x is Zne {
  * fit back to λ=0 (the mitigated estimate = the intercept), and the ideal value. The residual gap to the
  * ideal is the honest point: ZNE reduces bias, it does not correct errors.
  */
-export function ZneExtrapolation({ zne, ideal, metric = "⟨Z₀Z₁⟩" }: { zne: Zne; ideal?: number; metric?: string }) {
+export function ZneExtrapolation({ zne, ideal, metric = "⟨Z₀Z₁⟩", size }: { zne: Zne; ideal?: number; metric?: string; size?: { width: number; height: number } }) {
   const [hover, setHover] = useState<number | null>(null);
   const { lambdas, expectations, slope, intercept } = zne;
 
@@ -49,14 +49,15 @@ export function ZneExtrapolation({ zne, ideal, metric = "⟨Z₀Z₁⟩" }: { zn
   const fitY = (lam: number) => intercept + slope * lam;
 
   return (
-    <div className="viz">
-      <div className="viz-title">
-        Zero-noise extrapolation <span className="viz-sub">{metric} vs noise scale λ · fit → λ=0</span>
+    <div className={size ? "qlab-fit" : "viz"}>
+      <div className={size ? "qlab-fit-readout" : "viz-title"}>
+        {!size && "Zero-noise extrapolation "}<span className="viz-sub">{metric} vs noise scale λ · fit → λ=0</span>
         {hover != null && (
           <span className="viz-readout">λ={lambdas[hover]} · {metric}={expectations[hover].toFixed(4)}</span>
         )}
       </div>
-      <svg viewBox={`0 0 ${W} ${H}`} className="viz-svg" role="img" aria-label="Zero-noise extrapolation">
+      <svg viewBox={`0 0 ${W} ${H}`} width={size?.width} height={size ? size.height - 24 : undefined}
+           className="viz-svg" role="img" aria-label="Zero-noise extrapolation">
         {/* axes */}
         <line x1={PADL} y1={Y(yMin)} x2={W - PADR} y2={Y(yMin)} stroke="var(--border)" />
         <line x1={PADL} y1={PADT} x2={PADL} y2={PADT + plotH} stroke="var(--border)" />

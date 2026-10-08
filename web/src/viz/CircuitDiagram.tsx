@@ -1,3 +1,4 @@
+import { useState } from "react";
 import type { CircuitOp } from "../lib/contract.types";
 
 // SVG circuit diagram from the committed `circuit_ops` (gate · targets · params). Pure SVG (no deps),
@@ -25,103 +26,134 @@ function fmtAngle(params: number[]): string {
   return a.toFixed(2);
 }
 
-export function CircuitDiagram({ ops, qubits }: { ops: CircuitOp[]; qubits: number }) {
-  if (!ops?.length) return null;
-  if (qubits > 10) {
-    return (
-      <div className="viz">
-        <div className="viz-title">Circuit</div>
-        <p className="note">{qubits} qubits, diagram omitted (too wide).</p>
-      </div>
-    );
-  }
+const READOUT_H = 24;
+
+/** The drawing: wires, labels and the gates `ops` (the first of which is gate number `first + 1`). */
+function CircuitSvg({ ops, qubits, first, width, height, col = COL }: {
+  ops: CircuitOp[]; qubits: number; first: number; width?: number; height?: number; col?: number;
+}) {
+  const COL = col;
   const cols = ops.length;
   const W = PADX + cols * COL + 14;
   const H = qubits * ROW + 10;
   const wireY = (q: number) => 14 + q * ROW + BOX / 2;
   const colX = (i: number) => PADX + i * COL + COL / 2;
-
   return (
-    <div className="viz">
-      <div className="viz-title">
-        Circuit <span className="viz-sub">{cols} gates · {qubits} qubits</span>
-      </div>
-      <div className="circuit-scroll">
-        <svg viewBox={`0 0 ${W} ${H}`} width={W} height={H} className="circuit-svg" role="img">
-          {/* qubit wires + labels */}
-          {Array.from({ length: qubits }, (_, q) => (
-            <g key={q}>
-              <text x={6} y={wireY(q) + 4} className="circ-qlabel">q{q}</text>
-              <line x1={PADX - 8} y1={wireY(q)} x2={W - 6} y2={wireY(q)} className="circ-wire" />
-            </g>
-          ))}
+    <svg viewBox={`0 0 ${W} ${H}`} width={width ?? W} height={height ?? H} className="circuit-svg" role="img">
+      {Array.from({ length: qubits }, (_, q) => (
+        <g key={q}>
+          <text x={6} y={wireY(q) + 4} className="circ-qlabel">q{q}</text>
+          <line x1={PADX - 8} y1={wireY(q)} x2={W - 6} y2={wireY(q)} className="circ-wire" />
+        </g>
+      ))}
           {ops.map((op, i) => {
-            const x = colX(i);
-            const g = op.gate.toLowerCase();
-            const t = op.targets;
-            // two-qubit linked gates: control dot(s) + target glyph + vertical link
-            if (TWO_Q_LINE.has(g) && t.length === 2) {
-              const [a, b] = t;
-              const yTop = wireY(Math.min(a, b));
-              const yBot = wireY(Math.max(a, b));
-              return (
-                <g key={i}>
-                  <line x1={x} y1={yTop} x2={x} y2={yBot} className="circ-link" />
-                  {g === "cx" && (
-                    <>
-                      <circle cx={x} cy={wireY(a)} r={4} className="circ-ctrl" />
-                      <circle cx={x} cy={wireY(b)} r={9} className="circ-target-o" />
-                      <line x1={x - 9} y1={wireY(b)} x2={x + 9} y2={wireY(b)} className="circ-plus" />
-                      <line x1={x} y1={wireY(b) - 9} x2={x} y2={wireY(b) + 9} className="circ-plus" />
-                    </>
-                  )}
-                  {g === "cz" && (<>
-                    <circle cx={x} cy={wireY(a)} r={4} className="circ-ctrl" />
-                    <circle cx={x} cy={wireY(b)} r={4} className="circ-ctrl" />
-                  </>)}
-                  {g === "swap" && (<>
-                    {[a, b].map((q) => (
-                      <g key={q}>
-                        <line x1={x - 6} y1={wireY(q) - 6} x2={x + 6} y2={wireY(q) + 6} className="circ-plus" />
-                        <line x1={x - 6} y1={wireY(q) + 6} x2={x + 6} y2={wireY(q) - 6} className="circ-plus" />
-                      </g>
-                    ))}
-                  </>)}
-                  {(g === "rzz" || g === "cp") && (<>
-                    <circle cx={x} cy={wireY(a)} r={4} className="circ-ctrl" />
-                    <circle cx={x} cy={wireY(b)} r={4} className="circ-ctrl" />
-                    <rect x={x - 13} y={(yTop + yBot) / 2 - 8} width={26} height={16} rx={3} className="circ-box" />
-                    <text x={x} y={(yTop + yBot) / 2 + 3} textAnchor="middle" className="circ-glabel sm">
-                      {g === "rzz" ? "ZZ" : "P"}
-                    </text>
-                  </>)}
-                </g>
-              );
-            }
-            // single/other gates: a labelled box on each target wire (controlled-unitary etc. → span)
-            const label = g.replace(/^c?/, (m) => m).toUpperCase() + (op.params.length ? ` ${fmtAngle(op.params)}` : "");
-            if (t.length === 1) {
-              const y = wireY(t[0]);
-              return (
-                <g key={i}>
-                  <rect x={x - BOX / 2} y={y - BOX / 2} width={BOX} height={BOX} rx={4} className="circ-box" />
-                  <text x={x} y={y + 4} textAnchor="middle" className="circ-glabel">{label}</text>
-                </g>
-              );
-            }
-            // multi-target fallback: a box spanning the involved wires
-            const ys = t.map(wireY);
-            const top = Math.min(...ys) - BOX / 2;
-            const bot = Math.max(...ys) + BOX / 2;
-            return (
-              <g key={i}>
-                <rect x={x - BOX / 2} y={top} width={BOX} height={bot - top} rx={4} className="circ-box" />
-                <text x={x} y={(top + bot) / 2 + 4} textAnchor="middle" className="circ-glabel sm">{op.gate}</text>
-              </g>
-            );
-          })}
-        </svg>
+        const x = colX(i);
+        const key = first + i;
+        const g = op.gate.toLowerCase();
+        const t = op.targets;
+        // two-qubit linked gates: control dot(s) + target glyph + vertical link
+        if (TWO_Q_LINE.has(g) && t.length === 2) {
+          const [a, b] = t;
+          const yTop = wireY(Math.min(a, b));
+          const yBot = wireY(Math.max(a, b));
+          return (
+            <g key={key}>
+              <line x1={x} y1={yTop} x2={x} y2={yBot} className="circ-link" />
+              {g === "cx" && (
+                <>
+                  <circle cx={x} cy={wireY(a)} r={4} className="circ-ctrl" />
+                  <circle cx={x} cy={wireY(b)} r={9} className="circ-target-o" />
+                  <line x1={x - 9} y1={wireY(b)} x2={x + 9} y2={wireY(b)} className="circ-plus" />
+                  <line x1={x} y1={wireY(b) - 9} x2={x} y2={wireY(b) + 9} className="circ-plus" />
+                </>
+              )}
+              {g === "cz" && (<>
+                <circle cx={x} cy={wireY(a)} r={4} className="circ-ctrl" />
+                <circle cx={x} cy={wireY(b)} r={4} className="circ-ctrl" />
+              </>)}
+              {g === "swap" && (<>
+                {[a, b].map((q) => (
+                  <g key={q}>
+                    <line x1={x - 6} y1={wireY(q) - 6} x2={x + 6} y2={wireY(q) + 6} className="circ-plus" />
+                    <line x1={x - 6} y1={wireY(q) + 6} x2={x + 6} y2={wireY(q) - 6} className="circ-plus" />
+                  </g>
+                ))}
+              </>)}
+              {(g === "rzz" || g === "cp") && (<>
+                <circle cx={x} cy={wireY(a)} r={4} className="circ-ctrl" />
+                <circle cx={x} cy={wireY(b)} r={4} className="circ-ctrl" />
+                <rect x={x - 13} y={(yTop + yBot) / 2 - 8} width={26} height={16} rx={3} className="circ-box" />
+                <text x={x} y={(yTop + yBot) / 2 + 3} textAnchor="middle" className="circ-glabel sm">
+                  {g === "rzz" ? "ZZ" : "P"}
+                </text>
+              </>)}
+            </g>
+          );
+        }
+        // single/other gates: a labelled box on each target wire (controlled-unitary etc. → span)
+        const label = g.replace(/^c?/, (m) => m).toUpperCase() + (op.params.length ? ` ${fmtAngle(op.params)}` : "");
+        if (t.length === 1) {
+          const y = wireY(t[0]);
+          return (
+            <g key={key}>
+              <rect x={x - BOX / 2} y={y - BOX / 2} width={BOX} height={BOX} rx={4} className="circ-box" />
+              <text x={x} y={y + 4} textAnchor="middle" className="circ-glabel">{label}</text>
+            </g>
+          );
+        }
+        // multi-target fallback: a box spanning the involved wires
+        const ys = t.map(wireY);
+        const top = Math.min(...ys) - BOX / 2;
+        const bot = Math.max(...ys) + BOX / 2;
+        return (
+          <g key={key}>
+            <rect x={x - BOX / 2} y={top} width={BOX} height={bot - top} rx={4} className="circ-box" />
+            <text x={x} y={(top + bot) / 2 + 4} textAnchor="middle" className="circ-glabel sm">{op.gate}</text>
+          </g>
+        );
+      })}
+    </svg>
+  );
+}
+
+/** The committed (or live) circuit. Without `size` it is a titled card that scrolls sideways; with `size` (a
+ *  workbench stage) it is drawn whole at a readable scale, and a circuit too long for that is paged by columns. */
+export function CircuitDiagram({ ops, qubits, size }: { ops: CircuitOp[]; qubits: number; size?: { width: number; height: number } }) {
+  const [page, setPage] = useState(0);
+  if (!ops?.length) return null;
+  if (qubits > 10) return <p className="note">{qubits} qubits, diagram omitted (too wide).</p>;
+  const cols = ops.length;
+  if (!size) {
+    return (
+      <div className="viz">
+        <div className="viz-title">Circuit <span className="viz-sub">{cols} gates · {qubits} qubits</span></div>
+        <div className="circuit-scroll"><CircuitSvg ops={ops} qubits={qubits} first={0} /></div>
       </div>
+    );
+  }
+  const naturalH = qubits * ROW + 10;
+  const availH = Math.max(size.height - READOUT_H, 40);
+  const scale = Math.min(1.6, availH / naturalH);
+  const perPage = Math.max(4, Math.floor((size.width / scale - PADX - 14) / COL));
+  const pages = Math.ceil(cols / perPage);
+  const p = Math.min(page, pages - 1);
+  const slice = ops.slice(p * perPage, (p + 1) * perPage);
+  // a short circuit spreads its columns over the width (wires end to end), up to a comfortable spacing
+  const col = Math.min(96, Math.max(COL, (size.width / scale - PADX - 14) / slice.length));
+  const W = (PADX + slice.length * col + 14) * scale;
+  return (
+    <div className="qlab-fit">
+      <div className="qlab-fit-readout">
+        <span className="viz-sub">{cols} gates · {qubits} qubits</span>
+        {pages > 1 && (
+          <span className="qlab-pager">
+            <button type="button" disabled={p === 0} onClick={() => setPage(p - 1)} aria-label="previous gates">‹</button>
+            <span>gates {p * perPage + 1}–{p * perPage + slice.length}</span>
+            <button type="button" disabled={p >= pages - 1} onClick={() => setPage(p + 1)} aria-label="next gates">›</button>
+          </span>
+        )}
+      </div>
+      <CircuitSvg ops={slice} qubits={qubits} first={p * perPage} width={W} height={naturalH * scale} col={col} />
     </div>
   );
 }
