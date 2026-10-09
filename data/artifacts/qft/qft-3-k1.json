@@ -34,10 +34,10 @@
  "lane_reasons": [],
  "seed": 42,
  "shots": 2048,
- "app_version": "0.35.000",
+ "app_version": "0.36.000",
  "engine_package": {
   "package": "qversus",
-  "version": "0.01.000"
+  "version": "0.01.001"
  },
  "primary_solver": "qft-qiskit",
  "trace": {
@@ -838,7 +838,7 @@
     "amp0_phase_deg": 0.0
    },
    "cost": {
-    "wall_ms": 0.0549,
+    "wall_ms": 0.0546,
     "ops": 24,
     "gate_complexity": "O(N log N)"
    },
@@ -864,7 +864,7 @@
     "readable": false
    },
    "cost": {
-    "wall_ms": 4.994,
+    "wall_ms": 4.795,
     "qubits": 3,
     "gates": 8,
     "gate_complexity": "O(n^2)"

@@ -15,7 +15,7 @@
   "k": 5
  },
  "measured": {
-  "run_ms": 9.962,
+  "run_ms": 9.419,
   "trace_bytes": 7101,
   "unitary_only": true
  },
@@ -28,9 +28,9 @@
  "engine_version": "2.4.2",
  "engine_package": {
   "package": "qversus",
-  "version": "0.01.000"
+  "version": "0.01.001"
  },
- "app_version": "0.35.000",
+ "app_version": "0.36.000",
  "trace_path": "qft/qft-3-k5.json",
  "references": [
   {

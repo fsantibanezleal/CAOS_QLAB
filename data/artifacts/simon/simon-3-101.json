@@ -36,10 +36,10 @@
  ],
  "seed": 42,
  "shots": 2048,
- "app_version": "0.35.000",
+ "app_version": "0.36.000",
  "engine_package": {
   "package": "qversus",
-  "version": "0.01.000"
+  "version": "0.01.001"
  },
  "primary_solver": "simon-qiskit",
  "trace": {
@@ -4609,7 +4609,7 @@
     "classical_queries": 5
    },
    "cost": {
-    "wall_ms": 0.0202,
+    "wall_ms": 0.0197,
     "oracle_queries": 5
    },
    "notes": {
@@ -4633,7 +4633,7 @@
     "quantum_queries": 3
    },
    "cost": {
-    "wall_ms": 12.849,
+    "wall_ms": 13.832,
     "qubits": 6,
     "depth": 11,
     "oracle_queries": 3

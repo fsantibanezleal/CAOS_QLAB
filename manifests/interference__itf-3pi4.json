@@ -15,7 +15,7 @@
   "phi": 2.356194490192345
  },
  "measured": {
-  "run_ms": 0.325,
+  "run_ms": 0.195,
   "trace_bytes": 3418,
   "unitary_only": true
  },
@@ -29,9 +29,9 @@
  "engine_version": "2.4.2",
  "engine_package": {
   "package": "qversus",
-  "version": "0.01.000"
+  "version": "0.01.001"
  },
- "app_version": "0.35.000",
+ "app_version": "0.36.000",
  "trace_path": "interference/itf-3pi4.json",
  "references": [
   {

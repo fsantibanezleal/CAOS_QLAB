@@ -39,10 +39,10 @@
  "lane_reasons": [],
  "seed": 42,
  "shots": 2048,
- "app_version": "0.35.000",
+ "app_version": "0.36.000",
  "engine_package": {
   "package": "qversus",
-  "version": "0.01.000"
+  "version": "0.01.001"
  },
  "primary_solver": "gates-qiskit",
  "trace": {
@@ -218,7 +218,7 @@
     "norm": 1.0
    },
    "cost": {
-    "wall_ms": 0.367,
+    "wall_ms": 0.593,
     "qubits": 1
    },
    "notes": {

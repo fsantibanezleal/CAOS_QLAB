@@ -7,8 +7,8 @@
   "es": "Grover, búsqueda no estructurada"
  },
  "concept": {
-  "en": "Grover searches N = 2ⁿ unstructured items for the M marked ones. Start in uniform superposition; each Grover iteration applies the oracle (a phase flip on the marked states) then the diffuser (inversion about the mean), rotating amplitude toward the marked subspace. After ~(π/4)√(N/M) iterations a measurement returns a marked item with high probability, a quadratic speedup over the classical ~N/2 scan. Run too many iterations and you *over-rotate* past the target.",
-  "es": "Grover busca entre N = 2ⁿ ítems no estructurados los M marcados. Parte en superposición uniforme; cada iteración de Grover aplica el oráculo (un cambio de fase en los estados marcados) y luego el difusor (inversión respecto a la media), rotando la amplitud hacia el subespacio marcado. Tras ~(π/4)√(N/M) iteraciones una medición devuelve un ítem marcado con alta probabilidad, un speedup cuadrático sobre el barrido clásico ~N/2. Con demasiadas iteraciones te *pasas* del objetivo (sobre-rotación)."
+  "en": "Grover searches N = 2ⁿ unstructured items for the M marked ones. Start in uniform superposition; each Grover iteration applies the oracle (a phase flip on the marked states) then the diffuser (inversion about the mean), rotating amplitude toward the marked subspace. After ~(π/4)√(N/M) iterations a measurement returns a marked item with high probability, a quadratic speedup over a random classical scan, which needs (N+1)/(M+1) queries on average. Run too many iterations and you *over-rotate* past the target.",
+  "es": "Grover busca entre N = 2ⁿ ítems no estructurados los M marcados. Parte en superposición uniforme; cada iteración de Grover aplica el oráculo (un cambio de fase en los estados marcados) y luego el difusor (inversión respecto a la media), rotando la amplitud hacia el subespacio marcado. Tras ~(π/4)√(N/M) iteraciones una medición devuelve un ítem marcado con alta probabilidad, un speedup cuadrático sobre un barrido clásico aleatorio, que necesita (N+1)/(M+1) consultas en promedio. Con demasiadas iteraciones te *pasas* del objetivo (sobre-rotación)."
  },
  "metric": {
   "en": "marked item found",
@@ -27,8 +27,8 @@
    ]
   },
   "note": {
-   "en": "N=16, M=1 marked, quantum ~(π/4)√(N/M) queries vs classical ~N/2.",
-   "es": "N=16, M=1 marcados, cuántico ~(π/4)√(N/M) consultas vs clásico ~N/2."
+   "en": "N=16, M=1 marked: Grover's 3 iterations against the 8.5 queries a random classical scan needs on average, (N+1)/(M+1).",
+   "es": "N=16, M=1 marcados: 3 iteraciónes de Grover frente a las 8.5 consultas que un barrido clásico aleatorio necesita en promedio, (N+1)/(M+1)."
   }
  },
  "qubits": 4,
@@ -36,10 +36,10 @@
  "lane_reasons": [],
  "seed": 42,
  "shots": 2048,
- "app_version": "0.35.000",
+ "app_version": "0.36.000",
  "engine_package": {
   "package": "qversus",
-  "version": "0.01.000"
+  "version": "0.01.001"
  },
  "primary_solver": "grover-qiskit",
  "trace": {
@@ -49,8 +49,8 @@
    "es": "Grover, búsqueda no estructurada"
   },
   "concept": {
-   "en": "Grover searches N = 2ⁿ unstructured items for the M marked ones. Start in uniform superposition; each Grover iteration applies the oracle (a phase flip on the marked states) then the diffuser (inversion about the mean), rotating amplitude toward the marked subspace. After ~(π/4)√(N/M) iterations a measurement returns a marked item with high probability, a quadratic speedup over the classical ~N/2 scan. Run too many iterations and you *over-rotate* past the target.",
-   "es": "Grover busca entre N = 2ⁿ ítems no estructurados los M marcados. Parte en superposición uniforme; cada iteración de Grover aplica el oráculo (un cambio de fase en los estados marcados) y luego el difusor (inversión respecto a la media), rotando la amplitud hacia el subespacio marcado. Tras ~(π/4)√(N/M) iteraciones una medición devuelve un ítem marcado con alta probabilidad, un speedup cuadrático sobre el barrido clásico ~N/2. Con demasiadas iteraciones te *pasas* del objetivo (sobre-rotación)."
+   "en": "Grover searches N = 2ⁿ unstructured items for the M marked ones. Start in uniform superposition; each Grover iteration applies the oracle (a phase flip on the marked states) then the diffuser (inversion about the mean), rotating amplitude toward the marked subspace. After ~(π/4)√(N/M) iterations a measurement returns a marked item with high probability, a quadratic speedup over a random classical scan, which needs (N+1)/(M+1) queries on average. Run too many iterations and you *over-rotate* past the target.",
+   "es": "Grover busca entre N = 2ⁿ ítems no estructurados los M marcados. Parte en superposición uniforme; cada iteración de Grover aplica el oráculo (un cambio de fase en los estados marcados) y luego el difusor (inversión respecto a la media), rotando la amplitud hacia el subespacio marcado. Tras ~(π/4)√(N/M) iteraciones una medición devuelve un ítem marcado con alta probabilidad, un speedup cuadrático sobre un barrido clásico aleatorio, que necesita (N+1)/(M+1) consultas en promedio. Con demasiadas iteraciones te *pasas* del objetivo (sobre-rotación)."
   },
   "qubits": 4,
   "steps": [
@@ -10523,7 +10523,7 @@
     "worst_case_queries": 16
    },
    "cost": {
-    "wall_ms": 0.0055,
+    "wall_ms": 0.0041,
     "oracle_queries": 8.5
    },
    "notes": {
@@ -10548,7 +10548,7 @@
     "quantum_queries": 3
    },
    "cost": {
-    "wall_ms": 116.646,
+    "wall_ms": 71.961,
     "qubits": 4,
     "depth": 82,
     "oracle_queries": 3
