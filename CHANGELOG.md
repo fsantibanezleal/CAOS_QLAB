@@ -4,6 +4,28 @@ All notable changes to CAOS_QLAB. Format: newest → oldest. Versions follow `X.
 (major.minor.patch); patch (`.00X`) for fixes. Kept `0.x` while the web SPA and the framework/case matrix
 are still landing. Tags from day one.
 
+## [0.36.000], 2026-10-08
+
+### Changed
+
+- **The App route is the shared shell's CaseWorkbench** (#61). The rail (sections that never scroll) holds the
+  case, the variant, the Replay/Live lane, the live knobs (angles, Grover iterations) and the verdict and run
+  read-outs; the instrument is one row of question groups (circuit and state, Bloch sphere, measurement, quantum vs
+  classical, landscape, energy scan, mitigation, context) whose views fill the panel and carry the selection key.
+  Measured with the shell's gate over 833 states: the drawings cover at least 59% of the viewport (floor 50%,
+  ADR-0071 rule 8, it was 5 to 30%), nothing scrolls sideways on a phone; the two remaining reports are the shell's
+  known defect 25 (its probe), which needs no product change. `/case/<id>` opens the case in the workbench.
+- **Engine `qversus` 0.01.001** (0.1.1): the Grover texts state the classical expectation (N+1)/(M+1) instead of
+  "~N/2", each variant note with its own numbers. Every record re-baked under it at 0.36.000.
+
+### Added
+
+- **Wall-clock cost per method** on a log axis, under the solver table: the cost of being quantum at lab scale in
+  one picture (MaxCut: brute force 0.04 ms against QAOA 0.7 to 2 s for the same cut).
+- **VQE energy against θ** with the optimiser's minimum and the exact (FCI) energy: the scan the use-case page
+  described, recorded in every VQE trace, and never drawn until now.
+- Wide circuits are paged by columns instead of scrolling; short ones spread over the width.
+
 ## [0.35.000], 2026-10-06
 
 ### Changed

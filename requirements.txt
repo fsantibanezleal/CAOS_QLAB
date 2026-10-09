@@ -4,5 +4,5 @@
 # The quantum frameworks that author the committed traces live in requirements-precompute.txt; the
 # real-hardware SDKs in requirements-hardware.txt. The browser live lane is QLab's own exact TypeScript
 # state-vector simulator (web/src/live/statevector.ts); no Python runs in the browser.
-qversus==0.1.0
+qversus==0.1.1
 numpy>=1.26

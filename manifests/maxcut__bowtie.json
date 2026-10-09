@@ -8,7 +8,7 @@
  "lane": "precompute",
  "lane_reasons": [
   "needs noise / mid-circuit feed-forward / optimization loop (offline engine only)",
-  "run 2083 ms > 1500 ms"
+  "run 2230 ms > 1500 ms"
  ],
  "qubits": 5,
  "seed": 42,
@@ -43,7 +43,7 @@
   ]
  },
  "measured": {
-  "run_ms": 2082.9,
+  "run_ms": 2230.5,
   "trace_bytes": 33421,
   "unitary_only": false
  },
@@ -57,9 +57,9 @@
  "engine_version": "2.4.2",
  "engine_package": {
   "package": "qversus",
-  "version": "0.01.000"
+  "version": "0.01.001"
  },
- "app_version": "0.35.000",
+ "app_version": "0.36.000",
  "trace_path": "maxcut/bowtie.json",
  "references": [
   {

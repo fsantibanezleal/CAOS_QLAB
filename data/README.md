@@ -41,7 +41,7 @@ wraps the primary trace with every solver's result and QLab's verdict:
   "title": {...}, "concept": {...}, "metric": {...},        // bilingual
   "instance": { "id": "pentagon", "title": {...}, "params": {...}, "note": {...} },
   "qubits": 5, "lane": "precompute", "lane_reasons": [...], "seed": 42, "shots": 2048,
-  "app_version": "0.35.000", "engine_package": { "package": "qversus", "version": "0.01.000" },
+  "app_version": "0.36.000", "engine_package": { "package": "qversus", "version": "0.01.001" },
   "primary_solver": "qaoa-qiskit",
   "trace": {                                                 // the animation (primary circuit solver)
     "qubits": 5,

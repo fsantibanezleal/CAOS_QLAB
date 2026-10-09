@@ -16,7 +16,7 @@
   "value": 1
  },
  "measured": {
-  "run_ms": 6.165,
+  "run_ms": 14.686,
   "trace_bytes": 9264,
   "unitary_only": true
  },
@@ -29,9 +29,9 @@
  "engine_version": "2.4.2",
  "engine_package": {
   "package": "qversus",
-  "version": "0.01.000"
+  "version": "0.01.001"
  },
- "app_version": "0.35.000",
+ "app_version": "0.36.000",
  "trace_path": "deutsch-jozsa/dj-const1-3.json",
  "references": [
   {

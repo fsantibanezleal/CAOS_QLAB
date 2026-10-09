@@ -37,10 +37,10 @@
  ],
  "seed": 42,
  "shots": 2048,
- "app_version": "0.35.000",
+ "app_version": "0.36.000",
  "engine_package": {
   "package": "qversus",
-  "version": "0.01.000"
+  "version": "0.01.001"
  },
  "primary_solver": "noise-classical",
  "trace": null,
@@ -58,7 +58,7 @@
     "exact": true
    },
    "cost": {
-    "wall_ms": 0.772,
+    "wall_ms": 0.3904,
     "qubits": 2
    },
    "notes": {
@@ -84,7 +84,7 @@
     "residual_mitigated": 0.0135
    },
    "cost": {
-    "wall_ms": 19.3,
+    "wall_ms": 12.0,
     "qubits": 2,
     "noise_scales": [
      1,

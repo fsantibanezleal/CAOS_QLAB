@@ -35,10 +35,10 @@
  "lane_reasons": [],
  "seed": 42,
  "shots": 2048,
- "app_version": "0.35.000",
+ "app_version": "0.36.000",
  "engine_package": {
   "package": "qversus",
-  "version": "0.01.000"
+  "version": "0.01.001"
  },
  "primary_solver": "dj-qiskit",
  "trace": {
@@ -1595,7 +1595,7 @@
     "classical_queries": 2
    },
    "cost": {
-    "wall_ms": 0.0119,
+    "wall_ms": 0.0174,
     "oracle_queries": 2
    },
    "notes": {
@@ -1619,7 +1619,7 @@
     "quantum_queries": 1
    },
    "cost": {
-    "wall_ms": 8.568,
+    "wall_ms": 22.49,
     "qubits": 4,
     "depth": 11,
     "oracle_queries": 1

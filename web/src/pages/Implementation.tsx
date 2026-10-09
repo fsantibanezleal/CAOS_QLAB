@@ -601,8 +601,8 @@ class QiskitQAOA(Solver):
   "measured": { "run_ms": ..., "trace_bytes": ..., "unitary_only": false },
   "viz": ["graph", "landscape", "histogram", "circuit"],   // renderer bindings
   "engine": "qiskit-aer", "engine_version": "...",          // framework that authored the trace
-  "engine_package": { "package": "qversus", "version": "0.01.000" },
-  "app_version": "0.35.000" }`}</code></pre>
+  "engine_package": { "package": "qversus", "version": "0.01.001" },
+  "app_version": "0.36.000" }`}</code></pre>
           <Eq
             tex={String.raw`\text{catalog}=\bigcup_{(\text{case},\text{variant})}\text{manifest}_{(\text{case},\text{variant})},\qquad \text{lane}\in\{\text{live},\,\text{precompute}\}`}
             caption={{
