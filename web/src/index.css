@@ -32,7 +32,6 @@
 .note { color: var(--fg-subtle); font-size: 0.85rem; margin: 0.35rem 0; }
 .verdict { font-size: 0.88rem; line-height: 1.5; border-left: 3px solid var(--accent);
   padding-left: 0.75rem; color: var(--fg); margin: 0.5rem 0 0; }
-.todo-note { margin-top: 2rem; color: var(--fg-subtle); font-size: 0.82rem; font-style: italic; }
 
 /* per-case workbench */
 .workbench { margin-top: 0.5rem; }
@@ -41,12 +40,6 @@
   border-radius: 999px; padding: 0.3rem 0.8rem; font-size: 0.82rem; cursor: pointer; }
 .variant-chip:hover { color: var(--fg); border-color: var(--accent); }
 .variant-chip.is-on { background: var(--accent); color: var(--color-accent-fg); border-color: var(--accent); }
-.lane-badge { font-size: 0.7rem; text-transform: uppercase; letter-spacing: 0.04em; padding: 0.15rem 0.5rem;
-  border-radius: 999px; background: var(--accent-soft); color: var(--accent); margin-left: auto; }
-.variant-note { color: var(--fg-subtle); font-size: 0.88rem; margin: 0.25rem 0 1rem; }
-
-.viz-row { display: grid; grid-template-columns: repeat(auto-fit, minmax(340px, 1fr)); gap: 1rem;
-  margin-bottom: 1rem; }
 .viz { background: var(--panel); border: 1px solid var(--border); border-radius: 10px; padding: 1rem; }
 .viz-title { font-size: 0.85rem; font-weight: 600; margin-bottom: 0.5rem; display: flex; gap: 0.6rem;
   align-items: baseline; flex-wrap: wrap; }
@@ -79,15 +72,6 @@
 .circ-target-o { fill: none; stroke: var(--accent); stroke-width: 1.6; }
 .circ-plus { stroke: var(--accent); stroke-width: 1.6; }
 .circ-link { stroke: var(--accent); stroke-width: 1.6; }
-
-/* ⓘ architecture modal */
-
-/* live lane */
-.mode-toggle { display: inline-flex; gap: 0; border: 1px solid var(--border); border-radius: 8px;
-  overflow: hidden; margin: 0.25rem 0 0.9rem; }
-.mode-toggle button { background: var(--panel); color: var(--fg-subtle); border: none; padding: 0.4rem 0.9rem;
-  font-size: 0.84rem; cursor: pointer; }
-.mode-toggle button.is-on { background: var(--accent); color: var(--color-accent-fg); font-weight: 600; }
 .live-panel { display: flex; flex-direction: column; gap: 0.6rem; }
 .live-head { display: flex; align-items: center; gap: 0.5rem; font-weight: 600; font-size: 0.92rem; flex-wrap: wrap; }
 .live-dot { width: 9px; height: 9px; border-radius: 50%; background: var(--color-good); box-shadow: 0 0 0 3px color-mix(in srgb, var(--color-good) 20%, transparent); }
@@ -286,7 +270,7 @@ pre.code code { font: 0.82rem/1.5 ui-monospace, "Cascadia Code", monospace; colo
 .bound-chip { max-width: 100%; white-space: normal; overflow-wrap: anywhere; border-radius: 12px; }
 .cmp-scroll { max-width: 100%; overflow-x: auto; }
 /* cards shrink with their column on a phone; their wide content scrolls inside them */
-.qlab-main, .workbench, .viz, .cmp, .live-panel, .viz-row > * { min-width: 0; max-width: 100%; }
+.workbench, .viz, .cmp, .live-panel { min-width: 0; max-width: 100%; }
 
 /* ---- Experiments page (ADR-0017 §2 floor) ---- */
 /* the leakage-safe protocol SVG: the GOOD path vs the FORBIDDEN anti-pattern.
@@ -309,90 +293,29 @@ pre.code code { font: 0.82rem/1.5 ui-monospace, "Cascadia Code", monospace; colo
   padding: 0.05rem 0.4rem; margin-left: 0.35rem; }
 /* the metric-definition cards row (one captioned eq per experimental question) */
 .metric-eq-head { font: 600 0.82rem ui-monospace, monospace; color: var(--accent); margin: 0.9rem 0 0.2rem; }
-
-/* ============================================================================
-   APP LANDING (/), the TOOL, not a catalogue. ADR-0017 §3:
-   .qlab-layout = a ~300–320px control aside + a 1fr main, INSIDE .page-body
-   (so the whole workbench stays var(--maxw)-wide and centered). Theme-aware
-   tokens only, ZERO hardcoded hex.
-   ========================================================================= */
-.qlab-layout { display: grid; grid-template-columns: 312px 1fr; gap: 1.5rem; align-items: start; }
-@media (max-width: 900px) { .qlab-layout { grid-template-columns: 1fr; } }
-
-/* ---- control aside ---- */
-.qlab-side { position: sticky; top: 4.5rem; display: flex; flex-direction: column; gap: 1.1rem;
-  align-self: start; min-width: 0; }
-@media (max-width: 900px) { .qlab-side { position: static; } }
-.qlab-side-head h1 { margin: 0 0 0.3rem; font-size: 1.25rem; }
-.qlab-side-lede { color: var(--fg-subtle); font-size: 0.85rem; line-height: 1.45; margin: 0; }
-
-.qlab-ctl { display: flex; flex-direction: column; gap: 0.5rem; }
-.qlab-ctl-label { display: flex; align-items: baseline; gap: 0.5rem; font: 600 0.74rem ui-monospace, monospace;
-  text-transform: uppercase; letter-spacing: 0.05em; color: var(--fg-subtle); }
-.qlab-ctl-hint { font-family: ui-sans-serif, system-ui; text-transform: none; letter-spacing: 0;
-  font-weight: 400; font-size: 0.74rem; color: var(--fg-subtle); opacity: 0.8; }
-
-/* the grouped case tree (selector) */
-.qlab-case-tree { display: flex; flex-direction: column; gap: 0.15rem; background: var(--panel);
-  border: 1px solid var(--border); border-radius: 10px; padding: 0.4rem; max-height: 360px; overflow-y: auto; }
-.qlab-cat-head { display: flex; align-items: center; gap: 0.4rem; width: 100%; background: transparent;
-  border: none; color: var(--fg); font-size: 0.86rem; font-weight: 600; cursor: pointer;
-  padding: 0.4rem 0.45rem; border-radius: 7px; text-align: left; }
-.qlab-cat-head:hover { background: var(--accent-soft); }
-.qlab-cat-head svg { color: var(--fg-subtle); flex: none; }
-.qlab-cat-head > span:first-of-type { flex: 1; }
-.qlab-cat-count { font: 0.7rem ui-monospace, monospace; color: var(--fg-subtle); background: var(--bg);
-  border: 1px solid var(--border); border-radius: 999px; padding: 0.02rem 0.4rem; }
-.qlab-cat-cases { display: flex; flex-direction: column; gap: 0.1rem; padding: 0.1rem 0 0.3rem 0.5rem; }
-.qlab-case-btn { display: flex; align-items: center; gap: 0.5rem; width: 100%; text-align: left;
-  background: transparent; border: 1px solid transparent; color: var(--fg-subtle); cursor: pointer;
-  font-size: 0.84rem; padding: 0.3rem 0.5rem; border-radius: 7px; line-height: 1.3; }
-.qlab-case-btn:hover { color: var(--fg); background: var(--accent-soft); }
-.qlab-case-btn.is-on { color: var(--fg); background: var(--accent-soft); border-color: var(--accent); font-weight: 600; }
-.qlab-adv-dot { width: 8px; height: 8px; border-radius: 50%; flex: none; }
-.qlab-adv-dot.dot-genuine { background: var(--edge-genuine); }
-.qlab-adv-dot.dot-query { background: var(--edge-query); }
-.qlab-adv-dot.dot-qec { background: var(--edge-qec); }
-.qlab-adv-dot.dot-classical { background: var(--edge-classical); }
-.qlab-allcases { display: inline-flex; align-items: center; gap: 0.4rem; color: var(--accent);
-  font-size: 0.8rem; margin-top: 0.2rem; }
-.qlab-allcases:hover { text-decoration: underline; }
-
-/* variant chips in the aside */
-.qlab-variants { display: flex; flex-wrap: wrap; gap: 0.35rem; }
-
-/* the live quantum-vs-classical read-out (updates with every control) */
-.qlab-readout { background: var(--panel); border: 1px solid var(--border); border-left: 3px solid var(--accent);
-  border-radius: 10px; padding: 0.85rem 1rem; display: flex; flex-direction: column; gap: 0.55rem; }
-.qlab-readout.edge-genuine { border-left-color: var(--edge-genuine); }
-.qlab-readout.edge-query { border-left-color: var(--edge-query); }
-.qlab-readout.edge-qec { border-left-color: var(--edge-qec); }
-.qlab-readout.edge-classical { border-left-color: var(--edge-classical); }
-.qlab-readout-head { display: flex; align-items: center; justify-content: space-between; gap: 0.5rem; }
-.qlab-readout-title { font: 600 0.78rem ui-monospace, monospace; text-transform: uppercase; letter-spacing: 0.04em;
-  color: var(--fg-subtle); }
-.qlab-verdict-chip { display: inline-block; align-self: flex-start; font: 600 0.74rem ui-sans-serif, system-ui;
-  border: 1px solid var(--border); border-radius: 999px; padding: 0.14rem 0.6rem; }
-.qlab-verdict-chip.chip-genuine { color: var(--edge-genuine); border-color: var(--edge-genuine); }
-.qlab-verdict-chip.chip-query { color: var(--edge-query); border-color: var(--edge-query); }
-.qlab-verdict-chip.chip-qec { color: var(--edge-qec); border-color: var(--edge-qec); }
-.qlab-verdict-chip.chip-classical { color: var(--edge-classical); border-color: var(--edge-classical); }
 .qlab-relation { background: var(--accent-soft); border: 1px solid var(--border); border-radius: 7px;
   padding: 0.45rem 0.6rem; overflow-x: auto; text-align: center; }
-.qlab-teaches { margin: 0; font-size: 0.84rem; line-height: 1.5; color: var(--fg); }
-.qlab-verdict { margin: 0; font-size: 0.82rem; line-height: 1.5; color: var(--fg-subtle);
-  border-left: 2px solid var(--border); padding-left: 0.6rem; }
-.qlab-honest { margin: 0; font-size: 0.8rem; line-height: 1.5; color: var(--fg-subtle); }
-.qlab-honest strong { color: var(--accent); }
-.qlab-facts { display: flex; flex-wrap: wrap; gap: 0.4rem 1rem; font-size: 0.78rem; color: var(--fg-subtle);
-  border-top: 1px solid var(--border); padding-top: 0.55rem; }
-.qlab-facts b { color: var(--fg); font-family: ui-monospace, monospace; }
-.qlab-fw { display: flex; flex-wrap: wrap; gap: 0.25rem; }
 
-/* ---- main pane ---- */
-.qlab-main { min-width: 0; }
-.qlab-main-head { border-bottom: 1px solid var(--border); padding-bottom: 0.7rem; margin-bottom: 0.9rem; }
-.qlab-main-head h2 { margin: 0 0 0.25rem; font-size: 1.35rem; color: var(--fg); }
-.qlab-main-concept { margin: 0; color: var(--fg-subtle); font-size: 0.95rem; line-height: 1.5; max-width: 75ch; }
-.qlab-main-note { margin-top: 1.4rem; color: var(--fg-subtle); font-size: 0.8rem; font-style: italic;
-  line-height: 1.5; }
+/* ---- the App route on the shell's CaseWorkbench: views that lay out to their stage ---- */
+.qlab-fit { width: 100%; height: 100%; display: flex; flex-direction: column; min-width: 0; }
+.qlab-fit-readout { flex: none; height: 24px; display: flex; align-items: center; gap: 0.75rem; justify-content: space-between;
+  font-size: 0.78rem; color: var(--color-fg-subtle); white-space: nowrap; overflow: hidden; }
+.qlab-fit > svg { display: block; flex: none; max-width: 100%; }
+.qlab-pager { display: inline-flex; align-items: center; gap: 0.4rem; }
+.qlab-pager button { font: inherit; padding: 0 0.45rem; border: 1px solid var(--color-border); border-radius: 6px;
+  background: var(--color-surface); color: var(--color-fg); cursor: pointer; }
+.qlab-pager button:disabled { opacity: 0.4; cursor: default; }
+.qlab-relation { margin-top: 0.4rem; font-size: 0.92rem; }
+.qlab-cost-label { font-size: 11px; }
+.qlab-stack { width: 100%; height: 100%; display: flex; flex-direction: column; }
+.qlab-stack > .qlab-fit { height: auto; flex: none; }
+/* on a phone the solver table stacks each method's cells instead of widening the page */
+@media (max-width: 640px) {
+  .cmp-table thead { display: none; }
+  .cmp-table, .cmp-table tbody, .cmp-table tr, .cmp-table td { display: block; width: 100%; }
+  .cmp-table tr { padding: 0.4rem 0; border-bottom: 1px solid var(--color-border); }
+  .cmp-table td { border: 0; padding: 0.1rem 0; overflow-wrap: anywhere; }
+}
+/* the solver table never widens its card: fixed columns, long result strings wrap */
+.cmp-table { table-layout: fixed; width: 100%; }
+.cmp-table td, .cmp-table th { overflow-wrap: anywhere; white-space: normal; }

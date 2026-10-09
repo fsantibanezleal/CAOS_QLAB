@@ -48,7 +48,7 @@ const KETS: { v: Vec3; ket: string }[] = [
  * Interactive Bloch sphere: a draggable wireframe globe with the qubit's state vector, the gate
  * trajectory, and the |0⟩/|1⟩/|±⟩/|±i⟩ poles. Pure SVG (orthographic): deterministic to screenshot.
  */
-export function BlochSphere({ trajectory }: { trajectory: BlochPoint[] }) {
+export function BlochSphere({ trajectory, size }: { trajectory: BlochPoint[]; size?: { width: number; height: number } }) {
   const [view, setView] = useState({ az: -0.5, el: 0.34 });
   const drag = useRef<{ x: number; y: number } | null>(null);
 
@@ -94,15 +94,14 @@ export function BlochSphere({ trajectory }: { trajectory: BlochPoint[] }) {
       `L${tipP.sx - ah * Math.cos(ang + 0.4)} ${tipP.sy - ah * Math.sin(ang + 0.4)} Z`
     : "";
 
-  return (
-    <div className="viz">
-      <div className="viz-title">
-        Bloch sphere <span className="viz-sub">drag to rotate · arrow = state, dots = gate steps</span>
-        <span className="viz-readout">
-          r=({tip[0].toFixed(2)}, {tip[1].toFixed(2)}, {tip[2].toFixed(2)}) · |r|={mag.toFixed(2)}
-        </span>
-      </div>
-      <svg viewBox={`0 0 ${W} ${H}`} className="viz-svg bloch-svg" role="img" aria-label="Bloch sphere"
+  const readout = (
+    <span className="viz-readout">
+      r=({tip[0].toFixed(2)}, {tip[1].toFixed(2)}, {tip[2].toFixed(2)}) · |r|={mag.toFixed(2)}
+    </span>
+  );
+  const svg = (
+      <svg viewBox={`0 0 ${W} ${H}`} width={size?.width} height={size ? size.height - 24 : undefined}
+           className="viz-svg bloch-svg" role="img" aria-label="Bloch sphere"
            onPointerDown={onDown} onPointerMove={onMove} onPointerUp={onUp} onPointerLeave={onUp}>
         {/* silhouette */}
         <circle cx={cx} cy={cy} r={R} className="bloch-outline" />
@@ -144,6 +143,22 @@ export function BlochSphere({ trajectory }: { trajectory: BlochPoint[] }) {
           </>
         )}
       </svg>
+  );
+  if (size) {
+    return (
+      <div className="qlab-fit">
+        <div className="qlab-fit-readout"><span className="viz-sub">drag to rotate · arrow = state</span>{readout}</div>
+        {svg}
+      </div>
+    );
+  }
+  return (
+    <div className="viz">
+      <div className="viz-title">
+        Bloch sphere <span className="viz-sub">drag to rotate · arrow = state, dots = gate steps</span>
+        {readout}
+      </div>
+      {svg}
     </div>
   );
 }

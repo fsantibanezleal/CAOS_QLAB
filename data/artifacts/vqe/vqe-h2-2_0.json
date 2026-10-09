@@ -37,10 +37,10 @@
  ],
  "seed": 42,
  "shots": 2048,
- "app_version": "0.35.000",
+ "app_version": "0.36.000",
  "engine_package": {
   "package": "qversus",
-  "version": "0.01.000"
+  "version": "0.01.001"
  },
  "primary_solver": "vqe-classical",
  "trace": null,
@@ -59,7 +59,7 @@
     "dim": 16
    },
    "cost": {
-    "wall_ms": 1.156,
+    "wall_ms": 1.029,
     "dim": 16,
     "gate_complexity": "O(d^3)"
    },
@@ -84,7 +84,7 @@
     "qubits": 4
    },
    "cost": {
-    "wall_ms": 797.5,
+    "wall_ms": 731.1,
     "qubits": 4,
     "evaluations": 100
    },

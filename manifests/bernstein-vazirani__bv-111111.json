@@ -15,7 +15,7 @@
   "secret": "111111"
  },
  "measured": {
-  "run_ms": 24.584,
+  "run_ms": 54.186,
   "trace_bytes": 97848,
   "unitary_only": true
  },
@@ -28,9 +28,9 @@
  "engine_version": "2.4.2",
  "engine_package": {
   "package": "qversus",
-  "version": "0.01.000"
+  "version": "0.01.001"
  },
- "app_version": "0.35.000",
+ "app_version": "0.36.000",
  "trace_path": "bernstein-vazirani/bv-111111.json",
  "references": [
   {

@@ -33,10 +33,10 @@
  "lane_reasons": [],
  "seed": 42,
  "shots": 2048,
- "app_version": "0.35.000",
+ "app_version": "0.36.000",
  "engine_package": {
   "package": "qversus",
-  "version": "0.01.000"
+  "version": "0.01.001"
  },
  "primary_solver": "qrng-qiskit",
  "trace": {
@@ -774,7 +774,7 @@
     "true_randomness": true
    },
    "cost": {
-    "wall_ms": 0.394,
+    "wall_ms": 0.586,
     "qubits": 4,
     "shots": 2048
    },

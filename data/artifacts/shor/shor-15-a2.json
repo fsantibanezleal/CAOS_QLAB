@@ -38,10 +38,10 @@
  ],
  "seed": 42,
  "shots": 2048,
- "app_version": "0.35.000",
+ "app_version": "0.36.000",
  "engine_package": {
   "package": "qversus",
-  "version": "0.01.000"
+  "version": "0.01.001"
  },
  "primary_solver": "shor-qiskit",
  "trace": {
@@ -29766,7 +29766,7 @@
     "ops": 3
    },
    "cost": {
-    "wall_ms": 0.0027,
+    "wall_ms": 0.0042,
     "ops": 3
    },
    "notes": {
@@ -29794,7 +29794,7 @@
     "correct": true
    },
    "cost": {
-    "wall_ms": 112.5,
+    "wall_ms": 180.4,
     "qubits": 8,
     "depth": 21,
     "counting_qubits": 4,

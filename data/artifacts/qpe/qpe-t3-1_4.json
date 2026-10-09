@@ -35,10 +35,10 @@
  "lane_reasons": [],
  "seed": 42,
  "shots": 2048,
- "app_version": "0.35.000",
+ "app_version": "0.36.000",
  "engine_package": {
   "package": "qversus",
-  "version": "0.01.000"
+  "version": "0.01.001"
  },
  "primary_solver": "qpe-qiskit",
  "trace": {
@@ -2006,7 +2006,7 @@
     "exact": true
    },
    "cost": {
-    "wall_ms": 2.2999,
+    "wall_ms": 0.2438,
     "ops": 8,
     "gate_complexity": "O(d^3)"
    },
@@ -2033,7 +2033,7 @@
     "p_top": 1.0
    },
    "cost": {
-    "wall_ms": 20.149,
+    "wall_ms": 24.38,
     "qubits": 4,
     "depth": 14
    },

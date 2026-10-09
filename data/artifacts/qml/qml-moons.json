@@ -36,10 +36,10 @@
  ],
  "seed": 42,
  "shots": 2048,
- "app_version": "0.35.000",
+ "app_version": "0.36.000",
  "engine_package": {
   "package": "qversus",
-  "version": "0.01.000"
+  "version": "0.01.001"
  },
  "primary_solver": "qml-classical",
  "trace": null,
@@ -57,7 +57,7 @@
     "test_acc": 0.938
    },
    "cost": {
-    "wall_ms": 1.996,
+    "wall_ms": 3.577,
     "support_vectors": 12
    },
    "notes": {
@@ -81,7 +81,7 @@
     "qubits": 2
    },
    "cost": {
-    "wall_ms": 1406.9,
+    "wall_ms": 1856.7,
     "qubits": 2,
     "kernel_evals": 960
    },

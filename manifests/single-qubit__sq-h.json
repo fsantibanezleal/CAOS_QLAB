@@ -19,7 +19,7 @@
   ]
  },
  "measured": {
-  "run_ms": 0.477,
+  "run_ms": 0.354,
   "trace_bytes": 2625,
   "unitary_only": true
  },
@@ -33,9 +33,9 @@
  "engine_version": "2.4.2",
  "engine_package": {
   "package": "qversus",
-  "version": "0.01.000"
+  "version": "0.01.001"
  },
- "app_version": "0.35.000",
+ "app_version": "0.36.000",
  "trace_path": "single-qubit/sq-h.json",
  "references": [
   {

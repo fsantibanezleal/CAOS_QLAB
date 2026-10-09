@@ -4,7 +4,7 @@
 # Framework versions and sources: docs/frameworks/.
 
 # --- The engine (problems, solver adapters, registry, trace schema), with its framework extras ---
-qversus[qiskit,pennylane,cirq,stim,learn]==0.1.0
+qversus[qiskit,pennylane,cirq,stim,learn]==0.1.1
 
 # --- Circuit-model SDK + high-performance simulator (the default authoring engine) ---
 qiskit==2.4.2            # IBM SDK 2.x (Primitives V2, BackendV2). NOTE: 0.x tutorials do NOT run on 2.x.

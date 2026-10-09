@@ -4,7 +4,7 @@ Each case is a `Problem` solved end to end by one or more `Solver` adapters, wit
 alongside. **Lane** is the *measured* verdict. The catalog grows case-by-case; docs are authored as each
 lands (ADR-0056).
 
-## Shipping today (v0.01.000): run end to end with real engines + committed traces
+## Shipping today: run end to end with real engines + committed traces
 
 | # | Case | Category | Solvers (frameworks) | Variants | Lane | Verdict |
 |---|---|---|---|---|---|---|

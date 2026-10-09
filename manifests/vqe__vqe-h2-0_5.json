@@ -32,9 +32,9 @@
  "engine_version": "-",
  "engine_package": {
   "package": "qversus",
-  "version": "0.01.000"
+  "version": "0.01.001"
  },
- "app_version": "0.35.000",
+ "app_version": "0.36.000",
  "trace_path": "vqe/vqe-h2-0_5.json",
  "references": [
   {

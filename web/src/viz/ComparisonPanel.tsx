@@ -28,14 +28,13 @@ function compactValue(value: Record<string, unknown>): string {
   return parts.slice(0, 4).join("  ") || "(see viz)";
 }
 
-/** The signature quantum-vs-classical comparison: each solver's result + cost, plus the honest verdict. */
-export function ComparisonPanel({ bundle }: { bundle: Bundle }) {
+/** The signature quantum-vs-classical comparison: each solver's result + cost, plus the honest verdict. `bare` is
+ *  the table alone (inside a workbench PlotCard, whose rail already shows the verdict). */
+export function ComparisonPanel({ bundle, bare }: { bundle: Bundle; bare?: boolean }) {
   const t = useT();
   const { lang } = useUI();
-  return (
-    <div className="cmp">
-      <div className="viz-title">{lang === "en" ? "Solvers, quantum vs classical" : "Solvers, cuántico vs clásico"}</div>
-      <div className="cmp-scroll"><table className="cmp-table">
+  const table = (
+      <table className="cmp-table caos-table">
         <thead>
           <tr>
             <th>{lang === "en" ? "Method" : "Método"}</th>
@@ -60,7 +59,13 @@ export function ComparisonPanel({ bundle }: { bundle: Bundle }) {
             </tr>
           ))}
         </tbody>
-      </table></div>
+      </table>
+  );
+  if (bare) return table;
+  return (
+    <div className="cmp">
+      <div className="viz-title">{lang === "en" ? "Solvers, quantum vs classical" : "Solvers, cuántico vs clásico"}</div>
+      <div className="cmp-scroll">{table}</div>
       {bundle.comparison?.verdict && (
         <p className="verdict">{t(bundle.comparison.verdict)}</p>
       )}
